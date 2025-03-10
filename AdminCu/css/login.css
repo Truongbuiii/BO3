@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Áp dụng hình nền cho toàn bộ trang */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../images/quangcao3.png'); /* Đường dẫn đến hình nền */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #333;
+}
+
+/* Giữ logo trong header */
+header {
+    margin-top: 120px;
+}
+
+
+/* Giữ nền trắng và căn giữa login-container */
+.login-container {
+    background-color: #ffffff;
+    padding: 50px 100px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Điều chỉnh độ mờ và kích thước của bóng */
+    text-align: center;
+    min-width: 700px;
+    width: 100%;
+}
+
+
+.login-container h1 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.login-container .icon {
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.login-form {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    margin:0px 50px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 16px;
+    padding-bottom: 10px    ;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 6px 20px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid #000000;
+    outline: none;
+    transition: border-bottom-color 0.3s;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Điều chỉnh độ mờ và kích thước của bóng */
+
+}
+
+.form-group input:focus {
+    border-bottom-color: #000000;
+}
+
+.nut .submit-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: red;
+border:none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Điều chỉnh độ mờ và kích thước của bóng */
+
+}
+
+.submit-button:hover {
+    color:#ffffff;
+    background-color: rgb(202, 1, 1);
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 30px;
+        min-width: 250px; /* Nhỏ hơn trên tablet */
+    }
+
+    .login-container h1 {
+        font-size: 20px;
+    }
+
+    .form-group input {
+        padding: 8px 12px; /* Giảm padding */
+        font-size: 14px;
+    }
+
+    .submit-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 556px) {
+    .login-container {
+        padding: 20px;
+        border-radius: 5px;
+        min-width: 180px; /* Nhỏ hơn trên điện thoại */
+    }
+
+    .login-container h1 {
+        font-size: 18px;
+    }
+
+    .form-group input {
+        padding: 6px 10px; /* Giảm padding hơn nữa */
+        font-size: 12px;
+    }
+
+    .submit-button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}

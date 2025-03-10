@@ -1,0 +1,338 @@
+html, body {
+    overflow-y: scroll; /* Luôn hiển thị thanh cuộn dọc */
+    margin: 0; /* Bỏ margin để tránh khoảng trống */
+    font-family: Verdana, Geneva, Tahoma, sans-serif /* Chọn font chữ */
+    
+    }
+    
+    
+    /* Định dạng thanh điều hướng */
+    .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:rgba(255, 255, 255, 0.813);
+    color: black;
+    padding: 5px 10px;
+    
+    }
+    
+    /* Định dạng logo bên trái */
+    .navbar .logo img {
+    height: 200px; /* Chiều cao logo */
+    margin-left: 40px/;
+    }
+    
+    .search-container {
+    position: relative; /* Đặt vị trí cho container */
+    margin-bottom: 10px; /* Khoảng cách dưới thanh tìm kiếm */
+    border-radius: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    
+    .search-container form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    }
+    
+    .search-container input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    margin-right: 10px;
+    padding: 10px; /* Padding cho thanh tìm kiếm */
+    font-size: 17px; /* Kích thước chữ trong thanh tìm kiếm */
+    width: 300px; /* Đặt chiều rộng cho thanh tìm kiếm */
+    padding-right: 40px; /* Tạo khoảng trống cho icon ở bên phải */
+    border-radius: 5px;
+    border: 2px solid black;
+    }
+    
+    .search-container button{
+    padding: 5px 15px;
+    background-color: rgb(190, 34, 34);
+    color: white;
+    cursor: pointer;
+    font-size: 22px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: inline;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    
+    .search-container button:hover{
+    background-color: rgb(221, 45, 45);
+    color: white;
+    }
+    
+    
+    /* Phần login và các biểu tượng */
+    .login {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Khoảng cách đều giữa các phần tử */
+    }
+    
+    .login a {
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+    }
+    
+    .login i {
+    font-size: 30px;
+    cursor: pointer;
+    }
+    
+    .login a:hover{
+    color: #d82f2f;
+    }
+    
+    .icon{
+        position: relative;
+        display: inline;
+        }
+        
+        .icon a{
+        font-size:40px; /* Điều chỉnh kích thước icon */
+        color: rgba(38, 34, 34, 0.874); /* Đổi màu icon thành trắng */
+        cursor: pointer; /* Thêm hiệu ứng con trỏ */
+        text-decoration: none;
+        margin:0px 10px;
+        }
+        .icon a:hover{
+        color: #d82f2f;
+        }
+        
+        /* Phần tử chứa icon và chữ */
+    .filter-container {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    #filter-icon {
+        font-size: 30px;
+    }
+    
+    .filter-text {
+        font-size: 16px;
+        color: black;
+        margin-left: 5px;
+    }
+    
+    /* Bảng lọc */
+    .filter-modal {
+        display: none; /* Ẩn bảng lọc mặc định */
+        position: absolute;
+        top: 100%; /* Đặt bảng lọc dưới phần tử icon và chữ */
+        left: 0;
+        margin-top: 10px; /* Khoảng cách giữa icon và bảng lọc */
+        width: 250px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        z-index: 1000; /* Đảm bảo bảng lọc ở trên các phần tử khác */
+    }
+    
+    .filter-modal-content {
+        padding: 10px;
+    }
+    
+    .filter-modal table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .filter-modal td {
+        padding: 8px;
+        text-align: left;
+    }
+    
+    .filter-modal select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+    
+    .filter-modal button {
+        background-color: #af262d;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .filter-modal button:hover {
+        background-color: #292525;
+    }
+    
+    /* Đóng bảng lọc */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    
+    .close:hover {
+        color: #ff0000;
+    }
+    
+    
+    .navbar .nav-links li {
+    display: inline;
+    margin-left: 50px;
+    }
+    
+    
+    .horizontal-menu {
+    background-color :rgba(255, 255, 255, 0.767);
+    padding: 10px 0;
+    text-align: center; /* Căn giữa các liên kết */
+    padding-bottom: 40px;
+    }
+    
+    .horizontal-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    }
+    
+    .horizontal-menu ul li {
+    display: inline;
+    margin: 0 30px; 
+    }
+    
+    .horizontal-menu ul li a {
+    text-decoration: none;
+    color:rgb(16, 16, 16);
+    font-size: 20px;
+    font-weight: bold;
+    }
+    
+    .horizontal-menu ul li a:hover {
+    color: #d82f2f; /* Hiệu ứng khi hover */
+    }
+
+.login-form-container {
+    background-color: white;
+    color: black;
+    width: auto;
+    height: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(49, 48, 48, 0.508);
+    margin: 40px auto;
+    text-align: center;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 15px; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+input {
+    width: 100%; /* Ô nhập liệu rộng 100% khung chứa */
+    padding: 10px;
+    margin-bottom: 15px; /* Khoảng cách dưới mỗi ô */
+    font-size: 14px;
+}
+
+.login-form a{
+    text-align: left;
+}
+
+.login-form-container a{
+    text-decoration: none;
+    color: black;
+}
+
+/* Style the form title */
+.login-form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px; /* Add space below the title */
+}
+
+/* Style for input fields */
+.login-form-container input[type="text"],
+.login-form-container input[type="password"] {
+    width: 100%; /* Full width */
+    padding: 15px; /* Padding inside input */
+    margin: 10px 0; /* Space between inputs */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    box-sizing: border-box; /* Ensure padding doesn’t affect width */
+}
+
+/* Style for the submit button */
+.login-form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ae1f1f; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.login-form-container button:hover {
+    background-color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+    .login-form-container {
+        width: 90%; /* Adjust width for smaller screens */
+        margin: 20px auto;
+    }
+}
+
+/* Style for the login/register dropdown */
+.login-register-dropdown {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 70px; /* Position below the user icon */
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    text-align: center;
+}
+
+/* Style for buttons inside the dropdown */
+.login-register-dropdown button {
+    background-color: #c03434;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin: 5px 0;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.login-register-dropdown button:hover {
+    background-color: #555;
+}

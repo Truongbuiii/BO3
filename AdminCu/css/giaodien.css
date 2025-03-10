@@ -1,0 +1,661 @@
+body {
+    font-family:'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    position:relative;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 80px;
+}
+
+
+/* Header bên phải */
+.header-right {
+    background-color: white;
+    color: black;
+    flex-grow: 1;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Phần menu trên cùng (header-right) */
+.top-menu {
+    display: flex;
+}
+
+.top-menu a {
+    margin: 0 15px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgb(209, 60, 60);
+}
+
+.top-menu a:hover {
+    background-color: red;
+    transform: scale(1.1);
+
+}
+
+.top-menu i {
+    margin-right: 5px;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    left: 0;
+    width: 200px;
+    min-height: 175vh;
+    height: 100%;
+    transition: width 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+/* Main Content */
+
+
+/* Khi sidebar thu gọn */
+.sidebar.collapsed + .main-content {
+    margin-left: 60px; /* Giảm khoảng cách khi sidebar thu gọn */
+}
+
+
+.sidebar ul {
+    list-style-type: none;
+    padding:0px;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 15px;
+    position: relative;
+    margin-bottom: 15px; 
+    
+}
+
+.sidebar ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    position: relative;
+}
+
+/* Font Awesome icon căn sang phải */
+.sidebar ul li a i {
+    position: absolute;
+    right: 10px;
+}
+
+/* Sidebar menu hover */
+.sidebar ul li a:hover {
+    background-color: rgb(209, 60, 60);
+    border-radius: 5px;
+    color :#ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng nhẹ cho ô nhập */
+ padding:3px 7px;
+}
+
+/* Sub-menu */
+.sub-menu {
+    display: none; /* Ẩn mặc định */
+    list-style-type: none;
+    padding-left: 20px; /* Giãn cách sub-menu */
+    margin-top: 10px; /* Khoảng cách giữa sub-menu và menu chính */
+}
+
+.sub-menu li {
+    padding: 5px 0;
+}
+
+.sub-menu li a {
+    font-size: 14px;
+    color: #dddddd;
+}
+
+/* Khi click hiển thị sub-menu */
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+
+
+.sidebar .admin-info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-size: 15px;
+    color: #000000;
+    border-bottom: 2px solid #e7f5dc;
+}
+
+.sidebar .admin-info img {
+    width: 40px; /* Kích thước ảnh */
+    height: 40px; /* Kích thước ảnh */
+    border-radius: 50%; /* Bo tròn ảnh */
+    margin-right: 10px; /* Khoảng cách giữa ảnh và tên admin */
+}   
+/* Sub-menu */
+.sub-menu {
+    display: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.sub-menu li {
+    padding: 8px 0;
+}
+
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+/* Sidebar ẩn */
+.sidebar.hidden {
+    display: none; /* Ẩn hoàn toàn sidebar */
+}
+
+/* Khi sidebar bị ẩn, khoảng cách nội dung chính điều chỉnh lại */
+.sidebar.hidden + .main-content {
+    margin-left: 0; /* Xóa khoảng cách dành cho sidebar */
+}
+
+/* Nút toggle */
+.sidebar-toggle {
+    position: absolute;
+    top: 18px;
+    left: 65%;
+    z-index: 1000;
+    background-color: #ff5722;
+    color: #ffffff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.sidebar-toggle:hover {
+    background-color: #e64a19;
+    transform: scale(1.1);
+}
+.main-content {
+    background-color: #e7f5dc;
+    margin-left: 200px; /* Khoảng cách mặc định khi sidebar mở rộng */
+    padding: 90px 50px;
+    min-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
+}
+
+
+.cards{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 3rem;
+    margin-top: 1rem;
+}
+
+.new-label {
+    display: inline-block;
+    background-color: #ff5722;
+    color: white;
+    font-size: 0.75em;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+.card-single {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.card-head h4 {
+    font-size: 1.2em;
+    color: #333;
+    margin: 5px 0;
+}
+.card-head small {
+    color: #777;
+}
+.card-chart {
+    font-size: 2em;
+    color: #ff5722;
+    align-self: center;
+}
+
+
+.top-row {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các khung xuống hàng nếu không đủ không gian */
+    gap: 20px; /* Khoảng cách giữa các khung */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: space-between; /* Khoảng cách đều giữa các khung */
+    width: 100%; /* Chiếm toàn bộ chiều rộng container */
+}
+
+.bang,
+.dashboard {
+    flex: 1 1 calc(50% - 20px); /* Hai khung chia đều không gian, trừ khoảng cách */
+    display: flex;
+    flex-direction: column; /* Đảm bảo nội dung bên trong sắp xếp theo cột */
+    justify-content: space-between; /* Giữ nội dung trong khoảng cách cân đối */
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto; /* Tự điều chỉnh chiều cao khi cần */
+    min-height: 200px; /* Chiều cao tối thiểu để canvas đồng đều */
+    box-sizing: border-box; /* Bao gồm padding và border trong kích thước phần tử */
+}
+
+.bang h4,
+.dashboard h4 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.bang canvas{
+    flex-grow: 1; /* Canvas chiếm hết chiều cao còn lại */
+    width: 100%; /* Chiếm toàn bộ chiều rộng container */
+    height: auto; /* Chiều cao sẽ do Flexbox tính toán */
+    min-width:370px;
+    max-height: 250px; /* Chiều cao tối đa */
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.dashboard canvas {
+    flex-grow: 1; /* Canvas chiếm hết chiều cao còn lại */
+    width: 100%; /* Chiếm toàn bộ chiều rộng container */
+    height: auto; /* Chiều cao sẽ do Flexbox tính toán */
+    min-width:290px;
+    max-height: 240px; /* Chiều cao tối đa */
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #000000;
+    padding: 1rem;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+
+.recentCustomer {
+    background-color: #fff; /* Màu nền trắng */
+    border-radius: 8px; /* Bo tròn góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    padding: 20px; /* Khoảng cách bên trong */
+    overflow: hidden; /* Loại bỏ phần tràn */
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between; /* Căn đều hai bên */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    margin-bottom: 15px; /* Khoảng cách giữa tiêu đề và bảng */
+}
+
+.cardHeader h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333; /* Màu chữ */
+}
+
+
+.recentCustomer table {
+    width: 100%;
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các đường */
+    font-size: 14px; /* Kích thước chữ */
+}
+
+.recentCustomer table thead td {
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 5px;
+    background-color: #f5f5f5; /* Nền nhạt cho tiêu đề cột */
+    border-bottom: 2px solid #ddd; /* Đường kẻ dưới tiêu đề */
+    color: #555; /* Màu chữ */
+}
+
+.recentCustomer table tbody tr {
+    transition: background-color 0.2s ease; /* Hiệu ứng chuyển màu khi hover */
+}
+
+.recentCustomer table tbody tr:hover {
+    background-color: #f0f0f0; /* Màu nền nhạt khi hover */
+}
+
+.recentCustomer table td {
+    padding: 10px 5px;
+    border-bottom: 1px solid #eee; /* Đường kẻ dưới mỗi hàng */
+    color: #333; /* Màu chữ */
+}
+
+.recentCustomer table tbody tr:last-child td {
+    border-bottom: none; /* Loại bỏ đường kẻ dưới hàng cuối */
+}
+
+
+
+.details {
+    display: grid;
+    grid-template-columns: 1.95fr 1.15fr;
+    gap: 20px;
+    padding:20px 0px;
+}
+
+.recentOrder, .recentCustomer {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cardHeader h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #333;
+}
+
+.cardHeader button {
+    padding: 8px 12px;
+    background-color: #ff5722;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.cardHeader button:hover {
+    background-color: #e64a19;
+    transform: scale(1.1);
+}
+
+.details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.details table thead td {
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    padding: 8px;
+}
+
+.details table tbody tr:hover {
+    background-color: #91f37d;
+}
+
+.details table tbody tr td {
+    padding: 8px;
+}
+
+.details table tbody tr td span {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.dagiao {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.chuaxuly {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.dahuy {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.daxacnhan {
+    background-color: #cce5ff;
+    color: #004085;
+}
+footer {
+    text-align: center; /* Căn giữa footer */
+    font-size: 14px;
+    color: #000000;
+}
+footer .icon i{
+   padding:10px;
+   font-size: 24px;
+}
+footer .anh img {
+    max-width: 200px;
+    height: 100px; /* Ensures the image scales properly */
+}
+
+
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Khi sidebar bị ẩn */
+.sidebar.hidden {
+    left: -200px; /* Ẩn sidebar bằng cách di chuyển ra ngoài */
+}
+
+/* Phần content */
+.content {
+    background-color: #e7f5dc;
+    margin-left: 200px; /* Khoảng cách mặc định khi sidebar hiển thị */
+    padding: 90px 50px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Thêm transition cho width */
+}
+
+.content.full-width {
+    margin-left: 0; /* Không có margin khi sidebar ẩn */
+    width: 100%; /* Nội dung chiếm toàn bộ chiều rộng */
+}
+/* Nút toggle */
+.sidebar-toggle {
+    position: absolute;
+    top: 18px;
+    left: 215px; /* Default position when sidebar is visible */
+    z-index: 1000;
+    background-color:  rgb(201, 12, 12);
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.5s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: red;
+    transform: scale(1.1);
+}
+
+/* Khi sidebar bị ẩn */
+.sidebar.hidden ~ .sidebar-toggle {
+    left: 15px; /* Nút thu gọn nằm sát cạnh trái */
+}
+@media screen and (max-width: 768px) {
+    .sidebar {
+        display: none; /* Ẩn sidebar */
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 70px 20px; /* Điều chỉnh khoảng cách */
+        width: 100%; /* Chiếm toàn bộ chiều rộng */
+    }
+
+    .sidebar-toggle {
+        left: 15px; /* Nút toggle sát mép trái */
+    }
+}
+
+@media screen and (max-width: 932px) {
+    .sidebar {
+        width: 60px;
+        transition: all 0.3s ease; /* Thêm hiệu ứng mượt */
+    }
+    .sidebar:hover {
+        width: 200px; /* Mở rộng khi hover */
+    }
+    .content {
+        margin-left: 60px;
+        transition: all 0.3s ease;
+    }
+    .sidebar ul li a {
+        font-size: 12px;
+        text-align: center; /* Canh giữa để dễ đọc hơn */
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr); 
+        grid-gap: 1rem;
+    }
+    .dashboard, .bang {
+        min-height: 150px; 
+    }
+    .sidebar-toggle {
+        left: 75px;
+    }
+    .top-row {
+        flex-direction: column; 
+    }
+}
+/* Responsive cho màn hình từ 430px đến 600px */
+@media screen and (max-width: 600px) and (min-width: 430px) {
+    .sidebar {
+        display: none; /* Ẩn sidebar trên màn hình nhỏ */
+    }
+
+    .content {
+        margin-left: 0; /* Loại bỏ khoảng trống dành cho sidebar */
+        padding: 70px 20px; /* Căn chỉnh padding để hiển thị rõ nội dung */
+    }
+
+    .cards {
+        grid-template-columns: 1fr; /* Chuyển các card sang 1 cột */
+        grid-gap: 1rem;
+    }
+
+    .details {
+        display: flex;
+        flex-direction: column; /* Các thành phần xếp dọc */
+        gap: 20px;
+    }
+
+    .recentOrder table, .recentCustomer table {
+        display: block;
+        overflow-x: auto; /* Cho phép cuộn ngang nếu cần */
+        white-space: nowrap; /* Tránh nội dung xuống dòng */
+        padding: 10px;
+    }
+
+    .recentOrder table th, .recentCustomer table th,
+    .recentOrder table td, .recentCustomer table td {
+        font-size: 0.85rem; /* Giảm kích thước chữ */
+        padding: 8px;
+    }
+
+    .dashboard, .bang {
+        min-height: 100px; /* Giảm chiều cao tối thiểu */
+    }
+
+    .top-row {
+        flex-direction: column; /* Xếp dọc các thành phần */
+    }
+
+    .cardHeader h2 {
+        font-size: 1.2rem; /* Điều chỉnh kích thước chữ tiêu đề */
+    }
+
+  
+}
+

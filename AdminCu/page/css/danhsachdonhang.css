@@ -1,0 +1,758 @@
+body {
+    font-family:'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    position:relative;
+}
+/* Phần header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 80px;
+}  
+
+
+/* Header bên phải */
+.header-right { 
+    background-color: white;
+    color: black;
+    flex-grow: 1;
+    padding: 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.top-menu {
+    display: flex;
+}
+
+.top-menu a {
+    margin: 0px 15px;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: rgb(209, 60, 60);
+}
+
+.top-menu a:hover {
+    background-color: red;
+    transform: scale(1.05); 
+}
+.top-menu i {
+    margin-right: 5px;
+}
+
+
+/* Sidebar */
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 800px;
+    height:100%;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar ul li {
+    padding: 10px 15px;
+    position: relative;
+    margin-bottom: 15px; 
+    
+}
+.sidebar ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    position: relative;
+}
+
+.sidebar ul li a i {
+    position: absolute;
+    right: 10px;
+}
+
+/* Sidebar menu hover */
+.sidebar ul li a:hover {
+    background-color: rgb(209, 60, 60);
+    color:white;
+    border-radius: 3px;
+    padding:3px 7px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng nhẹ cho ô nhập */
+}
+
+/* Sub-menu */
+.sub-menu {
+    display: none; /* Ẩn mặc định */
+    list-style-type: none;
+    padding-left: 20px; /* Giãn cách sub-menu */
+    margin-top: 10px; /* Khoảng cách giữa sub-menu và menu chính */
+}
+.sub-menu li {
+    padding: 5px 0;
+}
+
+.sub-menu li a {
+    font-size: 14px;
+    color: #000000;
+}
+
+/* Hiển thị sub-menu khi active */
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+.sidebar .admin-info {
+    display: flex;
+    align-items: center;
+    padding: 21px;
+    font-size: 15px;
+    color: #000000;
+    border-bottom: 2px solid #e7f5dc;
+    font-weight: bolder;
+
+}
+.sidebar .admin-info i {
+    margin:5px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar .admin-info img {
+    width: 40px; /* Kích thước ảnh */
+    height: 40px; /* Kích thước ảnh */
+    border-radius: 50%; /* Bo tròn ảnh */
+    margin-right: 10px; /* Khoảng cách giữa ảnh và tên admin */
+}
+
+
+.content h3{
+    padding-top: 19px;
+    font-size: 27px;
+}
+
+.themmdonhang {
+    margin-bottom: 15px; /* Tạo khoảng trống giữa các nút và bảng */
+    display: flex;
+    gap: 10px; /* Khoảng cách giữa các nút */
+ 
+}
+
+/* Button "Thêm đơn hàng" */
+.add {
+    background-color: #cf0000; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add:hover {
+    background-color: #ff0000;
+    transform: scale(1.05); 
+}
+
+.add i {
+    margin-right: 8px; /* Khoảng cách giữa icon và text */
+}
+
+/* Bảng danh sách đơn hàng */
+.order-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho bảng */
+}
+
+.order-list th {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    font-size: 14px;
+    color: #000000;
+}
+.order-list td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    font-size: 14px;
+    color: #000000;
+}
+.order-list th.tinhtrang, .order-list td.tinhtrang {
+    padding: 0 20px; /* Tạo khoảng cách ngang ở bên trái và phải */
+   width:180px;
+}
+
+.order-list th {
+    background-color: #444e58;
+    color: #fff;
+    font-weight: 600;
+}
+
+.order-list tr:hover {
+    background-color: #f2f4f7b4;
+}
+
+.order-list button {
+    padding: 10px 12px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    margin: 5px 2px;
+    border:none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.view-btn {
+    background-color: rgb(255, 255, 255) ;
+    color: rgb(21, 139, 139);
+    border: 2px solid rgb(21, 139, 139);
+}
+
+.view-btn:hover {
+    background-color:rgb(21, 139, 139);
+    color:#ffffff;
+    transform: scale(1.05); /* Slightly increase size on hover */
+
+}
+
+.edit-btn {
+    border: 2px solid #cf8000;
+    background-color: white;
+    color: #f39c12;
+}
+
+.edit-btn:hover {
+    color:white;    
+    background-color: #e67e22;
+    transform: scale(1.05); /* Slightly increase size on hover */
+
+}
+
+.delete-btn {
+    background-color: white;
+    color: red;
+}
+
+.delete-btn:hover {
+    background-color: red;
+    color:white;
+    transform: scale(1.05); /* Slightly increase size on hover */
+
+}
+
+
+
+.dangxuly {
+    font-weight: 650;
+    font-size: 15px;
+    border-radius: 5px;
+    background: #e2e60b; /* Màu nền cho trạng thái đang xử lý */
+    margin: 5px 10px;
+    padding: 5px; /* Thêm padding để cải thiện giao diện */
+}
+
+.dagiaothanhcong {
+    font-weight: 650;
+    font-size: 15px;
+    border-radius: 5px;
+    background: #09ff00; /* Màu nền cho trạng thái đã giao */
+    margin: 5px 10px;
+    padding: 5px; /* Thêm padding để cải thiện giao diện */
+}
+
+.dahuy {
+    font-weight: 650;
+    font-size: 15px;
+    border-radius: 5px;
+    background: #ff0000; /* Màu nền cho trạng thái đã hủy */
+    margin: 5px 10px;
+    padding: 5px; /* Thêm padding để cải thiện giao diện */
+}
+.daxacnhan {
+    font-weight: 650;
+    font-size: 15px;
+    border-radius: 5px;
+    background: #01ccff; /* Màu nền cho trạng thái đã hủy */
+    margin: 5px 10px;
+    padding: 5px; /* Thêm padding để cải thiện giao diện */
+}
+.xempopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
+.bordered-box {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 100px;
+    margin-left: 10px;
+     margin: 5px;
+    background-color: #ecf0f1;
+    width: 90%;
+    display: flex;
+    padding-top: 10px;
+}
+
+.order-detail {
+    margin-bottom: 5px; /* Khoảng cách giữa các dòng thông tin */
+}
+
+/* Cấu hình chung cho popup */
+.suapopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popupnoidungsua {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 1000px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.popupnoidungsua h3 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    border-radius: 5px;
+    background: #c70c0c; /* Màu nền cho trạng thái đã hủy */
+    color: white;
+    margin: 20px auto; /* Canh giữa */
+    padding: 5px 10px;
+    width: fit-content;
+}
+
+.popup-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.left-column, .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Các trường input */
+input[type="text"], input[type="date"], input[type="time"], select {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+select {
+    padding: 8px;
+    font-size: 14px;
+}
+
+button.save-btn {
+    background-color: #bd1212;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.save-btn:hover {
+    background-color: #ff0000;
+    transform: scale(1.05); /* Slightly increase size on hover */
+
+}
+
+/* Đóng popup */
+.tatpopupsua {
+    position: absolute;
+    font-size: 24px;
+    cursor: pointer;
+    color: #34495e;
+}
+
+.tatpopupsua:hover {
+    color: #e74c3c;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .popup-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.filter {
+    
+    display: flex;
+    align-items: center; /* Căn giữa các phần tử trong hàng */
+}
+
+.filter label {
+    margin: 0 15px; /* Khoảng cách giữa nhãn và ô nhập */
+    font-weight: bold; /* Làm cho nhãn nổi bật hơn */
+}
+
+.filter input {
+    margin: 0 5px; /* Khoảng cách giữa các ô nhập */
+    padding: 8px; /* Tăng kích thước ô nhập để dễ sử dụng */
+    border: none; /* Đường viền cho ô nhập */
+    border-radius: 10px; /* Bo góc cho ô nhập */
+    width: 150px; /* Thiết lập chiều rộng cố định cho ô nhập */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho ô nhập */
+    cursor: pointer; /* Hiển thị con trỏ khi di chuột qua nút */
+
+}
+
+
+
+.bangloc {
+    width: auto;
+    display: flex; /* Sử dụng flexbox để căn chỉnh các phần tử theo hàng ngang */
+    gap: 20px; /* Khoảng cách giữa hai phần tử */
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr;
+}
+
+
+.nut .loc{
+    margin-left: 20px;
+    padding: 10px 10px;
+    font-size: 15px;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    color: rgb(204, 0, 0); /* Màu chữ trên nút */ 
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho vùng lọc */
+    cursor: pointer; /* Hiển thị con trỏ khi di chuột qua nút */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+.locquan  {
+    display: flex;
+    align-items: center; /* Căn giữa các phần tử trong hàng */
+    margin-bottom: 20px; /* Khoảng cách giữa phần lọc và bảng */
+}
+
+.locquan label , .filter-container label{
+    margin: 0 15px; /* Khoảng cách giữa nhãn và ô nhập */
+    font-weight: bold; /* Làm cho nhãn nổi bật hơn */
+}
+
+.locquan select , .filter-container select{
+    margin: 0 5px; /* Khoảng cách giữa các ô nhập */
+    padding: 8px 10px; /* Tăng kích thước ô nhập để dễ sử dụng */
+    border: none; /* Đường viền cho ô nhập */
+    border-radius: 5px; /* Bo góc cho ô nhập */
+    width: 200px; /* Thiết lập chiều rộng cố định cho ô nhập */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho ô nhập */
+    cursor: pointer; /* Hiển thị con trỏ khi di chuột qua nút */
+
+}
+
+.locquan button , .filter-container button{
+    margin-left: 20px;
+    padding: 5px 5px;
+    font-size: 15px;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    color: rgb(204, 0, 0); /* Màu chữ trên nút */ 
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho vùng lọc */
+    cursor: pointer; /* Hiển thị con trỏ khi di chuột qua nút */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+
+.locquan button:hover {
+    transform: scale(1.1);
+    color: white;
+    background-color: rgb(204, 0, 0); /* Thay đổi màu nền khi di chuột qua nút */
+}
+
+.nutlocquan .locquan  {
+    padding: 10px; /* Khoảng cách bên trong cho vùng lọc */
+    background-color: #f9f9f9; /* Màu nền cho vùng lọc */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho vùng lọc */
+}
+
+footer {
+    text-align: center; /* Căn giữa footer */
+    font-size: 14px;
+    color: #000000;
+}
+footer .icon i{
+   padding:10px;
+   font-size: 24px;
+}
+footer .anh img {
+    max-width: 200px;
+    height: 100px; /* Ensures the image scales properly */
+}
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+
+}
+
+.filter input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 150px;
+}
+.loctinhtrang select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 190px;
+    align-items: center;
+}
+.nut button {
+    margin-left: 20px;
+    padding: 5px 5px;
+    font-size: 15px;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    color: rgb(204, 0, 0); /* Màu chữ trên nút */
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho vùng lọc */
+    cursor: pointer; /* Hiển thị con trỏ khi di chuột qua nút */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+
+.nut button:hover {
+    transform: scale(1.1);
+    color: white;
+    background-color: rgb(204, 0, 0); /* Thay đổi màu nền khi di chuột qua nút */
+}
+
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Khi sidebar bị ẩn */
+.sidebar.hidden {
+    left: -200px; /* Ẩn sidebar bằng cách di chuyển ra ngoài */
+}
+
+/* Phần content */
+.content {
+    background-color: #e7f5dc;
+    margin-left: 200px; /* Khoảng cách mặc định khi sidebar hiển thị */
+    padding: 90px 20px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Thêm transition cho width */
+}
+
+.content.full-width {
+    margin-left: 0; /* Không có margin khi sidebar ẩn */
+    width: 100%; /* Nội dung chiếm toàn bộ chiều rộng */
+}
+.sidebar-toggle {
+    position: absolute;
+    top: 18px;
+    left: 215px;
+    background-color: rgb(201, 12, 12);
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.3s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+.sidebar-toggle:hover {
+    background-color:  red;
+    transform: scale(1.1);
+}
+
+/* Sidebar hidden state */
+.sidebar.hidden {
+    width: 0; /* Or display: none; depending on your sidebar's implementation */
+}
+
+.popup-success {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    background-color: rgb(87, 212, 87); 
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    z-index: 9999;
+    display: none; /* Ẩn popup mặc định */
+}
+.popup-success i{
+font-size: 50px;
+}
+@media (max-width: 768px) {
+    header {
+        height: auto;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding-top: 10px;
+    }
+
+    .sidebar ul li {
+        margin-bottom: 10px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .top-menu a {
+        margin: 5px 10px;
+        padding: 8px 15px;
+    }
+
+    .sidebar ul li a {
+        font-size: 14px;
+    }
+
+    .sidebar ul li.active > .sub-menu {
+        padding-left: 10px;
+    }
+
+    .order-list table {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .order-list th, .order-list td {
+        padding: 10px 5px;
+    }
+
+    .order-list th.tinhtrang, .order-list td.tinhtrang {
+        width: auto;
+    }
+
+    .order-list button {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .view-btn, .edit-btn, .delete-btn {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .popup-content {
+        grid-template-columns: 1fr;
+    }
+
+    .popupnoidungsua {
+        width: 90%;
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .left-column, .right-column {
+        gap: 15px;
+    }
+
+    input[type="text"], input[type="date"], input[type="time"], select {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    button.save-btn {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    .filter, .bangloc, .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter input, .filter select, .bangloc select {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .filter label {
+        margin: 0;
+    }
+
+    .nut button {
+        width: 100%;
+        padding: 10px 0;
+    }
+}

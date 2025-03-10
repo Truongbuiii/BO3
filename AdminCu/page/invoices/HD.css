@@ -1,0 +1,127 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    line-height: 1.6;
+}
+
+.invoice-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 30px auto;
+    border: 1px solid #e0e0e0;
+    background-color: #fdfdff; /* Màu nền nhẹ nhàng */
+}
+
+.invoice-header {
+    text-align: center;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3498db; /* Màu xanh dương cho đường viền dưới */
+    background-color: #ecf0f1; /* Màu nền header */
+}
+
+.invoice-header h1 {
+    font-size: 28px;
+    margin: 0;
+    color: #2c3e50; /* Màu chữ đậm cho header */
+    letter-spacing: 1px;
+}
+
+.invoice-details {
+    margin-bottom: 20px;
+    color: #34495e; /* Màu chữ của các chi tiết khách hàng */
+}
+
+.invoice-details h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2980b9; /* Màu xanh dương cho tiêu đề chi tiết */
+}
+
+.invoice-details .detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 16px;
+}
+
+.invoice-items {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.invoice-items th {
+    border: 1px solid #cccccc;
+    background-color: #3498db; /* Màu xanh dương cho tiêu đề bảng */
+    color: #ffffff; /* Chữ trắng */
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.invoice-items td {
+    border: 1px solid #cccccc;
+    padding: 10px;
+    font-size: 15px;
+    color: #555555;
+    text-align: center;
+}
+
+.invoice-items tr:nth-child(even) {
+    background-color: #f2f2f2; /* Màu nền sáng cho dòng chẵn */
+}
+
+.invoice-items tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Màu nền sáng cho dòng lẻ */
+}
+
+.invoice-items tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+.total {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #e74c3c; /* Màu đỏ cho tổng tiền */
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #3498db; /* Màu xanh dương cho liên kết */
+    font-size: 16px;
+}
+
+.back-link:hover {
+    color: #2980b9; /* Màu tối hơn khi hover */
+    text-decoration: underline;
+}
+
+/* Print-specific styling */
+@media print {
+    body {
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .invoice-container {
+        box-shadow: none;
+        border: none;
+    }
+
+    .back-link {
+        display: none;
+    }
+}

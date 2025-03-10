@@ -1,0 +1,318 @@
+
+/* Reset cơ bản */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #ffffff;
+    height: 100%;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 60px;
+}
+/* Header bên phải */
+.header-right { 
+    background-color: white;
+    color: black;
+    flex-grow: 1;
+    padding: 28px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+/* Menu trên header */
+.top-menu {
+    display: flex;
+}
+.top-menu a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+    background-color: rgb(209, 60, 60);
+}
+
+.top-menu a:hover {
+    background-color: red;
+    transform: scale(1.1);
+
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 800px;
+    height:100%;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.sidebar ul li {
+    padding: 10px 15px;
+    position: relative;
+    margin-bottom: 15px; 
+    
+}
+.sidebar ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    position: relative;
+}
+
+/* Sidebar menu hover */
+.sidebar ul li a:hover {
+    background-color: rgb(209, 60, 60);
+    color:white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng nhẹ cho ô nhập */
+    padding:3px 7px;
+    border-radius: 3px;
+}
+
+.sidebar ul li a i {
+    position: absolute;
+    right: 10px;
+}
+
+.sidebar .admin-info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-size: 15px;
+    color: #000000;
+    border-bottom: 2px solid #e7f5dc;
+    font-weight: bolder;
+
+}
+
+.sidebar .admin-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.sub-menu {
+    display: none; /* Ẩn mặc định */
+    list-style-type: none;
+    padding-left: 20px; /* Giãn cách sub-menu */
+    margin-top: 10px; /* Khoảng cách giữa sub-menu và menu chính */
+}
+
+.sub-menu li {
+    padding: 5px 0;
+}
+
+.sub-menu li a {
+    font-size: 14px;
+    color: #000000;
+}
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+/* Nội dung chính */
+.content, #statistics-content {
+    margin-left: 200px; /* Khoảng cách bằng chiều rộng sidebar */
+    padding: 100px 30px 30px; /* 100px để tránh header */
+    background-color: #e7f5dc;
+    min-height: calc(100vh - 80px); /* Chiều cao không bị chồng vào header */
+    transition: margin-left 0.3s ease;
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng đến chiều rộng */
+}
+
+.statistics-content.full-width {
+    margin-left: 0; /* Khi sidebar ẩn */
+    width: 100%; /* Chiếm toàn bộ không gian */
+}
+
+.statistics-content h3{
+    font-size: 10px;
+}
+.statistics-content h3 .tuade{
+    font-size: 20px;
+}
+#statistics-filter label {
+    font-weight:bold;
+    padding-left: 10%;
+}
+#statistics-filter input{
+    padding:20px 30px;
+}
+
+
+/* Bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center; /* Căn giữa nội dung của tất cả các cột */
+}
+
+table button{
+    background-color: rgb(207, 30, 30);
+    color:white;
+    border:none;
+    border-radius: 5px; 
+    transform: scale(1.1);
+}
+/* Căn giữa tiêu đề bảng */
+th {
+    background-color: #444e58;
+    color: white;
+    font-size: 16px;
+    padding: 15px;
+    text-align: center; /* Căn giữa tiêu đề */
+}
+
+/* Căn giữa dữ liệu trong các cột */
+td {
+    padding: 12px;
+    font-size: 14px;
+    text-align: center; /* Căn giữa nội dung cột */
+    border-bottom: 1px solid #ddd;
+    color:#000000;
+    background-color: #ffffff;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+tr td a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+tr td a:hover {
+    color: #388e3c;
+}
+
+
+/* Bộ lọc */
+#statistics-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+#statistics-filter label {
+    font-size: 16px;
+    color: #333;
+}
+
+#statistics-filter input[type="date"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#statistics-filter button {
+    padding: 7px 10px;
+    background-color:  rgb(196, 14, 14);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    margin-left:20px;
+    transition: background-color 0.3s ease;
+}
+
+#statistics-filter button:hover {
+    background-color: red;
+    transform: scale(1.1);
+
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 14px;
+    color: #000000;
+}
+
+footer .icon i {
+    padding: 10px;
+    font-size: 24px;
+}
+
+footer .anh img {
+    max-width: 200px;
+    height: 100px;
+}
+/* Sidebar Toggle */
+.sidebar-toggle {
+    position: absolute;
+    top: 18px;
+    left: 215px; /* Default position when sidebar is visible */
+    z-index: 1000;
+    background-color: rgb(201, 12, 12);
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.5s ease, background-color 0.3s ease, transform 0.3s ease; /* Smooth movement and hover effects */
+}
+
+.sidebar-toggle:hover {
+    background-color: red;
+    transform: scale(1.1); /* Scale effect on hover */
+}
+
+/* When the sidebar is hidden, move the toggle button */
+.sidebar.hidden ~ .sidebar-toggle {
+    left: 30px; /* New position for the toggle button */
+    transition: left 0.5s ease; /* Smooth transition for button movement */
+}
+
+/* Sidebar hidden state */
+.sidebar.hidden {
+    left: -200px; /* Move the sidebar off-screen */
+    transition: left 0.5s ease; /* Smooth sidebar movement */
+}
+
+/* Adjust content and statistics when sidebar is hidden */
+.sidebar.hidden ~ .content,
+.sidebar.hidden ~ #statistics-content {
+    margin-left: 0; /* Content takes full width */
+    width: 100%;
+    transition: margin-left 0.5s ease, width 0.5s ease; /* Smooth width adjustment */
+}

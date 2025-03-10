@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/danhsachsanpham.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Phần header -->
+    <header>
+        <div class="header-right">
+            <div class="top-menu">
+                <div class="popup">
+                    <a href="../../index.html">Trang Web</a>
+                    <a href="#footer">Liên hệ</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar">
+        <div class="admin-info">
+            <img src="../../../BO3/Admin/images/logo.png" alt="logo">
+            <span><strong>AdminF4</strong></span>
+        </div>
+        <ul>
+            <li><a href="../index.html"><i class="fa-solid fa-gauge"></i>Bảng Tin</a></li>
+            <li>
+                <a href="#" class="toggle-submenu">Sản phẩm
+                    <i class="fa-solid fa-caret-right"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="danhsachsanpham.html">Tất cả sản phẩm</a></li>
+                    <li><a href="donghonam.html">Đồng hồ nam</a></li>
+                    <li><a href="donghonu.html">Đồng hồ nữ</a></li>
+                    <li><a href="donghotreotuong.html">Đồng hồ treo tường</a></li>
+                    <li><a href="donghobaothuc.html">Đồng hồ báo thức</a></li>
+                    <li><a href="themsanpham.html">Thêm sản phẩm</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="toggle-submenu">Quản lý người dùng
+                    <i class="fa-solid fa-caret-right"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="danhsachnguoidung.html">Danh sách người dùng</a></li>
+                    <li><a href="themnguoidung.html">Thêm người dùng</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="toggle-submenu">Quản lý đơn hàng
+                    <i class="fa-solid fa-caret-right"></i>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="danhsachdonhang.html">Danh sách đơn hàng</a></li>
+                </ul>
+            </li>
+            <li><a href="thongke.html"><i class="fa-solid fa-chart-line"></i>Thống kê</a></li>
+            <li><a href="../login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</a></li>
+        </ul>
+    </div>
+
+
+    <div class="content">
+    
+            <h3>Danh Sách Sản Phẩm</h3> <!-- Tiêu đề cho bảng -->
+            <hr>
+            <div class="actions">
+                <!-- Nút Thêm Sản Phẩm -->
+                <a href="../page/themsanpham.html">
+                    <button class="add">
+                        <i class="fa-solid fa-plus"></i> Thêm sản phẩm
+                    </button>
+                </a>
+            </div>
+            
+
+            <div class="donghonam">
+                <h4>Đồng hồ nam</h4>
+                <table id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Ảnh</th>
+                            <th>Loại máy</th>
+                            <th>Tình trạng</th>
+                            <th>Giá tiền</th>
+                            <th>Danh mục</th>
+                            <th>Chức năng thực hiện</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SPNAM1</td>
+                            <td>Đồng hồ nam Classic</td>
+                            <td><img src="../../../BO3/Admin/images/nam1.jpg" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td>Quartz (Máy pin - điện tử)</td> <!-- Loại máy cố định là Quartz -->
+                            <td class="tinhtrang">Hết hàng</td>
+                            <td>1.500.000 VND</td>
+                            <td>Đồng hồ nam</td>
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SPNAM2</td>
+                            <td>Đồng hồ nam Sporty</td>
+                            <td><img src="../../../BO3/Admin/images/nam2.jpg" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td>Quartz (Máy pin - điện tử)</td> <!-- Loại máy cố định là Quartz -->
+                            <td class="tinhtrang">Còn hàng</td>
+                            <td>3.100.000 VNĐ</td>
+                            <td>Đồng hồ nam</td>
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SPNAM3</td>
+                            <td>Đồng hồ nam Elegance</td>
+                            <td><img src="../../../BO3/Admin/images/nam3.jpg" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td>Quartz (Máy pin - điện tử)</td> <!-- Loại máy cố định là Quartz -->
+                            <td class="tinhtrang">Còn hàng</td>
+                            <td>2.100.000 VNĐ</td>
+                            <td>Đồng hồ nam</td>
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            <!-- Popup sửa sản phẩm -->
+<div id="editProductModal" class="modal" style="display:none;">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Sửa sản phẩm</h3>
+        <form id="editProductForm">
+            <div class="grid-container">
+                <!-- Cột 1: Mã sản phẩm -->
+                <div class="form-group">
+                    <label for="productId">Mã sản phẩm:</label>
+                    <input type="text" id="productId" disabled>
+                </div>
+                <!-- Cột 2: Tên sản phẩm -->
+                <div class="form-group">
+                    <label for="productName">Tên sản phẩm:</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <!-- Cột 1: Giá -->
+                <div class="form-group">
+                    <label for="productPrice">Giá:</label>
+                    <input type="text" id="productPrice" required>
+                </div>
+                <!-- Cột 2: Tình trạng -->
+                <div class="form-group">
+                    <label for="productStatus">Tình trạng:</label>
+                    <input type="text" id="productStatus" required>
+                                          
+                </div>
+                <!-- Cột 1: Hình ảnh -->
+                <div class="form-group">
+                    <label for="productImage">Hình ảnh:</label>
+                    <input type="file" id="productImage" accept="image/*">
+                </div>
+                <!-- Cột 2: Xem trước hình ảnh -->
+                <div class="form-group">
+                    <label>Hình ảnh hiện tại:</label>
+                    <div id="imagePreview">
+                        <img id="currentImage" alt="Hình ảnh sản phẩm" style="max-width: 100px;">
+                        <button type="button" id="removeImage">Bỏ hình</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Dòng nút: Chiếm cả 2 cột -->
+            <div class="form-group nut" style="text-align: center;">
+                <button type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Thông báo xóa thành công -->
+<div id="deleteSuccessPopup" class="popup-success" style="display: none;">
+    <p>Sản phẩm đã được xóa thành công!</p>
+    <i class="fa-regular fa-circle-check"></i>
+
+</div>
+
+
+                <!-- End Popup -->
+                <!-- Button for all products -->
+                <div class="nutdonghonam">
+                    <button><a href="donghonam.html">Xem tất cả</a></button>
+                </div>
+            </div>
+          
+          
+            <div class="donghonu">
+                <h4>Đồng hồ nữ</h4>
+                <table id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Ảnh</th>
+                            <th>Tình trạng</th>
+                            <th>Giá tiền</th>
+                            <th>Danh mục</th>
+                            <th>Chức năng thực hiện</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SPNU1</td>
+                            <td>Đồng hồ nữ Classic</td>
+                            <td><img src="../../../BO3/Admin/images/nu1.jpg" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td class="tinhtrang">Còn hàng</td>
+                            <td>1.500.000 VND</td>
+                            <td>Đồng hồ nữ</td>
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SPNU2</td>
+                            <td>Đồng hồ nữ Sporty</td>
+                            <td><img src="../../../BO3/Admin/images/nu2.jpg" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td class="tinhtrang">Còn hàng</td>
+                            <td>3.100.000 VND</td>
+                            <td>Đồng hồ nữ</td>
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SPNU3</td>
+                            <td>Đồng hồ nữ Elegance</td>
+                            <td><img src="../../../BO3/Admin/images/nu3.jpg" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td class="tinhtrang">Còn hàng</td>
+                            <td>3.100.000 VND</td>
+                          <td>Đồng hồ nữ</td>
+
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+                <!-- End Popup -->
+                <!-- Button for all products -->
+                <div class="nutdonghonu">
+                    <button><a href="donghonu.html">Xem tất cả</a></button>
+                </div>
+            </div>
+
+
+            <div class="donghotreotuong">
+                <h4>Đồng hồ treo tường</h4>
+                <table id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Ảnh</th>
+                            <th>Tình trạng</th>
+                            <th>Giá tiền</th>
+                            <th>Danh mục</th>
+                            <th>Chức năng thực hiện</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SPTT1</td>
+                            <td>Đồng hồ treo tường Royal</td>
+                            <td><img src="../../../BO3/Admin/images/tt1.png" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td class="tinhtrang">Còn hàng</td>
+                            <td>1.550.000 VND</td>
+                            <td>Đồng hồ treo tường</td>
+
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SPTT2</td>
+                            <td>Đồng hồ treo tường Imperil</td>
+                            <td><img src="../../../BO3/Admin/images/tt2.png" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td class="tinhtrang">Hết hàng</td>
+                            <td>2.200.000 VND</td>
+                            <td>Đồng hồ treo tường</td>
+
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SPTT3</td>
+                            <td>Đồng hồ treo tường Modern</td>
+                            <td><img src="../../../BO3/Admin/images/tt3.png" alt="Mô tả ảnh" style="width: 50px; height: auto;"></td>
+                            <td class="tinhtrang">Còn hàng</td>
+                            <td>3.100.000 VND</td>
+                            <td>Đồng hồ treo tường</td>
+
+                            <td>
+                                <button class="sua"><i class="fa-solid fa-screwdriver"></i></button>
+                                <button class="xoa" onclick="confirmDelete(event)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Popup sửa sản phẩm -->
+             
+                <!-- End Popup -->
+                <!-- Button for all products -->
+                <div class="nutdonghotreotuong">
+                    <button><a href="donghotreotuong.html">Xem tất cả</a></button>
+                </div>
+            </div>         
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="lienhe">
+            <div id="xuong"></div>
+        </div>
+        <div class="anh">
+            <img src="../../../BO3/Admin/images/logo.png" alt="Logo">
+        </div>
+        <div class="icon">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+        <div class="copy">
+        &copy; 2024 Tiệm Cái Đồng Hồ - Bảo lưu mọi quyền.
+    </div>
+    </footer>
+        <script src="js/danhsachsanpham.js"></script>
+</body>
+</html>

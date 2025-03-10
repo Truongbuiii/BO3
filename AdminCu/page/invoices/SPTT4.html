@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Hóa Đơn</title>
+    <link rel="stylesheet" href="SP.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <h2>Danh Sách Hóa Đơn</h2>
+
+    <div id="invoices-container">
+        <!-- Dữ liệu hóa đơn sẽ được hiển thị ở đây -->
+    </div>
+
+    <script>
+        // Dữ liệu hóa đơn mẫu
+        const invoices = [
+
+        {
+                orderID: "HD002",
+                customerID: "KH002",
+                customerName: "Nguyễn Văn Tâm ",
+                date: "09/11/2024",
+                items: [
+                    { code: "SPNAM1", name: "Đồng Hồ nam Classic", quantity: 1, price: 1500000 },
+                    { code: "SPNAM5", name: "Đồng hồ nam Premium", quantity: 1, price: 3100000 },
+                    { code: "SPTT4", name: "Đồng hồ treo tường Vintage", quantity: 1, price: 3900000 },
+                ]
+            },
+            {
+                orderID: "HD016",
+                customerID: "KH016",
+                customerName: "Nguyễn Khánh Toàn ",
+                date: "05/11/2024",
+                items: [
+                    { code: "SPNAM5", name: "Đồng hồ nam Premium", quantity: 1, price: 3100000 },
+                    { code: "SPTT4", name: "Đồng hồ treo tường Vintage", quantity: 1, price: 3900000 },
+              ]
+        },
+        {
+                orderID: "HD022",
+                customerID: "KH022",
+                customerName: "Nguyễn Văn Trọng ",
+                date: "13/11/2024",
+                items: [
+                    { code: "SPNAM7", name: "Đồng hồ nam Retro", quantity: 1, price: 1600000 },
+                    { code: "SPTT4", name: "Đồng hồ treo tường Vintage", quantity: 1, price: 3900000 },
+
+    
+                ]
+            },
+            {
+                orderID: "HD038",
+                customerID: "KH038",
+                customerName: "Trần Thị Mai ",
+                date: "12/11/2024",
+                items: [
+                    { code: "SPNU5", name: "Đồng hồ nữ Glamour", quantity: 3, price: 2200000 },
+                    { code: "SPTT4", name: "Đồng hồ treo tường Vintage", quantity: 1, price: 3900000 },
+
+                ]
+            },
+            {
+                orderID: "HD041",
+                customerID: "KH041",
+                customerName: "Nguyễn Văn Bảo ",
+                date: "14/11/2024",
+                items: [
+                    { code: "SPTT4", name: "Đồng hồ treo tường Vintage", quantity: 1, price: 3900000 },
+                    { code: "SPBT6", name: "Đồng hồ báo thức Light", quantity: 1, price: 3100000 },
+              ]
+        },
+
+
+        ];
+
+        function displayInvoices() {
+            const container = document.getElementById("invoices-container");
+            container.innerHTML = ""; // Xóa nội dung cũ
+            invoices.forEach(invoice => {
+                const invoiceDiv = document.createElement("div");
+                invoiceDiv.classList.add("invoice-container");
+                invoiceDiv.innerHTML = `
+                    <div class="invoice-details">
+                        <strong>ID Đơn hàng:</strong> ${invoice.orderID} <br>
+                        <strong>ID Khách hàng:</strong> ${invoice.customerID} <br>
+                        <strong>Tên khách hàng:</strong> ${invoice.customerName} <br>
+                        <strong>Ngày tạo:</strong> ${invoice.date}
+                    </div>
+                    <h3>Chi tiết đơn hàng</h3>
+                    <table border="1" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá tiền</th>
+                                <th>Tổng tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${invoice.items.map(item => `
+                                <tr>
+                                    <td>${item.code}</td>
+                                    <td>${item.name}</td>
+                                    <td>${item.quantity}</td>
+                                    <td>${item.price.toLocaleString()} VND</td>
+                                    <td>${(item.quantity * item.price).toLocaleString()} VND</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                container.appendChild(invoiceDiv);
+            });
+        }
+
+        // Gọi hàm để hiển thị hóa đơn khi trang được tải
+        displayInvoices();
+    </script>
+</body>
+</html>

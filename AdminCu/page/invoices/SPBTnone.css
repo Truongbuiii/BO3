@@ -1,0 +1,14 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+.message {
+    font-size: 30px;
+    color: #000000; /* Màu đen */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10%; /* Dời lên phía trên */
+}

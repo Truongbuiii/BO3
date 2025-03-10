@@ -1,0 +1,460 @@
+body {
+    font-family:'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    position:relative;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    min-height: 100px; /* Chiều cao tối thiểu */
+}
+
+
+
+/* Phần đầu trang */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 80px;
+}  
+
+.header-right {
+    background-color: white;
+    color: black;
+    flex-grow: 1;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.top-menu {
+    display: flex;
+}
+
+.top-menu a {
+    margin: 0 15px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgb(209, 60, 60);
+}
+
+
+.top-menu a:hover {
+    background-color: red;
+}
+.top-menu i {
+    margin-right: 5px;
+}
+
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 100px;
+    height:100%;
+}   
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar ul li {
+    padding: 10px 15px;
+    position: relative;
+    margin-bottom: 15px; /* Thêm khoảng cách giữa các mục */
+}
+.sidebar ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    position: relative;
+}
+
+.sidebar ul li a i {
+    position: absolute;
+    right: 10px;
+}
+
+.sidebar ul li a:hover {
+    background-color: rgb(209, 60, 60);
+    border-radius: 5px;
+    color :#ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng nhẹ cho ô nhập */
+    padding:3px 7px;
+}
+
+/* Sub-menu */
+.sub-menu {
+    display: none; /* Ẩn mặc định */
+    list-style-type: none;
+    padding-left: 20px; /* Giãn cách sub-menu */
+    margin-top: 10px; /* Khoảng cách giữa sub-menu và menu chính */
+}
+.sub-menu li {
+    padding: 5px 0;
+}
+
+.sub-menu li a {
+    font-size: 14px;
+    color: #dddddd;
+}
+
+/* Hiển thị sub-menu khi active */
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+
+.sidebar .admin-info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-size: 15px;
+    color: #000000;
+    border-bottom: 2px solid #e7f5dc;
+}
+
+.sidebar .admin-info img {
+    width: 40px; /* Kích thước ảnh */
+    height: 40px; /* Kích thước ảnh */
+    border-radius: 50%; /* Bo tròn ảnh */
+    margin-right: 10px; /* Khoảng cách giữa ảnh và tên admin */
+}
+.sub-menu {
+    display: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.sub-menu li {
+    padding: 8px 0;
+}
+
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+
+    
+
+
+h3 {
+    padding-left: 100px;
+    font-size: 22px;
+    color: #333;
+}
+
+
+.nut {
+    display: flex;
+    margin:12px;
+    justify-content: space-between;
+ margin-left:9.25%;
+}
+
+.nut button {
+    background-color: #cf0000; /* Màu xanh lá */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+
+ .nut .nutThemKhachHang:hover {
+    background-color: #ff0000;
+    transform: scale(1.05); 
+}
+
+.content{
+    margin-left: 120px;
+
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+height:100%;
+margin-bottom:80px ;
+}
+
+table th,
+table td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #444e58;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+table tbody tr:hover {
+    background-color: #ffffff;
+}
+
+table td button {
+    border:none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 2px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+
+}
+
+table td button.sua {
+    background-color: #ffffff;
+    color: rgb(255, 217, 0);
+}
+
+table td button.sua:hover {
+    background-color :  rgb(255, 217, 0);
+    color:white; 
+    transform: scale(1.1);
+}
+
+/* Nút xóa */
+table td button.xoa {
+    background-color: #ffffff;
+    color: red;
+}
+
+table td button.xoa:hover {
+    background-color: #ff0000; /* Màu nền khi hover */
+    color:white; 
+    transform: scale(1.1);
+}
+
+/* Nút khóa */
+table td button.khoa {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+table td button.khoa:hover {
+    background-color: black; /* Màu nền khi hover */
+    color:white; 
+    transform: scale(1.1);
+}
+
+table td button:hover {
+    background-color: #f1f1f1;
+    border-color: #aaa;
+}
+
+.popup-overlay {
+    position: fixed;
+        top: 0;
+        left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Tối hơn một chút */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Popup content styling */
+.popup-content {
+    font-size: 15px;
+    background: white;
+    padding: 30px; /* Tăng padding cho không gian thoáng hơn */
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tăng độ mờ cho bóng */
+    text-align: left; /* Căn trái cho văn bản */
+    position: absolute; /* Để vị trí của nút hủy không bị ảnh hưởng */
+}
+
+/* Title styling */
+.popup-content h3 {
+    margin: 0 0 20px; /* Thêm khoảng cách dưới tiêu đề */
+    font-size: 24px; /* Tăng kích thước chữ */
+    color: #333; /* Màu tối hơn cho tiêu đề */
+}
+
+/* Label and input styling */
+.popup-content label {
+    display: block; /* Để mỗi label chiếm một dòng */
+    margin-bottom: 5px; /* Khoảng cách giữa các label */
+    font-weight: bold; /* In đậm cho các label */
+}
+
+.popup-content input {
+    width: 100%; /* Chiếm toàn bộ chiều rộng trừ khoảng cách */
+    padding: 5px; /* Padding cho input */
+    border:1px solid #ccc; /* Viền nhẹ cho input */
+    border-radius: 5px; /* Bo góc cho input */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.11); /* Tăng độ mờ cho bóng */
+
+}
+
+/* Popup buttons */
+.popup-content button {
+    margin-top: 5px; /* Khoảng cách giữa các nút */
+    padding: 10px 15px; /* Padding cho nút */
+    border: none;
+    border-radius: 5px; /* Bo góc cho nút */
+    cursor: pointer;
+    font-size: 14px; /* Kích thước chữ lớn hơn cho nút */
+}
+
+/* Button styling */
+#save-edit {
+    font-size: 14px; /* Kích thước chữ nhỏ hơn cho nút hủy */
+    background-color: green; /* Màu xanh lá cây */
+    color: white;
+    border:none;
+    transition: background-color 0.3s, border 0.3s; /* Hiệu ứng chuyển tiếp */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tăng độ mờ cho bóng */
+
+}
+
+#cancel-edit {
+    background-color: red; 
+    color: white;
+    position: absolute; 
+    margin-left: 500px;
+    border:none;
+    font-size: 14px; /* Kích thước chữ nhỏ hơn cho nút hủy */
+    transition: background-color 0.3s, border 0.3s; /* Hiệu ứng chuyển tiếp */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tăng độ mờ cho bóng */
+
+}
+
+/* Hover effect for buttons */
+#save-edit:hover {
+    background-color: rgb(5, 87, 5); /* Tối màu khi hover */
+color:white;
+}
+
+#cancel-edit:hover {
+    color:white;
+    background-color: rgb(196, 10, 10); /* Tối màu khi hover */
+}
+footer {
+    text-align: center; /* Căn giữa footer */
+    font-size: 14px;
+    color: #000000;
+}
+footer .icon i{
+   padding:10px;
+   font-size: 24px;
+}
+footer .anh img {
+    max-width: 200px;
+    height: 100px; /* Ensures the image scales properly */
+}
+
+
+/* Sidebar Styling */
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 100vh;
+    transition: all 0.3s ease; /* Smooth transition when toggled */
+}
+
+/* When Sidebar is Hidden */
+.sidebar.hidden {
+    left: -200px; /* Moves sidebar out of view */
+}
+
+/* Style for the button to toggle sidebar */
+.sidebar-toggle {
+    position: absolute;
+    top: 18px;
+    left: 215px; /* Button's position when sidebar is visible */
+    z-index: 1000;
+    background-color: rgb(201, 12, 12);
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.5s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: red;
+    transform: scale(1.1);
+}
+
+/* Adjust layout when the sidebar is hidden */
+.content {
+    background-color: #e7f5dc;
+    padding-right: 10px;
+    padding-top: 120px;
+    min-height: calc(100vh - 100px); /* Ensure full height */
+    display: flex;
+    flex-direction: column;
+    transition: padding-left 0.3s ease; /* Smooth transition when sidebar is hidden */
+}
+
+
+/* Adjust table width when sidebar is hidden */
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-left: 110px;
+    height: 100%;
+    margin-bottom: 80px;
+    transition: margin-left 0.3s ease; /* Smooth transition */
+}
+.popup-success {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    background-color: rgb(87, 212, 87); 
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    z-index: 9999;
+    display: none; /* Ẩn popup mặc định */
+}
+
+.popup-success i{
+    font-size: 50px;
+    }

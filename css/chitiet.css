@@ -1,0 +1,624 @@
+html, body {
+    overflow-y: scroll; /* Luôn hiển thị thanh cuộn dọc */
+    margin: 0; /* Bỏ margin để tránh khoảng trống */
+    font-family: Verdana, Geneva, Tahoma, sans-serif /* Chọn font chữ */
+    
+    }
+    
+    
+    /* Định dạng thanh điều hướng */
+    .navbar {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép xuống dòng */
+    justify-content: space-between;
+    align-items: center;
+    background-color:rgba(255, 255, 255, 0.813); /* Nền màu đen */
+    color: black;
+    padding: 5px 10px;
+    
+    }
+
+    .navbar img{
+        width: 100%;
+        height: auto;
+    }
+    
+    
+    
+    .search-container {
+    position: relative; /* Đặt vị trí cho container */
+    margin-bottom: 10px; /* Khoảng cách dưới thanh tìm kiếm */
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    
+    .search-container i{
+        margin-left: 0px;
+    }
+    
+    .search-container form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    }
+    
+    .input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    
+    .input-container input {
+        padding-left: 30px; /* Khoảng cách để icon không bị che khuất */
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
+        border: 2px solid #1e1d1d;
+        border-radius: 4px;
+    }
+    
+    .input-container i {
+        position: absolute;
+        right: 20px; 
+        font-size: 18px;
+        color: #666;
+    }
+    
+    .search-container input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    margin-right: 10px;
+    padding: 10px; /* Padding cho thanh tìm kiếm */
+    font-size: 17px; /* Kích thước chữ trong thanh tìm kiếm */
+    width: 300px; /* Đặt chiều rộng cho thanh tìm kiếm */
+    padding-right: 40px; /* Tạo khoảng trống cho icon ở bên phải */
+    border-radius: 5px;
+    }
+    
+    .search-container button{
+    padding: 5px 15px;
+    background-color: rgb(190, 34, 34);
+    color: white;
+    cursor: pointer;
+    font-size: 22px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: inline;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    
+    .search-container button:hover{
+    background-color: rgb(221, 45, 45);
+    color: white;
+    }
+    
+    
+    /* Phần login và các biểu tượng */
+    .login {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Khoảng cách đều giữa các phần tử */
+    }
+    
+    .login a {
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+    }
+    
+    .login i {
+    font-size: 30px;
+    cursor: pointer;
+    }
+    
+    .login a:hover{
+    color: #d82f2f;
+    }
+    
+    .icon{
+        position: relative;
+        display: inline;
+        }
+        
+        .icon a{
+font-size:40px; /* Điều chỉnh kích thước icon */
+        color: rgba(38, 34, 34, 0.874); /* Đổi màu icon thành trắng */
+        cursor: pointer; /* Thêm hiệu ứng con trỏ */
+        text-decoration: none;
+        margin:0px 10px;
+        }
+        .icon a:hover{
+        color: #d82f2f;
+        }
+
+    /*bảng user*/
+    /* Bố cục container */
+    #user-container {
+        position: relative; /* Định vị menu dựa trên icon */
+        display: inline-block; /* Đảm bảo icon và menu gắn liền nhau */
+    }
+
+    /* Menu user */
+    .user-menu {
+        display: none; /* Ẩn menu mặc định */
+        position: absolute; /* Định vị so với container */
+        top: 100%; /* Xuất hiện ngay bên dưới icon */
+        left: 0; /* Căn chỉnh bên trái */
+        background-color: #fff; /* Màu nền menu */
+        border: 1px solid #ddd; /* Viền */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        z-index: 10; /* Đảm bảo menu nổi trên các thành phần khác */
+        width: 150px; /* Chiều rộng menu */
+        border-radius: 5px; /* Bo góc */
+    }
+
+    .user-menu ul {
+        margin: 0;
+        padding: 10px;
+        list-style: none; /* Loại bỏ dấu chấm danh sách */
+    }
+
+    .user-menu ul li {
+        padding: 5px 0;
+    }
+
+    .user-menu ul li a {
+        text-decoration: none; /* Không gạch chân */
+        color: #333; /* Màu chữ */
+        display: block;
+        transition: background-color 0.3s; /* Hiệu ứng hover */
+    }
+
+    .user-menu ul li a:hover {
+        background-color: #f5f5f5; /* Màu nền khi hover */
+    }
+
+        /* Phần tử chứa icon và chữ */
+    .filter-container {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    #filter-icon {
+        font-size: 30px;
+    }
+    
+    .filter-text {
+        font-size: 16px;
+        color: black;
+        margin-left: 5px;
+    }
+    
+    /* Bảng lọc */
+    /* Đảm bảo bảng lọc được ẩn mặc định */
+    .filter-modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4); /* Màu nền mờ */
+    }
+    
+    /* Nội dung bảng lọc */
+    .filter-modal-content {
+        background-color: #fefefe;
+        margin: 0;
+        padding: 20px;
+        border: 1px solid #888;
+        border-radius: 10px;
+        width: 50%; /* Kích thước bảng lọc */
+        max-width: 500px; /* Giới hạn kích thước tối đa */
+        position: absolute; /* Vị trí tuyệt đối */
+        top: 50%; /* Căn giữa theo chiều dọc */
+        left: 50%; /* Căn giữa theo chiều ngang */
+        transform: translate(-50%, -50%); /* Dịch chuyển lại để căn giữa chính xác */
+    }
+    
+    /* Nút đóng */
+    .close {
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+    }
+    .close:hover,
+.close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    
+    .filter-modal table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .filter-modal td {
+        padding: 8px;
+        text-align: left;
+    }
+    
+    .filter-modal select {
+        width: 50%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+    
+    .filter-modal button {
+        background-color: #af262d;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .filter-modal button:hover {
+        background-color: #df132e;
+    }
+    
+    /* Đóng bảng lọc */
+    .close {
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+    }
+    
+    .close:hover {
+        color: #ff0000;
+    }
+    
+    .navbar .nav-links li {
+    display: inline;
+    margin-left: 50px;
+    }
+    
+    
+    .horizontal-menu {
+    background-color :rgba(255, 255, 255, 0.767);
+    padding: 10px 0;
+    text-align: center; /* Căn giữa các liên kết */
+    height: 20px;
+    padding-bottom: 40px;
+    }
+    
+    .horizontal-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    }
+    
+    .horizontal-menu ul li {
+    display: inline;
+    margin: 0 30px; 
+    }
+    
+    .horizontal-menu ul li a {
+    text-decoration: none;
+    color:rgb(16, 16, 16);
+    font-size: 25px;
+    font-weight: bold;
+    }
+    
+    .horizontal-menu ul li a:hover {
+    color: #d82f2f; /* Hiệu ứng khi hover */
+    }
+    
+    
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+    font-size: 14px;
+    margin: 20px;
+    color: #888;
+    padding-top: 20px;
+    padding-left: 50px;
+    margin-left: 100px;
+}
+
+.breadcrumb a {
+    color: #555;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+    color: #d82f2f;
+}
+
+.product-detail {
+    display: flex;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    gap: 40px;
+}
+
+.product-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.product-image .main-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-info {
+    flex: 1;
+    padding-top: 50px;
+}
+
+.product-info h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.model-code,
+.type,
+.size,
+.status {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.available {
+    color: green;
+    font-weight: bold;
+}
+
+.price-section {
+    margin: 20px 0;
+}
+
+.price {
+    font-size: 25px;
+    color: red;
+    font-weight: bold;
+}
+
+.tax-included {
+    font-size: 14px;
+    color: #666;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.actions button {
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+color: #fff;
+    border-radius: 4px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%;
+    text-align: center;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #e11e1ed3;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-button:hover {
+    background-color: #d71f2e;
+}
+
+
+.buy-now {
+    background-color: rgb(234, 46, 46);
+    width: 400px;
+}
+
+.close-button {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    float: right;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: red;
+}
+
+
+.installment {
+    background-color: #171718;
+    width: 400px;
+}
+
+.installment-info {
+    background-color: #f8f65d6a;
+}
+
+.consultation {
+    background-color: #333;
+}
+
+.contact-info {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.phone-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Related Products Section */
+.related-products {
+    text-align: center;
+    margin: 40px 0;
+    padding-top: 200px;
+}
+
+.related-products h2 {
+    font-size: 24px;
+    color: #555;
+    background-color: #b3a97e;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: white;
+}
+
+.product-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin: 20px auto;
+    max-width: 100%;
+    padding-top: 50px;
+}
+
+.product-items {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease;
+}
+
+.product-item {
+    min-width: 200px;
+    text-align: center;
+}
+
+.product-item a{
+    text-decoration: none;
+}
+
+.product-item img {
+    width: 70%;
+}
+
+.product-item p {
+    margin: 5px 0;
+}
+
+.product-item .model {
+    font-weight: bold;
+}
+
+.product-item .price {
+    color: red;
+    font-weight: bold;
+}
+
+.product-item .compare {
+    color: #888;
+    font-size: 14px;
+}
+
+
+
+
+.footer {
+    background-color: white; 
+    color: rgb(31, 29, 29); 
+    padding: 20px;
+    text-align: center; 
+    position: relative; 
+    overflow: hidden;
+    width: auto;
+    padding-top: 50px;
+    }
+    
+    .footer-content {
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center; 
+    margin-bottom: 15px; 
+    }
+    
+    .footer-column {
+    flex: 1; 
+    padding: 10px;
+    transition: transform 0.3s, color 0.3s;
+    }
+    
+    .footer-column i {
+    font-size: 24px; 
+    margin-bottom: 5px; 
+    transition: color 0.3s; 
+    }
+    
+    .footer-column:hover {
+    transform: translateY(-5px); 
+    color:red; 
+    }
+    
+    .footer-column:hover i {
+    color:red; 
+    
+    .footer-note {
+    font-size: 25px; 
+    margin-top: 10px; 
+    font-style: italic;
+    }
+.footer-note a{
+    text-decoration: none;
+    }

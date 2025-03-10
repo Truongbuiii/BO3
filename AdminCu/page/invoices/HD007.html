@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn</title>
+    <link rel="stylesheet" href="HD.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <h1>Hóa Đơn</h1>
+        </div>
+        <div class="invoice-details">
+            <h3>Thông tin khách hàng</h3>
+            <div class="detail"><strong>ID Khách hàng:</strong> KH007</div>
+            <div class="detail"><strong>Tên khách hàng:</strong> Bùi Văn Giang</div>
+            <div class="detail"><strong>Ngày tạo:</strong> 30/11/2024</div>
+        </div>
+        <h3>Chi tiết đơn hàng</h3>
+        <table class="invoice-items">
+            <thead>
+                <tr>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá tiền</th>
+                    <th>Tổng tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>SPNU2</td>
+                    <td>Đồng hồ nữ Sporty</td>
+                    <td>2</td>
+                    <td>3,100,000 VND</td>
+                    <td class="item-total">6,200,000 VND</td>
+                </tr>
+                <tr>
+                    <td>SPNAM8</td>
+                    <td>Đồng hồ nam Active</td>
+                    <td>1</td>
+                    <td>2,100,000 VND</td>
+                    <td class="item-total">2,100,000 VND</td>
+                </tr>
+                <tr>
+                    <td>SPBT5</td>
+                    <td>Đồng Hồ báo thức Sunrise</td>
+                    <td>1</td>
+                    <td>4,100,000 VND</td>
+                    <td class="item-total">4,100,000 VND</td>
+                </tr>
+                <tr>
+                    <td>SPTT3</td>
+                    <td>Đồng Hồ treo tường Modern</td>
+                    <td>1</td>
+                    <td>3,100,000 VND</td>
+                    <td class="item-total">3,100,000 VND</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="total"><strong>Tổng cộng: 0 VND</strong></div>
+    </div>
+
+    <script>
+        // Hàm tính tổng tự động
+function calculateTotal() {
+    const rows = document.querySelectorAll('.invoice-items tbody tr'); // Chọn tất cả các dòng trong bảng
+    let total = 0;
+
+    rows.forEach(row => {
+        const amountCell = row.querySelector('.item-total'); // Chọn ô chứa tổng tiền của từng sản phẩm
+        const amountText = amountCell.textContent.replace(/[^\d]/g, ''); // Lọc bỏ ký tự không phải số
+        const amount = parseFloat(amountText) || 0; // Chuyển thành số
+        total += amount; // Cộng vào tổng
+    });
+
+    // Định dạng lại số theo kiểu Việt Nam (phân cách hàng nghìn bằng dấu phẩy)
+    let formattedTotal = total.toLocaleString(); // Phân cách hàng nghìn bằng dấu chấm
+
+    // Thay dấu chấm thành dấu phẩy cho phần phân cách hàng nghìn
+    formattedTotal = formattedTotal.replace(/\./g, ','); // Thay tất cả dấu chấm thành dấu phẩy
+
+    // Hiển thị tổng
+    const totalElement = document.querySelector('.total strong');
+    totalElement.textContent = `Tổng cộng: ${formattedTotal} VND`; // Hiển thị tổng
+}
+
+// Gọi hàm tính tổng khi tải trang
+document.addEventListener('DOMContentLoaded', calculateTotal);
+
+    </script>
+</body>
+</html>

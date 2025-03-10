@@ -1,0 +1,308 @@
+
+html, body {
+    overflow-y: scroll; /* Luôn hiển thị thanh cuộn dọc */
+    margin: 0; /* Bỏ margin để tránh khoảng trống */
+    font-family: Verdana, Geneva, Tahoma, sans-serif /* Chọn font chữ */
+    
+    }
+    
+    
+    /* Định dạng thanh điều hướng */
+    .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:rgba(255, 255, 255, 0.813); /* Nền màu đen */
+    color: black;
+    padding: 5px auto;
+    
+    }
+    
+    /* Định dạng logo bên trái */
+    .navbar .logo img {
+    height: 200px; /* Chiều cao logo */
+    margin-left: 40px;
+    }
+    
+    .search-container {
+    position: relative; /* Đặt vị trí cho container */
+    margin-bottom: 10px; /* Khoảng cách dưới thanh tìm kiếm */
+    border: 3px solid black;
+    border-radius: 7px;
+    }
+    
+    .search-container input[type="text"] {
+    padding: 10px; /* Padding cho thanh tìm kiếm */
+    font-size: 16px; /* Kích thước chữ trong thanh tìm kiếm */
+    width: 300px; /* Đặt chiều rộng cho thanh tìm kiếm */
+    padding-right: 40px; /* Tạo khoảng trống cho icon ở bên phải */
+    
+    }
+    
+    /* Định dạng biểu tượng tìm kiếm */
+    .search-container i {
+    position: absolute; /* Đặt vị trí tuyệt đối cho biểu tượng */  
+    right: 10px; /* Đặt khoảng cách từ bên phải */
+    top: 50%; /* Căn giữa theo chiều dọc */
+    transform: translateY(-50%); /* Điều chỉnh vị trí của biểu tượng */
+    color: #000; /* Màu của biểu tượng */
+    height: 20px; /* Chiều cao biểu tượng nếu muốn điều chỉnh */
+    cursor: pointer; /* Hiệu ứng khi di chuột */
+    }
+    
+    
+    
+    
+    
+    .navbar .nav-links li {
+        display: inline;
+        margin-left: 10px;
+    }
+    
+    .horizontal-menu {
+        background-color :rgba(255, 255, 255, 0.767);
+        color: black;
+        padding: 50px auto;
+        text-align: center; /* Căn giữa các liên kết */
+        height: 20px;
+        margin: 0 auto;
+    }
+    
+    .horizontal-menu ul {
+        list-style-type: none;
+        margin: 0 auto;
+        padding-bottom: 20px;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.263);
+
+    }
+    
+    .horizontal-menu ul li {
+        display: inline;
+        margin: 0 20px; 
+       
+    }
+    
+    .horizontal-menu ul li a {
+        text-decoration: none;
+        color:rgb(41, 39, 39);
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    .horizontal-menu ul li a:hover {
+        color: #d82f2f; /* Hiệu ứng khi hover */
+    }
+    
+    .login {
+        position: relative;
+        display: flex;
+        }
+        
+    /* Các định dạng khác cho logo và icon không đổi */
+    .login a {
+        font-size:21px; /* Điều chỉnh kích thước icon */
+        color: rgba(38, 34, 34, 0.874); /* Đổi màu icon thành trắng */
+        cursor: pointer; /* Thêm hiệu ứng con trỏ */
+        text-decoration: none;
+        margin-left: 10px auto;
+        margin: 10px 10px;
+    }
+    
+    .login a:hover{
+        color: #d82f2f;
+    }
+    
+    
+    .icon{
+        position: relative;
+        display: flex;
+    }
+    
+    .icon a{
+        font-size:40px; /* Điều chỉnh kích thước icon */
+        color: rgba(38, 34, 34, 0.874); /* Đổi màu icon thành trắng */
+        cursor: pointer; /* Thêm hiệu ứng con trỏ */
+        text-decoration: none;
+        margin:0px 10px;
+    }
+    .icon a:hover{
+        color: #d82f2f;
+    }
+
+
+
+/* Định dạng cho phần label phía trên khu vực sản phẩm */
+.product-label {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center;     /* Căn giữa theo chiều dọc */
+    margin-top: 50px;        /* Khoảng cách từ phía trên */
+    margin-bottom: 50px;     /* Khoảng cách dưới */
+    text-align: center;   
+     margin-top: 10px auto;
+}
+
+.product-label img {
+    width: 900px;           /* Chiều rộng của hình ảnh */
+    height: 500px;     
+    object-fit: cover;       /* Giữ tỷ lệ hình ảnh và cắt bớt nếu cần */
+    border-radius: 10px;     /* Bo góc hình ảnh */
+}
+
+
+
+.product-container {
+    display: grid; /* Sử dụng grid để bố trí sản phẩm */
+    grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Các sản phẩm sẽ có chiều rộng tối thiểu là 200px và tối đa là 1fr */
+    gap: 60px; /* Khoảng cách giữa các sản phẩm */
+    justify-content: center; /* Căn giữa các sản phẩm */
+    margin: 20px auto; /* Căn giữa khu vực sản phẩm */
+    width: 80%; /* Chiều rộng của khu vực sản phẩm */
+    height: 1000px;
+}
+
+./* Định dạng khu vực carousel */
+.carousel {
+    position: relative;
+    max-width: 1000px; /* Kích thước tối đa của carousel */
+    margin: auto;
+    overflow: hidden; /* Ẩn phần ảnh thừa */
+    border-radius: 10px;
+}
+
+/* Định dạng từng ảnh banner */
+.slides {
+    display: none;
+    width: 100%;
+    height: 500px; /* Chiều cao của banner */
+    object-fit: cover; /* Cắt và giữ tỷ lệ hình ảnh */
+}
+
+/* Định dạng cho từng sản phẩm */
+.product {
+    background-color: white; /* Nền màu sáng */
+    border: 2px solid white; /* Đường viền cho sản phẩm */
+    border-radius: 0%; /* Bo góc cho sản phẩm */
+    padding: 0%; /* Khoảng cách bên trong */
+    text-align: center; /* Căn giữa nội dung */
+    box-shadow: 0px 2px 5px white(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    height: 100px;
+    margin-top: 100px;
+    margin-bottom: 10px; /* Thêm khoảng cách giữa các dòng sản phẩm */
+    display: flex; /* Sử dụng flexbox để căn giữa nội dung */
+    flex-direction: column; /* Đặt chiều hướng từ trên xuống */
+    justify-content: space-between; /* Tạo khoảng cách giữa các thành phần */
+}
+
+.product a{
+    text-decoration: none;
+}
+
+.product img {
+    width: 200px; /* Chiều rộng hình ảnh sản phẩm 100% */
+    height: 200px; /* Chiều cao tự động */
+    border-radius: 5px; /* Bo góc cho hình ảnh sản phẩm */
+    object-fit: cover; /* Giữ tỷ lệ hình ảnh và cắt bớt nếu cần */
+}
+
+.price {
+    margin-top: 20px; /* Khoảng cách giữa hình và giá */
+    font-weight: bold; /* In đậm giá */
+    color: #0d0101; /* Màu chữ cho giá */
+}
+
+.price a{
+    text-decoration: none;
+}
+
+<!-- Thanh đếm số trang -->
+.pagination-wrapper {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom:50px;
+    }
+
+.pagination {
+    display: table; /* Để thanh pagination nằm gọn trong khung text-align */
+    margin: 20px auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a.active {
+    background-color: #0c0000;
+    color: white;
+    border: 1px solid #f3f1f0;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #e40b2fd8;
+}
+
+.footer {
+    background-color: white; 
+    color: rgb(31, 29, 29); 
+    padding: 20px;
+    text-align: center; 
+    position: relative; 
+    overflow: hidden;
+    width: auto;
+    }
+    
+    .footer-content {
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center; 
+    margin-bottom: 15px; 
+    }
+    
+    .footer-column {
+    flex: 1; 
+    padding: 10px;
+    transition: transform 0.3s, color 0.3s;
+    }
+    
+    .footer-column i {
+    font-size: 24px; 
+    margin-bottom: 5px; 
+    transition: color 0.3s; 
+    }
+    
+    .footer-column:hover {
+    transform: translateY(-5px); 
+    color:red; 
+    }
+    
+    .footer-column:hover i {
+    color:red; 
+    
+    .footer-note {
+    font-size: 25px; 
+    margin-top: 10px; 
+    font-style: italic;
+    }
+    
+    .footer-note a{
+    text-decoration: none;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+

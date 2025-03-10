@@ -1,0 +1,379 @@
+body {
+    font-family:'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    position:relative;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 80px;
+}
+
+
+/* Header bên phải */
+.header-right {
+    background-color: white;
+    color: black;
+    flex-grow: 1;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Phần menu trên cùng (header-right) */
+.top-menu {
+    display: flex;
+}
+
+.top-menu a {
+    margin: 0 15px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgb(209, 60, 60);
+}
+
+.top-menu a:hover {
+    background-color: red;
+}
+
+.top-menu i {
+    margin-right: 5px;
+}
+
+
+.sidebar {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    left: 0;
+    width: 200px;
+    max-height: 175vh; 
+    height: 100%;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding:0px;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 15px;
+    position: relative;
+    margin-bottom: 15px; 
+    
+}
+
+.sidebar ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    position: relative;
+}
+
+/* Font Awesome icon căn sang phải */
+.sidebar ul li a i {
+    position: absolute;
+    right: 10px;
+}
+
+/* Sidebar menu hover */
+.sidebar ul li a:hover {
+    background-color: rgb(209, 60, 60);
+    border-radius: 5px;
+    color :#ffffff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng nhẹ cho ô nhập */
+ padding:3px 7px;
+}
+
+/* Sub-menu */
+.sub-menu {
+    display: none; /* Ẩn mặc định */
+    list-style-type: none;
+    padding-left: 20px; /* Giãn cách sub-menu */
+    margin-top: 10px; /* Khoảng cách giữa sub-menu và menu chính */
+}
+
+.sub-menu li {
+    padding: 5px 0;
+}
+
+.sub-menu li a {
+    font-size: 14px;
+    color: #dddddd;
+}
+
+/* Khi click hiển thị sub-menu */
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+
+
+.sidebar .admin-info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    font-size: 15px;
+    color: #000000;
+    border-bottom: 2px solid #e7f5dc;
+}
+
+.sidebar .admin-info img {
+    width: 40px; /* Kích thước ảnh */
+    height: 40px; /* Kích thước ảnh */
+    border-radius: 50%; /* Bo tròn ảnh */
+    margin-right: 10px; /* Khoảng cách giữa ảnh và tên admin */
+}   
+/* Sub-menu */
+.sub-menu {
+    display: none;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.sub-menu li {
+    padding: 8px 0;
+}
+
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+
+.content {
+    background-color: #e7f5dc;
+    margin-left: 200px;
+    padding: 100px 50px;
+    min-height: calc(110vh - 100px); /* Chiều cao tối thiểu bằng chiều cao viewport trừ phần header/footer */
+    display: flex;
+    flex-direction: column; 
+}
+
+.content .tuade{
+ width:auto;
+   margin:0px 320px;
+}
+.content h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color:rgb(255, 153, 0); /* Dark red color for header */
+    background-color: white;
+height:40px;
+align-self: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding-left: 30%;
+}
+
+.content .thongtin {
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr; /* Create two columns: label and value */
+    gap: 20px;
+    align-items: center;
+}
+
+.content p {
+    font-size: 16px;
+    color: #3b4046; /* Dark grey color for text */
+    margin-bottom: 0; /* No extra margin for better alignment */
+}
+
+.content p strong {
+    color: #333; /* Dark color for the labels */
+    font-weight: bold;
+}
+
+.content p span {
+    font-weight: 650;
+    color: #aa0000; /* Blue color for general values */
+}
+
+/* Specific styling for the 'Tình trạng' (Status) field */
+#order-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f8d7da; /* Light red background by default */
+    color: #721c24; /* Dark red color for text by default */
+    display: inline-block; /* Ensures the background adjusts to text length */
+}
+
+/* For 'Pending' status */
+#order-status[data-status="pending"] {
+    background-color: #fff3cd; /* Yellowish for pending */
+    color: #856404; /* Dark yellow text */
+}
+
+/* For 'Confirmed' status */
+#order-status[data-status="confirmed"] {
+    background-color: #d4edda; /* Greenish for confirmed */
+    color: #155724; /* Dark green text */
+}
+
+/* For 'Delivered' status */
+#order-status[data-status="delivered"] {
+    background-color: #c3e6cb; /* Light green for delivered */
+    color: #155724; /* Dark green text */
+}
+
+/* For 'Canceled' status */
+#order-status[data-status="canceled"] {
+    background-color: #df0013; /* Bright red background for canceled */
+    color: #ffffff; /* White text for better contrast */
+}
+
+
+.quaylai .nut{
+    margin-left: 87%;
+    max-width: 200px;
+    padding: 5px 12px;
+    background-color: #ff2222;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.quaylai a {
+    font-size: 13px;
+    font-weight: 600; 
+    color: #ffffff;
+    padding: 0px 0px;
+    text-decoration: none;
+}
+
+.quaylai .nut:hover {
+    background-color: #e61919;
+    transform: scale(1.1);
+}
+
+footer {
+    border-top: 2px solid #e7f5dc;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height:auto;
+    max-height: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .lienhe ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+footer .lienhe ul li {
+    margin-bottom: 10px;
+}
+
+footer .icon {
+    padding-top: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+footer .icon i {
+    font-size: 25px;
+    padding: 5px;
+}
+
+/* Style for the image container to center it */
+footer .anh {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Ensures that the image takes up space in the footer */
+}
+
+footer .anh img {
+    max-width: 200px;
+    height: 100px; /* Ensures the image scales properly */
+}
+
+
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Khi sidebar bị ẩn */
+.sidebar.hidden {
+    left: -200px; /* Ẩn sidebar bằng cách di chuyển ra ngoài */
+}
+
+/* Phần content */
+.content {
+    background-color: #e7f5dc;
+    margin-left: 200px; /* Khoảng cách mặc định khi sidebar hiển thị */
+    padding: 90px 50px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Thêm transition cho width */
+}
+
+.content.full-width {
+    margin-left: 0; /* Không có margin khi sidebar ẩn */
+    width: 100%; /* Nội dung chiếm toàn bộ chiều rộng */
+}
+/* Nút toggle */
+.sidebar-toggle {
+    position: absolute;
+    top: 18px;
+    left: 215px; /* Default position when sidebar is visible */
+    z-index: 1000;
+    background-color:  rgb(201, 12, 12);
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.5s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: red;
+    transform: scale(1.1);
+}
+
+/* Khi sidebar bị ẩn */
+.sidebar.hidden ~ .sidebar-toggle {
+    left: 15px; /* Nút thu gọn nằm sát cạnh trái */
+}

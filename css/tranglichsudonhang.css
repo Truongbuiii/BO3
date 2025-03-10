@@ -1,0 +1,392 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0px;
+}
+
+.order-history-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+html, body {
+    overflow-y: scroll; /* Luôn hiển thị thanh cuộn dọc */
+    margin: 0; /* Bỏ margin để tránh khoảng trống */
+    font-family: Arial, sans-serif; /* Chọn font chữ */
+}
+
+
+/* Định dạng thanh điều hướng */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:black; /* Nền màu đen */
+    padding: 5px 20px;
+   
+}
+
+/* Định dạng logo bên trái */
+.navbar .logo img {
+    height: 140px; /* Chiều cao logo */
+}
+
+/* Định dạng biểu tượng bên cạnh thanh tìm kiếm */
+.icon-container {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    margin-top: 50px; /* Khoảng cách từ thanh tìm kiếm */
+}
+
+.icon-container img {
+    height: 60px; /* Chiều cao biểu tượng */
+    margin-left: 15px; /* Khoảng cách giữa các biểu tượng */
+    cursor: pointer; /* Hiệu ứng khi di chuột */
+    transition: transform 0.2s ease; /* Hiệu ứng khi click */
+}
+.icon-container img:active {
+    transform: scale(1.2); /* Tăng kích thước biểu tượng khi click */
+}
+
+/* Định dạng menu điều hướng bên phải */
+.navbar .nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.search-container {
+    position: relative; /* Đặt vị trí cho container */
+    margin-bottom: 10px; /* Khoảng cách dưới thanh tìm kiếm */
+}
+
+.search-container input[type="text"] {
+    padding: 10px; /* Padding cho thanh tìm kiếm */
+    font-size: 16px; /* Kích thước chữ trong thanh tìm kiếm */
+    border: none; /* Bỏ viền */
+    border-radius: 5px; /* Bo góc */
+    width: 300px; /* Đặt chiều rộng cho thanh tìm kiếm */
+    padding-right: 40px; /* Tạo khoảng trống cho icon ở bên phải */
+}
+
+/* Định dạng biểu tượng tìm kiếm */
+.search-container i {
+    position: absolute; /* Đặt vị trí tuyệt đối cho biểu tượng */  
+    right: 10px; /* Đặt khoảng cách từ bên phải */
+    top: 50%; /* Căn giữa theo chiều dọc */
+    transform: translateY(-50%); /* Điều chỉnh vị trí của biểu tượng */
+    color: #000; /* Màu của biểu tượng */
+    height: 20px; /* Chiều cao biểu tượng nếu muốn điều chỉnh */
+    cursor: pointer; /* Hiệu ứng khi di chuột */
+}
+
+/* CSS cho icon và submenu */
+.icon-container {
+position: relative;
+display: inline-block;
+}
+
+.submenu {
+display: none; /* Bắt đầu với display là none */
+position: absolute; /* Đặt submenu bên dưới icon */
+background-color: white; /* Nền trắng cho submenu */
+border: 1px solid #ccc; /* Đường viền nhẹ */
+z-index: 1000; /* Đảm bảo nó ở trên cùng */
+}
+
+
+.submenu {
+display: none; /* Ẩn mặc định */
+list-style: none;
+padding: 0;
+margin: 0;
+background-color: #f1f1f1;
+border: 1px solid #ccc;
+position: absolute;
+top: 30px; /* Điều chỉnh vị trí theo icon */
+right: 0;
+width: 150px;
+z-index: 1;
+}
+
+.submenu li {
+padding: 8px 16px;
+}
+
+.submenu li a {
+color: #333;
+text-decoration: none;
+display: block;
+}
+
+.submenu li a:hover {
+background-color: #ddd;
+color: #000;
+}
+
+
+/* Căn chỉnh icon-container để chứa icon user và menu */
+.icon-container {
+position: relative;
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+
+.navbar .nav-links li {
+    display: inline;
+    margin-left: 50px;
+}
+
+.horizontal-menu {
+    background-color:rgba(128, 128, 128, 0.519);
+    padding: 10px 0;
+    text-align: center; /* Căn giữa các liên kết */
+    height: 20px;
+
+}
+
+.horizontal-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.horizontal-menu ul li {
+    display: inline;
+    margin: 0 40px; /* Khoảng cách giữa các mục menu */
+}
+
+.horizontal-menu ul li a {
+    text-decoration: none;
+    color: black; /* Màu chữ đen */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.horizontal-menu ul li a:hover {
+    color: #fafafa; /* Hiệu ứng khi hover */
+}
+
+/* Các định dạng khác cho logo và icon không đổi */
+.icon-container i {
+    font-size: 30px; /* Điều chỉnh kích thước icon */
+    color: white; /* Đổi màu icon thành trắng */
+    margin-left: 15px; /* Khoảng cách giữa các icon */
+    cursor: pointer; /* Thêm hiệu ứng con trỏ */
+}
+
+
+.icon-container img:active {
+    transform: scale(1.2);
+}
+
+<!-- nền trắng khu vực sản phẩm -->
+.navbar .nav-links a {
+    text-decoration: none;
+    color: white; /* Màu chữ trắng */
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.navbar .nav-links a:hover {
+    text-decoration: underline; /* Hiệu ứng khi hover */
+}
+
+
+/* Định dạng cho phần label phía trên khu vực sản phẩm */
+.product-label {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center;     /* Căn giữa theo chiều dọc */
+    margin-top: 50px;        /* Khoảng cách từ phía trên */
+    margin-bottom: 50px;     /* Khoảng cách dưới */
+    text-align: center;      /* Căn giữa nội dung văn bản nếu có */
+}
+
+.product-label img {
+    width: 900px;           /* Chiều rộng của hình ảnh */
+    height: 500px;     
+    object-fit: cover;       /* Giữ tỷ lệ hình ảnh và cắt bớt nếu cần */
+    border-radius: 10px;     /* Bo góc hình ảnh */
+}
+
+
+
+.product-container {
+    display: grid; /* Sử dụng grid để bố trí sản phẩm */
+    grid-template-columns: repeat(4, minmax(200px, 1fr)); /* Các sản phẩm sẽ có chiều rộng tối thiểu là 200px và tối đa là 1fr */
+    gap: 60px; /* Khoảng cách giữa các sản phẩm */
+    justify-content: center; /* Căn giữa các sản phẩm */
+    margin: 20px auto; /* Căn giữa khu vực sản phẩm */
+    width: 80%; /* Chiều rộng của khu vực sản phẩm */
+    height: 1000px;
+}
+
+./* Định dạng khu vực carousel */
+.carousel {
+    position: relative;
+    max-width: 1000px; /* Kích thước tối đa của carousel */
+    margin: auto;
+    overflow: hidden; /* Ẩn phần ảnh thừa */
+    border-radius: 10px;
+}
+
+/* Định dạng từng ảnh banner */
+.slides {
+    display: none;
+    width: 100%;
+    height: 600px; /* Chiều cao của banner */
+    object-fit: cover; /* Cắt và giữ tỷ lệ hình ảnh */
+}
+
+
+/* Định dạng cho từng sản phẩm */
+.product {
+    background-color: white; /* Nền màu sáng */
+    border: 2px solid white; /* Đường viền cho sản phẩm */
+    border-radius: 0%; /* Bo góc cho sản phẩm */
+    padding: 0%; /* Khoảng cách bên trong */
+    text-align: center; /* Căn giữa nội dung */
+    box-shadow: 0px 2px 5px white(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    height: 100px;
+    margin-bottom: 10px; /* Thêm khoảng cách giữa các dòng sản phẩm */
+    display: flex; /* Sử dụng flexbox để căn giữa nội dung */
+    flex-direction: column; /* Đặt chiều hướng từ trên xuống */
+    justify-content: space-between; /* Tạo khoảng cách giữa các thành phần */
+}
+
+.product img {
+    width: 200px; /* Chiều rộng hình ảnh sản phẩm 100% */
+    height: 200px; /* Chiều cao tự động */
+    border-radius: 5px; /* Bo góc cho hình ảnh sản phẩm */
+    object-fit: cover; /* Giữ tỷ lệ hình ảnh và cắt bớt nếu cần */
+}
+
+.price {
+    text-align: center;
+    margin-top: 10px; /* Khoảng cách giữa hình và giá */
+    font-weight: bold; /* In đậm giá */
+    color: #0d0101; /* Màu chữ cho giá */
+}
+
+<!-- Thanh đếm số trang -->
+.pagination-wrapper {
+text-align: center; /* Căn giữa theo chiều ngang */
+margin-top: 20px;
+}
+
+.pagination {
+    display: table; /* Để thanh pagination nằm gọn trong khung text-align */
+    margin: 20px auto;
+}
+
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+}
+
+.pagination a.active {
+    background-color: #0c0000;
+    color: white;
+    border: 1px solid #f3f1f0;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #e40b2fd8;
+}
+
+.footer {
+    background-color: #000; /* Màu nền đen */
+    color: white; /* Màu chữ trắng */
+    padding: 5px 50px; /* Khoảng cách trên và dưới */
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 5px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Khoảng cách đều giữa các cột */
+    flex-wrap: nowrap; 
+}
+
+.footer-column {
+    flex: 1;
+    width: 100px;
+    height: 100px;
+    display: flex; /* Sử dụng flex để căn icon và văn bản */
+    align-items: center; /* Căn giữa icon và văn bản theo chiều dọc */
+    justify-content: center; /* Căn giữa các nội dung trong cột */
+    white-space: nowrap;
+}
+
+.footer-content .separator {
+    border-left: 2px solid white; /* Dấu gạch dọc màu trắng */
+    height: 40px; /* Chiều cao của dấu gạch */
+    margin: 10px 30px; /* Khoảng cách giữa dấu gạch và các cột */
+    padding: 10px;
+}
+
+.footer-content p {
+    font-size: 17px;
+    margin: 0;
+    margin-left: 0px; /* Khoảng cách giữa icon và văn bản */
+    margin-right: 0px;
+}
+
+/* Định dạng cho icon */
+.footer-column i {
+    font-size: 20px; /* Kích thước của icon */
+    color: white; /* Màu của icon */
+    margin-right: 7px; /* Khoảng cách giữa icon và văn bản */
+}
+
+
+
+
+
+

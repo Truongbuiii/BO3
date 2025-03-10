@@ -1,0 +1,378 @@
+
+
+body {
+    font-family:'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; 
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho ô nhập */
+
+}
+
+
+.header-right { 
+    background-color: white;
+    color: black;
+    flex-grow: 1;
+    padding: 28px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.header-left a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.header-left img {
+    width: 50px; /* Kích thước ảnh */
+    height: 50px; /* Kích thước ảnh */
+    border-radius: 50%; /* Bo tròn ảnh */
+margin-top:50px;
+}
+
+.top-menu {
+    display: flex;
+}
+
+
+.top-menu a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: rgb(209, 60, 60);
+}
+.top-menu a:hover {
+    background-color: red;
+}
+.top-menu i {
+    margin-right: 5px;
+}
+/* Phần sidebar */
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 1000px;
+    height:100%;
+
+}
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 15px;
+    position: relative;
+    margin-bottom: 15px; 
+    
+}
+
+.sidebar ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    display: block;
+    font-size: 15px;
+    position: relative;
+}
+
+.sidebar ul li a i {
+    position: absolute;
+    right: 10px;
+}
+.sidebar ul li a:hover {
+    background-color: rgb(209, 60, 60);
+    color:white;
+    border-radius: 3px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Thêm bóng nhẹ cho ô nhập */
+ padding:3px 7px;
+}
+
+/* Sub-menu */
+.sub-menu {
+    display: none; /* Ẩn mặc định */
+    list-style-type: none;
+    padding-left: 20px; /* Giãn cách sub-menu */
+    margin: 10px; /* Khoảng cách giữa sub-menu và menu chính */
+}
+.sub-menu li {
+    padding: 10px 0;
+}
+
+.sub-menu li a {
+    font-size: 14px;
+    color: #ddd;
+}
+.sidebar ul li.active > .sub-menu {
+    display: block;
+}
+.sidebar .admin-info {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    font-size: 14px;
+    color: #000000;
+    border-bottom: 2px solid #e7f5dc;
+    font-weight: bolder;
+
+}
+.sidebar .admin-info img {
+    width: 40px; /* Kích thước ảnh */
+    height: 40px; /* Kích thước ảnh */
+    border-radius: 50%; /* Bo tròn ảnh */
+    margin-right: 10px; /* Khoảng cách giữa ảnh và tên admin */
+}
+
+
+/* Phần nội dung */
+.content {
+    background-color: #e7f5dc;
+    margin-left: 200px;
+    padding: 10px 30px;
+    min-height: calc(100vh - 100px); /* Chiều cao tối thiểu bằng chiều cao viewport trừ phần header/footer */
+    display: flex;
+    flex-direction: column; 
+}
+
+.khung {
+    
+    background-color: #fff; /* White background for form section */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 40px 20px;
+    padding: 30px;
+}
+
+.khung h4{
+    font-size: 20px;
+}
+/* Form Elements */
+.o {
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.o label {
+    width: 150px;
+    text-align: right;
+    margin-right: 15px;
+    align-self: center; /* Giúp label căn giữa theo chiều dọc */
+}
+
+.o input,
+.o select {
+    padding: 10px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    width: 250px;
+    box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng kích thước */
+    margin-left: 2px;
+}
+
+.o div {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Giữ khoảng cách giữa label và input/select */
+}
+
+.hinhanh .anh {
+    display: inline-flex;
+    align-items: center; /* Center icon and text */
+    padding: 10px 20px; /* Button padding */
+    border: none; 
+    border-radius: 5px; /* Rounded corners */
+    background-color: #ffffff; /* Green background */
+    color: rgb(0, 0, 0); /* White text */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s, transform 0.2s; /* Transitions */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho ô nhập */
+
+}
+
+.hinhanh .anh:hover {
+    background-color: #ff0000; /* Darker green on hover */
+    color:white;
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+/* Mô tả sản phẩm */
+.mota {
+    margin-top: 20px; /* Space above description */
+}
+
+.mota input{
+    width: 100%; 
+    height: 100px;  /* Chiều cao của input */
+    line-height: 10px; /* Căn chỉnh văn bản ở giữa theo chiều dọc */
+    padding: 0 10px; /* Thêm padding bên trái và bên phải */
+    border: 2px solid rgba(0, 0, 0, 0.781);; /* Đặt viền cho input */
+    border-radius: 4px; /* Bo tròn các góc */
+    box-sizing: border-box; 
+}
+.nut button {
+    margin: 20px 10px; /* Space around buttons */
+    padding: 10px 15px; /* Button padding */
+    color: #000000; /* Button text color */
+    font-size: 20px; /* Font size */
+    border:none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s, transform 0.2s; /* Transitions for background color and transformation */
+}
+
+.nut .luu{
+    margin-left: 10px;
+    background-color:white;
+    color:green;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); 
+}
+.nut .huy{
+right:20;
+    background-color:white;
+    color:red;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Thêm bóng nhẹ cho ô nhập */
+
+}
+
+/* Optional: Hover effect for buttons */
+.nut button:hover {
+    background-color: #ffffff; /* Change background color on hover */
+    transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+
+.nut .luu:hover {
+    background-color: #51ff1c; /* Green background on hover */
+    color:rgb(255, 255, 255);
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+
+.nut .huy:hover {
+    background-color: #ff1900; /* Darker red on hover */
+    color:white;
+    transform: translateY(-2px); /* Lift effect on hover */
+}
+/* Popup hiển thị thông báo */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #000000;
+    padding: 70px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+    z-index: 1000;
+}
+
+.popup p {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #000000;
+}
+
+.close-btn {
+    background-color: #ff0000d2;
+    color: rgb(255, 255, 255);
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background-color: #ff0000;
+}
+footer {
+    text-align: center; /* Căn giữa footer */
+    font-size: 14px;
+    color: #000000;
+}
+footer .icon i{
+   padding:10px;
+   font-size: 24px;
+}
+footer .anh img {
+    max-width: 200px;
+    height: 100px; /* Ensures the image scales properly */
+}
+.sidebar {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Khi sidebar bị ẩn */
+.sidebar.hidden {
+    left: -200px; /* Ẩn sidebar bằng cách di chuyển ra ngoài */
+}
+
+/* Phần content */
+.content {
+    background-color: #e7f5dc;
+    margin-left: 200px; /* Khoảng cách mặc định khi sidebar hiển thị */
+    padding: 90px 50px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Thêm transition cho width */
+}
+
+.content.full-width {
+    margin-left: 0; /* Không có margin khi sidebar ẩn */
+    width: 100%; /* Nội dung chiếm toàn bộ chiều rộng */
+}
+.sidebar-toggle {
+    position: absolute;
+    top: 18px;
+    left: 215px; /* Default position when sidebar is visible */
+    z-index: 1000;
+    background-color: rgb(201, 12, 12);
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px; /* Circular button */
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.5s ease, background-color 0.2s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+.sidebar-toggle:hover {
+    background-color:red ;
+    transform: scale(1.1);
+}
+
+/* Sidebar hidden state */
+.sidebar.hidden {
+    width: 0; /* Or display: none; depending on your sidebar's implementation */
+}
