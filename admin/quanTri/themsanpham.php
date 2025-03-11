@@ -55,27 +55,10 @@
                             <label for="danhmuc">Danh mục</label>
                             <select class= "form-control" id="danhmuc" name="danhmuc" required onchange="coDuongKinh()" >
                                 <option value="" disabled selected> --Chọn danh mục đồng hồ--</option>
-                    <?php
-require('../db/conn.php'); // Gọi file kết nối CSDL
-
-$sql_str = "SELECT * FROM danhmucsanpham ORDER BY loaimay";
-$result = mysqli_query($conn, $sql_str);
-
-while ($row = mysqli_fetch_assoc($result)) { 
-?>
-   <option value="<?php echo $row['id']; ?>"><?php echo $row['danhmuc']; ?></option>
-
-
-                            <?php
-                            }
-                            ?>
+                   
                             </select>
                                         </div>
-                     <div class="form-group" id="diameterGroup" style="display: none;">
-    <label for="duongkinh">Đường kính (cm)</label>
-    <input type="number" class="form-control" id="duongkinh" name="duongkinh" placeholder="Nhập đường kính" min="1">
-</div>
-
+                  
                            <button class="btn btn-primary">Thêm mới</button>
                         </form>
                 <hr>

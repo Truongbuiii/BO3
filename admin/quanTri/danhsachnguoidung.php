@@ -42,28 +42,7 @@
                                     </tfoot>
                                     <tbody>
 
-            <?php
-require('../db/conn.php'); // Gọi file kết nối CSDL
-
-$sql_str = "SELECT * FROM KhachHang ORDER BY MaKhachHang";
-$result = mysqli_query($conn, $sql_str);
-
-while ($row = mysqli_fetch_assoc($result)) { 
-?>
-    <tr>
-        <td><?php echo $row['MaKhachHang']; ?></td>
-        <td><?php echo $row['HoTen']; ?></td>
-        <td><?php echo $row['NgaySinh']; ?></td>
-        <td><?php echo $row['GioiTinh']; ?></td>
-        <td><?php echo $row['DiaChi']; ?></td>
-        <td><?php echo $row['SDT']; ?></td>
-        <td><?php echo $row['MatKhau']; ?></td>
-       <td><?php echo $row['Email']; ?></td>
-       <td>Sửa  ||  Khóa</td>
-    </tr>
-<?php 
-}
-?>
+          
     </tbody>
                                 </table>
 </div>
