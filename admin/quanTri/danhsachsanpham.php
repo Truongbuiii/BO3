@@ -14,13 +14,12 @@
                       <tr>
                           <th>Mã sản phẩm</th>
                           <th>Tên sản phẩm</th>
-                          <th>Loại máy</th>
+                          <th>Loại kem</th>
+                          <th>Vị kem</th>
                           <th>Tình trạng</th>
                           <th>Giá</th>
                           <th>Hình ảnh</th>
-                          <th>Danh mục</th>
                           <th>Số lượng</th>
-                          <th>Đường kính</th>
                           <th>Chức năng</th>
                       </tr>
                   </thead>
@@ -28,13 +27,12 @@
                       <tr>
                           <th>Mã sản phẩm</th>
                           <th>Tên sản phẩm</th>
-                          <th>Loại máy</th>
+                          <th>Loại kem</th>
+                          <th>Vị kem</th>
                           <th>Tình trạng</th>
                           <th>Giá</th>
                           <th>Hình ảnh</th>
-                          <th>Danh mục</th>
                           <th>Số lượng</th>
-                          <th>Đường kính</th>
                           <th>Chức năng</th>
                       </tr>
                   </tfoot>
