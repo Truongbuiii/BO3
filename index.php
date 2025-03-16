@@ -35,41 +35,52 @@
    <body>
       <div class="header_section">
          <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav">
+          
 
-                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Trang chủ</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="icecream.html">Kem ly</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="icecream.html">Kem ốc quế</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="icecream.html">Kem que</a>
-                     </li>
                      
-                  </ul>
-                  <li>
-                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                           <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                     </form>
-                  </li>
-                  <ul class="navbar-nav">
-
-                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color: pink; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
-               
-
+                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                     <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a>
+                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                     </button>
+                  
+                     <div class="collapse navbar-collapse d-flex justify-content-between align-items-center" id="navbarNav">
+                        <ul class="navbar-nav">
+                           <li class="nav-item active">
+                              <a class="nav-link" href="index.php">Trang chủ</a>
+                           </li>
+                           <li class="nav-item">
+                              <a class="nav-link" href="includes/kemLy.php">Kem ly</a>
+                           </li>
+                           <li class="nav-item">
+                              <a class="nav-link" href="includes/kemOcQue.php">Kem ốc quế</a>
+                           </li>
+                           <li class="nav-item">
+                              <a class="nav-link" href="includes/kemQue.php">Kem que</a>
+                           </li>
+                        </ul>
+                  
+                        <!-- Thanh tìm kiếm -->
+                        <form class="form-inline d-flex align-items-center">
+                           <input class="form-control mr-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                           <button class="btn btn-outline-success" type="submit">
+                              <i class="fa-solid fa-magnifying-glass"></i>
+                           </button>
+                        </form>
+                  
+                        <!-- Icon tài khoản, giỏ hàng -->
+                        <div class="d-flex align-items-center">
+                           <a href="#" class="mr-3">
+                              <i class="fa-solid fa-user-large" style="color: pink; font-size: 200%;"></i>
+                           </a>
+                           <a href="trangiohang.html" class="position-relative">
+                              <i class="bi bi-cart-fill custom-icon" style="font-size: 200%;"></i>
+                              <span id="cart-count" class="badge badge-pill badge-danger position-absolute" style="top: -5px; right: -10px;">0</span>
+                           </a>
+                        </div>
+                     </div>
+                  </nav>
+                  
                   </form>
                </div>
             </nav>
@@ -257,17 +268,16 @@
                      </ul>
                   </div>
                </div>
-               <div class="copyright_section">
+            </div>
+         </div>
+      
+      <!-- contact section end -->
+      <!-- copyright section start -->
+      <div class="copyright_section">
          <div class="container">
             <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
          </div>
       </div>
-            </div>
-         </div>
-      </div>
-      <!-- contact section end -->
-      <!-- copyright section start -->
-      
       <!-- copyright section end -->
       <!-- Javascript files-->
       <script src="js/jquery.min.js"></script>
