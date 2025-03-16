@@ -22,11 +22,34 @@
     transition: ease all 0.5s;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact_section {
+    margin-top: auto; /* Đẩy footer xuống dưới */
+    width: 100%;
+    background-color: black; /* Đổi màu nền footer thành đen */
+    color: white; /* Đổi màu chữ để dễ nhìn */
+    padding: 0; /* Thêm padding cho đẹp */
+    text-align: center; /* Canh giữa nội dung */
+}
+
+
+.contact_section {
+    margin-top: auto;
+}
+
+
 html {
     scroll-behavior: smooth;
 }
 
 body {
+    background-color:#ffffff;
     color: #666666;
     font-size: 14px;
     font-family: 'Poppins', sans-serif;
@@ -150,6 +173,7 @@ img {
     outline: 0;
 }
 
+
 .paddind_bottom_0 {
     padding-bottom: 0 !important;
 }
@@ -242,6 +266,12 @@ button {
     margin: 0px 6px;
 }
 
+.custom-icon {
+    font-size: 30px; /* Kích thước icon */
+    color: #fc95c4;
+}
+
+
 .navbar-light .navbar-nav .active>.nav-link,
 .navbar-light .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link.show,
@@ -251,17 +281,84 @@ button {
 
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover {
-    color: #fc95c4;
+    color:#fc95c4;
 }
+
+/* Đổi màu viền và placeholder của ô tìm kiếm */
+.form-control {
+    border-color: #fc95c4;
+    color: rgb(12, 12, 12);
+}
+
+.form-control:placeholder {
+    color: rgb(19, 19, 19);
+    opacity: 1;
+}
+
+/* Đổi màu nền, viền và icon của nút tìm kiếm */
+.btn-outline-success {
+    border-color:#fc95c4;
+    color: rgb(27, 27, 27);
+}
+
+/* Khi di chuột vào, đổi màu nền nút và đổi màu icon sang đen */
+.btn-outline-success:hover {
+    background-color: #fc95c4;
+    color: rgb(43, 42, 42);
+}
+
+.btn-outline-success:hover i {
+    color: black !important;
+}
+
+/* Đổi màu mặc định của icon kính lúp */
+.fa-magnifying-glass {
+    color:#fc95c4 !important;
+}
+
 
 .navbar-brand {
     margin: 0px;
     float: right;
 }
 
+
+
 .navbar {
     padding: 15px 0px;
 }
+
+.nav-link{
+    display: flex;
+}
+
+.nav
+.navbar-nav {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: flex-start; /* Đẩy sang trái */
+    gap: 20px; /* Khoảng cách giữa các mục */
+}
+
+.navbar {
+    width: 100%;
+}
+
+.navbar-brand img {
+    height: 50px; /* Điều chỉnh chiều cao logo nếu cần */
+}
+
+.navbar-collapse {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-inline {
+    margin-left: auto; /* Đẩy phần đăng nhập sang phải */
+}
+
 
 .login_bt {}
 
@@ -1040,3 +1137,4 @@ textarea#comment.update_mail::placeholder {
 .margin_top90 {
     margin-top: 90px;
 }
+
