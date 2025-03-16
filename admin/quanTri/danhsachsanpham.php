@@ -3,7 +3,7 @@
   <h3>Trang danh sách sản phẩm</h3>
 <?php
 
-require("../db/connect.php"); // Đảm bảo file kết nối đúng
+require("./db/connect.php"); // Đảm bảo file kết nối đúng
 
 $sql = "SELECT SanPham.id, SanPham.tenSanPham, LoaiKem.tenLoaiKem, SanPham.huongVi, 
                SanPham.tinhTrang, SanPham.gia, SanPham.hinhAnh, 
@@ -62,8 +62,8 @@ $result = mysqli_query($conn, $sql);
                                     <td>{$row['huongVi']}</td>
                                     <td>{$row['tinhTrang']}</td>
                                     <td>" . number_format($row['gia'], 0, ',', '.') . " VND</td>
-                                    <td><img src='images/{$row['hinhAnh']}' width='50'></td>
-                                    <td>{$row['soLuongCon']}</td>
+   <td><img src='images/{$row['hinhAnh']}' width='100'></td>           
+                            <td>{$row['soLuongCon']}</td>
                                     <td>{$row['soLuongDaBan']}</td>
                                     <td>
                                         <a href='edit_product.php?id={$row['id']}' class='btn btn-warning btn-sm'>Sửa</a>
