@@ -30,7 +30,24 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+   <style>
+      .banner_taital {
+    font-size: 40px;
+    font-weight: bold;
+    color:rgba(0, 0, 0, 0.95); /* Màu sắc nổi bật */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
 
+.banner_text {
+    font-size: 18px;
+    color:black;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+
+
+   </style>
    </head>
    <body>
       <div class="header_section">
@@ -39,7 +56,7 @@
 
                      
                   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                     <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a>
+                     <a class="navbar-brand"href="index.php"><img src="images/logo.png"></a>
                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
                      </button>
@@ -73,7 +90,7 @@
                            <a href="#" class="mr-3">
                               <i class="fa-solid fa-user-large" style="color: pink; font-size: 200%;"></i>
                            </a>
-                           <a href="trangiohang.html" class="position-relative">
+                           <a href="includes/trangGioHang.php" class="position-relative">
                               <i class="bi bi-cart-fill custom-icon" style="font-size: 200%;"></i>
                               <span id="cart-count" class="badge badge-pill badge-danger position-absolute" style="top: -5px; right: -10px;">0</span>
                            </a>
@@ -94,9 +111,11 @@
                      <div class="carousel-item active">
                         <div class="row">
                            <div class="col-sm-6">
-                              <h1 class="banner_taital">Ice Cream</h1>
-                              <p class="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem</p>
-                              <div class="started_text"><a href="#">Order Now</a></div>
+                              <h2 class="banner_taital" style="font-family: 'Poppins', sans-serif;">Tiệm cây kem</h2>
+                              <p class="banner_text">Mát lạnh từng muỗng, ngọt ngào từng khoảnh khắc</p>
+                              <p class="banner_text">Hương vị tuyệt vời, yêu ngay từ lần đầu tiên</p>
+                              <p class="banner_text">Ngọt mát tự nhiên – Đánh thức vị giác</p>
+                              <div class="started_text"><a href="#">Mua Hàng ngay</a></div>
                            </div>
                            <div class="col-sm-6">
                               <div class="banner_img"><img src="images/banner-img.png"></div>
@@ -112,7 +131,7 @@
          <div class="container">
             <div class="row">
                <div class="col-md-12">
-                  <h1 class="services_taital">Our Ice Cream Services</h1>
+                  <h1 class="services_taital">Các loại kem của tiệm</h1>
                </div>
             </div>
             <div class="services_section_2">
@@ -121,7 +140,7 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><i class="fa-solid fa-bowl-food" style="font-size: 190%; color: #f7a8c9;"></i></span>Kem ly</h5>
-                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
+                        <p class="lorem_text"> Ngọt Mát Từng Thìa - Lớp kem mịn màng, hòa quyện hấp dẫn! </p>
                      </div>
                      </a>
                   </div>
@@ -129,7 +148,7 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-2.png"></span>Kem ốc quế</h5>
-                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
+                        <p class="lorem_text"> Giòn Rụm, Mát Lạnh - Lớp vỏ quế giòn tan, ôm trọn vị kem béo mịn.</p>
                      </div>
                      </a>
                   </div>
@@ -137,7 +156,7 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-1.png"></span>Kem que</h5>
-                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
+                        <p class="lorem_text">Đơn Giản - Cảm giác sảng khoái với từng que kem mát lạnh.</p>
                      </div>
                      </a>
                   </div>
@@ -155,8 +174,8 @@
                   <div class="about_img"><img src="images/about-img.png"></div>
                </div>
                <div class="col-md-6">
-                  <h1 class="about_taital">About Icecream</h1>
-                  <p class="about_text">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore euconsectetur adipiscing esequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+                  <h1 class="about_taital">Các hương vị kem</h1>
+                  <p class="about_text">Cửa hàng chúng tôi cung cấp 3 hương vị kem : Dâu, Sô-cô-la, Vani</p>
                   <div class="read_bt_1"><a href="#">Read More</a></div>
                </div>
             </div>
