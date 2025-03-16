@@ -30,6 +30,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+<<<<<<< HEAD
    <style>
       .banner_taital {
     font-size: 40px;
@@ -48,10 +49,14 @@
 
 
    </style>
+=======
+
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
    </head>
    <body>
       <div class="header_section">
          <div class="container">
+<<<<<<< HEAD
           
 
                      
@@ -98,6 +103,43 @@
                      </div>
                   </nav>
                   
+=======
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+               <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav">
+
+                     <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="icecream.html">Kem ly</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="icecream.html">Kem ốc quế</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="icecream.html">Kem que</a>
+                     </li>
+                     
+                  </ul>
+                  <li>
+                     <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                           <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                     </form>
+                  </li>
+                  <ul class="navbar-nav">
+
+                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color: pink; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
+               
+
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                   </form>
                </div>
             </nav>
@@ -111,11 +153,17 @@
                      <div class="carousel-item active">
                         <div class="row">
                            <div class="col-sm-6">
+<<<<<<< HEAD
                               <h2 class="banner_taital" style="font-family: 'Poppins', sans-serif;">Tiệm cây kem</h2>
                               <p class="banner_text">Mát lạnh từng muỗng, ngọt ngào từng khoảnh khắc</p>
                               <p class="banner_text">Hương vị tuyệt vời, yêu ngay từ lần đầu tiên</p>
                               <p class="banner_text">Ngọt mát tự nhiên – Đánh thức vị giác</p>
                               <div class="started_text"><a href="#">Mua Hàng ngay</a></div>
+=======
+                              <h1 class="banner_taital">Ice Cream</h1>
+                              <p class="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem</p>
+                              <div class="started_text"><a href="#">Order Now</a></div>
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                            </div>
                            <div class="col-sm-6">
                               <div class="banner_img"><img src="images/banner-img.png"></div>
@@ -131,7 +179,11 @@
          <div class="container">
             <div class="row">
                <div class="col-md-12">
+<<<<<<< HEAD
                   <h1 class="services_taital">Các loại kem của tiệm</h1>
+=======
+                  <h1 class="services_taital">Our Ice Cream Services</h1>
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                </div>
             </div>
             <div class="services_section_2">
@@ -140,7 +192,11 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><i class="fa-solid fa-bowl-food" style="font-size: 190%; color: #f7a8c9;"></i></span>Kem ly</h5>
+<<<<<<< HEAD
                         <p class="lorem_text"> Ngọt Mát Từng Thìa - Lớp kem mịn màng, hòa quyện hấp dẫn! </p>
+=======
+                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                      </div>
                      </a>
                   </div>
@@ -148,7 +204,11 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-2.png"></span>Kem ốc quế</h5>
+<<<<<<< HEAD
                         <p class="lorem_text"> Giòn Rụm, Mát Lạnh - Lớp vỏ quế giòn tan, ôm trọn vị kem béo mịn.</p>
+=======
+                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                      </div>
                      </a>
                   </div>
@@ -156,7 +216,11 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-1.png"></span>Kem que</h5>
+<<<<<<< HEAD
                         <p class="lorem_text">Đơn Giản - Cảm giác sảng khoái với từng que kem mát lạnh.</p>
+=======
+                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                      </div>
                      </a>
                   </div>
@@ -174,8 +238,13 @@
                   <div class="about_img"><img src="images/about-img.png"></div>
                </div>
                <div class="col-md-6">
+<<<<<<< HEAD
                   <h1 class="about_taital">Các hương vị kem</h1>
                   <p class="about_text">Cửa hàng chúng tôi cung cấp 3 hương vị kem : Dâu, Sô-cô-la, Vani</p>
+=======
+                  <h1 class="about_taital">About Icecream</h1>
+                  <p class="about_text">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore euconsectetur adipiscing esequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                   <div class="read_bt_1"><a href="#">Read More</a></div>
                </div>
             </div>
@@ -289,7 +358,11 @@
                </div>
             </div>
          </div>
+<<<<<<< HEAD
       
+=======
+      </div>
+>>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
       <!-- contact section end -->
       <!-- copyright section start -->
       <div class="copyright_section">
