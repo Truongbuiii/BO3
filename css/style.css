@@ -236,6 +236,20 @@ button {
 
 /* header section start */
 
+.banner_taital {
+    font-size: 40px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.95);
+    /* Màu sắc nổi bật */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+ }
+
+ .banner_text {
+    font-size: 18px;
+    color: black;
+    font-weight: 500;
+    margin-bottom: 8px;
+ }
 .header_section {
     width: 100%;
     float: left;
@@ -399,6 +413,8 @@ button {
     font-size: 60px;
     color: #222222;
     font-weight: bold;
+   white-space: nowrap;
+    
 }
 
 .banner_text {
@@ -406,6 +422,7 @@ button {
     font-size: 16px;
     color: #222222;
     margin: 0px;
+    text-align: justify;
 }
 
 .started_text {
@@ -497,6 +514,7 @@ button {
     font-size: 16px;
     color: #373736;
     margin-left: 0px;
+    text-align: justify;
 }
 
 .about_img {
@@ -882,13 +900,16 @@ button {
     width: 100%;
     float: left;
     background-color: #262526;
-    height: auto;
-    padding: 90px 0px;
+    height:auto;
+    margin-top: 10%;
+    padding:5%;
+
 }
 
 .contact_main {
     width: 100%;
     float: left;
+    
 }
 
 .contact_taital {
