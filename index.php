@@ -190,7 +190,7 @@
                         echo '<div class="col-md-4">
                                 <div class="cream_box">
                                     <div class="cream_img"><img src="images/' . $row["hinhAnh"] . '"></div>
-                                    <div class="price_text">' . number_format($row["gia"], 2) . 'đ</div>
+                                    <div class="price_text">' . number_format($row["gia"]) . 'đ</div>
                                     <h6 class="strawberry_text">' . $row["tenSanPham"] . '</h6>
                                     <div class="cart_bt"><a href="#">Thêm vào giỏ hàng</a></div>
                                 </div>
