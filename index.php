@@ -30,80 +30,26 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<<<<<<< HEAD
-   <style>
-      .banner_taital {
-    font-size: 40px;
-    font-weight: bold;
-    color:rgba(0, 0, 0, 0.95); /* Màu sắc nổi bật */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
+<style>
+   .banner_taital {
+      font-size: 40px;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.95);
+      /* Màu sắc nổi bật */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+   }
 
-.banner_text {
-    font-size: 18px;
-    color:black;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
-
-
-   </style>
-=======
-
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
+   .banner_text {
+      font-size: 18px;
+      color: black;
+      font-weight: 500;
+      margin-bottom: 8px;
+   }
+</style>
    </head>
    <body>
       <div class="header_section">
          <div class="container">
-<<<<<<< HEAD
-          
-
-                     
-                  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                     <a class="navbar-brand"href="index.php"><img src="images/logo.png"></a>
-                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                        <span class="navbar-toggler-icon"></span>
-                     </button>
-                  
-                     <div class="collapse navbar-collapse d-flex justify-content-between align-items-center" id="navbarNav">
-                        <ul class="navbar-nav">
-                           <li class="nav-item active">
-                              <a class="nav-link" href="index.php">Trang chủ</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="includes/kemLy.php">Kem ly</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="includes/kemOcQue.php">Kem ốc quế</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="includes/kemQue.php">Kem que</a>
-                           </li>
-                        </ul>
-                  
-                        <!-- Thanh tìm kiếm -->
-                        <form class="form-inline d-flex align-items-center">
-                           <input class="form-control mr-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                           <button class="btn btn-outline-success" type="submit">
-                              <i class="fa-solid fa-magnifying-glass"></i>
-                           </button>
-                        </form>
-                  
-                        <!-- Icon tài khoản, giỏ hàng -->
-                        <div class="d-flex align-items-center">
-                           <a href="#" class="mr-3">
-                              <i class="fa-solid fa-user-large" style="color: pink; font-size: 200%;"></i>
-                           </a>
-                           <a href="includes/trangGioHang.php" class="position-relative">
-                              <i class="bi bi-cart-fill custom-icon" style="font-size: 200%;"></i>
-                              <span id="cart-count" class="badge badge-pill badge-danger position-absolute" style="top: -5px; right: -10px;">0</span>
-                           </a>
-                        </div>
-                     </div>
-                  </nav>
-                  
-=======
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,10 +82,9 @@
                   </li>
                   <ul class="navbar-nav">
 
-                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color: pink; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
+                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
                
 
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                   </form>
                </div>
             </nav>
@@ -153,17 +98,12 @@
                      <div class="carousel-item active">
                         <div class="row">
                            <div class="col-sm-6">
-<<<<<<< HEAD
-                              <h2 class="banner_taital" style="font-family: 'Poppins', sans-serif;">Tiệm cây kem</h2>
-                              <p class="banner_text">Mát lạnh từng muỗng, ngọt ngào từng khoảnh khắc</p>
-                              <p class="banner_text">Hương vị tuyệt vời, yêu ngay từ lần đầu tiên</p>
-                              <p class="banner_text">Ngọt mát tự nhiên – Đánh thức vị giác</p>
-                              <div class="started_text"><a href="#">Mua Hàng ngay</a></div>
-=======
-                              <h1 class="banner_taital">Ice Cream</h1>
-                              <p class="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem</p>
-                              <div class="started_text"><a href="#">Order Now</a></div>
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
+                           <h2 class="banner_taital" style="font-family: 'Poppins', sans-serif;">Tiệm cây kem</h2>
+                           <p class="banner_text">Mát lạnh từng muỗng, ngọt ngào từng khoảnh khắc</p>
+                           <p class="banner_text">Hương vị tuyệt vời, yêu ngay từ lần đầu tiên</p>
+                           <p class="banner_text">Ngọt mát tự nhiên – Đánh thức vị giác</p>
+                           <div class="started_text"><a href="#">Mua Hàng ngay</a></div>
+
                            </div>
                            <div class="col-sm-6">
                               <div class="banner_img"><img src="images/banner-img.png"></div>
@@ -179,11 +119,7 @@
          <div class="container">
             <div class="row">
                <div class="col-md-12">
-<<<<<<< HEAD
-                  <h1 class="services_taital">Các loại kem của tiệm</h1>
-=======
                   <h1 class="services_taital">Our Ice Cream Services</h1>
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                </div>
             </div>
             <div class="services_section_2">
@@ -192,11 +128,7 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><i class="fa-solid fa-bowl-food" style="font-size: 190%; color: #f7a8c9;"></i></span>Kem ly</h5>
-<<<<<<< HEAD
-                        <p class="lorem_text"> Ngọt Mát Từng Thìa - Lớp kem mịn màng, hòa quyện hấp dẫn! </p>
-=======
-                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
+                        <p class="lorem_text">Ngọt ngào từng lớp, mát lạnh từng thìa!</p>
                      </div>
                      </a>
                   </div>
@@ -204,11 +136,7 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-2.png"></span>Kem ốc quế</h5>
-<<<<<<< HEAD
-                        <p class="lorem_text"> Giòn Rụm, Mát Lạnh - Lớp vỏ quế giòn tan, ôm trọn vị kem béo mịn.</p>
-=======
-                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
+                        <p class="lorem_text">Ốc quế giòn tan – hoàn hảo từng miếng!</p>
                      </div>
                      </a>
                   </div>
@@ -216,11 +144,7 @@
                      <a href="icecream.html">
                      <div class="services_box">
                         <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-1.png"></span>Kem que</h5>
-<<<<<<< HEAD
-                        <p class="lorem_text">Đơn Giản - Cảm giác sảng khoái với từng que kem mát lạnh.</p>
-=======
-                        <p class="lorem_text">commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fat </p>
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
+                        <p class="lorem_text">Kem que mát lạnh trong từng cú chạm!</p>
                      </div>
                      </a>
                   </div>
@@ -238,140 +162,141 @@
                   <div class="about_img"><img src="images/about-img.png"></div>
                </div>
                <div class="col-md-6">
-<<<<<<< HEAD
-                  <h1 class="about_taital">Các hương vị kem</h1>
-                  <p class="about_text">Cửa hàng chúng tôi cung cấp 3 hương vị kem : Dâu, Sô-cô-la, Vani</p>
-=======
                   <h1 class="about_taital">About Icecream</h1>
                   <p class="about_text">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore euconsectetur adipiscing esequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
                   <div class="read_bt_1"><a href="#">Read More</a></div>
                </div>
             </div>
          </div>
       </div>
 
-      <div class="cream_section layout_padding">
+     <?php require("admin\quanTri\db\connect.php"); ?>
+
+<div class="cream_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="cream_taital">Our Featured Ice Cream</h1>
+                <p class="cream_text">tempor incididunt ut labore et dolore magna aliqua</p>
+            </div>
+        </div>
+        <div class="cream_section_2">
+            <div class="row">
+                <?php
+                $sql = "SELECT * FROM SanPham"; // Truy vấn tất cả sản phẩm
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-md-4">
+                                <div class="cream_box">
+                                    <div class="cream_img"><img src="images/' . $row["hinhAnh"] . '"></div>
+                                    <div class="price_text">' . number_format($row["gia"], 2) . 'đ</div>
+                                    <h6 class="strawberry_text">' . $row["tenSanPham"] . '</h6>
+                                    <div class="cart_bt"><a href="#">Thêm vào giỏ hàng</a></div>
+                                </div>
+                              </div>';
+                    }
+                } else {
+                    echo "<p>Không có sản phẩm nào.</p>";
+                }
+                ?>
+            </div>
+        </div>
+        <div class="seemore_bt"><a href="#">See More</a></div>
+    </div>
+</div>
+
+<?php $conn->close(); ?>
+
+
+      <!-- testimonial section start -->
+      <div class="testimonial_section layout_padding">
          <div class="container">
             <div class="row">
                <div class="col-md-12">
-                  <h1 class="cream_taital">Our Featured Ice Cream</h1>
-                  <p class="cream_text">tempor incididunt ut labore et dolore magna aliqua</p>
+                  <h1 class="testimonial_taital">Testimonial</h1>
                </div>
             </div>
-            <div class="cream_section_2">
+            <div class="testimonial_section_2">
                <div class="row">
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="images/img-1.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="images/img-2.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="images/img-1.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="cream_section_2">
-               <div class="row">
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="images/img-3.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="images/img-4.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="images/img-5.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
+                  <div class="col-md-12">
+                     <div class="testimonial_box">
+                        <div id="main_slider" class="carousel slide" data-ride="carousel">
+                           <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
+                                 <h4 class="client_name">Marri Fen</h4>
+                                 <div class="client_img"><img src="images/client-img.png"></div>
+                              </div>
+                              <div class="carousel-item">
+                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
+                                 <h4 class="client_name">Marri Fen</h4>
+                                 <div class="client_img"><img src="images/client-img.png"></div>
+                              </div>
+                              <div class="carousel-item">
+                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
+                                 <h4 class="client_name">Marri Fen</h4>
+                                 <div class="client_img"><img src="images/client-img.png"></div>
+                              </div>
+                           </div>
+                           <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+                           <i class="fa fa-angle-left"></i>
+                           </a>
+                           <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+                           <i class="fa fa-angle-right"></i>
+                           </a>
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div class="seemore_bt"><a href="#">See More</a></div>
          </div>
       </div>
-
-     
+      <!-- testimonial section end -->
       <!-- contact section start -->
       <div class="contact_section layout_padding">
          <div class="container">
-            <div class="row">
-               <div class="col-md-4">
-                  </div>
-               </div>
-               <div class="col-md-8">
-                  <div class="location_text">
-                     <ul>
-                        <li>
-                           <a href="#">
-                           <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>1234 Cây kem ,Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.</a>
-                        </li>
-                        <li>
-                           <a href="#">
-                           <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>Call : +01 23456789
-                           </a>
-                        </li>
-                        <li>
-                           <a href="#">
-                           <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>Email : BeYeukem1234@gmail.com
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-                  </div>
-                  <div class="footer_social_icon">
-                     <ul>
-                        <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                     </ul>
-                  </div>
+             <div class="row">
+                 <div class="col-md-8">
+                     <div class="location_text">
+                         <ul>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                     1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                     Call : +01 23456789
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                     Email : BeYeukem1234@gmail.com
+                                 </a>
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+             <div class="footer_social_icon">
+                 <ul>
+                     <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                 </ul>
+             </div>
+             <div class="copyright_section">
+               <div class="container">
+                  <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
                </div>
             </div>
          </div>
-<<<<<<< HEAD
-      
-=======
-      </div>
->>>>>>> aef1d82c76eb5e70b7780d51bb284c0d07d4f706
-      <!-- contact section end -->
-      <!-- copyright section start -->
-      <div class="copyright_section">
-         <div class="container">
-            <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
-         </div>
-      </div>
-      <!-- copyright section end -->
-      <!-- Javascript files-->
+     </div>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
