@@ -82,7 +82,10 @@
                   </li>
                   <ul class="navbar-nav">
 
-                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
+                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a>
+                     <a href="includes/trangGioHang.php">
+                        <i class="bi bi-bag-heart-fill custom-icon"></i>
+                     </a>
                
 
                   </form>
