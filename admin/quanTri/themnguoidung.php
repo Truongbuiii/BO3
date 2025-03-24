@@ -23,32 +23,20 @@
                         <form class="user" onsubmit="return validateForm();">
                             <!-- Mã khách hàng -->
                             <div class="form-group">
+                        <label for="maKhachHang">Mã khách hàng</label>
                                 <input type="text" class="form-control form-control-user" id="exampleInputMaKH" name="maKH"
-                                    placeholder="Mã khách hàng">
+                                    placeholder="Hãy nhập khách hàng">
                             </div>
                             <!-- Họ và Tên -->
                             <div class="form-group">
+                                <label for="tenDangNhap">Tên đăng nhập (Email)</label>
                                 <input type="text" class="form-control form-control-user" id="exampleInputHovaten" name="hoTen"
-                                    placeholder="Họ và Tên">
+                                    placeholder="Hãy nhập tên đăng nhập (Email)">
                             </div>
-                            <!-- Ngày sinh và Giới tính -->
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="date" class="form-control form-control-user" id="exampleNgaySinh" name="ngaySinh"
-                                        placeholder="Ngày Sinh">
-                                </div>
-                                <!-- Giới tính -->
-                                <div class="col-sm-6">
-                                    <select class="form-control" id="gender" name="gioiTinh">
-                                        <option value="">Chọn giới tính</option>
-                                        <option value="Nam">Nam</option>
-                                        <option value="Nữ">Nữ</option>
-                                        <option value="Khác">Khác</option>
-                                    </select>
-                                </div>
-                            </div>
+                    
                             <!-- Địa chỉ -->
                             <div class="form-group">
+                                <label for="Địa chỉ"></label>
                                 <input type="text" class="form-control form-control-user" id="exampleDiaChi" name="diaChi"
                                     placeholder="Địa chỉ">
                             </div>
@@ -76,10 +64,14 @@
                             <!-- Chức năng -->
                             <div class="form-group">
                                 <select class="form-control" id="chucNang" name="chucNang">
-                                    <option value="">Chọn chức năng</option>
-                                    <option value="admin">Quản trị viên</option>
-                                    <option value="user">Người dùng</option>
+                                    <option value="">Chọn vai trò</option>
+                                    <option value="admin">Quản trị viên (Admin)</option>
+                                    <option value="user">Người dùng (User)</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <lebel></lebel>
                             </div>
                             <!-- Nút đăng ký -->
                             <button type="submit" class="btn btn-primary btn-user btn-block">

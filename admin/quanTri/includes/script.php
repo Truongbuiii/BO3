@@ -32,29 +32,23 @@
 }
 </script>
 
+<script>
+    function previewImage(event) {
+    var input = event.target;
+    var reader = new FileReader();
 
+    reader.onload = function () {
+        var imagePreview = document.getElementById('imagePreview');
+        imagePreview.src = reader.result;
+        imagePreview.style.display = "block"; // Hiển thị ảnh khi đã chọn file
+    };
 
-<script>// js để có thể hiện ô đường kính khi nhấp chọn đồng hồ treo tường ở themsanpham
+    if (input.files.length > 0) {
+        reader.readAsDataURL(input.files[0]);
+        document.getElementById("file-name").textContent = input.files[0].name;
+    } else {
+        document.getElementById("file-name").textContent = "Chưa có tệp nào";
+    }
+}
 
-   function coDuongKinh(){
-      var danhmuc = document.getElementById("danhmuc").value;
-      var coduongkinh = document.getElementById("coduongkinh");
-
-      if(danhmuc == "3"){
-     diameterGroup.style.display="block";
-      }
-      else{
-         diameterGroup.style.display = "none";
-          document.getElementById("duongkinh").value = "";
-      }
-   }
-     $(document).ready(function() {
-      console.log("jQuery is working");
-      $('.collapse').on('show.bs.collapse', function () {
-          console.log("Mở menu: " + $(this).attr('id'));
-      });
-      $('.collapse').on('hide.bs.collapse', function () {
-          console.log("Đóng menu: " + $(this).attr('id'));
-      });
-  });
 </script>

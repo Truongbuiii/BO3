@@ -28,26 +28,26 @@ $result = mysqli_query($conn, $sql);
                         <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Loại kem</th>
-                        <th>Vị kem</th>
+                        <th>Hương Vị kem</th>
                         <th>Tình trạng</th>
-                        <th>Giá</th>
+                        <th>Đơn giá</th>
                         <th>Hình ảnh</th>
-                        <th>Số lượng hàng còn</th>
-                        <th>Số lượng đã bán</th>
+                        <th>Diển giải</th>
+                        <th>Trạng thái</th>
                         <th>Chức năng</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Mã sản phẩm</th>
+                      <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Loại kem</th>
-                        <th>Vị kem</th>
+                        <th>Hương Vị kem</th>
                         <th>Tình trạng</th>
-                        <th>Giá</th>
+                        <th>Đơn giá</th>
                         <th>Hình ảnh</th>
-                        <th>Số lượng hàng còn</th>
-                        <th>Số lượng đã bán</th>
+                        <th>Diển giải</th>
+                        <th>Trạng thái</th>
                         <th>Chức năng</th>
                     </tr>
                 </tfoot>
