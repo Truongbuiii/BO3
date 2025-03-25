@@ -21,49 +21,77 @@
                             <h1 class="h4 text-gray-900 mb-4">Tạo tài khoản!</h1>
                         </div>
                         <form class="user" onsubmit="return validateForm();">
-                            <!-- Mã khách hàng -->
+                            <!-- Mã người dùng -->
                             <div class="form-group">
-                        <label for="maKhachHang">Mã khách hàng</label>
-                                <input type="text" class="form-control form-control-user" id="exampleInputMaKH" name="maKH"
-                                    placeholder="Hãy nhập khách hàng">
-                            </div>
-                            <!-- Họ và Tên -->
+                        
+                            <!-- Tên nguoidung-->
                             <div class="form-group">
-                                <label for="tenDangNhap">Tên đăng nhập (Email)</label>
-                                <input type="text" class="form-control form-control-user" id="exampleInputHovaten" name="hoTen"
-                                    placeholder="Hãy nhập tên đăng nhập (Email)">
+                                <label for="tenDangNhap">Tên đăng nhập </label>
+                                <input type="text" class="form-control form-control-user" id="tenDangNhap" name="tenDangNhap"
+                                    >
+                            </div>  
+                            <!-- Ho va ten -->
+                             <div class="form-group">
+                                <label for="hoVaTen">Họ và tên</label>
+                             <input type="text" class="form-control form-control-user" id ="hoVaTen" name="hoVaTen">
                             </div>
                     
                             <!-- Địa chỉ -->
-                            <div class="form-group">
-                                <label for="Địa chỉ"></label>
-                                <input type="text" class="form-control form-control-user" id="exampleDiaChi" name="diaChi"
-                                    placeholder="Địa chỉ">
+                          <div class="form-group">
+                                <label for="tinh">Tỉnh/Thành phố</label>
+                                <select class="form-control" id="tinh" onchange="loadHuyen()">
+                                    <option value="">Chọn Tỉnh/Thành phố</option>
+                                </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="huyen">Quận/Huyện</label>
+                                <select class="form-control" id="huyen" onchange="loadXa()" disabled>
+                                    <option value="">Chọn Quận/Huyện</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="xa">Phường/Xã</label>
+                                <select class="form-control" id="xa" disabled>
+                                    <option value="">Chọn Phường/Xã</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="diaChi">Địa chỉ cụ thể</label>
+                                <input type="text" class="form-control" id="diaChi" >
+                            </div>
+
                             <!-- Số điện thoại -->
                             <div class="form-group">
-                                <input type="number" class="form-control form-control-user" id="exampleSDT" name="soDienThoai"
-                                    placeholder="Số điện thoại">
+                                <label class="soDienThoai">Số điện thoại</label>
+                                <input type="number" class="form-control form-control-user" id="soDienThoai" name="soDienThoai"
+                                   >
                             </div>
                             <!-- Email -->
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="exampleInputEmail" name="email"
-                                    placeholder="Email">
+                                <label class="email">Email</label>
+                                <input type="email" class="form-control form-control-user" id="email" name="email"
+                                   >
                             </div>
                             <!-- Mật khẩu và Nhập lại mật khẩu -->
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="matKhau"
-                                        placeholder="Mật khẩu">
+                                    <label class="matKhau">Mật khẩu</label>
+                                    <input type="password" class="form-control form-control-user" id="password1" name="matKhau"
+                                       >
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" name="nhapLaiMatKhau"
-                                        placeholder="Nhập lại mật khẩu">
+                                    <label class="matKhau2">Nhập lại mật khẩu</label>
+                                    <input type="password" class="form-control form-control-user" id="password2" name="nhapLaiMatKhau"
+                                      >
                                 </div>
                             </div>
                             <!-- Chức năng -->
                             <div class="form-group">
-                                <select class="form-control" id="chucNang" name="chucNang">
+                                <label class="vaiTro">Vai trò</label>
+                                <select class="form-control" id="vaiTro" name="vaiTro">
                                     <option value="">Chọn vai trò</option>
                                     <option value="admin">Quản trị viên (Admin)</option>
                                     <option value="user">Người dùng (User)</option>
@@ -78,9 +106,6 @@
                                 Đăng ký tài khoản
                             </button>
                         </form>
-                        <div class="text-center">
-                            <a class="small" href="login.html">Bạn đã có tài khoản? Đăng nhập!</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -88,53 +113,6 @@
     </div>
 </div>
 
-<!-- JavaScript kiểm tra form -->
-<script>
-    function validateForm() {
-        const maKH = document.getElementById("exampleInputMaKH").value.trim();
-        const hoTen = document.getElementById("exampleInputHovaten").value.trim();
-        const ngaySinh = document.getElementById("exampleNgaySinh").value.trim();
-        const gioiTinh = document.getElementById("gender").value.trim();
-        const diaChi = document.getElementById("exampleDiaChi").value.trim();
-        const soDienThoai = document.getElementById("exampleSDT").value.trim();
-        const email = document.getElementById("exampleInputEmail").value.trim();
-        const matKhau = document.getElementById("exampleInputPassword").value;
-        const nhapLaiMatKhau = document.getElementById("exampleRepeatPassword").value;
-        const chucNang = document.getElementById("chucNang").value.trim();
-
-        // Biểu thức chính quy kiểm tra số điện thoại (bắt đầu bằng 0, độ dài 10-11 số)
-        const phoneRegex = /^0[0-9]{9,10}$/;
-        // Biểu thức chính quy kiểm tra email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        // Kiểm tra nhập đầy đủ
-        if (!maKH || !hoTen || !ngaySinh || !gioiTinh || !diaChi || !soDienThoai || !email || !matKhau || !nhapLaiMatKhau || !chucNang) {
-            alert("Vui lòng nhập đầy đủ thông tin!");
-            return false;
-        }
-
-        // Kiểm tra định dạng số điện thoại
-        if (!phoneRegex.test(soDienThoai)) {
-            alert("Số điện thoại không hợp lệ! Số điện thoại phải bắt đầu bằng số 0 và có độ dài 10-11 chữ số.");
-            return false;
-        }
-
-        // Kiểm tra định dạng email
-        if (!emailRegex.test(email)) {
-            alert("Địa chỉ email không hợp lệ!");
-            return false;
-        }
-
-        // Kiểm tra khớp mật khẩu
-        if (matKhau !== nhapLaiMatKhau) {
-            alert("Mật khẩu và nhập lại mật khẩu không khớp!");
-            return false;
-        }
-
-        alert("Đăng ký thành công!");
-        return true;
-    }
-</script>
 
 <?php 
     require('includes/footer.php'); 
