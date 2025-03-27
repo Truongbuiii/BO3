@@ -3,8 +3,8 @@
 <style>
     .custom-btn {
     background-color: #ffebf0; /* Màu hồng nhạt nhẹ nhàng */
-    color: #d63384; /* Màu chữ hồng đậm */
-    border: 2px solidrgb(252, 141, 196); /* Viền hồng đậm */
+    color:rgba(241, 56, 56, 0.84); /* Màu chữ hồng đậm */
+    border: 2px solid rgba(241, 56, 56, 0.84); /* Viền hồng đậm */
     padding: 8px 15px;
     border-radius: 12px; /* Bo góc mềm mại */
     font-weight: bold;
@@ -13,10 +13,10 @@
 }
 
 .custom-btn:hover {
-    background-color: #d63384; /* Màu hồng đậm khi hover */
+    background-color: rgba(241, 56, 56, 0.84); /* Màu hồng đậm khi hover */
     color: white; /* Màu chữ trắng */
     border-color: #ffebf0; /* Viền đổi sang hồng nhạt */
-    box-shadow: 0 4px 10px rgba(214, 51, 132, 0.4); /* Hiệu ứng đổ bóng */
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.4); /* Hiệu ứng đổ bóng */
 }
 
 </style>
@@ -122,9 +122,9 @@ $result = mysqli_query($conn, $sql);
     </div>
 </div>
 
-<!-- Edit Modal -->
+<!-- Edit Modal --><!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-xl"> <!-- Mở rộng modal -->
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editModalLabel">Chỉnh sửa sản phẩm</h5>
@@ -135,55 +135,66 @@ $result = mysqli_query($conn, $sql);
       <div class="modal-body">
         <form id="editForm" method="POST" action="editProduct.php">
           <input type="hidden" id="edit-id" name="id">
-          
-          <div class="form-group">
-            <label for="edit-ten">Tên sản phẩm</label>
-            <input type="text" class="form-control" id="edit-ten" name="tenSanPham" required>
-          </div>
 
-          <div class="form-group">
-            <label for="edit-loai">Loại kem</label>
-            <select class="form-control" id="edit-loai" name="loai">
-              <?php
-              require('./db/connect.php');
-              $loaiQuery = "SELECT id, tenLoaiKem FROM LoaiKem";
-              $loaiResult = mysqli_query($conn, $loaiQuery);
-              while ($loai = mysqli_fetch_assoc($loaiResult)) {
-                echo "<option value='{$loai['id']}'>{$loai['tenLoaiKem']}</option>";
-              }
-              ?>
-            </select>
-          </div>
+          <!-- Bắt đầu chia thành 2 cột -->
+          <div class="row">
+            <!-- Cột 1 -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="edit-ten">Tên sản phẩm</label>
+                <input type="text" class="form-control" id="edit-ten" name="tenSanPham" required>
+              </div>
 
-          <div class="form-group">
-            <label for="edit-huongvi">Hương vị</label>
-            <input type="text" class="form-control" id="edit-huongvi" name="huongvi" required>
-          </div>
+              <div class="form-group">
+                <label for="edit-loai">Loại kem</label>
+                <select class="form-control" id="edit-loai" name="loai">
+                  <?php
+                  require('./db/connect.php');
+                  $loaiQuery = "SELECT id, tenLoaiKem FROM LoaiKem";
+                  $loaiResult = mysqli_query($conn, $loaiQuery);
+                  while ($loai = mysqli_fetch_assoc($loaiResult)) {
+                    echo "<option value='{$loai['id']}'>{$loai['tenLoaiKem']}</option>";
+                  }
+                  ?>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label for="edit-tinhtrang">Tình trạng</label>
-            <select class="form-control" id="edit-tinhtrang" name="tinhtrang">
-              <option value="Còn hàng">Còn hàng</option>
-              <option value="Hết hàng">Hết hàng</option>
-            </select>
-          </div>
+              <div class="form-group">
+                <label for="edit-huongvi">Hương vị</label>
+                <input type="text" class="form-control" id="edit-huongvi" name="huongvi" required>
+              </div>
+            </div>
 
-          <div class="form-group">
-            <label for="edit-gia">Giá (VND)</label>
-            <input type="number" class="form-control" id="edit-gia" name="gia" required>
-          </div>
+            <!-- Cột 2 -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="edit-tinhtrang">Tình trạng</label>
+                <select class="form-control" id="edit-tinhtrang" name="tinhtrang">
+                  <option value="Còn hàng">Còn hàng</option>
+                  <option value="Hết hàng">Hết hàng</option>
+                </select>
+              </div>
 
-          <div class="form-group">
-            <label for="edit-hinh">Hình ảnh</label>
-            <img id="edit-hinh-preview" src="" width="100" class="mb-2">
-          </div>
+              <div class="form-group">
+                <label for="edit-gia">Giá (VND)</label>
+                <input type="number" class="form-control" id="edit-gia" name="gia" required>
+              </div>
 
-          <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+              <div class="form-group">
+                <label for="edit-hinh">Hình ảnh</label>
+                <img id="edit-hinh-preview" src="" width="200" class="mb-4">
+              </div>
+            </div>
+          </div>
+          <!-- Kết thúc chia cột -->
+
+          <button type="submit" class="btn btn-primary mt-3">Lưu thay đổi</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 
 
 <!-- Delete Modal -->
