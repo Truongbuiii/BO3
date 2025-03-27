@@ -638,6 +638,8 @@ button {
     bottom: 20px;
     right: 160px;
     border-radius: 4px;
+    display:none;
+    
 }
 
 .cream_text {
@@ -646,6 +648,7 @@ button {
     font-size: 16px;
     color: #373736;
     margin: 0px;
+
 }
 
 .cream_section_2 {
@@ -673,6 +676,25 @@ button {
     padding-bottom: 20px;
     min-height: 210px;
 }
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+ }
+ 
+ .form-group label {
+    width: 100px; /* Điều chỉnh độ rộng label */
+ }
+ 
+ .form-group input {
+    flex: 1; /* Input mở rộng hết phần còn lại */
+ }
+
+
+
+ 
 
 .price_text {
     width: 80px;
