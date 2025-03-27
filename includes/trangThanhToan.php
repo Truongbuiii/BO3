@@ -130,7 +130,7 @@
                 <input type="text" id="phone" required>
             </div>
             <div class="form-group">
-                <label for="city">Tỉnh/Thành phố <span class="required">*</span></label>
+                <label for="city">Tỉnh/Thành phố <span class="required"></span></label>
                 <input type="text" id="city" disabled>
             </div>
             <div class="form-group">
