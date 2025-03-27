@@ -101,7 +101,7 @@
     </nav>
 </div>
 
-            <!-- banner section start --> 
+            <!-- banner start --> 
             <div class="banner_section layout_padding">
                 <div class="container">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
