@@ -295,12 +295,28 @@ button {
 
 .navbar-light .navbar-nav .nav-link:focus,
 .navbar-light .navbar-nav .nav-link:hover {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     color:#fc95c4;
+=======
+    color:pink;
+>>>>>>> Stashed changes
+=======
+    color:pink;
+>>>>>>> Stashed changes
 }
 
 /* Đổi màu viền và placeholder của ô tìm kiếm */
 .form-control {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     border-color: #fc95c4;
+=======
+    border-color: pink;
+>>>>>>> Stashed changes
+=======
+    border-color: pink;
+>>>>>>> Stashed changes
     color: rgb(12, 12, 12);
 }
 
@@ -311,13 +327,29 @@ button {
 
 /* Đổi màu nền, viền và icon của nút tìm kiếm */
 .btn-outline-success {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     border-color:#fc95c4;
+=======
+    border-color: pink;
+>>>>>>> Stashed changes
+=======
+    border-color: pink;
+>>>>>>> Stashed changes
     color: rgb(27, 27, 27);
 }
 
 /* Khi di chuột vào, đổi màu nền nút và đổi màu icon sang đen */
 .btn-outline-success:hover {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     background-color: #fc95c4;
+=======
+    background-color: pink;
+>>>>>>> Stashed changes
+=======
+    background-color: pink;
+>>>>>>> Stashed changes
     color: rgb(43, 42, 42);
 }
 
@@ -327,7 +359,15 @@ button {
 
 /* Đổi màu mặc định của icon kính lúp */
 .fa-magnifying-glass {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     color:#fc95c4 !important;
+=======
+    color: pink !important;
+>>>>>>> Stashed changes
+=======
+    color: pink !important;
+>>>>>>> Stashed changes
 }
 
 

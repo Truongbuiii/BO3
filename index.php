@@ -51,7 +51,7 @@
       <div class="header_section">
          <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a>
+               <a class="navbar-brand"href="index.php"><img src="images/logo.png"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
                </button>
@@ -59,16 +59,16 @@
                   <ul class="navbar-nav">
 
                      <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Trang chủ</a>
+                        <a class="nav-link" href="/index.php">Trang chủ</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="icecream.html">Kem ly</a>
+                        <a class="nav-link" href="includes/kemLy.php">Kem ly</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="icecream.html">Kem ốc quế</a>
+                        <a class="nav-link" href="includes/kemOcQue.php">Kem ốc quế</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="icecream.html">Kem que</a>
+                        <a class="nav-link" href="includes/kemQue.php">Kem que</a>
                      </li>
                      
                   </ul>
@@ -82,10 +82,7 @@
                   </li>
                   <ul class="navbar-nav">
 
-                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a>
-                     <a href="includes/trangGioHang.php">
-                        <i class="bi bi-bag-heart-fill custom-icon"></i>
-                     </a>
+                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
                
 
                   </form>
@@ -101,11 +98,11 @@
                      <div class="carousel-item active">
                         <div class="row">
                            <div class="col-sm-6">
-                           <h2 class="banner_taital" style="font-family: 'Poppins', sans-serif;">Tiệm cây kem</h2>
-                           <p class="banner_text">Mát lạnh từng muỗng, ngọt ngào từng khoảnh khắc</p>
-                           <p class="banner_text">Hương vị tuyệt vời, yêu ngay từ lần đầu tiên</p>
-                           <p class="banner_text">Ngọt mát tự nhiên – Đánh thức vị giác</p>
-                           <div class="started_text"><a href="#">Mua Hàng ngay</a></div>
+                              <h1 class="banner_taital">Kem Tươi</h1>
+                           
+                              <p class="banner_text">Tận hưởng từng muỗng kem mát lạnh, mềm mịn tan chảy trên đầu lưỡi. Được làm từ những nguyên liệu tươi ngon, kem mang đến hương vị ngọt ngào và sảng khoái, khiến mọi khoảnh khắc thưởng thức trở nên đặc biệt.</p>
+
+                           <div class="started_text"><a href="#">Mua ngay</a></div>
 
                            </div>
                            <div class="col-sm-6">
@@ -122,7 +119,7 @@
          <div class="container">
             <div class="row">
                <div class="col-md-12">
-                  <h1 class="services_taital">Our Ice Cream Services</h1>
+                  <h1 class="services_taital">Phân Loại Kem</h1>
                </div>
             </div>
             <div class="services_section_2">
@@ -165,97 +162,53 @@
                   <div class="about_img"><img src="images/about-img.png"></div>
                </div>
                <div class="col-md-6">
-                  <h1 class="about_taital">About Icecream</h1>
-                  <p class="about_text">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore euconsectetur adipiscing esequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-                  <div class="read_bt_1"><a href="#">Read More</a></div>
+                  <h1 class="about_taital">Giới Thiệu Kem</h1>
+                  <p class="about_text">Kem – món tráng miệng mát lạnh và thơm ngon, là sự kết hợp hoàn hảo giữa sữa, đường và các hương vị tự nhiên. Với kết cấu mềm mịn tan chảy ngay trên đầu lưỡi, kem mang đến cảm giác sảng khoái và ngọt ngào khó cưỡng.
+
+                     Từ những hương vị cổ điển như vanilla, socola, dâu tây đến những biến tấu độc đáo như trà xanh, caramel muối, hoặc trái cây nhiệt đới, kem luôn là lựa chọn yêu thích của mọi lứa tuổi. Không chỉ là một món ăn, kem còn gắn liền với những khoảnh khắc vui vẻ và đáng nhớ trong cuộc sống.</p>
+                  <div class="read_bt_1"><a href="#">Xem thêm</a></div>
                </div>
             </div>
          </div>
       </div>
 
-     <?php require("admin\quanTri\db\connect.php"); ?>
-
-<div class="cream_section layout_padding">
-    <div class="container">
-        <div class="row">
+   <?php require("admin\quanTri\db\connect.php"); ?>
+   
+   <div class="cream_section layout_padding">
+      <div class="container">
+         <div class="row">
             <div class="col-md-12">
-                <h1 class="cream_taital">Our Featured Ice Cream</h1>
-                <p class="cream_text">tempor incididunt ut labore et dolore magna aliqua</p>
-            </div>
-        </div>
-        <div class="cream_section_2">
-            <div class="row">
-                <?php
-                $sql = "SELECT * FROM SanPham"; // Truy vấn tất cả sản phẩm
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="col-md-4">
-                                <div class="cream_box">
-                                    <div class="cream_img"><img src="images/' . $row["hinhAnh"] . '"></div>
-                                    <div class="price_text">' . number_format($row["gia"]) . 'đ</div>
-                                    <h6 class="strawberry_text">' . $row["tenSanPham"] . '</h6>
-                                    <div class="cart_bt"><a href="#">Thêm vào giỏ hàng</a></div>
-                                </div>
-                              </div>';
-                    }
-                } else {
-                    echo "<p>Không có sản phẩm nào.</p>";
-                }
-                ?>
-            </div>
-        </div>
-        <div class="seemore_bt"><a href="#">See More</a></div>
-    </div>
-</div>
-
-<?php $conn->close(); ?>
-
-
-      <!-- testimonial section start -->
-      <div class="testimonial_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <h1 class="testimonial_taital">Testimonial</h1>
-               </div>
-            </div>
-            <div class="testimonial_section_2">
-               <div class="row">
-                  <div class="col-md-12">
-                     <div class="testimonial_box">
-                        <div id="main_slider" class="carousel slide" data-ride="carousel">
-                           <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
-                                 <h4 class="client_name">Marri Fen</h4>
-                                 <div class="client_img"><img src="images/client-img.png"></div>
-                              </div>
-                              <div class="carousel-item">
-                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
-                                 <h4 class="client_name">Marri Fen</h4>
-                                 <div class="client_img"><img src="images/client-img.png"></div>
-                              </div>
-                              <div class="carousel-item">
-                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
-                                 <h4 class="client_name">Marri Fen</h4>
-                                 <div class="client_img"><img src="images/client-img.png"></div>
-                              </div>
-                           </div>
-                           <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-                           <i class="fa fa-angle-left"></i>
-                           </a>
-                           <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-                           <i class="fa fa-angle-right"></i>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+               <h1 class="cream_taital">Các sản phẩm kem</h1>
             </div>
          </div>
+         <div class="cream_section_2">
+            <div class="row">
+               <?php
+                   $sql = "SELECT * FROM SanPham"; // Truy vấn tất cả sản phẩm
+                   $result = $conn->query($sql);
+                   if ($result->num_rows > 0) {
+                       while ($row = $result->fetch_assoc()) {
+                           echo '<div class="col-md-4">
+                                   <div class="cream_box">
+                                       <div class="cream_img"><img src="images/' . $row["hinhAnh"] . '"></div>
+                                       <div class="price_text">' . number_format($row["gia"]) . 'đ</div>
+                                       <h6 class="strawberry_text">' . $row["tenSanPham"] . '</h6>
+                                       <div class="cart_bt"><a href="#">Thêm vào giỏ hàng</a></div>
+                                   </div>
+                                 </div>';
+                       }
+                   } else {
+                       echo "<p>Không có sản phẩm nào.</p>";
+                   }
+                   ?>
+            </div>
+         </div>
+         <div class="seemore_bt"><a href="#">See More</a></div>
       </div>
-      <!-- testimonial section end -->
+   </div>
+   
+   <?php $conn->close(); ?>
+
       <!-- contact section start -->
       <div class="contact_section layout_padding">
          <div class="container">
