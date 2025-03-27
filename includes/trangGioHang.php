@@ -71,13 +71,13 @@
     <header>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.html"><img src="images/logo.png"></a>
+                <a class="navbar-brand" href="index.php"><img src="images/logo.png"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="index.php">Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ly</a></li>
                         <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ốc quế</a></li>
                         <li class="nav-item"><a class="nav-link" href="icecream.html">Kem que</a></li>
@@ -134,7 +134,6 @@
 
         <div id="cart-action">            
            
-            <a href="./order.html" role="button" class="btn btn-warning">Xem lịch sử đặt hàng</a>
             <button class="btn btn-primary" onclick="continueShopping()">Tiếp tục xem sản phẩm</button>
             <button class="btn btn-danger" onclick="deleteAllCart()">Xóa giỏ hàng</button>
         </div>
@@ -149,4 +148,4 @@
         </div>
     </div>
 </body>
-</html>
+</html> 
