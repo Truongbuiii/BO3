@@ -62,13 +62,13 @@
                         <a class="nav-link" href="/index.php">Trang chủ</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="/kemLy.php">Kem ly</a>
+                        <a class="nav-link" href="includes/kemLy.php">Kem ly</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="/kemOcQue.php">Kem ốc quế</a>
+                        <a class="nav-link" href="includes/kemOcQue.php">Kem ốc quế</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="/kemQue.php">Kem que</a>
+                        <a class="nav-link" href="includes/kemQue.php">Kem que</a>
                      </li>
                      
                   </ul>
