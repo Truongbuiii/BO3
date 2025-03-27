@@ -49,49 +49,58 @@
     </head>
     <body>
         <div class="header_section">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand"href="index.html"><img src="images/logo.png"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+           <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="images/logo.png" alt="Logo">
+        </a>
+
+        <!-- Nút toggle menu trên mobile -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nội dung menu -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto"> 
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="icecream-cone.html">Kem ốc quế</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="icecream-cup.html">Kem ly</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="icecream-stick.html">Kem que</a>
+                </li>
+            </ul>
+
+            <!-- Form tìm kiếm -->
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
+            </form>
 
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="icecream.html">Kem ly</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="icecream.html">Kem ốc quế</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="icecream.html">Kem que</a>
-                        </li>
-                        
-                    </ul>
-                    <li>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </form>
-                    </li>
-                    <ul class="navbar-nav">
+            <!-- Icon User & Giỏ hàng -->
+            <ul class="navbar-nav ml-3">
+                <li class="nav-item">
+                    <a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%;padding-left:10px; padding-top:12px"></i></a>
+                </li>
+                <li class="nav-item ml-3">
+                    <a href="includes/trangGioHang.php">
+                        <i class="bi bi-bag-heart-fill custom-icon"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
-                        <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a>
-                        <a href="includes/trangGioHang.php">
-                            <i class="bi bi-bag-heart-fill custom-icon"></i>
-                        </a>
-                
-
-                    </form>
-                </div>
-                </nav>
-            </div>
             <!-- banner section start --> 
             <div class="banner_section layout_padding">
                 <div class="container">
