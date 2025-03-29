@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Đăng Nhập</title>
+      <title>Chi tiết sản phẩm</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -86,34 +86,58 @@
         </div>
      </div>
      
-<div class="cream_section1 layout_padding">
-    <div class="container">
-       <div class="row justify-content-center">
-          <div class="col-md-6">
-             <div class="login_box p-4">
-                <h1 class="cream_taital text-center">Đăng nhập</h1>
+<!-- Phần Chi Tiết Sản Phẩm -->
+<div class="container product-detail-container">
+    <div class="row">
+        <!-- Cột trái: Hình ảnh sản phẩm -->
+        <div class="col-md-6">
+            <div class="product-images">
+                <img src="/images/KemLySocola.jpg" alt="Sản phẩm" class="product-main-image">
+                
+            </div>
+        </div>
         
-                <form>
-                 
-                   <div class="form-group">
-                      <label for="email">Tên đăng nhập:</label>
-                      <input type="email" class="form-control" id="email" placeholder="Nhập tên đăng nhập của bạn">
-                   </div>
-                   <div class="form-group">
-                      <label for="password">Mật Khẩu:</label>
-                      <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu của bạn">
-                   </div>
-                   <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                   <div class="text-center mt-3">
-                     <a href="index.html" class="text-decoration-none">Quay lại</a>
-                  </div>
-                </form>
-             </div>
-          </div>
-       </div>
+        <!-- Cột phải: Thông tin sản phẩm -->
+        <div class="col-md-6">
+            <div class="product-info">
+                <h1 class="product-title">Kem Dâu Tươi Mát</h1>
+                <p class="product-price">120,000 VND</p>
+                <p class="product-description">
+                    Kem dâu tươi tự nhiên, vị ngọt dịu và mát lạnh, mang đến trải nghiệm tuyệt vời trong mùa hè.
+                </p>
+                
+                <button class="add-to-cart-btn">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
     </div>
- </div>
- 
+
+    <!-- Phần sản phẩm liên quan -->
+    <div class="related-products">
+        <h2 class="related-title">Sản phẩm liên quan</h2>
+        <div class="related-list">
+            <div class="related-item">
+                <img src="/images/kemLyDau.jpg" alt="Kem Socola">
+                <p>Kem Socola - 110,000 VND</p>
+            </div>
+            <div class="related-item">
+                <img src="/images/kemLyVani.jpg" alt="Kem Vani">
+                <p>Kem Vani - 100,000 VND</p>
+            </div>
+            <div class="related-item">
+                <img src="/images/KemLySocola.jpg" alt="Kem Xoài">
+                <p>Kem Xoài - 105,000 VND</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script để thay đổi ảnh chính -->
+<script>
+    function changeImage(imagePath) {
+        document.querySelector(".product-main-image").src = imagePath;
+    }
+</script>
+
 
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
@@ -125,4 +149,3 @@
       <script src="js/custom.js"></script>
       <!-- javascript --> 
    </body>
-</html>
