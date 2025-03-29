@@ -65,13 +65,23 @@
             background-color: #f9f9f9;
             border-radius: 5px;
         }
+        .navbar-brand img {
+    max-height: 50px; /* Điều chỉnh kích thước nhỏ hơn */
+}
+
+
+.navbar-nav .nav-link {
+    font-size: 20px; /* Tăng kích thước chữ */
+    padding: 10px 15px; /* Tăng khoảng cách */
+}
+
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.php"><img src="images/logo.png"></a>
+                <a class="navbar-brand" href="index.php"><img src="/images/logo.png"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -115,7 +125,7 @@
             <tbody id="cart-body">
                 <tr>
                     <td><input type="checkbox" class="check"></td>
-                    <td><img src="images/kemLyDau.jpg" class="item-img"></td>
+                    <td><img src="/images/kemLyDau.jpg" class="item-img"></td>
                     <td>Kem dâu tươi</td>
                     <td class="item-quantity">2</td>
                     <td class="item-price">50000đ</td>
@@ -123,7 +133,7 @@
                 </tr>
                 <tr>
                     <td><input type="checkbox" class="check"></td>
-                    <td><img src="images/kemQueSocola.jpg" class="item-img"></td>
+                    <td><img src="/images/kemQueSocola.jpg" class="item-img"></td>
                     <td>Kem socola</td>
                     <td class="item-quantity">1</td>
                     <td class="item-price">30000đ</td>
