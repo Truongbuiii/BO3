@@ -2,23 +2,18 @@
 require('./db/connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Kiểm tra dữ liệu nhận được
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-    exit; // Debug dữ liệu gửi đi
-
     $id = $_POST['MaSanPham'] ?? null;
     $tenSanPham = $_POST['TenSanPham'] ?? null;
     $gia = $_POST['DonGia'] ?? null;
-    $loaiKem = $_POST['MaLoai'] ?? null;
+    $loaiKem = $_POST['MaLoai'] ?? null; // Kiểm tra lại tên cột
     $huongVi = $_POST['HuongVi'] ?? null;
     $tinhTrang = $_POST['TinhTrang'] ?? null;
 
-    if ($id && $tenSanPham && $gia !== null && $loaiKem && $huongVi && $tinhTrang !== null) {
+    if (!empty($id) && !empty($tenSanPham) && isset($gia) && !empty($loaiKem) && !empty($huongVi) && isset($tinhTrang)) {
+        // Cập nhật đúng tên cột trong CSDL
         $sql = "UPDATE SanPham 
-                SET tenSanPham = ?, donGia = ?, maLoaiSanPham = ?, huongVi = ?, tinhTrang = ? 
-                WHERE maSanPham = ?";
+                SET tenSanPham = ?, donGia = ?, MaLoai = ?, huongVi = ?, tinhTrang = ? 
+                WHERE MaSanPham = ?";
         
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sdissi", $tenSanPham, $gia, $loaiKem, $huongVi, $tinhTrang, $id);
