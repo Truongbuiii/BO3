@@ -30,14 +30,18 @@
 
 require("./db/connect.php"); // Đảm bảo file kết nối đúng
 
-$sql = "SELECT SanPham.id, SanPham.tenSanPham, LoaiKem.tenLoaiKem, SanPham.huongVi, 
-               SanPham.tinhTrang, SanPham.gia, SanPham.hinhAnh, 
-               SanPham.soLuongCon, SanPham.soLuongDaBan
+$sql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, LoaiSanPham.TenLoai, 
+               SanPham.HuongVi, SanPham.TinhTrang, SanPham.DonGia, SanPham.HinhAnh
         FROM SanPham
-        JOIN LoaiKem ON SanPham.LoaiKem = LoaiKem.id"; 
+        JOIN LoaiSanPham ON SanPham.MaLoai = LoaiSanPham.MaLoai"; // Sửa lỗi JOIN
 
 $result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("Lỗi truy vấn: " . mysqli_error($conn)); // Kiểm tra lỗi truy vấn
+}
 ?>
+
 
 
 <!-- DataTales Example -->
@@ -59,8 +63,6 @@ $result = mysqli_query($conn, $sql);
                         <th>Tình trạng</th>
                         <th>Đơn giá</th>
                         <th>Hình ảnh</th>
-                        <th>Diển giải</th>
-                        <th>Trạng thái</th>
                         <th>Chức năng</th>
                     </tr>
                 </thead>
@@ -73,58 +75,53 @@ $result = mysqli_query($conn, $sql);
                         <th>Tình trạng</th>
                         <th>Đơn giá</th>
                         <th>Hình ảnh</th>
-                        <th>Diển giải</th>
-                        <th>Trạng thái</th>
                         <th>Chức năng</th>
                     </tr>
                 </tfoot>
-                <tbody>
-                    <?php
-                    if ($result && mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>
-                                    <td>{$row['id']}</td>
-                                    <td>{$row['tenSanPham']}</td>
-                                    <td> {$row['tenLoaiKem']}</td>
-                                    <td>{$row['huongVi']}</td>
-                                    <td>{$row['tinhTrang']}</td>
-                                    <td>" . number_format($row['gia'], 0, ',', '.') . " VND</td>
-   <td><img src='images/{$row['hinhAnh']}' width='100'></td>           
-                            <td>{$row['soLuongCon']}</td>
-                                    <td>{$row['soLuongDaBan']}</td>
-                                    <td>
-    <button class='btn btn-warning btn-sm edit-btn' 
-            data-id='{$row['id']}' 
-            data-ten='{$row['tenSanPham']}' 
-            data-loai='{$row['tenLoaiKem']}' 
-            data-huongvi='{$row['huongVi']}' 
-            data-tinhtrang='{$row['tinhTrang']}' 
-            data-gia='{$row['gia']}'
-            data-hinh='{$row['hinhAnh']}'
-            data-toggle='modal' 
-            data-target='#editModal'>Sửa</button>
+               <tbody>
+    <?php
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>
+                    <td>{$row['MaSanPham']}</td>
+                    <td>{$row['TenSanPham']}</td>
+                    <td>{$row['TenLoai']}</td>
+                    <td>{$row['HuongVi']}</td>
+                    <td>" . ($row['TinhTrang'] ? "<span class='text-success'>Mở</span>" : "<span class='text-danger'>Khóa</span>") . "</td>
+                    <td>" . number_format($row['DonGia'], 0, ',', '.') . " VND</td>
+                    <td><img src='images/{$row['HinhAnh']}' width='100'></td>
+                    <td>
+                        <button class='btn btn-warning btn-sm edit-btn' 
+                                data-id='{$row['MaSanPham']}' 
+                                data-ten='{$row['TenSanPham']}' 
+                                data-loai='{$row['TenLoai']}' 
+                                data-huongvi='{$row['HuongVi']}' 
+                                data-tinhtrang='{$row['TinhTrang']}' 
+                                data-gia='{$row['DonGia']}'
+                                data-hinh='{$row['HinhAnh']}'
+                                data-toggle='modal' 
+                                data-target='#editModal'>Sửa</button>
 
-    <button class='btn btn-danger btn-sm delete-btn' 
-            data-id='{$row['id']}' 
-            data-toggle='modal' 
-            data-target='#deleteModal'>Xóa</button>
-</td>
+                        <button class='btn btn-danger btn-sm delete-btn' 
+                                data-id='{$row['MaSanPham']}' 
+                                data-toggle='modal' 
+                                data-target='#deleteModal'>Xóa</button>
+                    </td>
+                  </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='9' class='text-center'>Không có sản phẩm nào</td></tr>";
+    }
+    ?>
+</tbody>
 
-                                  </tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='9' class='text-center'>Không có sản phẩm nào</td></tr>";
-                    }
-                    ?>
-                </tbody>
             </table>
         </div>
     </div>
 </div>
-
-<!-- Edit Modal --><!-- Edit Modal -->
+<!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl"> <!-- Mở rộng modal -->
+  <div class="modal-dialog modal-xl"> 
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editModalLabel">Chỉnh sửa sản phẩm</h5>
@@ -134,26 +131,27 @@ $result = mysqli_query($conn, $sql);
       </div>
       <div class="modal-body">
         <form id="editForm" method="POST" action="editProduct.php">
-          <input type="hidden" id="edit-id" name="id">
+          <!-- Input ẩn để truyền ID sản phẩm -->
+          <input type="hidden" id="edit-id" name="MaSanPham">
 
-          <!-- Bắt đầu chia thành 2 cột -->
+          <!-- Chia thành 2 cột -->
           <div class="row">
             <!-- Cột 1 -->
             <div class="col-md-6">
               <div class="form-group">
                 <label for="edit-ten">Tên sản phẩm</label>
-                <input type="text" class="form-control" id="edit-ten" name="tenSanPham" required>
+                <input type="text" class="form-control" id="edit-ten" name="TenSanPham" required>
               </div>
 
               <div class="form-group">
                 <label for="edit-loai">Loại kem</label>
-                <select class="form-control" id="edit-loai" name="loai">
+                <select class="form-control" id="edit-loai" name="MaLoai">
                   <?php
                   require('./db/connect.php');
-                  $loaiQuery = "SELECT id, tenLoaiKem FROM LoaiKem";
+                  $loaiQuery = "SELECT MaLoai, TenLoai FROM LoaiSanPham";
                   $loaiResult = mysqli_query($conn, $loaiQuery);
                   while ($loai = mysqli_fetch_assoc($loaiResult)) {
-                    echo "<option value='{$loai['id']}'>{$loai['tenLoaiKem']}</option>";
+                    echo "<option value='{$loai['MaLoai']}'>{$loai['TenLoai']}</option>";
                   }
                   ?>
                 </select>
@@ -161,7 +159,7 @@ $result = mysqli_query($conn, $sql);
 
               <div class="form-group">
                 <label for="edit-huongvi">Hương vị</label>
-                <input type="text" class="form-control" id="edit-huongvi" name="huongvi" required>
+                <input type="text" class="form-control" id="edit-huongvi" name="HuongVi" required>
               </div>
             </div>
 
@@ -169,15 +167,15 @@ $result = mysqli_query($conn, $sql);
             <div class="col-md-6">
               <div class="form-group">
                 <label for="edit-tinhtrang">Tình trạng</label>
-                <select class="form-control" id="edit-tinhtrang" name="tinhtrang">
-                  <option value="Còn hàng">Còn hàng</option>
-                  <option value="Hết hàng">Hết hàng</option>
+                <select class="form-control" id="edit-tinhtrang" name="TinhTrang">
+                  <option value="1">Còn hàng</option>
+                  <option value="0">Hết hàng</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label for="edit-gia">Giá (VND)</label>
-                <input type="number" class="form-control" id="edit-gia" name="gia" required>
+                <input type="number" class="form-control" id="edit-gia" name="DonGia" required>
               </div>
 
               <div class="form-group">
@@ -194,7 +192,6 @@ $result = mysqli_query($conn, $sql);
     </div>
   </div>
 </div>
-
 
 
 <!-- Delete Modal -->

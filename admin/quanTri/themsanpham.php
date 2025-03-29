@@ -1,79 +1,59 @@
 <?php
 require 'includes/header.php';
-require 'db_connection.php'; // Kết nối cơ sở dữ liệu
-
-// Xử lý khi người dùng gửi form
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $start_date = $_POST['start_date'];
-    $end_date = $_POST['end_date'];
-    
-    $query = "
-        SELECT c.customer_id, c.name, SUM(o.total_price) AS total_spent 
-        FROM customers c
-        JOIN orders o ON c.customer_id = o.customer_id
-        WHERE o.order_date BETWEEN ? AND ?
-        GROUP BY c.customer_id, c.name
-        ORDER BY total_spent DESC
-        LIMIT 5
-    ";
-    
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $start_date, $end_date);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    $top_customers = [];
-    while ($row = $result->fetch_assoc()) {
-        $top_customers[] = $row;
-    }
-}
 ?>
 
 <div class="container">
     <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body">
             <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Thống kê 5 khách hàng mua nhiều nhất</h1>
+                <h1 class="h4 text-gray-900 mb-4">Thêm sản phẩm</h1>
             </div>
-            <form method="post" class="user text-center">
+            <form class="user" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label>Từ ngày:</label>
-                    <input type="date" name="start_date" class="form-control" required>
+                    <label for="name">Tên sản phẩm</label>
+                    <input type="text" class="form-control" id="name" name="tenSanPham" placeholder="Hãy nhập tên sản phẩm" required>
                 </div>
+
                 <div class="form-group">
-                    <label>Đến ngày:</label>
-                    <input type="date" name="end_date" class="form-control" required>
+                    <label for="loaiKem">Loại Kem</label>
+                    <select class="form-control" id="loaiKem" name="loaiKem" required>
+                        <option value="" disabled selected>Chọn loại kem</option>
+                        <option value="que">Kem que</option>
+                        <option value="ocQue">Kem ốc quế</option>
+                        <option value="ly">Kem ly</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Thống kê</button>
+
+                <div class="form-group">
+                    <label for="huongVi">Hương vị</label>
+                    <input type="text" class="form-control" id="huongVi" name="huongVi" placeholder="Hãy nhập hương vị" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tinhTrang">Tình trạng</label>
+                    <select class="form-control" id="tinhTrang" name="tinhTrang" required>
+                        <option value="" disabled selected>Chọn tình trạng</option>
+                        <option value="1">Sẵn hàng</option>
+                        <option value="2">Không sẵn hàng</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Giá</label>
+                    <input type="text" class="form-control" id="price" name="gia" placeholder="Hãy nhập giá sản phẩm" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pic">Hình ảnh</label>
+                    <input type="file" class="form-control" id="pic" name="HinhAnh" accept="image/*">
+                    <span id="file-name">Chưa có tệp nào</span>
+                </div>
+
+                <!-- Khu vực hiển thị ảnh -->
+                <img id="imagePreview" src="" alt="Hình ảnh sẽ hiển thị tại đây" style="display: none; width: 150px; margin-top: 10px; border: 1px solid #ccc; padding: 5px;">
+
+                <button class="btn btn-primary mt-3" type="submit">Thêm mới</button>
             </form>
-            
-            <?php if (!empty($top_customers)): ?>
-                <h3 class="text-center mt-4">Kết quả thống kê</h3>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Tên khách hàng</th>
-                                <th>Tổng mua</th>
-                                <th>Chi tiết đơn hàng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($top_customers as $customer): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($customer['name']); ?></td>
-                                    <td><?php echo number_format($customer['total_spent'], 0, ',', '.'); ?> VNĐ</td>
-                                    <td>
-                                        <a href="order_details.php?customer_id=<?php echo $customer['customer_id']; ?>&start_date=<?php echo $start_date; ?>&end_date=<?php echo $end_date; ?>" class="btn btn-info btn-sm">
-                                            Xem đơn hàng
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php endif; ?>
         </div>
     </div>
 </div>
