@@ -186,6 +186,252 @@ img {
     font-size: 16px;
 }
 
+button {
+    background-color:#fc95c4 !important; /* Đổi màu nền thành hồng */
+    border: 2px solid #ff69b4; /* Viền hồng đậm hơn */
+    color: white; /* Màu chữ trắng để dễ nhìn */
+    padding: 10px 20px; /* Thêm padding để nút trông đẹp hơn */
+    border-radius: 5px; /* Bo góc nhẹ */
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff69b4; /* Hồng đậm hơn khi di chuột vào */
+    border-color: #ff1493;
+    color: white;
+}
+
+.profile-container {
+    width: 90%; /* Chiếm 90% chiều rộng màn hình */
+    max-width: 1000px; /* Giới hạn tối đa để không quá to */
+    margin: 50px auto; /* Tạo khoảng cách với mép trên */
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Giúp phù hợp với cả thiết bị nhỏ */
+    transition: all 0.3s ease-in-out; /* Tạo hiệu ứng mượt mà */
+}
+
+/* Chia hai cột linh hoạt */
+.profile-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start; /* Căn trên cùng để tránh bị giãn chiều cao */
+}
+
+/* Cột 1: Sidebar */
+.profile-sidebar {
+    width: 250px;
+    min-height: 200px; /* Đảm bảo không bị quá nhỏ khi nội dung ít */
+    background: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    flex-shrink: 0; /* Không co lại khi nội dung thay đổi */
+}
+
+/* Cột 2: Nội dung mở rộng tự nhiên */
+.profile-content {
+    flex-grow: 1; /* Mở rộng theo nội dung */
+    padding: 20px;
+    min-height: 250px; /* Tránh bị co lại khi nội dung ít */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Menu linh hoạt */
+.profile-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-icon {
+    font-size: 140px; /* Tăng kích thước icon */
+    color: #fc95c4;
+    margin-bottom: 15px;
+}
+
+.profile-avatar {
+    width: 140px;  /* Đảm bảo avatar nếu dùng hình ảnh */
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover; /* Giữ hình ảnh không bị méo */
+}
+
+
+.profile-menu .menu-item {
+    padding: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px 0;
+    background: #ddd;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.profile-menu .menu-item:hover,
+.profile-menu .menu-item.active {
+    background: #fc95c4;
+    color: white;
+    transform: scale(1.05); /* Nhẹ nhàng phóng to khi hover */
+}
+
+/* Ẩn nội dung không cần thiết */
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-wrapper {
+        flex-direction: column;
+    }
+    .profile-sidebar {
+        width: 100%;
+    }
+}
+
+
+/* Container chính */
+.product-detail-container {
+    margin: 50px auto;
+    max-width: 1100px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hình ảnh sản phẩm */
+.product-images {
+    text-align: center;
+}
+
+.product-main-image {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnail-gallery {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.thumbnail:hover {
+    transform: scale(1.1);
+    border: 2px solid #fc95c4;
+}
+
+/* Thông tin sản phẩm */
+.product-info {
+    padding: 20px;
+}
+
+.product-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-price {
+    font-size: 22px;
+    color: #fc95c4;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.product-description {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Chọn số lượng */
+.product-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.quantity-selector {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Nút thêm vào giỏ hàng */
+.add-to-cart-btn {
+    background-color: #fc95c4;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #e07ea0;
+}
+
+/* Sản phẩm liên quan */
+.related-products {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.related-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.related-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.related-item {
+    text-align: center;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 10px;
+    width: 150px;
+    transition: transform 0.3s;
+}
+
+.related-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.related-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
 .lead {
     font-size: 18px;
     line-height: 30px;
@@ -586,15 +832,18 @@ button {
 }
 
 
-/* about section end */
-
-
-/* cream section start */
 
 .cream_section {
     width: 100%;
     float: left;
-    padding: 90px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    position: relative;
+}
+
+.cream_section1 {
+    width: 100%;
+    float: left;
+    padding: 100px 0px 0px 0px;
     position: relative;
 }
 
@@ -622,8 +871,10 @@ button {
 }
 
 .cream_taital {
-    width: 67%;
-    float: left;
+    width: 70%;
+
+    text-align: center;
+
     font-size: 40px;
     color: #373736;
     font-weight: bold;
@@ -694,7 +945,33 @@ button {
 
 
 
- 
+ /* Căn chỉnh label và input trong form */
+.form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group label {
+    width: 150px; /* Điều chỉnh chiều rộng của label */
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Căn chỉnh nút đăng ký */
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
 
 .price_text {
     width: 80px;
@@ -766,16 +1043,14 @@ button {
 }
 
 
-/* cream section end */
 
-
-/* services section start */
 
 .services_section {
     width: 100%;
     float: left;
     padding: 90px 0px 0px 0px;
     position: relative;
+    
 }
 
 .services_taital {
@@ -784,6 +1059,7 @@ button {
     font-size: 40px;
     color: #373736;
     font-weight: bold;
+    text-align: center;
 }
 
 .services_taital::after {
