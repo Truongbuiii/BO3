@@ -92,28 +92,27 @@
       <div class="cream_section layout_padding">
          <div class="container">
             <div class="row">
-                <?php require(".\db\connect.php"); ?>
+                <?php require("..\db\connect.php"); ?>
 
 <div class="cream_section layout_padding">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="cream_taital">Our Featured Ice Cream</h1>
-                <p class="cream_text">tempor incididunt ut labore et dolore magna aliqua</p>
+                <h1 class="cream_taital">Kem ốc quế</h1>
             </div>
         </div>
         <div class="cream_section_2">
             <div class="row">
                 <?php
-                $sql = "SELECT * FROM SanPham"; // Truy vấn tất cả sản phẩm
+$sql = "SELECT * FROM SanPham WHERE MaLoai LIKE 'L01'";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="col-md-4">
                                 <div class="cream_box">
-                                    <div class="cream_img"><img src="images/' . $row["hinhAnh"] . '"></div>
-                                    <div class="price_text">' . number_format($row["gia"]) . 'đ</div>
-                                    <h6 class="strawberry_text">' . $row["tenSanPham"] . '</h6>
+                                    <div class="cream_img"><img src="/images/' . $row["HinhAnh"] . '"></div>
+                                    <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
+                                    <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
                                     <div class="cart_bt"><a href="#">Thêm vào giỏ hàng</a></div>
                                 </div>
                               </div>';
@@ -124,142 +123,20 @@
                 ?>
             </div>
         </div>
-        <div class="seemore_bt"><a href="#">See More</a></div>
     </div>
 </div>
 
 <?php $conn->close(); ?>
 
-               <div class="col-md-12">
-                  <h1 class="cream_taital">Our Featured Ice Cream</h1>
-                  <p class="cream_text">tempor incididunt ut labore et dolore magna aliqua</p>
-               </div>
-            </div>
-            <div class="cream_section_2">
-               <div class="row">
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="/images/img-1.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="/images/img-2.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="/images/img-1.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="cream_section_2">
-               <div class="row">
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="/images/img-3.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="/images/img-4.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="cream_box">
-                        <div class="cream_img"><img src="/images/img-5.png"></div>
-                        <div class="price_text">$10</div>
-                        <h6 class="strawberry_text">Strawberry Ice Cream</h6>
-                        <div class="cart_bt"><a href="#">Add To Cart</a></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="seemore_bt"><a href="#">See More</a></div>
-         </div>
-      </div>
-      <!-- services section end -->
+            </div></div></div></div></body>     
 
-      <div class="about_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <div class="about_img"><img src="images/about-img.png"></div>
-               </div>
-               <div class="col-md-6">
-                  <h1 class="about_taital">About Icecream</h1>
-                  <p class="about_text">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore euconsectetur adipiscing esequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu</p>
-                  <div class="read_bt_1"><a href="#">Read More</a></div>
-               </div>
-            </div>
-         </div>
-      </div>
-
+ 
     
 
-      <!-- testimonial section start -->
-      <div class="testimonial_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <h1 class="testimonial_taital">Testimonial</h1>
-               </div>
-            </div>
-            <div class="testimonial_section_2">
-               <div class="row">
-                  <div class="col-md-12">
-                     <div class="testimonial_box">
-                        <div id="main_slider" class="carousel slide" data-ride="carousel">
-                           <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
-                                 <h4 class="client_name">Marri Fen</h4>
-                                 <div class="client_img"><img src="images/client-img.png"></div>
-                              </div>
-                              <div class="carousel-item">
-                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
-                                 <h4 class="client_name">Marri Fen</h4>
-                                 <div class="client_img"><img src="images/client-img.png"></div>
-                              </div>
-                              <div class="carousel-item">
-                                 <p class="testimonial_text">tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint</p>
-                                 <h4 class="client_name">Marri Fen</h4>
-                                 <div class="client_img"><img src="images/client-img.png"></div>
-                              </div>
-                           </div>
-                           <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-                           <i class="fa fa-angle-left"></i>
-                           </a>
-                           <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-                           <i class="fa fa-angle-right"></i>
-                           </a>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
       <!-- testimonial section end -->
       <!-- contact section start -->
       <div class="contact_section layout_padding">
-         <div class="container">
+    <div class="container-fluid"> <!-- Đổi container thành container-fluid -->
              <div class="row">
                  <div class="col-md-8">
                      <div class="location_text">
