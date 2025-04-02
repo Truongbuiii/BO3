@@ -83,7 +83,7 @@ $related_products = $stmt_related->get_result();
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="/index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/index.php">Trang chủ</a></li>
                     <li class="nav-item"><a class="nav-link" href="kemLy.php">Kem ly</a></li>
                     <li class="nav-item"><a class="nav-link" href="kemOcQue.php">Kem ốc quế</a></li>
                     <li class="nav-item"><a class="nav-link" href="kemQue.php">Kem que</a></li>
@@ -120,7 +120,7 @@ $related_products = $stmt_related->get_result();
                 <p class="product-price"><strong>Giá: </strong> <?php echo number_format($product['DonGia']); ?> VND</p>
                 <p class="product-flavor"><strong>Hương vị: </strong> <?php echo $product['HuongVi']; ?></p>
                 <p class="product-description">Diển giải : <?php echo $product['DienGiai']; ?></p>
-                <p class="tinhtrang">Tình trạng : <?php echo $product['TinhTrang']? "<span class='text-success'>Mở</span>" : "<span class='text-danger'>Khóa</span>" ; ?></p>
+                <p class="tinhtrang">Tình trạng : <?php echo $product['TinhTrang']? "<span class='text-success'>Còn hàng</span>" : "<span class='text-danger'>Khóa</span>" ; ?></p>
                 <button class="btn btn-success">Thêm vào giỏ hàng</button>
             </div>
         </div>
@@ -144,6 +144,52 @@ $related_products = $stmt_related->get_result();
         </div>
     </div>
 </div>
+
+      <!-- testimonial section end -->
+      <!-- contact section start -->
+      <div class="contact_section layout_padding">
+    <div class="container-fluid"> <!-- Đổi container thành container-fluid -->
+             <div class="row">
+                 <div class="col-md-8">
+                     <div class="location_text">
+                         <ul>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                     1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                     Call : +01 23456789
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                     Email : BeYeukem1234@gmail.com
+                                 </a>
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+             <div class="footer_social_icon">
+                 <ul>
+                     <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                 </ul>
+             </div>
+             <div class="copyright_section">
+               <div class="container">
+                  <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
+               </div>
+            </div>
+         </div>
+     </div>
 <!-- Script để thay đổi ảnh chính -->
 <script>
     function changeImage(imagePath) {

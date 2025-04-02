@@ -45,6 +45,11 @@
       font-weight: 500;
       margin-bottom: 8px;
    }
+ html {
+    scroll-behavior: smooth;
+}
+
+
 </style>
    </head>
    <body>
@@ -116,7 +121,7 @@
                             <p class="banner_text">Mát lạnh từng muỗng, ngọt ngào từng khoảnh khắc</p>
                             <p class="banner_text">Hương vị tuyệt vời, yêu ngay từ lần đầu tiên</p>
                             <p class="banner_text">Ngọt mát tự nhiên – Đánh thức vị giác</p>
-                            <div class="started_text"><a href="#">Mua Hàng ngay</a></div>
+                            <div class="started_text"><a href="#sanpham">Mua Hàng ngay</a></div>
 
                             </div>
                             <div class="col-sm-6">
@@ -236,21 +241,24 @@
         margin-top: 10px;
     }
 
-    .cart_bt a {
-        display: inline-block;
-        background: white;
-        color: #BF0200;
-        padding: 10px 18px;
-        border-radius: 10px;
-        font-weight: bold;
-        text-decoration: none;
-        transition: 0.3s;
-    }
+   .cart_bt a {
+    display: inline-block;
+    background: #f8c6d4;  /* Pastel pink color */
+    color:saddlebrown;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;  /* Smooth transition for both background and text color */
+    border: none;  /* Remove border */
+}
 
-    .cart_bt a:hover {
-        background: RED;
-        COLOR : #D9D9D9;
-    }
+.cart_bt a:hover {
+    background: #f07d9b;  /* Slightly darker pastel pink for hover effect */
+    color: #ffffff;  /* Change text color to white */
+    border:none;
+}
+
 
    
 </style>
@@ -259,28 +267,36 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="cream_taital">Các sản phẩm kem</h1>
+                <h1 class="cream_taital" id ="sanpham">Các sản phẩm kem</h1>
             </div>
         </div>
         <div class="row">
             <?php
-                $sql = "SELECT * FROM SanPham"; // Truy vấn tất cả sản phẩm
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="col-md-4 mb-4">
-                                <div class="cream_box">
-                                    <div class="cream_img"><img src="images/' . $row["HinhAnh"] . '"></div>
-                                    <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
-                                    <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
-                                    <div class="cart_bt"><a href="#">Thêm vào giỏ hàng</a></div>
-                                </div>
-                              </div>';
-                    }
-                } else {
-                    echo "<p class='text-center'>Không có sản phẩm nào.</p>";
-                }
-            ?>
+          $sql = "SELECT * FROM SanPham";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="col-md-4">
+                <div class="cream_box">
+                    <div class="cream_img">
+                        <a href="includes/chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
+                            <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '">
+                        </a>
+                    </div>
+                    <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
+                    <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
+                    <div class="cart_bt">
+                        <a href="includes/chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">Xem chi tiết</a>
+                    </div>
+                </div>
+              </div>';
+    }
+} else {
+    echo "<p>Không có sản phẩm nào.</p>";
+}
+
+?>
         </div>
     </div>
 </div>
