@@ -103,24 +103,35 @@
         </div>
         <div class="cream_section_2">
             <div class="row">
-                <?php
-$sql = "SELECT * FROM SanPham WHERE MaLoai LIKE 'L03'";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="col-md-4">
-                                <div class="cream_box">
-                                    <div class="cream_img"><img src="/images/' . $row["HinhAnh"] . '"></div>
-                                    <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
-                                    <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
-                                    <div class="cart_bt"><a href="#">Thêm vào giỏ hàng</a></div>
-                                </div>
-                              </div>';
-                    }
-                } else {
-                    echo "<p>Không có sản phẩm nào.</p>";
-                }
-                ?>
+               <?php
+
+// Truy vấn sản phẩm có MaLoai = 'L03' 
+$sql = "SELECT * FROM SanPham WHERE MaLoai = 'L03'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="col-md-4">
+                <div class="cream_box">
+                    <div class="cream_img">
+                        <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
+                            <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '">
+                        </a>
+                    </div>
+                    <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
+                    <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
+                    <div class="cart_bt">
+                        <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">Xem chi tiết</a>
+                    </div>
+                </div>
+              </div>';
+    }
+} else {
+    echo "<p>Không có sản phẩm nào.</p>";
+}
+
+?>
+
             </div>
         </div>
     </div>
