@@ -194,16 +194,30 @@ if(!$result){
             <a href="danhsachdonhang.php" class="btn btn-primary btn-sm">Xem tất cả</a>
         </div>
 
+
+        <?php
+        require("./db/connect.php");
+
+        $sql = "SELECT HD.MaHoaDon, HD.NguoiNhanHang, HD.Email, HD.TongTien, HD.TrangThai, HD.HinhThucThanhToan
+        FROM HoaDon AS HD";
+        $result = mysqli_query($conn, $sql);
+
+        if (!$result) {
+    die("Lỗi truy vấn: " . mysqli_error($conn)); // Kiểm tra lỗi truy vấn
+}
+        ?>
+
                         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover text-center">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Loại kem</th>
-                            <th>Hương vị</th>
-                            <th>Tình trạng</th>
+                            <th>Mã đơn hàng</th>
+                            <th>Người nhận hàng</th>
+                            <th>Email</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Hình thức thanh toán</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -211,14 +225,13 @@ if(!$result){
                         if ($result && mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<tr>
-                                        <td>{$row['MaSanPham']}</td>
-                                        <td>{$row['TenSanPham']}</td>
-                                        <td>{$row['TenLoai']}</td>
-                                        <td>{$row['HuongVi']}</td>
-                                        <td>" . ($row['TinhTrang'] ? 
-                                            "<span class='badge badge-success'>Mở</span>" : 
-                                            "<span class='badge badge-danger'>Khóa</span>") . "
-                                        </td>
+                                        <td>{$row['MaHoaDon']}</td>
+                                        <td>{$row['NguoiNhanHang']}</td>
+                                        <td>{$row['Email']}</td>
+                                        <td>{$row['TongTien']}</td>
+                                      <td>{$row['TrangThai']}</td>
+                                       <td>{$row['HinhThucThanhToan']}</td>
+
                                     </tr>";
                             }
                         }

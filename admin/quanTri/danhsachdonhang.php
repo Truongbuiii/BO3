@@ -2,6 +2,18 @@
 <div>
   <h3>Trang danh sách sản phẩm</h3>
 
+        <?php
+        require("./db/connect.php");
+
+        $sql = "SELECT HD.MaHoaDon ,HD.TenNguoiDung,HD.NguoiNhanHang,HD.TPTinh, HD.QuanHuyen, HD.PhuongXa, HD.DiaChiCuThe, HD.NgayGio, HD.Email, HD.TongTien, HD.TrangThai, HD.HinhThucThanhToan
+        FROM HoaDon AS HD
+";
+        $result = mysqli_query($conn, $sql);
+
+        if (!$result) {
+    die("Lỗi truy vấn: " . mysqli_error($conn)); // Kiểm tra lỗi truy vấn
+}
+        ?>
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -37,30 +49,63 @@
                      
                       <tr>
                           <th>Mã đơn hàng</th>
-                          <th>Mã khách hàng</th>
-                          <th>Tên khách hàng</th>
-                          <th>Đơn hàng</th>
-                          <th>Ngày</th>
-                          <th>Giờ</th>
+                          <th>Tên Người nhận</th>
+                          <th>Email</th>
+                          <th>Thành phố/ Tỉnh</th>
+                          <th>Quận / Huyện</th>
+                          <th>Phường / Xã</th>
+                          <th>Địa chỉ cụ thể</th>
+                          <th>Ngày giờ</th>
                           <th>Tổng tiền</th>
-                          <th>Địa chỉ</th>
+                          <th>Trạng thái</th>
+                          <th>Hình thức thanh toán</th>
                           <th>Chức năng</th>
                       </tr>
                   </thead>
                   <tfoot>
                       <tr>
                            <th>Mã đơn hàng</th>
-                          <th>Mã khách hàng</th>
-                          <th>Tên khách hàng</th>
-                          <th>Đơn hàng</th>
-                          <th>Ngày</th>
-                          <th>Giờ</th>
+                          <th>Tên Người nhận</th>
+                          <th>Email</th>
+                          <th>Thành phố/ Tỉnh</th>
+                          <th>Quận / Huyện</th>
+                          <th>Phường / Xã</th>
+                          <th>Địa chỉ cụ thể</th>
+                          <th>Ngày giờ</th>
                           <th>Tổng tiền</th>
-                          <th>Địa chỉ</th>
+                          <th>Trạng thái</th>
+                          <th>Hình thức thanh toán</th>
                           <th>Chức năng</th>
                       </tr>
                   </tfoot>
                   <tbody>
+
+                  <?php
+                  if($result && mysqli_num_rows($result) > 0 ){
+                        while ($row = mysqli_fetch_assoc($result)){
+                            echo "<tr>
+                            <td>{$row['MaHoaDon']}</td>
+                            <td>{$row['NguoiNhanHang']}</td>
+                            <td>{$row['Email']}</td>
+                            <td>{$row['TPTinh']}</td>
+                            <td>{$row['QuanHuyen']}</td>
+                            <td>{$row['PhuongXa']}</td>
+                            <td>{$row['DiaChiCuThe']}</td>
+                            <td>{$row['NgayGio']}</td>
+                            <td>{$row['TongTien']}</td>
+                            <td>{$row['TrangThai']}</td>
+                            <td>{$row['HinhThucThanhToan']}</td>
+<td>
+                 <button class='btn btn-warning btn-sm'>Sửa</button>
+                                      </td>
+                            
+                            
+                            </tr>";
+                        }
+
+                  }
+                  ?>
+
 
                  
                   </tbody>

@@ -48,7 +48,7 @@
                                                >
                                         </div>
                                         <div class="form-group">
-                                            <label class="password">Password :</label>
+                                            <label class="password">Mật khẩu :</label>
                                             <input type="password" class="form-control form-control-user"
                                                 id="passwordAdmin">
                                         </div>
