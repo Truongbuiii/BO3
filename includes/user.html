@@ -86,34 +86,68 @@
         </div>
      </div>
      
-<div class="cream_section1 layout_padding">
-    <div class="container">
-       <div class="row justify-content-center">
-          <div class="col-md-6">
-             <div class="login_box p-4">
-                <h1 class="cream_taital text-center">Đăng nhập</h1>
-        
-                <form>
-                 
-                   <div class="form-group">
-                      <label for="email">Tên đăng nhập:</label>
-                      <input type="email" class="form-control" id="email" placeholder="Nhập tên đăng nhập của bạn">
-                   </div>
-                   <div class="form-group">
-                      <label for="password">Mật Khẩu:</label>
-                      <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu của bạn">
-                   </div>
-                   <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                   <div class="text-center mt-3">
-                     <a href="index.html" class="text-decoration-none">Quay lại</a>
-                  </div>
-                </form>
-             </div>
-          </div>
-       </div>
+     <div class="profile-container">
+        <div class="profile-wrapper">
+            <!-- Cột 1: Sidebar (Menu) -->
+            <div class="profile-sidebar">
+                <i class="fa-solid fa-user-circle profile-icon"></i>
+                <h2 class="profile-name">Tên người dùng</h2>
+                <ul class="profile-menu">
+                    <li class="menu-item active" data-target="info-section">Thông tin cá nhân</li>
+                    <li class="menu-item" data-target="order-history-section">Lịch sử đơn hàng</li>
+                    <li class="menu-item" data-target="logout-section">Đăng xuất</li>
+                </ul>
+            </div>
+    
+            <!-- Cột 2: Hiển thị nội dung -->
+            <div class="profile-content">
+                <div id="info-section" class="content-section">
+                    <h3>Thông Tin Cá Nhân</h3>
+                    <p>Email: <span id="profile-email">user@example.com</span></p>
+                    <p>Ngày sinh: <span id="profile-dob">01/01/1990</span></p>
+                    <p>Địa chỉ: <span id="profile-address">123 Đường ABC, TP XYZ</span></p>
+                    <button class="edit-btn">Chỉnh sửa thông tin</button>
+                </div>
+                <div id="order-history-section" class="content-section hidden">
+                    <h3>Lịch sử đơn hàng</h3>
+                    <ul>
+                        <li>Đơn hàng #001 - Đã giao</li>
+                        <li>Đơn hàng #002 - Đang xử lý</li>
+                        <li>Đơn hàng #003 - Đã hủy</li>
+                    </ul>
+                </div>
+                <div id="logout-section" class="content-section hidden">
+                    <h3>Đăng xuất</h3>
+                    <button class="logout-btn">Xác nhận đăng xuất</button>
+                </div>
+            </div>
+        </div>
     </div>
- </div>
- 
+    
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    let menuItems = document.querySelectorAll(".menu-item");
+    let contentSections = document.querySelectorAll(".content-section");
+
+    menuItems.forEach(item => {
+        item.addEventListener("click", function() {
+            // Xóa active khỏi tất cả menu
+            menuItems.forEach(i => i.classList.remove("active"));
+            this.classList.add("active");
+
+            // Ẩn tất cả nội dung
+            contentSections.forEach(section => section.classList.add("hidden"));
+
+            // Hiển thị nội dung tương ứng
+            let targetId = this.getAttribute("data-target");
+            document.getElementById(targetId).classList.remove("hidden");
+        });
+    });
+});
+
+
+    </script>
 
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>

@@ -20,92 +20,100 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">Tạo tài khoản!</h1>
                         </div>
-                        <form class="user" onsubmit="return validateForm();">
-                            <!-- Mã người dùng -->
-                            <div class="form-group">
-                        
-                            <!-- Tên nguoidung-->
-                            <div class="form-group">
-                                <label for="tenDangNhap">Tên đăng nhập </label>
-                                <input type="text" class="form-control form-control-user" id="tenDangNhap" name="tenDangNhap"
-                                    >
-                            </div>  
-                            <!-- Ho va ten -->
-                             <div class="form-group">
-                                <label for="hoVaTen">Họ và tên</label>
-                             <input type="text" class="form-control form-control-user" id ="hoVaTen" name="hoVaTen">
-                            </div>
-                    
-                            <!-- Địa chỉ -->
-                          <div class="form-group">
-                                <label for="tinh">Tỉnh/Thành phố</label>
-                                <select class="form-control" id="tinh" onchange="loadHuyen()">
-                                    <option value="">Chọn Tỉnh/Thành phố</option>
-                                </select>
-                            </div>
+                       <form class="user" action="xulydangky.php" method="POST" onsubmit="return validateForm();">
+    <!-- Mã người dùng -->
+    <div class="form-group">
+        <!-- Tên người dùng -->
+        <div class="form-group">
+            <label for="TenNguoiDung">Tên người dùng</label>
+            <input type="text" class="form-control form-control-user" id="TenNguoiDung" name="TenNguoiDung" placeholder="Nhập tên đăng nhập">
+        </div>  
 
-                            <div class="form-group">
-                                <label for="huyen">Quận/Huyện</label>
-                                <select class="form-control" id="huyen" onchange="loadXa()" disabled>
-                                    <option value="">Chọn Quận/Huyện</option>
-                                </select>
-                            </div>
+        <!-- Họ và tên -->
+        <div class="form-group">
+            <label for="HoTen">Họ và tên</label>
+            <input type="text" class="form-control form-control-user" id="HoTen" name="HoTen" placeholder="Nhập họ và tên">
+        </div>
 
-                            <div class="form-group">
-                                <label for="xa">Phường/Xã</label>
-                                <select class="form-control" id="xa" disabled>
-                                    <option value="">Chọn Phường/Xã</option>
-                                </select>
-                            </div>
+        <!-- Địa chỉ -->
+        <div class="form-group">
+            <label for="tinh">Tỉnh/Thành phố</label>
+            <select class="form-control" id="tinh" name="tinh" onchange="loadHuyen()">
+                <option value="">Chọn Tỉnh/Thành phố</option>
+            </select>
+        </div>
 
-                            <div class="form-group">
-                                <label for="diaChi">Địa chỉ cụ thể</label>
-                                <input type="text" class="form-control" id="diaChi" >
-                            </div>
+        <div class="form-group">
+            <label for="huyen">Quận/Huyện</label>
+            <select class="form-control" id="huyen" name="huyen" onchange="loadXa()" disabled>
+                <option value="">Chọn Quận/Huyện</option>
+            </select>
+        </div>
 
-                            <!-- Số điện thoại -->
-                            <div class="form-group">
-                                <label class="soDienThoai">Số điện thoại</label>
-                                <input type="number" class="form-control form-control-user" id="soDienThoai" name="soDienThoai"
-                                   >
-                            </div>
-                            <!-- Email -->
-                            <div class="form-group">
-                                <label class="email">Email</label>
-                                <input type="email" class="form-control form-control-user" id="email" name="email"
-                                   >
-                            </div>
-                            <!-- Mật khẩu và Nhập lại mật khẩu -->
-                            <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <label class="matKhau">Mật khẩu</label>
-                                    <input type="password" class="form-control form-control-user" id="password1" name="matKhau"
-                                       >
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="matKhau2">Nhập lại mật khẩu</label>
-                                    <input type="password" class="form-control form-control-user" id="password2" name="nhapLaiMatKhau"
-                                      >
-                                </div>
-                            </div>
-                            <!-- Chức năng -->
-                            <div class="form-group">
-                                <label class="vaiTro">Vai trò</label>
-                                <select class="form-control" id="vaiTro" name="vaiTro">
-                                    <option value="">Chọn vai trò</option>
-                                    <option value="admin">Quản trị viên (Admin)</option>
-                                    <option value="user">Người dùng (User)</option>
-                                </select>
-                            </div>
+        <div class="form-group">
+            <label for="xa">Phường/Xã</label>
+            <select class="form-control" id="xa" name="xa" disabled>
+                <option value="">Chọn Phường/Xã</option>
+            </select>
+        </div>
 
-                            <div class="form-group">
-                                <lebel></lebel>
-                            </div>
-                            <!-- Nút đăng ký -->
-                            <button type="submit" class="btn btn-primary btn-user btn-block">
-                                Đăng ký tài khoản
-                            </button>
-                        </form>
+        <div class="form-group">
+            <label for="diaChi">Địa chỉ cụ thể</label>
+            <input type="text" class="form-control" id="diaChi" name="diaChi" placeholder="Nhập địa chỉ cụ thể">
+        </div>
+
+        <!-- Số điện thoại -->
+        <div class="form-group">
+            <label class="soDienThoai">Số điện thoại</label>
+            <input type="tel" class="form-control form-control-user" id="soDienThoai" name="soDienThoai" placeholder="Nhập số điện thoại">
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label class="email">Email</label>
+            <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="Nhập email">
+        </div>
+
+        <!-- Mật khẩu và Nhập lại mật khẩu -->
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <label class="matKhau">Mật khẩu</label>
+                <input type="password" class="form-control form-control-user" id="password1" name="matKhau" placeholder="Nhập mật khẩu">
+            </div>
+            <div class="col-sm-6">
+                <label class="matKhau2">Nhập lại mật khẩu</label>
+                <input type="password" class="form-control form-control-user" id="password2" name="nhapLaiMatKhau" placeholder="Nhập lại mật khẩu">
+            </div>
+        </div>
+
+        <!-- Chức năng -->
+        <div class="form-group">
+            <label class="vaiTro">Vai trò</label>
+            <select class="form-control" id="vaiTro" name="vaiTro">
+                <option value="">Chọn vai trò</option>
+                <option value="admin">Quản trị viên (Admin)</option>
+                <option value="user">Người dùng (User)</option>
+            </select>
+        </div>
+
+        <!-- Nút đăng ký -->
+        <button type="submit" class="btn btn-primary btn-user btn-block">
+            Đăng ký tài khoản
+        </button>
+    </form>
+
+    <script>
+        function validateForm() {
+            var password1 = document.getElementById("password1").value;
+            var password2 = document.getElementById("password2").value;
+            if (password1 !== password2) {
+                alert("Mật khẩu nhập lại không khớp!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
                     </div>
                 </div>
             </div>
