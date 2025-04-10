@@ -1,6 +1,6 @@
 <?php require('includes/header.php'); ?>
 <div>
-  <h3>Trang danh sách sản phẩm</h3>
+  <h3>Trang danh sách đơn hàng</h3>
 
         <?php
         require("./db/connect.php");

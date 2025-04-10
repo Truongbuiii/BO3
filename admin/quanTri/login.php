@@ -40,25 +40,22 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Xin chào Admin</h1>
                                     </div>
-                                    <form class="user">
-                                        <div class="form-group">
-                                            <label class="name">Tên người dùng :</label>
-                                            <input type="text" class="form-control form-control-user"
-                                                id="nameAdmin" 
-                                               >
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="password">Mật khẩu :</label>
-                                            <input type="password" class="form-control form-control-user"
-                                                id="passwordAdmin">
-                                        </div>
-                                    
-                                        <a href="/admin/quantri/index.php" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
-                                        <hr>
-                                        
-                                    </form>
+                                   <form class="user" method="POST" action="/admin/quantri/xulydangnhap.php">
+                    <div class="form-group">
+                        <label for="nameAdmin">Tên người dùng :</label>
+                        <input type="text" class="form-control form-control-user"
+                            id="nameAdmin" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordAdmin">Mật khẩu :</label>
+                        <input type="password" class="form-control form-control-user"
+                            id="passwordAdmin" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        Đăng nhập
+                    </button>
+                </form>
+
                                     <hr>
                                 </div>
                             </div>
