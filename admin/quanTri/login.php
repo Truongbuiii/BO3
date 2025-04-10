@@ -38,7 +38,7 @@
                             <div class="col-lg-10">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Xin chào Admin</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Đăng nhập</h1>
                                     </div>
                                    <form class="user" method="POST" action="/admin/quantri/xulydangnhap.php">
                     <div class="form-group">
