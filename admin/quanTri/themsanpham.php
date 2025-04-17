@@ -28,7 +28,7 @@ $gia = $_POST['DonGia'] ?? null;
 
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
         if (in_array($fileExtension, $allowedExtensions)) {
-            $uploadDir = 'uploads/';
+$uploadDir = 'images/';
             $newFileName = time() . '-' . uniqid() . '.' . $fileExtension;
             $destPath = $uploadDir . $newFileName;
 
