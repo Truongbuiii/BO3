@@ -111,34 +111,33 @@
          <!-- banner section start --> 
          <div class="banner_section layout_padding">
             <div class="container">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-                            <div class="col-sm-6">
-                            <h2 class="banner_taital" style="font-family: 'Poppins', sans-serif;">Tiệm cây kem</h2>
-                            <p class="banner_text">Mát lạnh từng muỗng, ngọt ngào từng khoảnh khắc</p>
-                            <p class="banner_text">Hương vị tuyệt vời, yêu ngay từ lần đầu tiên</p>
-                            <p class="banner_text">Ngọt mát tự nhiên – Đánh thức vị giác</p>
-                            <div class="started_text"><a href="#sanpham">Mua Hàng ngay</a></div>
+               <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                  
+                  <div class="carousel-inner">
+                     <div class="carousel-item active">
+                        <div class="row">
+                           <div class="col-sm-6">
+                              <h1 class="banner_taital">Kem Tươi</h1>
+                           
+                              <p class="banner_text">Tận hưởng từng muỗng kem mát lạnh, mềm mịn tan chảy trên đầu lưỡi. Được làm từ những nguyên liệu tươi ngon, kem mang đến hương vị ngọt ngào và sảng khoái, khiến mọi khoảnh khắc thưởng thức trở nên đặc biệt.</p>
 
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="banner_img"><img src="images/banner-img.png"></div>
-                            </div>
-                            </div>
-                        </div>  
-                    </div>
-                </div>
-        </div>
+                           <div class="started_text"><a href="#">Mua ngay</a></div>
 
+                           </div>
+                           <div class="col-sm-6">
+                              <div class="banner_img"><img src="images/banner-img.png"></div>
+                           </div>
+                        </div>
+                     </div>  
+                  </div>
+               </div>
+      </div>
       <!-- services section start -->
       <div class="services_section layout_padding">
          <div class="container">
             <div class="row">
-               <div class="col-md-10">
-                  <h3 class="services_taital">Phân Loại Kem</h3>
+               <div class="col-md-12">
+                  <h3 class="services_taital">Loại Kem</h3>
                </div>
             </div>
             <div class="services_section_2">
@@ -193,75 +192,7 @@
 
    <?php require("./db/connect.php"); ?>
 
-<style>
-    .cream_section {
-        padding: 50px 0;
-        background-color: #fdf1f5;
-    }
 
-    .cream_taital {
-        text-align: center;
-        font-size: 2rem;
-        font-weight: bold;
-        color:rgb(219, 0, 33);
-        margin-bottom: 30px;
-    }
-
-    .cream_box {
-        background: white;
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .cream_box:hover {
-        transform: translateY(-10px);
-    }
-
-    .cream_img img {
-        width: 100%;
-        border-radius: 10px;
-        height: 300px;
-        object-fit: cover;
-    }
-
-    .price_text {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color:red;
-        margin-top: 10px;
-    }
-
-    .strawberry_text {
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: #343a40;
-        margin-top: 10px;
-    }
-
-   .cart_bt a {
-    display: inline-block;
-    background: #f8c6d4;  /* Pastel pink color */
-    color:saddlebrown;
-    padding: 10px 18px;
-    border-radius: 10px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background 0.3s, color 0.3s;  /* Smooth transition for both background and text color */
-    border: none;  /* Remove border */
-}
-
-.cart_bt a:hover {
-    background: #f07d9b;  /* Slightly darker pastel pink for hover effect */
-    color: #ffffff;  /* Change text color to white */
-    border:none;
-}
-
-
-   
-</style>
 
 <div class="cream_section">
     <div class="container">
