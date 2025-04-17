@@ -988,7 +988,7 @@ button {
 
 .cream_section {
     padding: 50px 0;
-    background-color: #fdf1f5;
+    background-color: #ffffff;
 }
 
 .cream_taital {
@@ -1025,34 +1025,6 @@ button {
     color:red;
     margin-top: 10px;
 }
-
-.strawberry_text {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #343a40;
-    margin-top: 10px;
-}
-
-.cart_bt a {
-display: inline-block;
-background: #f8c6d4;  /* Pastel pink color */
-color:saddlebrown;
-padding: 10px 18px;
-border-radius: 10px;
-font-weight: bold;
-text-decoration: none;
-transition: background 0.3s, color 0.3s;  /* Smooth transition for both background and text color */
-border: none;  /* Remove border */
-}
-
-.cart_bt a:hover {
-background: #f07d9b;  /* Slightly darker pastel pink for hover effect */
-color: #ffffff;  /* Change text color to white */
-border:none;
-}
-
-
-
 
 .strawberry_text {
     width: 100%;

@@ -1,3 +1,9 @@
+<?php
+session_start();
+?>
+
+
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -95,15 +101,24 @@
 
             <!-- Icon User & Giỏ hàng -->
             <ul class="navbar-nav ml-3">
-                <li class="nav-item">
-                    <a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%;padding-left:10px; padding-top:12px"></i></a>
-                </li>
-                <li class="nav-item ml-3">
-                    <a href="includes/trangGioHang.php">
-                        <i class="bi bi-bag-heart-fill custom-icon"></i>
-                    </a>
-                </li>
-            </ul>
+    <li class="nav-item">
+        <a href="#" onclick="showUserPopup()">
+            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px"></i>
+        </a>
+        <!-- Div chứa thông tin người dùng khi nhấn vào icon -->
+        <div id="user-info" style="position: absolute; top: 40px; right: 20px; display: none; background: white; border: 1px solid #ccc; padding: 10px; border-radius: 5px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+            <!-- Thông tin người dùng sẽ được hiển thị tại đây -->
+            <p id="user-name">Xin chào, khách hàng!</p>
+            <a href="profile.php">Xem hồ sơ</a> | <a href="logout.php">Đăng xuất</a>
+        </div>
+    </li>
+
+    <li class="nav-item ml-3">
+        <a href="includes/trangGioHang.php">
+            <i class="bi bi-bag-heart-fill custom-icon"></i>
+        </a>
+    </li>
+</ul>
         </div>
     </nav>
 </div>
@@ -198,7 +213,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="cream_taital" id ="sanpham">Các sản phẩm kem</h1>
+                <h1 class="cream_taital" id ="sanpham">Những Loại Kem Nổi Bật </h1>
             </div>
         </div>
         <div class="row">
@@ -230,6 +245,7 @@ if ($result->num_rows > 0) {
 ?>
         </div>
     </div>
+    <div class="seemore_bt"><a href="#">Xem thêm</a></div>
 </div>
 
 <?php $conn->close(); ?>
@@ -287,6 +303,9 @@ if ($result->num_rows > 0) {
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
+      <script src="js/main.js"></script>
       <!-- javascript --> 
+
+      
    </body>
 </html>
