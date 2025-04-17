@@ -6,8 +6,7 @@
         require("./db/connect.php");
 
         $sql = "SELECT HD.MaHoaDon ,HD.TenNguoiDung,HD.NguoiNhanHang,HD.TPTinh, HD.QuanHuyen, HD.PhuongXa, HD.DiaChiCuThe, HD.NgayGio, HD.Email, HD.TongTien, HD.TrangThai, HD.HinhThucThanhToan
-        FROM HoaDon AS HD
-";
+        FROM HoaDon AS HD";
         $result = mysqli_query($conn, $sql);
 
         if (!$result) {
@@ -23,7 +22,7 @@
           <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                     <div class="order-list">
+                  <div class="order-list">
                     <div class="filter-container">
                         <div class="filter">
                             <label for="start-date">Từ ngày:</label>
@@ -46,7 +45,7 @@
                         </div>
                     </div>
                      </div>
-                     
+
                       <tr>
                           <th>Mã đơn hàng</th>
                           <th>Tên Người nhận</th>
@@ -96,19 +95,16 @@
                             <td>{$row['TrangThai']}</td>
                             <td>{$row['HinhThucThanhToan']}</td>
 <td>
-                 <button class='btn btn-warning btn-sm'>Sửa</button>
-                                      </td>
-                            
-                            
+
+                                <a href='suadonhang.php?mahoadon={$row['MaHoaDon']}' class='btn btn-warning btn-sm'>Sửa</a>
+                            </td>
                             </tr>";
                         }
-
                   }
                   ?>
 
-
-                 
-                  </tbody>
+            
+</tbody>
               </table>
           </div>
       </div>
