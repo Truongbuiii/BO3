@@ -1,20 +1,29 @@
 <?php 
- require('includes/header.php');
-  ?>
+require('includes/header.php');
+require('./db/connect.php');
 
-  <?php 
-require("./db/connect.php");
+// Truy vấn sản phẩm
+$sql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, LoaiSanPham.TenLoai, SanPham.HuongVi, SanPham.TinhTrang
+        FROM SanPham
+        JOIN LoaiSanPham ON SanPham.MaLoai = LoaiSanPham.MaLoai";
 
-$sql = "SELECT SanPham.MaSanPham , SanPham.TenSanPham, LoaiSanPham.TenLoai,SanPham.HuongVi,SanPham.TinhTrang
-       FROM SanPham
-       Join LoaiSanPham ON SanPham.MaLoai = LoaiSanPham.MaLoai
-";
+$result = mysqli_query($conn, $sql);
 
-$result = mysqli_query($conn,$sql);
-if(!$result){
-    die("Lỗi truy vấn: " . mysqli_error($conn)); // Kiểm tra lỗi truy vấn
+if (!$result) {
+    die("Lỗi truy vấn: " . mysqli_error($conn));
 }
-  ?>
+
+// Truy vấn tổng số đơn hàng
+$sqlTongDonHang = "SELECT COUNT(*) AS TongSoDonHang FROM HoaDon";
+$resultTongDonHang = mysqli_query($conn, $sqlTongDonHang);
+
+$tongDonHang = 0;
+if ($resultTongDonHang && mysqli_num_rows($resultTongDonHang) > 0) {
+    $row = mysqli_fetch_assoc($resultTongDonHang);
+    $tongDonHang = $row['TongSoDonHang'];
+}
+?>
+
 
                     <!-- Content Row -->
                     <div class="row">
@@ -24,11 +33,15 @@ if(!$result){
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                               Lượng đặt mua hàng</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">40 đơn hàng</div>
-                                        </div>
+                                      <div class="col mr-2">
+    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+        Lượng đặt mua hàng
+    </div>
+    <div class="h5 mb-0 font-weight-bold text-gray-800">
+        <?php echo $tongDonHang; ?> đơn hàng
+    </div>
+</div>
+
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
