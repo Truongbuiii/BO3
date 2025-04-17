@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $maLoai = $_POST['MaLoai'];  // Lấy MaLoai thay vì loaiKem
     $huongVi = $_POST['huongVi'];
     $tinhTrang = $_POST['tinhTrang'];
+    $dienGiai = $_POST['dienGiai'];
 $gia = $_POST['DonGia'] ?? null;
     $hinhAnhPath = ''; // Đường dẫn ảnh để lưu vào DB
 
@@ -48,15 +49,36 @@ $gia = $_POST['DonGia'] ?? null;
     // ✅ Thêm vào DB nếu có ảnh
     if ($hinhAnhPath !== '') {
        
-$stmt = $conn->prepare("INSERT INTO SanPham (tenSanPham, MaLoai, huongVi, tinhTrang, DonGia, hinhAnh) VALUES (?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssiis", $tenSanPham, $maLoai, $huongVi, $tinhTrang, $gia, $hinhAnhPath);
+// Tạo mã sản phẩm tự động kiểu SP001, SP002,...
+$result = $conn->query("SELECT MaSanPham FROM SanPham ORDER BY MaSanPham DESC LIMIT 1");
+
+if ($result && $row = $result->fetch_assoc()) {
+    $lastMa = $row['MaSanPham']; // VD: SP007
+    $number = intval(substr($lastMa, 2)) + 1;
+    $newMaSanPham = 'SP' . str_pad($number, 3, '0', STR_PAD_LEFT);
+} else {
+    $newMaSanPham = 'SP001';
+}
+
+$stmt = $conn->prepare("INSERT INTO SanPham (MaSanPham, tenSanPham, MaLoai, huongVi,dienGiai, tinhTrang, DonGia, hinhAnh) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
+$stmt->bind_param("sssssiis", $newMaSanPham, $tenSanPham, $maLoai, $huongVi, $dienGiai, $tinhTrang, $gia, $hinhAnhPath);
+
         if ($stmt->execute()) {
-            echo "<div class='alert alert-success'>Thêm sản phẩm thành công!</div>";
-        } else {
-            echo "<div class='alert alert-danger'>Lỗi: " . $stmt->error . "</div>";
-        }
-        $stmt->close();
-    }
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showModal('Thêm sản phẩm thành công!', 'success');
+        });
+    </script>";
+} else {
+    $error = addslashes($stmt->error);
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            showModal('Lỗi: $error', 'error');
+        });
+    </script>";
+
+}
+}
 }
 ?>
 
@@ -161,15 +183,14 @@ $stmt->bind_param("sssiis", $tenSanPham, $maLoai, $huongVi, $tinhTrang, $gia, $h
 
 </script>
 
-
-
-
                     <button class="btn btn-primary mt-3" type="submit">Thêm mới</button>
                 </form>
             </div>
         </div>
     </div>
-<script>
+
+
+<script>// kiểm tra đã nhập đủ chưa
 document.querySelector('form.user').addEventListener('submit', function(event) {
     let isValid = true;
     let errorMessages = [];
@@ -218,6 +239,41 @@ document.querySelector('form.user').addEventListener('submit', function(event) {
 });
 </script>
 
+
+<script>
+  function showModal(message, type = 'success') {
+    const modal = new bootstrap.Modal(document.getElementById('messageModal'));
+    const modalBody = document.querySelector('#messageModal .modal-body');
+    const modalTitle = document.getElementById('messageModalLabel');
+
+    modalTitle.innerText = type === 'success' ? 'Thành công' : 'Lỗi';
+    modalBody.innerHTML = message;
+    modal.show();
+  }
+</script>
+
+
+
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="messageModalLabel">Thông báo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Nội dung sẽ được cập nhật bằng JS -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
     <?php
     require 'includes/footer.php';
     ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
