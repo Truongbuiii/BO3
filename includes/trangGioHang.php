@@ -110,7 +110,7 @@
 }
 
 .nut-thanh-toan:hover {
-   background-color:rgb(220, 26, 26); /* Màu đỏ khi hover */
+   background-color:rgb(198, 0, 0); /* Màu đỏ khi hover */
 }
 
          /* Nút thanh toán và tiếp tục mua hàng */
@@ -179,6 +179,14 @@
             font-weight: 500;
             margin-bottom: 8px;
          }
+         .table-bordered {
+   border: none !important;
+}
+
+.table-bordered td, .table-bordered th {
+   border: 1px solid #dee2e6 !important;
+}
+
       </style>
    </head>
    <body>
