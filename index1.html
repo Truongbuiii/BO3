@@ -62,57 +62,57 @@ session_start();
 </script>
 
    <body>
-      <div class="header_section">
-         <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">
-            <img src="images/logo.png" alt="Logo">
-        </a>
+   <div class="header_section">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.php">
+                <img src="images/logo.png" alt="Logo">
+            </a>
 
-        <!-- Nút toggle menu trên mobile -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- Nút toggle menu trên mobile -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!-- Nội dung menu -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav">
-
-                     <li class="nav-item active">
+            <!-- Nội dung menu -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/index.php">Trang chủ</a>
-                     </li>
-                     <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="includes/kemLy.php">Kem ly</a>
-                     </li>
-                     <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="includes/kemOcQue.php">Kem ốc quế</a>
-                     </li>
-                     <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="includes/kemQue.php">Kem que</a>
-                     </li>
-                     
-                  </ul>
+                    </li>
+                </ul>
 
-            <!-- Form tìm kiếm -->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
+                <!-- Form tìm kiếm -->
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
 
-            <!-- Icon User & Giỏ hàng -->
-            <ul class="navbar-nav ml-3">
-  <li class="nav-item d-flex align-items-center">
-  <a href="#" onclick="handleUserClick()">
+                <!-- Icon User & Giỏ hàng -->
+                <ul class="navbar-nav ml-3 d-flex align-items-center">
+                    <li class="nav-item">
+                        <a href="#" onclick="handleUserClick()">
                             <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
                         </a>
                         <a href="#" onclick="handleCartClick()">
                             <i class="bi bi-bag-heart-fill custom-icon"  style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
                         </a>
+                        
+                    </li>
 
-                        <?php if (isset($_SESSION['username'])): ?>
+                    <?php if (isset($_SESSION['username'])): ?>
                         <li class="nav-item">
                             <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
                                 Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
@@ -123,14 +123,13 @@ session_start();
                         </li>
                     <?php endif; ?>
 
-  </li>
-</ul>
-
-
-
-        </div>
-    </nav>
+                    
+                </ul>
+            </div>
+        </nav>
+    </div>
 </div>
+
 
          <!-- banner section start --> 
          <div class="banner_section layout_padding">
