@@ -16,21 +16,6 @@
 <script src="js/demo/chart-pie-demo.js"></script>
 
 
-<script>    // js có thể hiện hình ảnh ở trong thêm sản phẩm //
-
-    function previewImage(event) {
-    var input = event.target;
-    var reader = new FileReader();
-    
-    reader.onload = function(){
-        var imgElement = document.getElementById("imagePreview");
-        imgElement.src = reader.result; // Gán ảnh vào thẻ <img>
-        imgElement.style.display = "block"; // Hiển thị ảnh
-    };
-    
-    reader.readAsDataURL(input.files[0]); // Đọc file ảnh
-}
-</script>
 
 <script>
     function previewImage(event) {
