@@ -130,7 +130,7 @@ if (!$result) {
         </button>
       </div>
       <div class="modal-body">
-        <form id="editForm" method="POST" action="editProduct.php">
+        <form id="editForm" method="POST" action="suaSanPham.php" enctype="multipart/form-data">
           <!-- Input ẩn để truyền ID sản phẩm -->
           <input type="hidden" id="edit-id" name="MaSanPham">
 
@@ -180,7 +180,10 @@ if (!$result) {
 
               <div class="form-group">
                 <label for="edit-hinh">Hình ảnh</label>
-                <img id="edit-hinh-preview" src="" width="200" class="mb-4">
+                <img id="edit-hinh-preview" src="" width="200" class="mb-4" alt="Preview image">
+                <input type="file" class="form-control-file" id="edit-hinh" name="HinhAnh" style="display:none;">
+                <button type="button" class="btn btn-secondary" id="change-image-btn">Thay ảnh</button>
+                <small class="form-text text-muted">Chọn hình ảnh mới nếu bạn muốn thay đổi.</small>
               </div>
             </div>
           </div>
@@ -188,6 +191,32 @@ if (!$result) {
 
           <button type="submit" class="btn btn-primary mt-3">Lưu thay đổi</button>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  // Khi nhấn vào nút "Thay ảnh", kích hoạt input file
+  document.getElementById('change-image-btn').addEventListener('click', function() {
+    document.getElementById('edit-hinh').click();
+  });
+
+  // Khi chọn hình ảnh, hiển thị ảnh preview
+  document.getElementById('edit-hinh').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        document.getElementById('edit-hinh-preview').src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+
       </div>
     </div>
   </div>
