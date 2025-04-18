@@ -141,7 +141,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
                                     <div class="form-group">
                                     <label>Tình trạng</label>
-                                    <select class="form-control" id="editTinhTrang" name="TinhTrang" onchange="handleTinhTrangChange()">
+<select id="editTinhTrang" name="TinhTrang" class="form-control" onchange="handleTinhTrangChange()">
                                         <option value="Mở" class="text-success">Mở</option>
                                         <option value="Khóa" class="text-danger">Khóa</option>
                                     </select>
@@ -348,10 +348,10 @@ function updateUser() {
 }
 
 
-
-// Kiểm tra khi thay đổi tình trạng
 function handleTinhTrangChange() {
     const tinhTrang = document.getElementById('editTinhTrang').value;
+    console.log('Tình trạng đã thay đổi:', tinhTrang); // Kiểm tra giá trị khi thay đổi
+
     const tinhTrangSelect = document.getElementById('editTinhTrang');
 
     // Reset màu
@@ -387,6 +387,8 @@ function handleTinhTrangChange() {
 }
 
 
+
+
 const data = {
     "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Thái Bình"],
     "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
@@ -415,6 +417,9 @@ quanSelect.addEventListener('change', function () {
         phuongSelect.appendChild(option);
     });
 });
+
+console.log('Dữ liệu gửi:', formData);
+
 </script>
 
 
