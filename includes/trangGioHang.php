@@ -1,3 +1,21 @@
+<?php
+session_start(); // Chỉ gọi một lần ở đầu
+
+// Kiểm tra nếu chưa đăng nhập thì chuyển hướng đến login
+if (!isset($_SESSION['username'])) {
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+    header("Location: /login.php");
+    exit();
+}
+?>
+
+
+<script>
+    const isLoggedIn = <?= isset($_SESSION['username']) ? 'true' : 'false' ?>;
+</script>
+
+
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>

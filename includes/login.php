@@ -1,5 +1,5 @@
 <?php
-session_start(); // Đảm bảo session được khởi tạo ở đầu file PHP
+session_start(); // Chỉ cần gọi session_start() 1 lần
 
 // Kết nối cơ sở dữ liệu
 $servername = "localhost";
@@ -38,28 +38,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['role'] = $row['VaiTro']; // Nếu cần kiểm tra vai trò
 
             // Chuyển hướng về trang chủ với tên người dùng
-            header("Location: /index.php");
-exit();
-
+            header("Location: /index.php"); // Thực hiện redirect
             exit();
         } else {
             // Mật khẩu sai
-            echo "<script>alert('Sai mật khẩu!'); window.location.href = 'login.php';</script>";
+            $error_message = "Sai mật khẩu!";
         }
     } else {
         // Người dùng không tồn tại
-        echo "<script>alert('Tên đăng nhập không tồn tại!'); window.location.href = 'login.php';</script>";
+        $error_message = "Tên đăng nhập không tồn tại!";
     }
 }
+
 
 // Đóng kết nối
 $conn->close();
 ?>
 
-
-
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -87,37 +84,17 @@ $conn->close();
                         <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ốc quế</a></li>
                         <li class="nav-item"><a class="nav-link" href="icecream.html">Kem que</a></li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0 mr-3">
-    <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
-</form>
-
-<?php if (isset($_SESSION['username'])): ?>
-    <!-- Nếu đã đăng nhập -->
-    <div class="dropdown">
-        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user"></i> <?= htmlspecialchars($_SESSION['username']) ?>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="profile.php">Hồ sơ cá nhân</a>
-            <a class="dropdown-item" href="logout.php">Đăng xuất</a>
-        </div>
-    </div>
-<?php else: ?>
-    <!-- Nếu chưa đăng nhập -->
-    <button class="btn btn-outline-primary" onclick="showUserPopup()">
-        <i class="fa fa-user"></i>
-    </button>
-<?php endif; ?>
-
-                  
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
                 </div>
             </nav>
         </div>
     </div>
- 
+
     <div class="cream_section1 layout_padding">
         <div class="container">
             <div class="row justify-content-center">
@@ -133,6 +110,9 @@ $conn->close();
                                 <label for="password">Mật khẩu:</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
                             </div>
+                            <?php if (isset($error_message)): ?>
+                                <div class="alert alert-danger mt-3"><?php echo $error_message; ?></div>
+                            <?php endif; ?>
                             <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                             <div class="text-center mt-3">
                                 <a href="/index.php" class="text-decoration-none">Quay lại</a>
@@ -143,6 +123,10 @@ $conn->close();
             </div>
         </div>
     </div>
+    <script>
+    handleLoginSuccess("Tên người dùng"); // Ví dụ lấy từ PHP: handleLoginSuccess("<?php echo $username; ?>");
+</script>
+
 
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -151,45 +135,5 @@ $conn->close();
     <script src="js/plugin.js"></script>
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
-
-    <script>
-    function showUserPopup() {
-        if (document.getElementById("user-popup")) {
-            document.getElementById("user-popup").style.display = "flex";
-            return;
-        }
-
-        const popup = document.createElement("div");
-        popup.id = "user-popup";
-        popup.className = "popup";
-        popup.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 1000;
-        `;
-
-        const popupContent = document.createElement("div");
-        popupContent.className = "popup-content";
-        popupContent.style.cssText = `
-            background-color: #fff;
-            padding: 20px 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        `;
-
-        popupContent.innerHTML = `
-            <p style="margin-bottom: 20px;">Bạn muốn thực hiện gì?</p>
-            <button style="margin: 8px;" onclick="window.location.href='includes/login.php'">Đăng nhập</button>
-            <button style="margin: 8px;" onclick="window.location.href='includes/signup.php'">Đăng ký</button>
-            <button style="margin: 8px;" onclick="document.getElementById('user-popup').remove()">Hủy</button>
-        `;
-
-        popup.appendChild(popupContent);
-        document.body.appendChild(popup);
-    }
-</script>
-
 </body>
 </html>
