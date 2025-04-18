@@ -2,49 +2,72 @@
 require('includes/header.php');
 require("./db/connect.php");
 
-// Khởi tạo các biến mặc định cho việc lọc
-$startDate = isset($_GET['start-date']) ? $_GET['start-date'] : '';
-$endDate = isset($_GET['end-date']) ? $_GET['end-date'] : '';
-$tinhTrang = isset($_GET['tinhtrang']) ? $_GET['tinhtrang'] : '';
-$tinh = isset($_GET['tinh']) ? $_GET['tinh'] : '';
-$quan = isset($_GET['quan']) ? $_GET['quan'] : '';
-$phuong = isset($_GET['phuong']) ? $_GET['phuong'] : '';
+// Khởi tạo các biến lọc
+$startDate = $_GET['start-date'] ?? '';
+$endDate = $_GET['end-date'] ?? '';
+$tinhTrang = $_GET['tinhtrang'] ?? '';
+$tinh = $_GET['tinh'] ?? '';
+$quan = $_GET['quan'] ?? '';
+$phuong = $_GET['phuong'] ?? '';
 
-// Xây dựng phần WHERE của câu truy vấn SQL
+// Xây dựng mảng điều kiện lọc và giá trị tương ứng
 $whereClauses = [];
-if ($startDate) {
-    $whereClauses[] = "HD.NgayGio >= '$startDate'";
+$params = [];
+
+if (!empty($startDate)) {
+    $whereClauses[] = "HD.NgayGio >= ?";
+    $params[] = $startDate;
 }
-if ($endDate) {
-    $whereClauses[] = "HD.NgayGio <= '$endDate'";
+if (!empty($endDate)) {
+    $whereClauses[] = "HD.NgayGio <= ?";
+    $params[] = $endDate;
 }
-if ($tinhTrang) {
-    $whereClauses[] = "HD.TrangThai = '$tinhTrang'";
+if (!empty($tinhTrang)) {
+    $whereClauses[] = "HD.TrangThai = ?";
+    $params[] = $tinhTrang;
 }
-if ($tinh) {
-    $whereClauses[] = "HD.TPTinh = '$tinh'";
+if (!empty($tinh)) {
+    $whereClauses[] = "HD.TPTinh = ?";
+    $params[] = $tinh;
 }
-if ($quan) {
-    $whereClauses[] = "HD.QuanHuyen = '$quan'";
+if (!empty($quan)) {
+    $whereClauses[] = "HD.QuanHuyen = ?";
+    $params[] = $quan;
 }
-if ($phuong) {
-    $whereClauses[] = "HD.PhuongXa = '$phuong'";
+if (!empty($phuong)) {
+    $whereClauses[] = "HD.PhuongXa = ?";
+    $params[] = $phuong;
 }
 
-// Kết hợp các điều kiện trong WHERE
+// Kết hợp điều kiện WHERE
 $whereSql = '';
-if (count($whereClauses) > 0) {
+if (!empty($whereClauses)) {
     $whereSql = 'WHERE ' . implode(' AND ', $whereClauses);
 }
 
-// Câu truy vấn SQL hoàn chỉnh
+// Câu truy vấn
 $sql = "SELECT HD.MaHoaDon, HD.TenNguoiDung, HD.NguoiNhanHang, HD.TPTinh, HD.QuanHuyen, HD.PhuongXa, HD.DiaChiCuThe, HD.NgayGio, HD.Email, HD.TongTien, HD.TrangThai, HD.HinhThucThanhToan FROM HoaDon AS HD $whereSql";
-$result = mysqli_query($conn, $sql);
+
+// Chuẩn bị truy vấn
+$stmt = mysqli_prepare($conn, $sql);
+
+// Gán các giá trị nếu có điều kiện
+if (!empty($params)) {
+    // Tạo kiểu dữ liệu cho bind_param
+    $types = str_repeat('s', count($params)); // tất cả là chuỗi
+    mysqli_stmt_bind_param($stmt, $types, ...$params);
+}
+
+// Thực thi truy vấn
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
 if (!$result) {
-    die("Lỗi truy vấn: " . mysqli_error($conn)); // Kiểm tra lỗi truy vấn
+    die("Lỗi truy vấn: " . mysqli_error($conn));
 }
 ?>
+
+
 
 <div class="container mt-4">
     <h3 class="text-center mb-4">Trang danh sách đơn hàng</h3>
@@ -107,9 +130,12 @@ if (!$result) {
                 </select>
             </div>
 
-            <div class="filter-button">
-                <button class="btn btn-primary" type="submit">Lọc</button>
-            </div>
+         <div class="filter-button d-flex justify-content-start gap-3 mt-3">
+    <button class="btn btn-primary btn-lg px-4" type="submit">Lọc</button>
+    <a href="danhsachdonhang.php" class="btn btn-danger btn-lg px-4">Hủy lọc</a>
+</div>
+
+
         </form>
     </div>
 
@@ -267,25 +293,37 @@ if (!$result) {
     width: 100%; /* Giúp các trường chiếm toàn bộ không gian của thẻ cha */
 }
 
-/* Button Lọc */
-.filter-button {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
+/* Nút Lọc & Hủy lọc */
+.filter-button .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 10px 28px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
 }
 
-.filter-button button {
-    padding: 8px 20px;
-    font-weight: bold;
-    background-color: #007bff;
-    color: white;
+.filter-button .btn-primary {
+    background: linear-gradient(135deg, #007bff, #3399ff);
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    color: white;
 }
 
-.filter-button button:hover {
-    background-color: #0056b3;
+.filter-button .btn-primary:hover {
+    background: linear-gradient(135deg, #0069d9, #2288ff);
+    transform: translateY(-1px);
+}
+
+.filter-button .btn-danger {
+    background: #e74c3c;
+    border: none;
+    color: white;
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+}
+
+.filter-button .btn-danger:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
 }
 
 /* Bảng Danh sách Đơn hàng */
