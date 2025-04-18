@@ -30,213 +30,170 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<style>
-   
-       /* Cải thiện bảng giỏ hàng */
-/* Cải thiện bảng giỏ hàng */
-.table {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 40px;
-}
+      <style>
+         /* Nền che lại hình tròn lớn màu hồng */
+         .bg-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            background-color: #f8b5d1; /* Màu hồng */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1; /* Đảm bảo hình tròn nằm dưới các phần tử khác */
+         }
 
-.table th, .table td {
-    text-align: center;
-    vertical-align: middle;
-    background-color: white;
-    font-size: 18px;
-}
+         /* Cải thiện bảng giỏ hàng */
+         .table {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+         }
 
-.table th {
-    background-color: rgb(230, 241, 247);
-    color: rgb(228, 14, 64);
-    font-size: 18px;
-}
+         .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+            background-color: white;
+            font-size: 18px;
+         }
 
-.table tr {
-    transition: background-color 0.3s ease;
-}
+         .table th {
+            background-color: rgb(230, 241, 247);
+            color: rgb(228, 14, 64);
+            font-size: 18px;
+         }
 
-.table tr:hover {
-    background-color: #fff3f5;
-}
+         .table tr {
+            transition: background-color 0.3s ease;
+         }
 
-.item-img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 12px;
-    transition: transform 0.3s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-}
+         .table tr:hover {
+            background-color: #fff3f5;
+         }
 
-.item-img:hover {
-    transform: scale(1.05);
-}
+         .item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+         }
 
-/* Hành động giỏ hàng */
-#cart-action {
-    margin-top: 20px;
-}
+         .item-img:hover {
+            transform: scale(1.05);
+         }
 
-/* Hộp tóm tắt đơn hàng */
-/* Hộp tóm tắt đơn hàng */
-.hop-tom-tat {
-    max-width: 400px;
-    margin: 20px auto; /* Đưa bảng lên một chút */
-    padding: 30px 35px; /* Tăng padding để tạo không gian thoáng đãng */
-    background-color: #f9f9f9; /* Màu nền sáng nhẹ nhàng */
-    border-radius: 12px; /* Bo góc mềm mại */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Bóng mờ nhẹ */
-    font-family: 'Segoe UI', sans-serif;
-    color: #333;
-    border: 1px solid #ddd; /* Đường viền nhẹ nhàng */
-}
+         /* Hành động giỏ hàng */
+         #cart-action {
+            margin-top: 20px;
+         }
 
-/* Tiêu đề tóm tắt */
-.tieu-de-tom-tat {
-    font-size: 24px; /* Thêm kích thước chữ lớn hơn một chút */
-    font-weight: 600; /* Giữ độ đậm để dễ đọc */
-    margin-bottom: 20px;
-    text-align: center;
-    color: #111;
-}
-
-/* Các dòng tóm tắt trong hộp */
-.dong-tom-tat {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0; /* Tăng khoảng cách giữa các dòng */
-    font-size: 16px; /* Kích thước chữ nhẹ nhàng */
-    border-bottom: 1px solid #eee; /* Đường phân cách mảnh, nhẹ */
-}
-
-/* Đường kẻ ngăn cách */
-.duong-ke {
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 20px 0;
-}
-
-/* Tổng cộng */
-.tong-cong {
-    font-weight: 600;
-    font-size: 18px;
-}
-
-/* Giá tổng */
-.gia-tong {
-    color: #e63946; /* Màu đỏ nhẹ */
-    font-size: 20px; /* Tăng cỡ chữ để làm nổi bật giá */
-}
-/* Nút thanh toán */
+         /* Nút thanh toán với màu đỏ và dấu mũi tên ngược */
 .nut-thanh-toan {
-    width: 100%;
-    padding: 14px;
-    background-color: #28a745; /* Đổi màu nền thành xanh lá */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bóng mờ nhẹ cho nút */
+   width: 20%;
+   padding: 12px;
+   background-color: #d1071e; /* Đổi màu thành đỏ */
+   color: white;
+   border: none;
+   border-radius: 8px;
+   font-size: 16px;
+   margin-top: 20px;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+
+.nut-thanh-toan i {
+   margin-right: 10px; /* Tạo khoảng cách giữa mũi tên và văn bản */
 }
 
 .nut-thanh-toan:hover {
-    background-color: #218838; /* Màu xanh lá đậm khi hover */
+   background-color:rgb(220, 26, 26); /* Màu đỏ khi hover */
 }
 
+         /* Nút thanh toán và tiếp tục mua hàng */
+         .btn-checkout {
+            background-color: #cc0000 !important;
+            color: white !important;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-size: 18px;
+            border: none;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 8px rgba(204, 0, 0, 0.3);
+            margin-top: 10px;
+            margin-right: 15px;
+         }
 
-/* Nút thanh toán và tiếp tục mua hàng */
-.btn-checkout {
-    background-color: #cc0000 !important;
-    color: white !important;
-    padding: 12px 28px;
-    border-radius: 6px;
-    font-size: 18px;
-    border: none;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 8px rgba(204, 0, 0, 0.3);
-    margin-top: 10px;
-    margin-right: 15px;
-}
+         .btn-checkout:hover {
+            background-color: #a80000 !important;
+         }
 
-.btn-checkout:hover {
-    background-color: #a80000 !important;
-}
+         .btn-continue {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-right: 15px;
+         }
 
-.btn-continue {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-top: 10px;
-    margin-right: 15px;
-    float: left; /* Đưa nút "Tiếp tục xem sản phẩm" sang bên trái */
-}
+         /* Nút xóa sản phẩm */
+         .btn-danger {
+            background-color: rgb(233, 28, 28) !important;
+            color: white !important;
+            border: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 8px rgba(204, 0, 0, 0.3);
+            margin-top: 10px;
+            margin-right: 15px;
+         }
 
-/* Nút xóa sản phẩm */
-.btn-danger {
-    background-color: rgb(233, 28, 28) !important;
-    color: white !important;
-    border: none;
-    padding: 8px 20px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    box-shadow: 0 2px 8px rgba(204, 0, 0, 0.3);
-    margin-top: 10px;
-    margin-right: 15px;
-}
+         .btn-danger:hover {
+            background-color: #a80000 !important;
+         }
 
-.btn-danger:hover {
-    background-color: #a80000 !important;
-}
+         .btn {
+            border-radius: 10px;
+            font-weight: 500;
+         }
 
-.btn {
-    border-radius: 10px;
-    font-weight: 500;
-}
+         /* Tiêu đề và mô tả trang */
+         .banner_taital {
+            font-size: 40px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.95);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+         }
 
-/* Tiêu đề và mô tả trang */
-.cart-title {
-    font-size: 30px; /* Tăng kích thước chữ */
-    font-weight: bold; /* In đậm */
-    color: #333; /* Màu chữ (tùy chọn) */
-}
-
-.banner_taital {
-    font-size: 40px;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.95);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.banner_text {
-    font-size: 18px;
-    color: black;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
-</style>
+         .banner_text {
+            font-size: 18px;
+            color: black;
+            font-weight: 500;
+            margin-bottom: 8px;
+         }
+      </style>
    </head>
    <body>
       <div class="header_section">
+         <!-- Nền che hình tròn màu hồng -->
+         <div class="bg-circle"></div> 
+
          <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand"href="/index.php"><img src="/images/logo.png"></a>
+               <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
                </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav">
-
                      <li class="nav-item active">
                         <a class="nav-link" href="/index.php">Trang chủ</a>
                      </li>
@@ -249,7 +206,6 @@
                      <li class="nav-item">
                         <a class="nav-link" href="kemQue.php">Kem que</a>
                      </li>
-                     
                   </ul>
                   <li>
                      <form class="form-inline my-2 my-lg-0">
@@ -260,81 +216,59 @@
                      </form>
                   </li>
                   <ul class="navbar-nav">
-
                      <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
-               
-
                   </form>
                </div>
             </nav>
          </div>
 
-
          <div class="container my-8 text-center" id="cart-list">
-         <h1 class="cart-title">Giỏ hàng</h1>
+            <h1>Giỏ hàng</h1>
+            <table class="text-center table table-bordered" style="vertical-align: middle;">
+               <thead style="font-size: 20px; vertical-align: middle">
+                  <tr class="table-danger">
+                     <th width="3%"><input type="checkbox" id="check-all" class="check" onclick="checkAllChanged()"></th>
+                     <th width="20%">Hình ảnh</th>
+                     <th width="45%">Tên sản phẩm</th>
+                     <th width="10%">Số lượng</th>
+                     <th width="15%">Giá</th>
+                     <th width="7%"></th>
+                  </tr>
+               </thead>
+               <tbody id="cart-body">
+                  <tr>
+                     <td><input type="checkbox" class="check"></td>
+                     <td><img src="/images/kemLyDau.jpg" class="item-img"></td>
+                     <td>Kem dâu tươi</td>
+                     <td class="item-quantity">2</td>
+                     <td class="item-price">50000đ</td>
+                     <td><button class="btn btn-danger">Xóa</button></td>
+                  </tr>
+                  <tr>
+                     <td><input type="checkbox" class="check"></td>
+                     <td><img src="/images/kemQueSocola.jpg" class="item-img"></td>
+                     <td>Kem socola</td>
+                     <td class="item-quantity">1</td>
+                     <td class="item-price">30000đ</td>
+                     <td><button class="btn btn-danger">Xóa</button></td>
+                  </tr>
+               </tbody>
+            </table>
 
-        <table class="text-center table table-bordered" style="vertical-align: middle;">
-            <thead style="font-size: 20px; vertical-align: middle">
-                <tr class="table-danger">
-                    <th width="3%"><input type="checkbox" id="check-all" class="check" onclick="checkAllChanged()"></th>
-                    <th width="20%">Hình ảnh</th>
-                    <th width="45%">Tên sản phẩm</th>
-                    <th width="10%">Số lượng</th>
-                    <th width="15%">Giá</th>
-                    <th width="7%"></th>
-                </tr>
-            </thead>
-            <tbody id="cart-body">
-                <tr>
-                    <td><input type="checkbox" class="check"></td>
-                    <td><img src="/images/kemLyDau.jpg" class="item-img"></td>
-                    <td>Kem dâu tươi</td>
-                    <td class="item-quantity">2</td>
-                    <td class="item-price">50000đ</td>
-                    <td><button class="btn btn-danger">Xóa</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" class="check"></td>
-                    <td><img src="/images/kemQueSocola.jpg" class="item-img"></td>
-                    <td>Kem socola</td>
-                    <td class="item-quantity">1</td>
-                    <td class="item-price">30000đ</td>
-                    <td><button class="btn btn-danger">Xóa</button></td>
-                </tr>
-            </tbody>
-        </table>
+            <div id="cart-action">            
+               <a href="/index.php" class="btn btn-continue">
+                  <i class="fa fa-arrow-left"></i> Tiếp tục xem sản phẩm
+               </a>
+            </div>
 
-        <div id="cart-action">            
-           
-        <a href="/index.php" class="btn btn-continue">
-    <i class="fa fa-arrow-left"></i> Tiếp tục xem sản phẩm</a>
+            <a href="trangThanhToan.php">
+   <button class="nut-thanh-toan">
+      <i class="fa fa-arrow-right"></i> Thanh Toán
+   </button>
+</a>
 
-
-        </div>
-        <div class="hop-tom-tat">
-    <h3 class="tieu-de-tom-tat">Tóm Tắt Đơn Hàng</h3>
-    <div class="dong-tom-tat">
-        <span>Tổng sản phẩm</span>
-        <span>3</span>
-    </div>
-    <div class="dong-tom-tat">
-        <span>Tạm tính</span>
-        <span>180.000đ</span>
-    </div>
-    <div class="dong-tom-tat">
-        <span>Phí vận chuyển</span>
-        <span>20.000đ</span>
-    </div>
-    <hr class="duong-ke">
-    <div class="dong-tom-tat tong-cong">
-        <span>Tổng cộng</span>
-        <span class="gia-tong">200.000đ</span>
-    </div>
-    <!-- Thêm liên kết đến trang thanh toán -->
-    <a href="trangThanhToan.php">
-        <button class="nut-thanh-toan">Thanh Toán</button>
-    </a>
-</div>
+         </div>
+      </div>
 
 
     </div>
