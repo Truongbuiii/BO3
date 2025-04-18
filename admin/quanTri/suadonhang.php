@@ -52,14 +52,16 @@ if (isset($_GET['mahoadon'])) {
         </div>
 
         <div class="form-group">
-            <label>Trạng thái</label>
-            <select name="TrangThai" class="form-control">
-                <option value="Chưa xử lý" <?php if($row['TrangThai']=='dangxuly') echo 'selected'; ?>>Chưa xử lý</option>
-                <option value="Đã xác nhận" <?php if($row['TrangThai']=='daxacnhan') echo 'selected'; ?>>Đã xác nhận</option>
-                <option value="Đã giao thành công" <?php if($row['TrangThai']=='dagiaothanhcong') echo 'selected'; ?>>Đã giao thành công</option>
-                <option value="Đã hủy" <?php if($row['TrangThai']=='dahuy') echo 'selected'; ?>>Đã huỷ</option>
-            </select>
-        </div>
+    <label>Trạng thái</label>
+    <select name="TrangThai" class="form-control">
+    <option value="Chưa xác nhận" <?php if(trim($row['TrangThai']) === 'Chưa xác nhận') echo 'selected'; ?>>Chưa xác nhận</option>
+
+        <option value="Đã xác nhận" <?php if($row['TrangThai']=='Đã xác nhận') echo 'selected'; ?>>Đã xác nhận</option>
+        <option value="Đã giao thành công" <?php if($row['TrangThai']=='Đã giao thành công') echo 'selected'; ?>>Đã giao thành công</option>
+        <option value="Đã huỷ" <?php if($row['TrangThai']=='Đã huỷ') echo 'selected'; ?>>Đã huỷ</option>
+    </select>
+</div>
+
 
         <div class="form-group">
             <label>Hình thức thanh toán</label>
