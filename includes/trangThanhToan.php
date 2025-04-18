@@ -30,100 +30,88 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<style>
-.checkout-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    max-width: 1300px;
-    margin: auto;
-    gap: 40px;
-}
 
-.checkout-container {
-    flex: 0.50; /* nhỏ hơn một chút */
-    padding: 30px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    font-size: 14px;
-}
+      <style>
+      .checkout-wrapper {
+         display: flex;
+         justify-content: space-between;
+         align-items: flex-start;
+         max-width: 1300px;
+         margin: auto;
+         gap: 40px;
+      }
 
-.order-summary {
-    flex: 0.50; /* lớn hơn một chút */
-    padding: 30px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+      .checkout-container, .order-summary {
+         flex: 0.5;
+         padding: 30px;
+         border: 1px solid #ddd;
+         border-radius: 10px;
+         background-color: #f9f9f9;
+         font-size: 14px;
+      }
 
-.order-summary h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
+      .order-summary h2, .checkout-container h2 {
+         text-align: center;
+         font-size: 24px;
+         margin-bottom: 20px;
+      }
 
-.form-group label {
-    font-weight: bold;
-    display: block;
-}
+      .form-group {
+         margin-bottom: 15px;
+      }
 
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: inline-block;
-}
+      .form-group label {
+         font-weight: bold;
+         display: block;
+      }
 
-.form-group {
-    margin-bottom: 15px;
-}
+      .form-group input {
+         width: 100%;
+         padding: 8px;
+         margin-top: 5px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+      }
 
-.required {
-    color: red;
-}
+      .required {
+         color: red;
+      }
 
-.btn-submit {
-    background-color: orange;
-    color: white;
-    padding: 10px;
-    border: none;
-    width: 100%;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 20px;
-}
+      .btn-submit {
+         background-color: orange;
+         color: white;
+         padding: 10px;
+         border: none;
+         width: 100%;
+         border-radius: 5px;
+         cursor: pointer;
+         font-size: 14px;
+         margin-top: 20px;
+      }
 
-.btn-back-cart {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #f44336;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
+      .btn-back-cart {
+         display: block;
+         text-align: center;
+         margin-top: 15px;
+         padding: 10px;
+         background-color: #f44336;
+         color: white;
+         text-decoration: none;
+         border-radius: 5px;
+      }
 
-.payment-method {
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff3cd;
-    margin-top: 20px;
-}
+      .payment-method {
+         padding: 15px;
+         border: 1px solid #ddd;
+         border-radius: 5px;
+         background-color: #fff3cd;
+         margin-top: 20px;
+      }
 
-.payment-method p {
-    margin: 0;
-}
-
+      .hidden {
+         display: none;
+      }
+   </style>
 
 
 </style>
@@ -173,86 +161,149 @@
 
 
     
-<div class="container my-5 checkout-wrapper">
-    <div class="checkout-container">
-        <h2 class="text-center">Thông tin thanh toán</h2>
-        <form id="checkout-form">
-            <div class="form-group">
-                <label for="name">Họ và tên <span class="required">*</span></label>
-                <input type="text" id="name" required>
-            </div>
-            <div class="form-group">
-    <label for="email">Email <span class="required">*</span></label>
-    <input type="email" id="email">
-</div>
-            <div class="form-group">
-                <label for="phone">Số điện thoại <span class="required">*</span></label>
-                <input type="text" id="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="city">Tỉnh/Thành phố <span class="required"></span></label>
-                <input type="text" id="city" disabled>
-            </div>
-            <div class="form-group">
-    <label for="district">Quận/Huyện <span class="required">*</span></label>
-    <input type="text" id="district" disabled>
-</div>
-<div class="form-group">
-    <label for="ward">Phường/Xã <span class="required"></span>*</label>
-    <input type="text" id="ward" disabled>
-</div>
-            <div class="form-group">
-                <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
-                <input type="text" id="address" required>
-            </div>
-        </form>
-    </div>
-    
-    <div class="order-summary">
-        <h2>Đơn hàng của bạn</h2>
-        <p><strong>Sản phẩm:</strong> Tropical Vibes Mousse – Mousse Ổi hồng & Chanh dây - 16cm</p>
-        <p><strong>Tạm tính:</strong> 485.000 ₫</p>
-        <p><strong>Giao hàng:</strong> 30.000 ₫</p>
-        <p><strong>Tổng:</strong> <span style="color:red; font-weight: bold;">515.000 ₫</span></p>
-        <div class="payment-method">
-            <p><strong>Thanh toán tiền mặt khi nhận hàng</strong></p>
-        </div>
-        <button id="btn-thanh-toan" class="btn-submit">Xác nhận thanh toán</button>
+         <div class="container my-5 checkout-wrapper">
+   <div class="checkout-container">
+      <h2>Thông tin thanh toán</h2>
+      <form id="checkout-form">
+         <div class="form-group">
+            <label for="name">Họ và tên <span class="required">*</span></label>
+            <input type="text" id="name" required>
+         </div>
+         <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" required>
+         </div>
+         <div class="form-group">
+            <label for="phone">Số điện thoại <span class="required">*</span></label>
+            <input type="text" id="phone" required>
+         </div>
 
+         <div class="form-group">
+            <label>Chọn địa chỉ giao hàng <span class="required">*</span></label>
+            <input type="radio" name="address-option" id="use-account" checked> Dùng địa chỉ tài khoản
+            <input type="radio" name="address-option" id="enter-new" style="margin-left:20px;"> Nhập địa chỉ mới
+         </div>
 
-        <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
-    </div>
+         <!-- Dùng địa chỉ tài khoản -->
+         <div id="account-address">
+            <div class="form-group">
+               <label for="city">Tỉnh/Thành phố</label>
+               <input type="text" id="city" disabled>
+            </div>
+            <div class="form-group">
+               <label for="district">Quận/Huyện</label>
+               <input type="text" id="district" disabled>
+            </div>
+            <div class="form-group">
+               <label for="ward">Phường/Xã</label>
+               <input type="text" id="ward" disabled>
+            </div>
+            <div class="form-group">
+               <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
+               <input type="text" id="address" required>
+            </div>
+         </div>
+
+         <!-- Nhập địa chỉ mới -->
+         <div id="new-address" class="hidden">
+            <div class="form-group">
+               <label for="new-city">Tỉnh/Thành phố <span class="required">*</span></label>
+               <input type="text" id="new-city">
+            </div>
+            <div class="form-group">
+               <label for="new-district">Quận/Huyện <span class="required">*</span></label>
+               <input type="text" id="new-district">
+            </div>
+            <div class="form-group">
+               <label for="new-ward">Phường/Xã <span class="required">*</span></label>
+               <input type="text" id="new-ward">
+            </div>
+            <div class="form-group">
+               <label for="new-address">Địa chỉ cụ thể <span class="required">*</span></label>
+               <input type="text" id="new-address">
+            </div>
+         </div>
+      </form>
+   </div>
+
+   <div class="order-summary">
+      <h2>Đơn hàng của bạn</h2>
+      <p><strong>Sản phẩm:</strong> Tropical Vibes Mousse – Mousse Ổi hồng & Chanh dây - 16cm</p>
+      <p><strong>Tạm tính:</strong> 485.000 ₫</p>
+      <p><strong>Giao hàng:</strong> 30.000 ₫</p>
+      <p><strong>Tổng:</strong> <span style="color:red; font-weight: bold;">515.000 ₫</span></p>
+
+      <div class="payment-method">
+         <p><strong>Thanh toán tiền mặt khi nhận hàng</strong></p>
+      </div>
+
+      <button id="btn-thanh-toan" class="btn-submit">Xác nhận thanh toán</button>
+      <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
+   </div>
 </div>
+
 <script>
-    // Giả lập dữ liệu tài khoản đã đăng ký
-    let userInfo = {
-        name: "Nguyễn Văn A",
-        phone: "0909123456",
-        city: "Tp. Hồ Chí Minh",
-        address: "123 Đường ABC, Quận 1"
-    };
+   // Dữ liệu tài khoản
+   let userInfo = {
+      name: "Nguyễn Văn A",
+      phone: "0909123456",
+      city: "Tp. Hồ Chí Minh",
+      district: "Quận 1",
+      ward: "Phường Bến Nghé",
+      address: "123 Đường ABC"
+   };
 
-    // Tự động điền dữ liệu vào form
-    document.getElementById("name").value = userInfo.name;
-    document.getElementById("phone").value = userInfo.phone;
-    document.getElementById("city").value = userInfo.city;
-    document.getElementById("address").value = userInfo.address;
+   // Gán dữ liệu mặc định
+   document.getElementById("name").value = userInfo.name;
+   document.getElementById("phone").value = userInfo.phone;
+   document.getElementById("city").value = userInfo.city;
+   document.getElementById("district").value = userInfo.district;
+   document.getElementById("ward").value = userInfo.ward;
+   document.getElementById("address").value = userInfo.address;
 
-    document.getElementById("btn-thanh-toan").onclick = function() {
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let phone = document.getElementById("phone").value.trim();
-    let address = document.getElementById("address").value.trim();
+   // Xử lý thay đổi radio
+   document.getElementById("use-account").addEventListener("change", function() {
+      document.getElementById("account-address").classList.remove("hidden");
+      document.getElementById("new-address").classList.add("hidden");
+   });
 
-    if (!name || !email || !phone || !address) {
-        alert("Vui lòng điền đầy đủ thông tin trước khi thanh toán!");
-        return;
-    }
+   document.getElementById("enter-new").addEventListener("change", function() {
+      document.getElementById("account-address").classList.add("hidden");
+      document.getElementById("new-address").classList.remove("hidden");
+   });
 
-    // Nếu thông tin hợp lệ, chuyển hướng sang trang hoàn tất đơn hàng
-    window.location.href = "hoanTatDonHang.php";
-};
+   document.getElementById("btn-thanh-toan").onclick = function () {
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let phone = document.getElementById("phone").value.trim();
+      let isUsingAccount = document.getElementById("use-account").checked;
+      let addressValid = false;
+
+      if (!name || !email || !phone) {
+         alert("Vui lòng nhập đầy đủ thông tin!");
+         return;
+      }
+
+      if (isUsingAccount) {
+         let addr = document.getElementById("address").value.trim();
+         addressValid = addr !== "";
+      } else {
+         let city = document.getElementById("new-city").value.trim();
+         let district = document.getElementById("new-district").value.trim();
+         let ward = document.getElementById("new-ward").value.trim();
+         let addr = document.getElementById("new-address").value.trim();
+         addressValid = city && district && ward && addr;
+      }
+
+      if (!addressValid) {
+         alert("Vui lòng điền đầy đủ địa chỉ giao hàng!");
+         return;
+      }
+
+      window.location.href = "hoanTatDonHang.php";
+   };
 </script>
+
       <!-- testimonial section end -->
       <!-- contact section start -->
       <div class="contact_section layout_padding">

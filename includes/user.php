@@ -1,5 +1,21 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Giả sử dữ liệu người dùng đã được lấy từ database
+$userData = [
+    'name' => $_SESSION['username'],
+    'email' => 'example@email.com',
+    'dob' => '2000-01-01',
+    'address' => '123 Đường ABC, Quận XYZ'
+];
+?>
+
 <!DOCTYPE html>
-<html>
+<html lang="vi">
    <head>
       <!-- basic -->
       <meta charset="utf-8">
@@ -27,17 +43,15 @@
       <link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
    </head>
    <body>
     <div class="header_section header_bg">
         <div class="container">
            <nav class="navbar navbar-expand-lg navbar-light bg-light">
               <a class="navbar-brand" href="index.html">
-                 <img src="/images/logo.png">
+                 <img src="/images/logo.png" alt="Logo">
               </a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +105,7 @@
             <!-- Cột 1: Sidebar (Menu) -->
             <div class="profile-sidebar">
                 <i class="fa-solid fa-user-circle profile-icon"></i>
-                <h2 class="profile-name">Tên người dùng</h2>
+                <h2 class="profile-name" id="profile-name"><?php echo $userData['name']; ?></h2>
                 <ul class="profile-menu">
                     <li class="menu-item active" data-target="info-section">Thông tin cá nhân</li>
                     <li class="menu-item" data-target="order-history-section">Lịch sử đơn hàng</li>
@@ -103,9 +117,9 @@
             <div class="profile-content">
                 <div id="info-section" class="content-section">
                     <h3>Thông Tin Cá Nhân</h3>
-                    <p>Email: <span id="profile-email">user@example.com</span></p>
-                    <p>Ngày sinh: <span id="profile-dob">01/01/1990</span></p>
-                    <p>Địa chỉ: <span id="profile-address">123 Đường ABC, TP XYZ</span></p>
+                    <p>Email: <span id="profile-email"><?php echo $userData['email']; ?></span></p>
+                    <p>Ngày sinh: <span id="profile-dob"><?php echo $userData['dob']; ?></span></p>
+                    <p>Địa chỉ: <span id="profile-address"><?php echo $userData['address']; ?></span></p>
                     <button class="edit-btn">Chỉnh sửa thông tin</button>
                 </div>
                 <div id="order-history-section" class="content-section hidden">
@@ -117,36 +131,36 @@
                     </ul>
                 </div>
                 <div id="logout-section" class="content-section hidden">
-                    <h3>Đăng xuất</h3>
-                    <button class="logout-btn">Xác nhận đăng xuất</button>
-                </div>
+                <h3>Đăng xuất</h3>
+                <a href="includes/logout.php" class="logout-btn" onclick="return confirm('Bạn có chắc chắn muốn đăng xuất?');">Xác nhận đăng xuất</a>
+
+
+</div>
+
             </div>
         </div>
     </div>
-    
-    
+
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-    let menuItems = document.querySelectorAll(".menu-item");
-    let contentSections = document.querySelectorAll(".content-section");
+        let menuItems = document.querySelectorAll(".menu-item");
+        let contentSections = document.querySelectorAll(".content-section");
 
-    menuItems.forEach(item => {
-        item.addEventListener("click", function() {
-            // Xóa active khỏi tất cả menu
-            menuItems.forEach(i => i.classList.remove("active"));
-            this.classList.add("active");
+        menuItems.forEach(item => {
+            item.addEventListener("click", function() {
+                // Remove active class from all menu items
+                menuItems.forEach(i => i.classList.remove("active"));
+                this.classList.add("active");
 
-            // Ẩn tất cả nội dung
-            contentSections.forEach(section => section.classList.add("hidden"));
+                // Hide all content sections
+                contentSections.forEach(section => section.classList.add("hidden"));
 
-            // Hiển thị nội dung tương ứng
-            let targetId = this.getAttribute("data-target");
-            document.getElementById(targetId).classList.remove("hidden");
+                // Show the corresponding content section
+                let targetId = this.getAttribute("data-target");
+                document.getElementById(targetId).classList.remove("hidden");
+            });
         });
     });
-});
-
-
     </script>
 
       <script src="js/jquery.min.js"></script>
