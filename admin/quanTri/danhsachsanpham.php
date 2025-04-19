@@ -23,9 +23,10 @@
 
 <div>
   <h3>Trang danh sách sản phẩm</h3>
-    <div class="themSanPham">
-                <a href="themsanpham.php"><button class="btn custom-btn" >Thêm sản phẩm</button></a>
-            </div>
+    <a href="themsanpham.php" class="btn btn-primary mb-3">
+    <i class="fas fa-user-plus"></i> Thêm sản phẩm
+</a>
+
 <?php
 
 require("./db/connect.php"); // Đảm bảo file kết nối đúng
@@ -238,7 +239,7 @@ if (!$result) {
         Bạn có chắc chắn muốn xóa sản phẩm này không?
       </div>
       <div class="modal-footer">
-        <form id="deleteForm" method="POST" action="deleteSanPham.php">
+        <form id="deleteForm" method="POST" action="xoaSanPham.php">
           <input type="hidden" id="delete-id" name="id">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
           <button type="submit" class="btn btn-danger">Xóa</button>

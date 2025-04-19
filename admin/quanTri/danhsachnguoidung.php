@@ -10,6 +10,11 @@
   $result = mysqli_query($conn, $sql);
   ?>
 
+
+<a href="themnguoidung.php" class="btn btn-primary mb-3">
+    <i class="fas fa-user-plus"></i> Thêm người dùng
+</a>
+
   <div class="card shadow mb-4">
       <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">Danh Sách Người Dùng</h6>

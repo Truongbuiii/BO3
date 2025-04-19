@@ -8,18 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $huongVi = $_POST['huongVi'];
     $tinhTrang = $_POST['tinhTrang'];
     $dienGiai = $_POST['dienGiai'];
-$gia = $_POST['DonGia'] ?? null;
-    $hinhAnhPath = ''; // Đường dẫn ảnh để lưu vào DB
-
-
+    $gia = $_POST['DonGia'] ?? null;
+    $hinhAnhPath = ''; // Chỉ lưu tên file hình ảnh
 
     if (empty($gia)) {
-    echo "<div class='alert alert-danger'>Bạn chưa nhập đơn giá.</div>";
-} else {
-    // chạy lệnh insert
-}
-
-
+        echo "<div class='alert alert-danger'>Bạn chưa nhập đơn giá.</div>";
+    } else {
+        // chạy lệnh insert
+    }
 
     if (isset($_FILES['HinhAnh']) && $_FILES['HinhAnh']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['HinhAnh']['tmp_name'];
@@ -28,7 +24,7 @@ $gia = $_POST['DonGia'] ?? null;
 
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
         if (in_array($fileExtension, $allowedExtensions)) {
-$uploadDir = 'images/';
+            $uploadDir = 'images/';  // Thư mục lưu ảnh trên server
             $newFileName = time() . '-' . uniqid() . '.' . $fileExtension;
             $destPath = $uploadDir . $newFileName;
 
@@ -37,7 +33,7 @@ $uploadDir = 'images/';
             }
 
             if (move_uploaded_file($fileTmpPath, $destPath)) {
-                $hinhAnhPath = $destPath; // Lưu đường dẫn để thêm vào DB
+                $hinhAnhPath = $newFileName;  // Chỉ lưu tên file, không lưu đường dẫn đầy đủ
             } else {
                 echo "<div class='alert alert-danger'>Lỗi khi tải ảnh lên.</div>";
             }
@@ -48,42 +44,39 @@ $uploadDir = 'images/';
 
     // ✅ Thêm vào DB nếu có ảnh
     if ($hinhAnhPath !== '') {
-       
-// Tạo mã sản phẩm tự động kiểu SP001, SP002,...
-$result = $conn->query("SELECT MaSanPham FROM SanPham ORDER BY MaSanPham DESC LIMIT 1");
+        // Tạo mã sản phẩm tự động kiểu SP001, SP002,...
+        $result = $conn->query("SELECT MaSanPham FROM SanPham ORDER BY MaSanPham DESC LIMIT 1");
 
-if ($result && $row = $result->fetch_assoc()) {
-    $lastMa = $row['MaSanPham']; // VD: SP007
-    $number = intval(substr($lastMa, 2)) + 1;
-    $newMaSanPham = 'SP' . str_pad($number, 3, '0', STR_PAD_LEFT);
-} else {
-    $newMaSanPham = 'SP001';
-}
+        if ($result && $row = $result->fetch_assoc()) {
+            $lastMa = $row['MaSanPham']; // VD: SP007
+            $number = intval(substr($lastMa, 2)) + 1;
+            $newMaSanPham = 'SP' . str_pad($number, 3, '0', STR_PAD_LEFT);
+        } else {
+            $newMaSanPham = 'SP001';
+        }
 
-$stmt = $conn->prepare("INSERT INTO SanPham (MaSanPham, tenSanPham, MaLoai, huongVi,dienGiai, tinhTrang, DonGia, hinhAnh) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
-$stmt->bind_param("sssssiis", $newMaSanPham, $tenSanPham, $maLoai, $huongVi, $dienGiai, $tinhTrang, $gia, $hinhAnhPath);
+        $stmt = $conn->prepare("INSERT INTO SanPham (MaSanPham, tenSanPham, MaLoai, huongVi, dienGiai, tinhTrang, DonGia, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssiis", $newMaSanPham, $tenSanPham, $maLoai, $huongVi, $dienGiai, $tinhTrang, $gia, $hinhAnhPath);
 
         if ($stmt->execute()) {
-    echo "<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            showModal('Thêm sản phẩm thành công!', 'success');
-        });
-    </script>";
-} else {
-    $error = addslashes($stmt->error);
-    echo "<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            showModal('Lỗi: $error', 'error');
-        });
-    </script>";
-
-}
-}
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showModal('Thêm sản phẩm thành công!', 'success');
+                });
+            </script>";
+        } else {
+            $error = addslashes($stmt->error);
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    showModal('Lỗi: $error', 'error');
+                });
+            </script>";
+        }
+    }
 }
 ?>
 
 <!-- Mã HTML form ở đây -->
-
 
 
     <div class="container">
@@ -145,7 +138,7 @@ $stmt->bind_param("sssssiis", $newMaSanPham, $tenSanPham, $maLoai, $huongVi, $di
 
                     <!-- Input ẩn -->
                     <input type="file" class="form-control" id="pic" name="HinhAnh"
-                        accept="image/*" onchange="previewImage(event)" style="display: none;">
+                        accept="*" onchange="previewImage(event)" style="display: none;">
 
                     <span id="file-name">Chưa có tệp nào</span>
 
