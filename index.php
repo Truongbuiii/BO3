@@ -104,9 +104,10 @@ session_start();
 
             <!-- Icon User & Giỏ hàng -->
             <ul class="navbar-nav ml-3">
-  <li class="nav-item d-flex align-items-center">
-  <a href="#" onclick="handleUserClick()">
-                            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+            <li class="nav-item d-flex align-items-center">
+               
+                        <a href="#" onclick="handleUserClick()">
+                        <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
                         </a>
                         <a href="#" onclick="handleCartClick()">
                             <i class="bi bi-bag-heart-fill custom-icon"  style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
@@ -117,11 +118,11 @@ session_start();
                             <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
                                 Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                             </span>
-                        </li>
-                        <li class="nav-item">
                             <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
                         </li>
-                    <?php endif; ?>
+                        
+                        
+                         <?php endif; ?>
 
   </li>
 </ul>
