@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
    <head>
@@ -161,169 +160,152 @@
          </div>
 
 
-
-      <div class="container my-5 checkout-wrapper">
-         <div class="checkout-container">
-            <h2>Thông tin thanh toán</h2>
-            <form id="checkout-form">
-               <div class="form-group">
-                  <label for="name">Họ và tên <span class="required">*</span></label>
-                  <input type="text" id="name" required>
-               </div>
-               <div class="form-group">
-                  <label for="email">Email <span class="required">*</span></label>
-                  <input type="email" id="email" required>
-               </div>
-               <div class="form-group">
-                  <label for="phone">Số điện thoại <span class="required">*</span></label>
-                  <input type="text" id="phone" required>
-               </div>
-
-               <div class="form-group">
-                  <label>Chọn địa chỉ giao hàng <span class="required">*</span></label>
-                  <input type="radio" name="address-option" id="use-account" checked> Dùng địa chỉ tài khoản
-                  <input type="radio" name="address-option" id="enter-new" style="margin-left:20px;"> Nhập địa chỉ mới
-               </div>
-
-               <!-- Dùng địa chỉ tài khoản -->
-               <div id="account-address">
-                  <div class="form-group">
-                     <label for="city">Tỉnh/Thành phố</label>
-                     <input type="text" id="city" disabled>
-                  </div>
-                  <div class="form-group">
-                     <label for="district">Quận/Huyện</label>
-                     <input type="text" id="district" disabled>
-                  </div>
-                  <div class="form-group">
-                     <label for="ward">Phường/Xã</label>
-                     <input type="text" id="ward" disabled>
-                  </div>
-                  <div class="form-group">
-                     <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
-                     <input type="text" id="address" required>
-                  </div>
-               </div>
-
-               <!-- Nhập địa chỉ mới -->
-               <div id="new-address" class="hidden">
-                  <div class="form-group">
-                     <label for="new-city">Tỉnh/Thành phố <span class="required">*</span></label>
-                     <input type="text" id="new-city">
-                  </div>
-                  <div class="form-group">
-                     <label for="new-district">Quận/Huyện <span class="required">*</span></label>
-                     <input type="text" id="new-district">
-                  </div>
-                  <div class="form-group">
-                     <label for="new-ward">Phường/Xã <span class="required">*</span></label>
-                     <input type="text" id="new-ward">
-                  </div>
-                  <div class="form-group">
-                     <label for="new-address">Địa chỉ cụ thể <span class="required">*</span></label>
-                     <input type="text" id="new-address">
-                  </div>
-               </div>
-            </form>
+    
+         <div class="container my-5 checkout-wrapper">
+   <div class="checkout-container">
+      <h2>Thông tin thanh toán</h2>
+      <form id="checkout-form">
+         <div class="form-group">
+            <label for="name">Họ và tên <span class="required">*</span></label>
+            <input type="text" id="name" required>
+         </div>
+         <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" required>
+         </div>
+         <div class="form-group">
+            <label for="phone">Số điện thoại <span class="required">*</span></label>
+            <input type="text" id="phone" required>
          </div>
 
-         <div class="order-summary">
-            <h2>Đơn hàng của bạn</h2>
-            <div id="cart-items"></div>
+         <div class="form-group">
+            <label>Chọn địa chỉ giao hàng <span class="required">*</span></label>
+            <input type="radio" name="address-option" id="use-account" checked> Dùng địa chỉ tài khoản
+            <input type="radio" name="address-option" id="enter-new" style="margin-left:20px;"> Nhập địa chỉ mới
+         </div>
 
-            <p><strong>Tạm tính:</strong> <span id="subtotal">0 ₫</span></p>
-            <p><strong>Giao hàng:</strong> <span id="shipping">30.000 ₫</span></p>
-            <p><strong>Tổng:</strong> <span style="color:red; font-weight: bold;" id="total">0 ₫</span></p>
-
-            <div class="payment-method">
-               <p><strong>Thanh toán tiền mặt khi nhận hàng</strong></p>
+         <!-- Dùng địa chỉ tài khoản -->
+         <div id="account-address">
+            <div class="form-group">
+               <label for="city">Tỉnh/Thành phố</label>
+               <input type="text" id="city" disabled>
             </div>
-
-            <button id="btn-thanh-toan" class="btn-submit">Xác nhận thanh toán</button>
-            <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
+            <div class="form-group">
+               <label for="district">Quận/Huyện</label>
+               <input type="text" id="district" disabled>
+            </div>
+            <div class="form-group">
+               <label for="ward">Phường/Xã</label>
+               <input type="text" id="ward" disabled>
+            </div>
+            <div class="form-group">
+               <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
+               <input type="text" id="address" required>
+            </div>
          </div>
+
+         <!-- Nhập địa chỉ mới -->
+         <div id="new-address" class="hidden">
+            <div class="form-group">
+               <label for="new-city">Tỉnh/Thành phố <span class="required">*</span></label>
+               <input type="text" id="new-city">
+            </div>
+            <div class="form-group">
+               <label for="new-district">Quận/Huyện <span class="required">*</span></label>
+               <input type="text" id="new-district">
+            </div>
+            <div class="form-group">
+               <label for="new-ward">Phường/Xã <span class="required">*</span></label>
+               <input type="text" id="new-ward">
+            </div>
+            <div class="form-group">
+               <label for="new-address">Địa chỉ cụ thể <span class="required">*</span></label>
+               <input type="text" id="new-address">
+            </div>
+         </div>
+      </form>
+   </div>
+
+   <div class="order-summary">
+      <h2>Đơn hàng của bạn</h2>
+      <p><strong>Sản phẩm:</strong> Tropical Vibes Mousse – Mousse Ổi hồng & Chanh dây - 16cm</p>
+      <p><strong>Tạm tính:</strong> 485.000 ₫</p>
+      <p><strong>Giao hàng:</strong> 30.000 ₫</p>
+      <p><strong>Tổng:</strong> <span style="color:red; font-weight: bold;">515.000 ₫</span></p>
+
+      <div class="payment-method">
+         <p><strong>Thanh toán tiền mặt khi nhận hàng</strong></p>
       </div>
 
-      <script>
-         // Dữ liệu giỏ hàng
-         let cart = [
-            {name: "Tropical Vibes Mousse", price: 485000, quantity: 1},
-            {name: "Kem Que", price: 30000, quantity: 2}
-         ];
+      <button id="btn-thanh-toan" class="btn-submit">Xác nhận thanh toán</button>
+      <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
+   </div>
+</div>
 
-         // Cập nhật giỏ hàng
-         function updateCartSummary() {
-            let subtotal = 0;
-            let cartItemsHTML = '';
-            cart.forEach(item => {
-               subtotal += item.price * item.quantity;
-               cartItemsHTML += `<p>${item.name} - ${item.quantity} x ${item.price.toLocaleString()} ₫ = ${(item.price * item.quantity).toLocaleString()} ₫</p>`;
-            });
+<script>
+   // Dữ liệu tài khoản
+   let userInfo = {
+      name: "Nguyễn Văn A",
+      phone: "0909123456",
+      city: "Tp. Hồ Chí Minh",
+      district: "Quận 1",
+      ward: "Phường Bến Nghé",
+      address: "123 Đường ABC"
+   };
 
-            let shipping = 30000; // Phí giao hàng cố định
-            let total = subtotal + shipping;
+   // Gán dữ liệu mặc định
+   document.getElementById("name").value = userInfo.name;
+   document.getElementById("phone").value = userInfo.phone;
+   document.getElementById("city").value = userInfo.city;
+   document.getElementById("district").value = userInfo.district;
+   document.getElementById("ward").value = userInfo.ward;
+   document.getElementById("address").value = userInfo.address;
 
-            document.getElementById("cart-items").innerHTML = cartItemsHTML;
-            document.getElementById("subtotal").textContent = subtotal.toLocaleString() + " ₫";
-            document.getElementById("shipping").textContent = shipping.toLocaleString() + " ₫";
-            document.getElementById("total").textContent = total.toLocaleString() + " ₫";
-         }
+   // Xử lý thay đổi radio
+   document.getElementById("use-account").addEventListener("change", function() {
+      document.getElementById("account-address").classList.remove("hidden");
+      document.getElementById("new-address").classList.add("hidden");
+   });
 
-         // Gán dữ liệu mặc định
-         document.getElementById("name").value = "Nguyễn Văn A";
-         document.getElementById("phone").value = "0909123456";
-         document.getElementById("city").value = "Tp. Hồ Chí Minh";
-         document.getElementById("district").value = "Quận 1";
-         document.getElementById("ward").value = "Phường Bến Nghé";
-         document.getElementById("address").value = "123 Đường ABC";
+   document.getElementById("enter-new").addEventListener("change", function() {
+      document.getElementById("account-address").classList.add("hidden");
+      document.getElementById("new-address").classList.remove("hidden");
+   });
 
-         // Xử lý thay đổi radio
-         document.getElementById("use-account").addEventListener("change", function() {
-            document.getElementById("account-address").classList.remove("hidden");
-            document.getElementById("new-address").classList.add("hidden");
-         });
+   document.getElementById("btn-thanh-toan").onclick = function () {
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let phone = document.getElementById("phone").value.trim();
+      let isUsingAccount = document.getElementById("use-account").checked;
+      let addressValid = false;
 
-         document.getElementById("enter-new").addEventListener("change", function() {
-            document.getElementById("account-address").classList.add("hidden");
-            document.getElementById("new-address").classList.remove("hidden");
-         });
+      if (!name || !email || !phone) {
+         alert("Vui lòng nhập đầy đủ thông tin!");
+         return;
+      }
 
-         document.getElementById("btn-thanh-toan").onclick = function () {
-            let name = document.getElementById("name").value.trim();
-            let email = document.getElementById("email").value.trim();
-            let phone = document.getElementById("phone").value.trim();
-            let isUsingAccount = document.getElementById("use-account").checked;
-            let addressValid = false;
+      if (isUsingAccount) {
+         let addr = document.getElementById("address").value.trim();
+         addressValid = addr !== "";
+      } else {
+         let city = document.getElementById("new-city").value.trim();
+         let district = document.getElementById("new-district").value.trim();
+         let ward = document.getElementById("new-ward").value.trim();
+         let addr = document.getElementById("new-address").value.trim();
+         addressValid = city && district && ward && addr;
+      }
 
-            if (!name || !email || !phone) {
-               alert("Vui lòng nhập đầy đủ thông tin!");
-               return;
-            }
+      if (!addressValid) {
+         alert("Vui lòng điền đầy đủ địa chỉ giao hàng!");
+         return;
+      }
 
-            if (isUsingAccount) {
-               let addr = document.getElementById("address").value.trim();
-               addressValid = addr !== "";
-            } else {
-               let newAddress = document.getElementById("new-address").value.trim();
-               let newCity = document.getElementById("new-city").value.trim();
-               let newDistrict = document.getElementById("new-district").value.trim();
-               let newWard = document.getElementById("new-ward").value.trim();
-               addressValid = newAddress && newCity && newDistrict && newWard;
-            }
+      window.location.href = "hoanTatDonHang.php";
+   };
+</script>
 
-            if (!addressValid) {
-               alert("Vui lòng điền đầy đủ địa chỉ giao hàng!");
-               return;
-            }
-
-            // Tiến hành thanh toán
-            alert("Cảm ơn bạn đã thanh toán!");
-            window.location.href = "hoanTatDonHang.php";
-         };
-
-         // Cập nhật giỏ hàng khi tải trang
-         updateCartSummary();
-      </script>
+      <!-- testimonial section end -->
+      <!-- contact section start -->
       <div class="contact_section layout_padding">
     <div class="container-fluid"> <!-- Đổi container thành container-fluid -->
              <div class="row">
