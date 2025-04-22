@@ -110,9 +110,7 @@ $conn->close();
                                 <label for="password">Mật khẩu:</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
                             </div>
-                            <?php if (isset($error_message)): ?>
-                                <div class="alert alert-danger mt-3"><?php echo $error_message; ?></div>
-                            <?php endif; ?>
+                            
                             <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                             <div class="text-center mt-3">
                                 <a href="/index.php" class="text-decoration-none">Quay lại</a>
@@ -126,6 +124,53 @@ $conn->close();
     <script>
     handleLoginSuccess("Tên người dùng"); // Ví dụ lấy từ PHP: handleLoginSuccess("<?php echo $username; ?>");
 </script>
+<script>
+function showLoginError(message) {
+    // Nếu popup đang hiển thị thì không tạo lại
+    if (document.getElementById("error-popup")) return;
+
+    const popup = document.createElement("div");
+    popup.id = "error-popup";
+    popup.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.4); display: flex;
+        align-items: center; justify-content: center; z-index: 2000;
+    `;
+
+    const content = document.createElement("div");
+    content.style.cssText = `
+        background: white; padding: 20px 30px; border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3); text-align: center;
+        min-width: 280px; position: relative;
+    `;
+
+    const msg = document.createElement("p");
+    msg.innerText = message;
+    msg.style.cssText = "font-size: 16px; margin-bottom: 15px; color: black;";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.innerText = "Thử lại";
+    closeBtn.style.cssText = `
+        padding: 8px 16px; border: none; border-radius: 6px;
+        background-color: #fc95c4; color: white; font-size: 14px;
+        cursor: pointer;
+    `;
+    closeBtn.onclick = () => {
+        document.body.removeChild(popup);
+    };
+
+    content.appendChild(msg);
+    content.appendChild(closeBtn);
+    popup.appendChild(content);
+    document.body.appendChild(popup);
+}
+</script>
+<?php if (isset($error_message)): ?>
+<script>
+    showLoginError("<?php echo $error_message; ?>");
+</script>
+<?php endif; ?>
+
 
 
     <script src="js/jquery.min.js"></script>

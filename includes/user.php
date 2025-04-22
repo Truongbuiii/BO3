@@ -19,6 +19,34 @@ $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
+// Xử lý khi người dùng cập nhật thông tin
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
+    $email = $_POST['email'];
+    $sdt = $_POST['sdt'];
+    $diachi = $_POST['diachi'];
+    $phuongxa = $_POST['phuongxa'];
+    $quanhuyen = $_POST['quanhuyen'];
+    $tptinh = $_POST['tptinh'];
+
+    $updateSql = "UPDATE NguoiDung SET Email=?, SoDienThoai=?, DiaChiCuThe=?, PhuongXa=?, QuanHuyen=?, TPTinh=? WHERE TenNguoiDung=?";
+    $stmt = $conn->prepare($updateSql);
+    $stmt->bind_param("sssssss", $email, $sdt, $diachi, $phuongxa, $quanhuyen, $tptinh, $username);
+
+    if ($stmt->execute()) {
+        // Cập nhật lại thông tin mới sau khi thành công
+        $sql = "SELECT * FROM NguoiDung WHERE TenNguoiDung = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        echo "<script>alert('Cập nhật thành công!');</script>";
+    } else {
+        echo "<script>alert('Cập nhật thất bại!');</script>";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -189,17 +217,57 @@ $user = $result->fetch_assoc();
         <!-- Nội dung chính -->
         <div class="profile-content">
             <div id="info-section" class="content-section active">
-                <h3>Thông Tin Cá Nhân</h3>
-                <p><strong>Email:</strong> <?= htmlspecialchars($user['Email']) ?></p>
-                <p><strong>SĐT:</strong> <?= htmlspecialchars($user['SoDienThoai']) ?></p>
-                <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($user['DiaChiCuThe']) ?>,
-                    <?= htmlspecialchars($user['PhuongXa']) ?>,
-                    <?= htmlspecialchars($user['QuanHuyen']) ?>,
-                    <?= htmlspecialchars($user['TPTinh']) ?></p>
-                <p><strong>Vai trò:</strong> <?= htmlspecialchars($user['VaiTro']) ?></p>
-                <button class="edit-btn btn btn-outline-primary mt-3">Chỉnh sửa thông tin</button>
-                
+            <div id="info-section" class="content-section active">
+    <!-- Phần hiển thị thông tin -->
+    <div id="view-info">
+        <h3>Thông Tin Cá Nhân</h3>
+        <p><strong>Email:</strong> <?= htmlspecialchars($user['Email']) ?></p>
+        <p><strong>SĐT:</strong> <?= htmlspecialchars($user['SoDienThoai']) ?></p>
+        <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($user['DiaChiCuThe']) ?>,
+            <?= htmlspecialchars($user['PhuongXa']) ?>,
+            <?= htmlspecialchars($user['QuanHuyen']) ?>,
+            <?= htmlspecialchars($user['TPTinh']) ?></p>
+        <p><strong>Vai trò:</strong> <?= htmlspecialchars($user['VaiTro']) ?></p>
+        <button class="edit-btn btn btn-outline-primary mt-3" onclick="toggleEdit()" style="color:#fff">Chỉnh sửa thông tin</button>
+    </div>
+
+    <!-- Phần form cập nhật -->
+    <div id="edit-info" style="display: none;">
+        <h3>Chỉnh Sửa Thông Tin</h3>
+        <form method="post" action="">
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['Email']) ?>" required>
             </div>
+            <div class="form-group">
+                <label>SĐT:</label>
+                <input type="text" name="sdt" class="form-control" value="<?= htmlspecialchars($user['SoDienThoai']) ?>" required>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ:</label>
+                <input type="text" name="diachi" class="form-control" value="<?= htmlspecialchars($user['DiaChiCuThe']) ?>" required>
+            </div>
+            <div class="form-group">
+                <label>Phường/Xã:</label>
+                <input type="text" name="phuongxa" class="form-control" value="<?= htmlspecialchars($user['PhuongXa']) ?>" required>
+            </div>
+            <div class="form-group">
+                <label>Quận/Huyện:</label>
+                <input type="text" name="quanhuyen" class="form-control" value="<?= htmlspecialchars($user['QuanHuyen']) ?>" required>
+            </div>
+            <div class="form-group">
+                <label>Tỉnh/TP:</label>
+                <input type="text" name="tptinh" class="form-control" value="<?= htmlspecialchars($user['TPTinh']) ?>" required>
+            </div>
+
+            <button type="submit" name="update" class="btn btn-primary mt-3">Cập nhật</button>
+           <div class="text-center mt-2">
+    <a href="#" class="text-decoration-underline text-secondary" onclick="toggleEdit()">Hủy</a>
+</div>
+        </form>
+    </div>
+</div>
+
             <div id="order-history-section" class="content-section">
                 <h3>Lịch sử đơn hàng</h3>
                 <ul>
@@ -222,14 +290,34 @@ $user = $result->fetch_assoc();
 
     menuItems.forEach(item => {
         item.addEventListener("click", () => {
+            // Xóa class active khỏi tất cả menu
             menuItems.forEach(i => i.classList.remove("active"));
             item.classList.add("active");
 
+            // Ẩn tất cả các section
             sections.forEach(s => s.classList.remove("active"));
-            const target = document.getElementById(item.dataset.target);
-            target.classList.add("active");
+
+            // Hiển thị section được chọn
+            const target = item.getAttribute("data-target");
+            document.getElementById(target).classList.add("active");
         });
     });
+
+    function toggleEdit() {
+        const viewInfo = document.getElementById("view-info");
+        const editInfo = document.getElementById("edit-info");
+
+        viewInfo.style.display = (viewInfo.style.display === "none") ? "block" : "none";
+        editInfo.style.display = (editInfo.style.display === "none") ? "block" : "none";
+    }
+
+    function handleUserClick() {
+        window.location.href = "user.php"; // Điều hướng đến trang hồ sơ cá nhân
+    }
+
+    function handleCartClick() {
+        window.location.href = "trangGioHang.php"; // Điều hướng đến trang giỏ hàng
+    }
 </script>
 
 </body>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require("../db/connect.php");
 
 // Kiểm tra nếu có `MaSanPham` được truyền vào
@@ -23,12 +24,50 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-// Truy vấn sản phẩm liên quan (cùng loại nhưng khác sản phẩm hiện tại)
+// Truy vấn sản phẩm liên quan
 $sql_related = "SELECT * FROM SanPham WHERE MaLoai = ? AND MaSanPham != ? LIMIT 3";
 $stmt_related = $conn->prepare($sql_related);
 $stmt_related->bind_param("ss", $product['MaLoai'], $MaSanPham);
 $stmt_related->execute();
 $related_products = $stmt_related->get_result();
+
+// Xử lý thêm sản phẩm vào giỏ hàng
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
+    $MaSanPham = $_POST['MaSanPham'];
+
+    // Lấy thông tin sản phẩm từ CSDL
+    $sql = "SELECT * FROM SanPham WHERE MaSanPham = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $MaSanPham);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+
+    if ($product) {
+        // Khởi tạo giỏ hàng nếu chưa có
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+
+        // Nếu sản phẩm đã tồn tại trong giỏ, tăng số lượng
+        if (isset($_SESSION['cart'][$MaSanPham])) {
+            $_SESSION['cart'][$MaSanPham]['quantity'] += 1;
+        } else {
+            // Thêm sản phẩm mới vào giỏ
+            $_SESSION['cart'][$MaSanPham] = [
+                'TenSanPham' => $product['TenSanPham'],
+                'DonGia' => $product['DonGia'],
+                'HinhAnh' => $product['HinhAnh'],
+                'quantity' => 1
+            ];
+        }
+
+        // Chuyển hướng đến trang giỏ hàng
+        echo "<script>window.location.href = 'trangGioHang.php';</script>";
+    } else {
+        echo "<script>alert('Sản phẩm không tồn tại.');</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,10 +79,12 @@ $related_products = $stmt_related->get_result();
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="js/jquery.min.js"></script>
 </head>
 <body>
 
-<style>.product-info {
+<style>
+.product-info {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: #333;
@@ -71,6 +112,7 @@ $related_products = $stmt_related->get_result();
     font-weight: 500;
 }
 </style>
+
 <!-- Header -->
 <div class="header_section header_bg">
     <div class="container">
@@ -121,7 +163,9 @@ $related_products = $stmt_related->get_result();
                 <p class="product-flavor"><strong>Hương vị: </strong> <?php echo $product['HuongVi']; ?></p>
                 <p class="product-description">Diển giải : <?php echo $product['DienGiai']; ?></p>
                 <p class="tinhtrang">Tình trạng : <?php echo $product['TinhTrang']? "<span class='text-success'>Còn hàng</span>" : "<span class='text-danger'>Khóa</span>" ; ?></p>
-                <button class="btn btn-success">Thêm vào giỏ hàng</button>
+                <form method="POST">
+                    <button class="btn btn-success" name="MaSanPham" value="<?php echo $product['MaSanPham']; ?>">Thêm vào giỏ hàng</button>
+                </form>
             </div>
         </div>
     </div>
@@ -145,70 +189,19 @@ $related_products = $stmt_related->get_result();
     </div>
 </div>
 
-      <!-- testimonial section end -->
-      <!-- contact section start -->
-      <div class="contact_section layout_padding">
-    <div class="container-fluid"> <!-- Đổi container thành container-fluid -->
-             <div class="row">
-                 <div class="col-md-8">
-                     <div class="location_text">
-                         <ul>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                     1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                     Call : +01 23456789
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                                     Email : BeYeukem1234@gmail.com
-                                 </a>
-                             </li>
-                         </ul>
-                     </div>
-                 </div>
-             </div>
-             <div class="footer_social_icon">
-                 <ul>
-                     <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                 </ul>
-             </div>
-             <div class="copyright_section">
-               <div class="container">
-                  <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
-               </div>
-            </div>
-         </div>
-     </div>
-<!-- Script để thay đổi ảnh chính -->
-<script>
-    function changeImage(imagePath) {
-        document.querySelector(".product-main-image").src = imagePath;
-    }
-</script>
-
-
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-</body>
-</html>
-
-<?php
-$conn->close();
-?>
+<!-- Footer -->
+<div class="contact_section layout_padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="location_text">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="padding_left_10"><i
