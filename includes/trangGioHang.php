@@ -279,12 +279,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
                 <td><?php echo $item['TenSanPham']; ?></td>
                 <td><?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VND</td>
                 <td>
-                    <form method="POST">
-                        <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" min="1" style="width: 50px;">
-                        <input type="hidden" name="MaSanPham" value="<?php echo $MaSanPham; ?>">
-                        <button type="submit" class="btn btn-primary">Cập nhật</button>
-                    </form>
-                </td>
+                  <form method="POST">
+                     <button type="button" class="btn btn-secondary btn-sm" onclick="updateQuantity('<?php echo $MaSanPham; ?>', -1)">-</button>
+                     <span id="quantity-<?php echo $MaSanPham; ?>"><?php echo $item['quantity']; ?></span>
+                     <button type="button" class="btn btn-secondary btn-sm" onclick="updateQuantity('<?php echo $MaSanPham; ?>', 1)">+</button>
+                     <input type="hidden" name="MaSanPham" value="<?php echo $MaSanPham; ?>">
+                     <input type="hidden" name="quantity" id="hidden-quantity-<?php echo $MaSanPham; ?>" value="<?php echo $item['quantity']; ?>">
+                  </form>
+               </td>
+
                 <td><?php echo number_format($item['DonGia'] * $item['quantity'], 0, ',', '.'); ?> VND</td>
                 <td><a href="trangGioHang.php?remove=<?php echo $MaSanPham; ?>" class="btn btn-danger">Xóa</a></td>
             </tr>
@@ -295,8 +298,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
     <h3 class="text-right">Tổng cộng: <?php echo number_format($total, 0, ',', '.'); ?> VND</h3>
 
     <div class="text-center mt-4">
-        <a href="trangThanhToan.php" class="btn btn-success">Tiến hành thanh toán</a>
-    </div>
+    <a href="trangThanhToan.php" class="btn" style="background-color: #fc95c4; color: white; padding: 12px 28px; border-radius: 6px; font-size: 18px; border: none;">Thanh toán</a>
+</div>
+
+    <div class="text-center mt-2">
+    <a href="/index.php" style="color:black; font-size: 18px; text-decoration: none;">Quay lại</a>
+</div>
+
 </div>
 
 <div class="contact_section layout_padding">
@@ -342,7 +350,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
             </div>
          </div>
      </div>
+    <script>function updateQuantity(MaSanPham, change) {
+    var quantityElement = document.getElementById('quantity-' + MaSanPham);
+    var hiddenQuantityElement = document.getElementById('hidden-quantity-' + MaSanPham);
     
+    // Cập nhật số lượng trên giao diện
+    var currentQuantity = parseInt(quantityElement.textContent);
+    var newQuantity = currentQuantity + change;
+    if (newQuantity > 0) {
+        quantityElement.textContent = newQuantity;
+        hiddenQuantityElement.value = newQuantity;
+
+        // Gửi yêu cầu cập nhật số lượng qua POST
+        var form = quantityElement.closest('form');
+        form.submit();
+    }
+}
+</script>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
