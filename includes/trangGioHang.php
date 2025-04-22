@@ -255,7 +255,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
             </nav>
          </div>
 <div class="container">
-    <h2 class="my-4">Giỏ hàng của bạn</h2>
+<h1 class="my-4 text-center fw-bold">Giỏ hàng của bạn</h1>
+
 
     <table class="table table-bordered">
         <thead>
@@ -366,6 +367,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
         form.submit();
     }
 }
+
+
 </script>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
