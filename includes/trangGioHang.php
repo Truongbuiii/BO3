@@ -295,7 +295,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
     <h3 class="text-right">Tổng cộng: <?php echo number_format($total, 0, ',', '.'); ?> VND</h3>
 
     <div class="text-center mt-4">
-        <a href="checkout.php" class="btn btn-success">Tiến hành thanh toán</a>
+        <a href="trangThanhToan.php" class="btn btn-success">Tiến hành thanh toán</a>
     </div>
 </div>
 
