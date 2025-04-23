@@ -143,10 +143,14 @@ $category_result = $conn->query($category_sql);
                     
                   </ul>
                   
-                <form action="search.php" method="GET" class="form-inline">
-                    <input type="text" name="search" class="form-control mb-2 mr-sm-2" placeholder="Tìm theo tên sản phẩm" value="<?php echo htmlspecialchars($search); ?>">
-                    <button type="submit" class="btn btn-primary mb-2">Tìm kiếm</button>
-                </form>
+                  <form action="search.php" method="GET" class="form-inline my-2 my-lg-0">
+    <input type="text" name="search" class="form-control mr-sm-2" placeholder="Tìm theo tên sản phẩm" value="<?php echo htmlspecialchars($search); ?>" style="height: 38px;">
+    
+    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" style="height: 38px;">
+        <i class="fa fa-search" style="color: aliceblue;"></i>
+    </button>
+</form>
+
             </div>
         </nav>
     </div>
@@ -171,14 +175,17 @@ $category_result = $conn->query($category_sql);
             ?>
         </select>
 
-        <select name="price_range" class="form-control mb-2 mr-sm-2">
-            <option value="">-- Chọn khoảng giá --</option>
-            <option value="10000-12000" <?php echo ($price_range == '10000-12000' ? 'selected' : ''); ?>>10,000đ - 12,000đ</option>
-            <option value="13000-15000" <?php echo ($price_range == '13000-15000' ? 'selected' : ''); ?>>13,000đ - 15,000đ</option>
-            <option value="16000-20000" <?php echo ($price_range == '16000-20000' ? 'selected' : ''); ?>>16,000đ - 20,000đ</option>
-        </select>
+        <select name="price_range" class="form-control mb-2 mr-sm-2" style="height: 38px;">
+    <option value="">-- Chọn khoảng giá --</option>
+    <option value="10000-12000" <?php echo ($price_range == '10000-12000' ? 'selected' : ''); ?>>10,000đ - 12,000đ</option>
+    <option value="13000-15000" <?php echo ($price_range == '13000-15000' ? 'selected' : ''); ?>>13,000đ - 15,000đ</option>
+    <option value="16000-20000" <?php echo ($price_range == '16000-20000' ? 'selected' : ''); ?>>16,000đ - 20,000đ</option>
+</select>
 
-        <button type="submit" class="btn btn-primary btn-sm custom-button">Tìm kiếm</button>
+<button type="submit" class="btn btn-outline-success mb-2" style="height: 38px;">
+    <i class="fa fa-search" style="color: aliceblue;"></i>
+</button>
+
 
 
     </form>
