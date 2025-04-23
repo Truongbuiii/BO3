@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Trang chủ</title>
+      <title>Kem Ly</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -30,25 +30,13 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<style>
-   .banner_taital {
-      font-size: 40px;
-      font-weight: bold;
-      color: rgba(0, 0, 0, 0.95);
-      /* Màu sắc nổi bật */
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-   }
 
-   .banner_text {
-      font-size: 18px;
-      color: black;
-      font-weight: 500;
-      margin-bottom: 8px;
-   }
-</style>
    </head>
+   
+
    <body>
-      <div class="header_section">
+    
+      <div class="header_section header_bg">
          <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                <a class="navbar-brand"href="/index.php"><img src="/images/logo.png"></a>
@@ -56,7 +44,7 @@
                <span class="navbar-toggler-icon"></span>
                </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav">
+                  <ul class="navbar-nav ml-auto">
 
                      <li class="nav-item active">
                         <a class="nav-link" href="/index.php">Trang chủ</a>
@@ -97,9 +85,7 @@
 <div class="cream_section layout_padding">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1 class="cream_taital">Kem Ly</h1>
-            </div>
+          
         </div>
         <div class="cream_section_2">
             <div class="row">
