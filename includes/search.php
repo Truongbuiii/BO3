@@ -191,14 +191,19 @@ $category_result = $conn->query($category_sql);
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo '<div class="col-md-4">
-                        <div class="product-item">
-                            <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
-                                <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '" class="img-fluid">
-                            </a>
-                            <p class="product-name">' . $row["TenSanPham"] . '</p>
-                            <p class="product-price">' . number_format($row["DonGia"]) . 'đ</p>
-                        </div>
-                    </div>';
+                <div class="cream_box">
+                    <div class="cream_img">
+                        <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
+                            <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '">
+                        </a>
+                    </div>
+                    <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
+                    <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
+                    <div class="cart_bt">
+                        <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">Xem chi tiết</a>
+                    </div>
+                </div>
+              </div>';
             }
         } else {
             echo '<div class="col-12">
