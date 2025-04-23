@@ -8,169 +8,134 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Trang chủ</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-      <!-- style css -->
-      <link rel="stylesheet" type="text/css" href="/css/style.css">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="/css/responsive.css">
-      <!-- fevicon -->
-      <link rel="icon" href="/images/fevicon.png" type="image/gif" />
-      <!-- font css -->
-      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<head>
+    <!-- Meta and Stylesheets -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thanh toán</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS styles for the checkout page */
+        .checkout-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1300px;
+            margin: auto;
+            gap: 40px;
+        }
 
+        .checkout-container, .order-summary {
+            flex: 0.5;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+        }
 
-      <style>
-      .checkout-wrapper {
-         display: flex;
-         justify-content: space-between;
-         align-items: flex-start;
-         max-width: 1300px;
-         margin: auto;
-         gap: 40px;
-      }
+        .order-summary h2, .checkout-container h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-      .checkout-container, .order-summary {
-         flex: 0.5;
-         padding: 30px;
-         border: 1px solid #ddd;
-         border-radius: 10px;
-         background-color: #f9f9f9;
-         font-size: 14px;
-      }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-      .order-summary h2, .checkout-container h2 {
-         text-align: center;
-         font-size: 24px;
-         margin-bottom: 20px;
-      }
+        .form-group label {
+            font-weight: bold;
+            display: block;
+        }
 
-      .form-group {
-         margin-bottom: 15px;
-      }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-      .form-group label {
-         font-weight: bold;
-         display: block;
-      }
+        .required {
+            color: red;
+        }
 
-      .form-group input {
-         width: 100%;
-         padding: 8px;
-         margin-top: 5px;
-         border: 1px solid #ccc;
-         border-radius: 5px;
-      }
+        .btn-submit {
+            background-color: orange;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+        }
 
-      .required {
-         color: red;
-      }
+        .btn-back-cart {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
 
-      .btn-submit {
-         background-color: orange;
-         color: white;
-         padding: 10px;
-         border: none;
-         width: 100%;
-         border-radius: 5px;
-         cursor: pointer;
-         font-size: 14px;
-         margin-top: 20px;
-      }
+        .payment-method {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff3cd;
+            margin-top: 20px;
+        }
 
-      .btn-back-cart {
-         display: block;
-         text-align: center;
-         margin-top: 15px;
-         padding: 10px;
-         background-color: #f44336;
-         color: white;
-         text-decoration: none;
-         border-radius: 5px;
-      }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
 
-      .payment-method {
-         padding: 15px;
-         border: 1px solid #ddd;
-         border-radius: 5px;
-         background-color: #fff3cd;
-         margin-top: 20px;
-      }
-
-      .hidden {
-         display: none;
-      }
-   </style>
-
-
-</style>
-   </head>
-   <body>
-      <div class="header_section">
-         <div class="container">
+<body>
+    <div class="header_section">
+        <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand"href="/index.php"><img src="/images/logo.png"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav">
-
-                     <li class="nav-item active">
-                        <a class="nav-link" href="/index.php">Trang chủ</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemLy.php">Kem ly</a> 
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemOcQue.php">Kem ốc quế</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemQue.php">Kem que</a>
-                     </li>
-                     
-                  </ul>
-                  <li>
-                     <form class="form-inline my-2 my-lg-0">
+                <a class="navbar-brand" href="/index.php"><img src="/images/logo.png" alt="Logo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/index.php">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="kemLy.php">Kem ly</a> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="kemOcQue.php">Kem ốc quế</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="kemQue.php">Kem que</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                           <i class="fa-solid fa-magnifying-glass"></i>
+                            <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
-                     </form>
-                  </li>
-                  <ul class="navbar-nav">
-
-                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
-               
-
-                  </form>
-               </div>
+                    </form>
+                </div>
             </nav>
-         </div>
-
-
+        </div>
+    </div>
 
     <!-- Checkout Form Section -->
     <div class="container my-5 checkout-wrapper">
