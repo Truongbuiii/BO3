@@ -117,6 +117,9 @@ $category_result = $conn->query($category_sql);
       <link rel="stylesheet" href="/css/jquery.mCustomScrollbar.min.css">
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
    </head>
    <body>
       <div class="header_section header_bg">
@@ -150,6 +153,7 @@ $category_result = $conn->query($category_sql);
         <i class="fa fa-search" style="color: aliceblue;"></i>
     </button>
 </form>
+<div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
 
             </div>
         </nav>
