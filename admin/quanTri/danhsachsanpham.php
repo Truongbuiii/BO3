@@ -90,7 +90,7 @@ if (!$result) {
                     <td>{$row['HuongVi']}</td>
                     <td>" . ($row['TinhTrang'] ? "<span class='text-success'>Mở</span>" : "<span class='text-danger'>Khóa</span>") . "</td>
                     <td>" . number_format($row['DonGia'], 0, ',', '.') . " VND</td>
-                    <td><img src='images/{$row['HinhAnh']}' width='100'></td>
+                    <td><img src='../../images/{$row['HinhAnh']}' width='100'></td>
                     <td>
                         <button class='btn btn-warning btn-sm edit-btn' 
                                 data-id='{$row['MaSanPham']}' 
@@ -259,7 +259,7 @@ if (!$result) {
                 document.getElementById("edit-ten").value = this.dataset.ten;
                 document.getElementById("edit-gia").value = this.dataset.gia;
                 document.getElementById("edit-huongvi").value = this.dataset.huongvi;
-                document.getElementById("edit-hinh-preview").src = "images/" + this.dataset.hinh;
+                document.getElementById("edit-hinh-preview").src = "../../images/" + this.dataset.hinh;
                 document.getElementById("edit-hinh-cu").value = this.dataset.hinh;
 
 

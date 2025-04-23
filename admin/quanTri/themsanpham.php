@@ -17,30 +17,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // chạy lệnh insert
     }
 
-    if (isset($_FILES['HinhAnh']) && $_FILES['HinhAnh']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['HinhAnh']['tmp_name'];
-        $fileName = $_FILES['HinhAnh']['name'];
-        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+if (isset($_FILES['HinhAnh']) && $_FILES['HinhAnh']['error'] === UPLOAD_ERR_OK) {
+    $fileTmpPath = $_FILES['HinhAnh']['tmp_name'];
+    $fileName = $_FILES['HinhAnh']['name'];
+    $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-        if (in_array($fileExtension, $allowedExtensions)) {
-            $uploadDir = 'images/';  // Thư mục lưu ảnh trên server
-            $newFileName = time() . '-' . uniqid() . '.' . $fileExtension;
-            $destPath = $uploadDir . $newFileName;
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    if (in_array($fileExtension, $allowedExtensions)) {
+        $uploadDir = '../../images/'; // Đường dẫn tương đối đến thư mục ảnh
+        $newFileName = time() . '-' . uniqid() . '.' . $fileExtension;
+        $destPath = $uploadDir . $newFileName;
 
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-
-            if (move_uploaded_file($fileTmpPath, $destPath)) {
-                $hinhAnhPath = $newFileName;  // Chỉ lưu tên file, không lưu đường dẫn đầy đủ
-            } else {
-                echo "<div class='alert alert-danger'>Lỗi khi tải ảnh lên.</div>";
-            }
-        } else {
-            echo "<div class='alert alert-warning'>Chỉ chấp nhận định dạng JPG, PNG, GIF.</div>";
+        // Kiểm tra xem thư mục có tồn tại không, nếu không thì tạo thư mục
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true); // Tạo thư mục nếu chưa có
         }
+
+        if (move_uploaded_file($fileTmpPath, $destPath)) {
+            $hinhAnhPath = $newFileName;  // Lưu tên file vào database, không lưu đường dẫn đầy đủ
+        } else {
+            echo "<div class='alert alert-danger'>Lỗi khi tải ảnh lên.</div>";
+        }
+    } else {
+        echo "<div class='alert alert-warning'>Chỉ chấp nhận định dạng JPG, PNG, GIF.</div>";
     }
+}
+
 
     // ✅ Thêm vào DB nếu có ảnh
     if ($hinhAnhPath !== '') {
@@ -55,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newMaSanPham = 'SP001';
         }
 
-        $stmt = $conn->prepare("INSERT INTO SanPham (MaSanPham, tenSanPham, MaLoai, huongVi, dienGiai, tinhTrang, DonGia, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssiis", $newMaSanPham, $tenSanPham, $maLoai, $huongVi, $dienGiai, $tinhTrang, $gia, $hinhAnhPath);
+      $stmt = $conn->prepare("INSERT INTO SanPham (MaSanPham, tenSanPham, MaLoai, huongVi, dienGiai, tinhTrang, DonGia, hinhAnh) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("sssssiis", $newMaSanPham, $tenSanPham, $maLoai, $huongVi, $dienGiai, $tinhTrang, $gia, $hinhAnhPath);
 
         if ($stmt->execute()) {
             echo "<script>

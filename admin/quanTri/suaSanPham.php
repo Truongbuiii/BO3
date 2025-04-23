@@ -15,20 +15,26 @@ $hinhAnh = null;
 if (!empty($_FILES['HinhAnh']['name']) && is_uploaded_file($_FILES['HinhAnh']['tmp_name'])) {
     $hinhAnh = $_FILES['HinhAnh']['name'];
 
-    $targetDir = "images/";
-    $targetFile = $targetDir . basename($hinhAnh);
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+$targetDir = "../../images/";
+$targetFile = $targetDir . basename($hinhAnh);
+$imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-    $checkImage = getimagesize($_FILES['HinhAnh']['tmp_name']);
-    if ($checkImage === false) {
-        echo "Tệp không phải là hình ảnh!";
-        exit();
-    }
+// Đảm bảo thư mục tồn tại
+if (!is_dir($targetDir)) {
+    mkdir($targetDir, 0755, true);
+}
 
-    if (!move_uploaded_file($_FILES['HinhAnh']['tmp_name'], $targetFile)) {
-        echo "Lỗi khi upload hình ảnh!";
-        exit();
-    }
+$checkImage = getimagesize($_FILES['HinhAnh']['tmp_name']);
+if ($checkImage === false) {
+    echo "Tệp không phải là hình ảnh!";
+    exit();
+}
+
+if (!move_uploaded_file($_FILES['HinhAnh']['tmp_name'], $targetFile)) {
+    echo "Lỗi khi upload hình ảnh!";
+    exit();
+}
+
 } else {
     $hinhAnh = $_POST['HinhAnh_cu'];
 }
