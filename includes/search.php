@@ -192,7 +192,7 @@ $category_result = $conn->query($category_sql);
             while ($row = $result->fetch_assoc()) {
                 echo '<div class="col-md-4">
                         <div class="product-item">
-                            <a href="includes/chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
+                            <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
                                 <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '" class="img-fluid">
                             </a>
                             <p class="product-name">' . $row["TenSanPham"] . '</p>
@@ -209,10 +209,7 @@ $category_result = $conn->query($category_sql);
     </div>
 </div>
 
-<!-- Footer -->
-<footer class="footer-section text-center mt-5">
-    <p>© 2025 All Rights Reserved. Your Company</p>
-</footer>
+
 
 <!-- Bootstrap JS -->
 <script src="js/jquery.min.js"></script>
