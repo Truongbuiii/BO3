@@ -202,6 +202,7 @@ $category_result = $conn->query($category_sql);
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo '<div class="col-md-4">
+<<<<<<< Updated upstream
                 <div class="cream_box">
                     <div class="cream_img">
                         <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
@@ -215,6 +216,16 @@ $category_result = $conn->query($category_sql);
                     </div>
                 </div>
               </div>';
+=======
+                        <div class="product-item">
+                            <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
+                                <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '" class="img-fluid">
+                            </a>
+                            <p class="product-name">' . $row["TenSanPham"] . '</p>
+                            <p class="product-price">' . number_format($row["DonGia"]) . 'đ</p>
+                        </div>
+                    </div>';
+>>>>>>> Stashed changes
             }
         } else {
             echo '<div class="col-12">

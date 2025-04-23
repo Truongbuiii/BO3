@@ -1,6 +1,7 @@
 <?php
 require './db/connect.php';
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kiểm tra nếu các trường tồn tại trong $_POST
     $TenNguoiDung = isset($_POST['TenNguoiDung']) ? $_POST['TenNguoiDung'] : '';
@@ -17,22 +18,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Mã hóa mật khẩu trước khi lưu
     $hashed_password = password_hash($matKhau, PASSWORD_BCRYPT);
 
+    
+
     // Chèn dữ liệu vào bảng NguoiDung
     $query = "INSERT INTO NguoiDung (TenNguoiDung, HoTen, Email, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe, SoDienThoai, VaiTro, MatKhau) 
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     // Chuẩn bị câu lệnh SQL
     $stmt = $conn->prepare($query);
+var_dump($vaiTro); // Xem thử giá trị thực tế có bị rỗng không
 
     // Liên kết các tham số
     $stmt->bind_param("ssssssssss", $TenNguoiDung, $hoVaTen, $email, $tinh, $huyen, $xa, $diaChiCuThe, $soDienThoai, $vaiTro, $hashed_password);
 
     // Kiểm tra và thực thi câu lệnh
-    if ($stmt->execute()) {
-        echo "Đăng ký thành công!";
-    } else {
-        echo "Lỗi khi đăng ký!";
-    }
+  if ($stmt->execute()) {
+    echo "<script>
+        alert('Đăng ký thành công!');
+        window.location.href = 'danhsachnguoidung.php'    
+    </script>";
+    
+} else {
+    echo "Lỗi khi đăng ký!";
+}
+echo "Vai trò nhận được: " . $vaiTro;
 
     // Đóng kết nối
     $stmt->close();

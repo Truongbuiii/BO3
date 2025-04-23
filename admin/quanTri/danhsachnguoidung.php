@@ -131,7 +131,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
                             <div class="form-group">
                                 <label>Vai trò</label>
-                                <select class="form-control" id="editVaiTro" name="VaiTro">
+                                <select class="form-control" id="editVaiTro" name="VaiTro" required>
                                     <option value="Admin">Admin</option>
                                     <option value="Customer">Người dùng</option>
                                 </select>
