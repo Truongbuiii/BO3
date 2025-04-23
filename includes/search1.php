@@ -55,8 +55,6 @@ $category_result = $conn->query($category_sql);
         .search-results {
             margin-top: 30px;
         }
-
-        
         .product-item {
             border: 1px solid #ddd;
             padding: 15px;
@@ -178,9 +176,7 @@ $category_result = $conn->query($category_sql);
             <option value="16000-20000" <?php echo ($price_range == '16000-20000' ? 'selected' : ''); ?>>16,000đ - 20,000đ</option>
         </select>
 
-        <button type="submit" class="btn btn-primary btn-sm custom-button">Tìm kiếm</button>
-
-
+        <button type="submit" class="btn btn-primary mb-2">Tìm kiếm</button>
     </form>
 </div>
 
@@ -215,19 +211,10 @@ $category_result = $conn->query($category_sql);
 </footer>
 
 <!-- Bootstrap JS -->
-<script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <script src="js/main.js"></script>
-      <!-- javascript --> 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
-      
-   </body>
-</html> 
+</body>
+</html>
 
 <?php $conn->close(); ?>
