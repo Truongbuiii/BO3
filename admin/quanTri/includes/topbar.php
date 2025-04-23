@@ -82,7 +82,7 @@ Có 1 thông báo từ ngân hàng về số tiền đã rút từ cửa hàng o
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin Tiệm kem</span>
                                 <img class="img-profile rounded-circle"
-                                    src="images/AnhF4.jpg">
+                                    src="../../images/AnhF4.jpg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

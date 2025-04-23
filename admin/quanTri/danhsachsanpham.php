@@ -54,36 +54,38 @@ if (!$result) {
     
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Loại kem</th>
-                        <th>Hương Vị kem</th>
-                        <th>Tình trạng</th>
-                        <th>Đơn giá</th>
-                        <th>Hình ảnh</th>
-                        <th>Chức năng</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                      <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Loại kem</th>
-                        <th>Hương Vị kem</th>
-                        <th>Tình trạng</th>
-                        <th>Đơn giá</th>
-                        <th>Hình ảnh</th>
-                        <th>Chức năng</th>
-                    </tr>
-                </tfoot>
-               <tbody>
+           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Loại kem</th>
+            <th>Hương Vị kem</th>
+            <th>Tình trạng</th>
+            <th>Đơn giá</th>
+            <th>Hình ảnh</th>
+            <th>Chức năng</th>
+            <th>Ẩn/Hiện</th> <!-- Cột ẩn/hiện -->
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Loại kem</th>
+            <th>Hương Vị kem</th>
+            <th>Tình trạng</th>
+            <th>Đơn giá</th>
+            <th>Hình ảnh</th>
+            <th>Chức năng</th>
+            <th>Ẩn/Hiện</th> <!-- Cột ẩn/hiện -->
+        </tr>
+    </tfoot>
+    <tbody>
     <?php
     if ($result && mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>
+            echo "<tr id='product-{$row['MaSanPham']}'>
                     <td>{$row['MaSanPham']}</td>
                     <td>{$row['TenSanPham']}</td>
                     <td>{$row['TenLoai']}</td>
@@ -108,15 +110,16 @@ if (!$result) {
                                 data-toggle='modal' 
                                 data-target='#deleteModal'>Xóa</button>
                     </td>
+                    <td><button class='btn btn-info btn-sm toggle-visibility' data-id='{$row['MaSanPham']}'>Ẩn</button></td>
                   </tr>";
         }
     } else {
         echo "<tr><td colspan='9' class='text-center'>Không có sản phẩm nào</td></tr>";
     }
     ?>
-</tbody>
+    </tbody>
+</table>
 
-            </table>
         </div>
     </div>
   </div>
@@ -217,6 +220,31 @@ if (!$result) {
       reader.readAsDataURL(file);
     }
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Lấy tất cả các nút "Ẩn/Hiện"
+    const toggleButtons = document.querySelectorAll('.toggle-visibility');
+
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            const productRow = document.getElementById('product-' + productId);
+
+            // Kiểm tra trạng thái hiển thị hiện tại
+            if (productRow.style.display === 'none') {
+                // Hiện lại sản phẩm
+                productRow.style.display = 'table-row';
+                this.textContent = 'Ẩn'; // Cập nhật lại nút thành "Ẩn"
+            } else {
+                // Ẩn sản phẩm
+                productRow.style.display = 'none';
+                this.textContent = 'Hiện lại'; // Cập nhật lại nút thành "Hiện lại"
+            }
+        });
+    });
+});
+
+
 </script>
 
       </div>
@@ -283,6 +311,15 @@ if (!$result) {
             });
         });
     });
+
+document.querySelectorAll(".delete-btn").forEach(button => {
+    button.addEventListener("click", function() {
+        document.getElementById("delete-id").value = this.dataset.id;
+    });
+});
+
+
+
 </script>
 
 
