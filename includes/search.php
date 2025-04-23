@@ -98,7 +98,7 @@ $category_result = $conn->query($category_sql);
       <!-- mobile metas -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
+<!-- site metas -->
       <title>Icecream</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
@@ -202,7 +202,6 @@ $category_result = $conn->query($category_sql);
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo '<div class="col-md-4">
-<<<<<<< Updated upstream
                 <div class="cream_box">
                     <div class="cream_img">
                         <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
@@ -216,16 +215,6 @@ $category_result = $conn->query($category_sql);
                     </div>
                 </div>
               </div>';
-=======
-                        <div class="product-item">
-                            <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
-                                <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '" class="img-fluid">
-                            </a>
-                            <p class="product-name">' . $row["TenSanPham"] . '</p>
-                            <p class="product-price">' . number_format($row["DonGia"]) . 'đ</p>
-                        </div>
-                    </div>';
->>>>>>> Stashed changes
             }
         } else {
             echo '<div class="col-12">
@@ -241,7 +230,7 @@ $category_result = $conn->query($category_sql);
 <!-- Bootstrap JS -->
 <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
       <script src="js/jquery-3.0.0.min.js"></script>
       <script src="js/plugin.js"></script>
       <!-- sidebar -->
