@@ -172,8 +172,8 @@ if (!$result) {
                 <div class="form-group">
                   <label for="edit-tinhtrang">Tình trạng</label>
                   <select class="form-control" id="edit-tinhtrang" name="TinhTrang">
-                    <option value="1">Còn hàng</option>
-                    <option value="0">Hết hàng</option>
+                    <option value="1">Mở</option>
+                    <option value="0">Khóa</option>
                   </select>
                 </div>
 

@@ -171,37 +171,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
     </div>
 
     <!-- Sản phẩm liên quan -->
-    <div class="related-products mt-5">
-        <h2 class="related-title text-center">Sản phẩm liên quan</h2>
-        <div class="row">
-            <?php while ($related = $related_products->fetch_assoc()) { ?>
-                <div class="col-md-4">
-                    <div class="related-item text-center">
-                        <a href="chitietsanpham.php?MaSanPham=<?php echo $related['MaSanPham']; ?>">
-                            <img src="/images/<?php echo $related['HinhAnh']; ?>" alt="<?php echo $related['TenSanPham']; ?>" class="related-image img-fluid">
-                        </a>
-                        <p class="mt-2"><strong><?php echo $related['TenSanPham']; ?></strong></p>
-                        <p class="text-danger"><?php echo number_format($related['DonGia']); ?> VND</p>
-                    </div>
+  <!-- Sản phẩm liên quan -->
+<div class="related-products mt-5">
+    <h2 class="related-title text-center">Sản phẩm liên quan</h2>
+    <div class="row justify-content-center">
+        <?php while ($related = $related_products->fetch_assoc()) { ?>
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="related-item text-center">
+                    <a href="chitietsanpham.php?MaSanPham=<?php echo $related['MaSanPham']; ?>">
+                        <img src="/images/<?php echo $related['HinhAnh']; ?>" alt="<?php echo $related['TenSanPham']; ?>" class="related-image img-fluid">
+                    </a>
+                    <p class="mt-2"><strong><?php echo $related['TenSanPham']; ?></strong></p>
+                    <p class="text-danger"><?php echo number_format($related['DonGia']); ?> VND</p>
                 </div>
-            <?php } ?>
-        </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
-
+</div>
 <!-- Footer -->
-<div class="contact_section layout_padding">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="location_text">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="padding_left_10"><i
+ <div class="contact_section layout_padding">
+         <div class="container">
+             <div class="row">
+                 <div class="col-md-8">
+                     <div class="location_text">
+                         <ul>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                     1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                     Call : +01 23456789
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                     Email : BeYeukem1234@gmail.com
+                                 </a>
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+             <div class="footer_social_icon">
+                 <ul>
+                     <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                 </ul>
+             </div>
+             <div class="copyright_section">
+               <div class="container">
+                  <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
+               </div>
+            </div>
+         </div>
+     </div>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+      <script src="js/main.js"></script>
+      <!-- javascript --> 
+
+      
+   </body>
+</html> 
