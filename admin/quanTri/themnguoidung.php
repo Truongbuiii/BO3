@@ -104,14 +104,23 @@
 
     <script>
         function validateForm() {
-            var password1 = document.getElementById("password1").value;
-            var password2 = document.getElementById("password2").value;
-            if (password1 !== password2) {
-                alert("Mật khẩu nhập lại không khớp!");
-                return false;
-            }
-            return true;
-        }
+    var password1 = document.getElementById("password1").value;
+    var password2 = document.getElementById("password2").value;
+
+    // Kiểm tra xem có phải trường mật khẩu bị bỏ trống
+    if (password1 === "" || password2 === "") {
+        alert("Vui lòng nhập đầy đủ cả hai mật khẩu!");
+        return false;
+    }
+
+    // Kiểm tra mật khẩu khớp không
+    if (password1 !== password2) {
+        alert("Mật khẩu nhập lại không khớp!");
+        return false;
+    }
+    return true;
+}
+
     </script>
 
                     </div>

@@ -102,12 +102,14 @@ if ($result && mysqli_num_rows($result) > 0) {
             </div>
             <div class="modal-body">
                 <form id="editUserForm">
-                    <input type="hidden" id="editTenNguoiDung" name="TenNguoiDung">
 
                     <div class="row">
                         <!-- Cột 1 -->
                         <div class="col-md-6">
-                             
+                             <div class="form-group">
+                                <label>Tên người dùng</label>
+                                <input type="text" class="form-control" id="editTenNguoiDung" name="TenNguoiDung" readonly>
+                            </div>
                             <div class="form-group">
                                 <label>Họ tên</label>
                                 <input type="text" class="form-control" id="editHoTen" name="HoTen">
@@ -133,7 +135,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <label>Vai trò</label>
                                 <select class="form-control" id="editVaiTro" name="VaiTro" required>
                                     <option value="Admin">Admin</option>
-                                    <option value="Customer">Người dùng</option>
+                                    <option value="Customer">Customer</option>
                                 </select>
                             </div>
 

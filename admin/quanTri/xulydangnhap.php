@@ -18,7 +18,7 @@ $username = trim($_POST['username']);
 $password = trim($_POST['password']);
 
 // Chuẩn bị truy vấn
-$stmt = $conn->prepare("SELECT TenNguoiDung, MatKhau FROM NguoiDung WHERE TenNguoiDung = ?");
+$stmt = $conn->prepare("SELECT TenNguoiDung, MatKhau, VaiTro FROM NguoiDung WHERE TenNguoiDung = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -30,17 +30,27 @@ $success = false;
 if ($result->num_rows === 1) {
     $row = $result->fetch_assoc();
     $hashedPassword = $row['MatKhau'];
+    
+    // Kiểm tra và loại bỏ khoảng trắng thừa trong VaiTro
+    $role = trim($row['VaiTro']);
 
+    // Kiểm tra mật khẩu và vai trò
     if (password_verify($password, $hashedPassword)) {
-        $_SESSION['adminid'] = $row['TenNguoiDung'];
-        $message = "✅ Đăng nhập thành công!";
-        $success = true;
+        // Kiểm tra vai trò Admin sau khi loại bỏ khoảng trắng
+        if ($role === 'Admin') {
+            $_SESSION['adminid'] = $row['TenNguoiDung'];
+            $message = "✅ Đăng nhập thành công!";
+            $success = true;
+        } else {
+            $message = "❌ Bạn không đủ thẩm quyền để truy cập!";
+        }
     } else {
         $message = "❌ Sai mật khẩu!";
     }
 } else {
     $message = "❌ Tên người dùng không tồn tại!";
 }
+
 
 $stmt->close();
 $conn->close();

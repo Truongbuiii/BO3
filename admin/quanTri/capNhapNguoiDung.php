@@ -1,6 +1,8 @@
 <?php
 require('./db/connect.php');
 
+
+
 // Hàm kiểm tra trùng lặp email
 function checkDuplicateEmail($email, $tenNguoiDung, $conn) {
     $sqlCheckEmail = "SELECT COUNT(*) FROM NguoiDung WHERE Email = ? AND TenNguoiDung != ?";
@@ -39,6 +41,9 @@ $tptinh = isset($_POST['TPTinh']) ? $_POST['TPTinh'] : '';
 $quanHuyen = isset($_POST['QuanHuyen']) ? $_POST['QuanHuyen'] : '';
 $phuongXa = isset($_POST['PhuongXa']) ? $_POST['PhuongXa'] : '';
 $diaChiCuThe = isset($_POST['DiaChiCuThe']) ? $_POST['DiaChiCuThe'] : '';
+
+
+
 
 // Kiểm tra nếu email đã tồn tại trong cơ sở dữ liệu
 if (checkDuplicateEmail($email, $tenNguoiDung, $conn)) {
