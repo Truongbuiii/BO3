@@ -92,7 +92,7 @@ if (!$result) {
                     <option value="Chưa xác nhận" <?php echo $tinhTrang == 'Chưa xác nhận' ? 'selected' : ''; ?>>Chưa xác nhận</option>
                     <option value="Đã xác nhận" <?php echo $tinhTrang == 'Đã xác nhận' ? 'selected' : ''; ?>>Đã xác nhận</option>
                     <option value="Đã giao thành công" <?php echo $tinhTrang == 'Đã giao thành công' ? 'selected' : ''; ?>>Đã giao thành công</option>
-                    <option value="Đã huỷ" <?php echo $tinhTrang == 'Đã huỷ' ? 'selected' : ''; ?>>Đã huỷ</option>
+                    <option value="Đã  huỷ" <?php echo $tinhTrang == 'Đã huỷ' ? 'selected' : ''; ?>>Đã huỷ</option>
                 </select>
             </div>
 
@@ -186,16 +186,16 @@ if (!$result) {
                 // Xác định lớp CSS cho trạng thái dựa trên giá trị của nó
                 $statusClass = '';
                 switch ($row['TrangThai']) {
-                    case 'chưa xử lý':
+                    case 'Chưa xác nhận':
                         $statusClass = 'bg-secondary white'; // Màu xám nhạt
                         break;
-                    case 'đã xác nhận':
+                    case 'Đã xác nhận':
                         $statusClass = 'bg-info text-white'; // Màu xanh dương
                         break;
-                    case 'đã giao thành công':
+                    case 'Đã giao thành công':
                         $statusClass = 'bg-success text-white'; // Màu xanh lá
                         break;
-                    case 'đã huỷ':
+                    case 'Đã hủy':
                         $statusClass = 'bg-danger text-white'; // Màu đỏ
                         break;
                     default:
@@ -395,6 +395,24 @@ if (!$result) {
     background-color: #f1f1f1;
     cursor: pointer;
 }
+/* Chỉnh sửa badge trong trạng thái */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    border-radius: 12px;
+    max-width: 100%;
+    word-wrap: break-word; /* Cho phép chữ xuống dòng khi cần */
+    white-space: normal;  /* Cho phép xuống dòng */
+}
+
+/* Đảm bảo phần trạng thái không bị tràn cột và xuống dòng khi cần */
+.table td.trangthai-cell {
+    max-width: 150px;  /* Giới hạn chiều rộng cột trạng thái */
+    word-wrap: break-word;  /* Cho phép chữ xuống dòng */
+    white-space: normal;  /* Cho phép xuống dòng */
+}
+
 
 
 /* Chỉnh sửa thêm style cho các phần tử khác */
