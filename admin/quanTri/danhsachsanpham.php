@@ -324,4 +324,4 @@ document.querySelectorAll(".delete-btn").forEach(button => {
 
 
 
-<?php require('includes/footer.php'); ?>
+<?php require('includes/footer.php'); ?> 
