@@ -146,7 +146,7 @@ session_start();
                            
                               <p class="banner_text">Tận hưởng từng muỗng kem mát lạnh, mềm mịn tan chảy trên đầu lưỡi. Được làm từ những nguyên liệu tươi ngon, kem mang đến hương vị ngọt ngào và sảng khoái, khiến mọi khoảnh khắc thưởng thức trở nên đặc biệt.</p>
 
-                           <div class="started_text"><a href="#">Mua ngay</a></div>
+                           <div class="started_text"><a href="#sanpham">Mua ngay</a></div>
 
                            </div>
                            <div class="col-sm-6">
@@ -158,44 +158,87 @@ session_start();
                </div>
       </div>
       <!-- services section start -->
-      <div class="services_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <h3 class="services_taital">Loại Kem</h3>
-               </div>
-            </div>
-            <div class="services_section_2">
-               <div class="row">
-                  <div class="col-md-4">
-                     <a href="includes/kemLy.php">
-                     <div class="services_box">
-                        <h5 class="tasty_text"><span class="icon_img"><i class="fa-solid fa-bowl-food" style="font-size: 190%; color: #f7a8c9;"></i></span>Kem ly</h5>
-                        <p class="lorem_text">Ngọt ngào từng lớp, mát lạnh từng thìa!</p>
-                     </div>
-                     </a>
-                  </div>
-                  <div class="col-md-4">
-                     <a href="includes/kemOcQue.php">
-                     <div class="services_box">
-                        <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-2.png"></span>Kem ốc quế</h5>
-                        <p class="lorem_text">Ốc quế giòn tan – hoàn hảo từng miếng!</p>
-                     </div>
-                     </a>
-                  </div>
-                  <div class="col-md-4">
-                     <a href="includes/kemQue.php">
-                     <div class="services_box">
-                        <h5 class="tasty_text"><span class="icon_img"><img src="images/icon-1.png"></span>Kem que</h5>
-                        <p class="lorem_text">Kem que mát lạnh trong từng cú chạm!</p>
-                     </div>
-                     </a>
-                  </div>
-               </div>
-            </div>
-   
+     <div class="services_section layout_padding">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <h3 class="services_taital">Loại Kem</h3>
          </div>
       </div>
+      <div class="services_section_2">
+         <div class="row">
+            <div class="col-md-4">
+               <a href="includes/kemLy.php">
+                  <div class="services_box">
+                     <h5 class="tasty_text">
+                        <span class="icon_img"><i class="fa-solid fa-bowl-food" style="font-size: 190%; color: #f7a8c9;"></i></span>Kem ly
+                     </h5>
+                     <p class="lorem_text">Ngọt ngào từng lớp, mát lạnh từng thìa!</p>
+                  </div>
+               </a>
+            </div>
+            <div class="col-md-4">
+               <a href="includes/kemOcQue.php">
+                  <div class="services_box">
+                     <h5 class="tasty_text">
+                        <span class="icon_img"><img src="images/icon-2.png"></span>Kem ốc quế
+                     </h5>
+                     <p class="lorem_text">Ốc quế giòn tan – hoàn hảo từng miếng!</p>
+                  </div>
+               </a>
+            </div>
+            <div class="col-md-4">
+               <a href="includes/kemQue.php">
+                  <div class="services_box">
+                     <h5 class="tasty_text">
+                        <span class="icon_img"><img src="images/icon-1.png"></span>Kem que
+                     </h5>
+                     <p class="lorem_text">Kem que mát lạnh trong từng cú chạm!</p>
+                  </div>
+               </a>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<style>
+   .services_box {
+      border: 2px solid #f7a8c9;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+   }
+
+   .services_box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+   }
+
+   .tasty_text {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+   }
+
+   .lorem_text {
+      font-size: 1rem;
+      color: #777;
+   }
+
+   .icon_img i, .icon_img img {
+      vertical-align: middle;
+   }
+
+   .services_box a {
+      text-decoration: none;
+   }
+
+   
+</style>
+
       <!-- services section end -->
 
       <div class="about_section layout_padding">

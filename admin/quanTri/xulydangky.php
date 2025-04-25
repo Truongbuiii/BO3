@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kiểm tra nếu các trường tồn tại trong $_POST
     $TenNguoiDung = isset($_POST['TenNguoiDung']) ? $_POST['TenNguoiDung'] : '';
     $hoVaTen = isset($_POST['HoTen']) ? $_POST['HoTen'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : ''; 
     $tinh = isset($_POST['tinh']) ? $_POST['tinh'] : '';
     $huyen = isset($_POST['huyen']) ? $_POST['huyen'] : '';
     $xa = isset($_POST['xa']) ? $_POST['xa'] : '';
