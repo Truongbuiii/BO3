@@ -117,6 +117,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php elseif ($_SERVER["REQUEST_METHOD"] == "POST"): ?>
                 <div class="alert alert-warning mt-4 text-center">Không có dữ liệu trong khoảng thời gian này.</div>
             <?php endif; ?>
+          
+    
+       <!-- Thống kê mặt hàng -->
+             <div class="stats-box">
+        <h2>Thống kê mặt hàng bán ra</h2>
+        <table>
+            <tr><th>Mặt hàng</th><th>Số lượng</th><th>Doanh thu</th><th>Hành động</th></tr>
+            <?php
+            $mh_query = "
+                SELECT SanPham.TenSanPham, SUM(ChiTietHoaDon.SoLuong) AS SoLuongBan, SUM(ChiTietHoaDon.SoLuong * ChiTietHoaDon.DonGia) AS DoanhThu, SanPham.MaSanPham
+                FROM HoaDon
+                JOIN ChiTietHoaDon ON HoaDon.MaHoaDon = ChiTietHoaDon.MaHoaDon
+                JOIN SanPham ON ChiTietHoaDon.MaSanPham = SanPham.MaSanPham
+                WHERE NgayGio BETWEEN ? AND ?
+                GROUP BY SanPham.MaSanPham
+                ORDER BY DoanhThu DESC
+            ";
+            $stmt = $conn->prepare($mh_query);
+            $stmt->bind_param("ss", $start_date, $end_date);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $tong_doanh_thu = 0;
+            $ban_chay = null;
+            $ban_e = null;
+
+            while ($row = $result->fetch_assoc()) {
+                $tong_doanh_thu += $row['DoanhThu'];
+                if (!$ban_chay || $row['SoLuongBan'] > $ban_chay['SoLuongBan']) $ban_chay = $row;
+                if (!$ban_e || $row['SoLuongBan'] < $ban_e['SoLuongBan']) $ban_e = $row;
+                echo "<tr>
+                    <td>{$row['TenSanPham']}</td>
+                    <td>{$row['SoLuongBan']}</td>
+                    <td>" . number_format($row['DoanhThu'], 0, ',', '.') . " VNĐ</td>
+                    <td><a class='btn' href='xemdonhang.php?MaSanPham={$row['MaSanPham']}'>Xem hóa đơn</a></td>
+                </tr>";
+            }
+
+            echo "<tr><td colspan='4' class='total'>Tổng doanh thu: " . number_format($tong_doanh_thu, 0, ',', '.') . " VNĐ</td></tr>";
+            if ($ban_chay) echo "<tr><td colspan='4'>Mặt hàng bán chạy nhất: {$ban_chay['TenSanPham']}</td></tr>";
+            if ($ban_e) echo "<tr><td colspan='4'>Mặt hàng bán ế nhất: {$ban_e['TenSanPham']}</td></tr>";
+            ?>
+        </table>
+    </div>
+
+    <!-- Thống kê khách hàng -->
+    <div class="stats-box">
+        <h2>Top 5 khách hàng doanh thu cao nhất</h2>
+        <table>
+            <tr><th>Email</th><th>Tổng chi tiêu</th><th>Hành động</th></tr>
+            <?php
+          $kh_query = "
+    SELECT Email, NguoiNhanHang, SUM(TongTien) AS TongChiTieu
+    FROM HoaDon
+    WHERE NgayGio BETWEEN ? AND ? AND TrangThai = 'Đã giao thành công'
+    GROUP BY Email, NguoiNhanHang
+    ORDER BY TongChiTieu DESC
+    LIMIT 5
+";
+$stmt = $conn->prepare($kh_query);
+$stmt->bind_param("ss", $start_date, $end_date);
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    echo "<tr>
+        <td>{$row['Email']}</td>
+        <td>" . number_format($row['TongChiTieu'], 0, ',', '.') . " VNĐ</td>
+        <td><a class='btn' href='?email={$row['Email']}&start_date={$start_date}&end_date={$end_date}'>Xem hóa đơn</a></td>
+    </tr>";
+}
+            ?>
+        </table>
+    </div>
         </div>
     </div>
 </div>

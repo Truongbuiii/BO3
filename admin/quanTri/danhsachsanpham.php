@@ -65,7 +65,6 @@ if (!$result) {
             <th>Đơn giá</th>
             <th>Hình ảnh</th>
             <th>Chức năng</th>
-            <th>Ẩn/Hiện</th> <!-- Cột ẩn/hiện -->
         </tr>
     </thead>
     <tfoot>
@@ -78,7 +77,6 @@ if (!$result) {
             <th>Đơn giá</th>
             <th>Hình ảnh</th>
             <th>Chức năng</th>
-            <th>Ẩn/Hiện</th> <!-- Cột ẩn/hiện -->
         </tr>
     </tfoot>
     <tbody>
@@ -110,7 +108,6 @@ if (!$result) {
                                 data-toggle='modal' 
                                 data-target='#deleteModal'>Xóa</button>
                     </td>
-                    <td><button class='btn btn-info btn-sm toggle-visibility' data-id='{$row['MaSanPham']}'>Ẩn</button></td>
                   </tr>";
         }
     } else {
@@ -221,28 +218,7 @@ if (!$result) {
     }
   });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    // Lấy tất cả các nút "Ẩn/Hiện"
-    const toggleButtons = document.querySelectorAll('.toggle-visibility');
 
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.getAttribute('data-id');
-            const productRow = document.getElementById('product-' + productId);
-
-            // Kiểm tra trạng thái hiển thị hiện tại
-            if (productRow.style.display === 'none') {
-                // Hiện lại sản phẩm
-                productRow.style.display = 'table-row';
-                this.textContent = 'Ẩn'; // Cập nhật lại nút thành "Ẩn"
-            } else {
-                // Ẩn sản phẩm
-                productRow.style.display = 'none';
-                this.textContent = 'Hiện lại'; // Cập nhật lại nút thành "Hiện lại"
-            }
-        });
-    });
-});
 
 
 </script>

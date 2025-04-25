@@ -81,54 +81,75 @@ $chiTietSanPham = $result_ct->fetch_all(MYSQLI_ASSOC);
 <div class="container mt-5">
     <h2 class="text-center mb-4">Chi tiết đơn hàng - <?= htmlspecialchars($hoaDon['MaHoaDon']) ?></h2>
     
-    <div class="invoice-box">
-        <h1>HÓA ĐƠN</h1>
+   <div class="invoice-box">
+    <h1>HÓA ĐƠN</h1>
 
-        <div class="top-section">
-            <div class="billed-to">
-                <strong>Người nhận:</strong><br>
-
-            <strong>Họ tên người nhận : <?= htmlspecialchars($hoaDon['NguoiNhanHang']) ?></strong><br>
-                <?= htmlspecialchars($hoaDon['Email']) ?><br>
-                <?= "{$hoaDon['DiaChiCuThe']}, {$hoaDon['PhuongXa']}, {$hoaDon['QuanHuyen']}, {$hoaDon['TPTinh']}" ?>
-            </div>
-            <div class="invoice-info">
-                <strong>Mã hóa đơn:</strong> <?= htmlspecialchars($hoaDon['MaHoaDon']) ?><br>
-                <strong>Ngày giờ:</strong> <?= htmlspecialchars($hoaDon['NgayGio']) ?><br>
-                <strong>Thanh toán:</strong> <?= htmlspecialchars($hoaDon['HinhThucThanhToan']) ?><br>
-                <strong>Trạng thái:</strong> <?= htmlspecialchars($hoaDon['TrangThai']) ?>
-            </div>
+    <div class="top-section">
+        <div class="billed-to">
+            <strong>Họ tên người nhận :</strong> <?= htmlspecialchars($hoaDon['NguoiNhanHang']) ?><br>
+            <strong>Email : </strong><?= htmlspecialchars($hoaDon['Email']) ?><br>
+            <strong>Địa chỉ : </strong><?= "{$hoaDon['DiaChiCuThe']}, {$hoaDon['PhuongXa']}, {$hoaDon['QuanHuyen']}, {$hoaDon['TPTinh']}" ?>
         </div>
-
-        <table>
-            <thead>
-            <tr>
-                <th>Sản phẩm</th>
-                <th style="text-align: center;">SL</th>
-                <th style="text-align: right;">Đơn giá</th>
-                <th style="text-align: right;">Thành tiền</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($chiTietSanPham as $sp): ?>
-                <tr>
-                    <td><?= htmlspecialchars($sp['TenSanPham']) ?></td>
-                    <td style="text-align: center;"><?= $sp['SoLuong'] ?></td>
-                    <td style="text-align: right;"><?= number_format($sp['DonGia'], 0, ',', '.') ?>đ</td>
-                    <td style="text-align: right;"><?= number_format($sp['SoLuong'] * $sp['DonGia'], 0, ',', '.') ?>đ</td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-
-        <div class="totals">
-            Tổng cộng: <?= number_format($hoaDon['TongTien'], 0, ',', '.') ?>đ
+        <div class="invoice-info">
+            <strong>Mã hóa đơn:</strong> <?= htmlspecialchars($hoaDon['MaHoaDon']) ?><br>
+            <strong>Ngày giờ:</strong> <?= htmlspecialchars($hoaDon['NgayGio']) ?><br>
+            <strong>Thanh toán:</strong> <?= htmlspecialchars($hoaDon['HinhThucThanhToan']) ?><br>
+            <?php
+                switch ($hoaDon['TrangThai']) {
+                    case 'Chưa xác nhận':
+                        $statusClass = 'bg-secondary text-white';
+                        break;
+                    case 'Đã xác nhận':
+                        $statusClass = 'bg-info text-white';
+                        break;
+                    case 'Đã giao thành công':
+                        $statusClass = 'bg-success text-white';
+                        break;
+                    case 'Đã hủy':
+                        $statusClass = 'bg-danger text-white';
+                        break;
+                    default:
+                        $statusClass = 'bg-light text-dark';
+                        break;
+                }
+            ?>
+            <strong>Trạng thái:</strong> 
+            <span class="badge <?= $statusClass ?>" style="padding: 5px 10px; border-radius: 5px;">
+                <?= htmlspecialchars($hoaDon['TrangThai']) ?>
+            </span>
         </div>
     </div>
 
+    <table>
+        <thead>
+        <tr>
+            <th>Sản phẩm</th>
+            <th style="text-align: center;">SL</th>
+            <th style="text-align: right;">Đơn giá</th>
+            <th style="text-align: right;">Thành tiền</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($chiTietSanPham as $sp): ?>
+            <tr>
+                <td><?= htmlspecialchars($sp['TenSanPham']) ?></td>
+                <td style="text-align: center;"><?= $sp['SoLuong'] ?></td>
+                <td style="text-align: right;"><?= number_format($sp['DonGia'], 0, ',', '.') ?>đ</td>
+                <td style="text-align: right;"><?= number_format($sp['SoLuong'] * $sp['DonGia'], 0, ',', '.') ?>đ</td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <div class="totals">
+        Tổng cộng: <?= number_format($hoaDon['TongTien'], 0, ',', '.') ?>đ
+    </div>
+</div>
+
+
     <div class="text-end mt-3">
         <a href="danhsachdonhang.php" class="btn btn-secondary">
-            <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+          Quay lại danh sách
         </a>
     </div>
 </div>
