@@ -51,6 +51,21 @@ if ($result->num_rows === 1) {
     $message = "❌ Tên người dùng không tồn tại!";
 }
 
+$sql = "SELECT * FROM NguoiDung WHERE TenNguoiDung = '$username' AND MatKhau = '$password'";
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) == 1) {
+    $row = mysqli_fetch_assoc($result);
+
+    // Lưu thông tin người dùng vào session
+    session_start();
+    $_SESSION['admin_name'] = $row['TenNguoiDung']; // tên hiển thị
+    // có thể lưu thêm ID, vai trò, v.v. nếu cần
+
+    // Chuyển hướng sau đăng nhập
+    header("Location: /admin/index.php");
+    exit();
+}
+
 
 $stmt->close();
 $conn->close();
