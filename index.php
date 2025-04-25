@@ -65,7 +65,7 @@ session_start();
       <div class="header_section">
          <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="/index.php ">
             <img src="images/logo.png" alt="Logo">
         </a>
 
@@ -218,21 +218,48 @@ session_start();
    <?php require("./db/connect.php"); ?>
 
 
-
 <div class="cream_section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="cream_taital" id ="sanpham">Những Loại Kem Nổi Bật </h1>
+                <h1 class="cream_taital" id="sanpham">Những Loại Kem Nổi Bật </h1>
             </div>
         </div>
         <div class="row">
-            <?php
-          $sql = "SELECT * FROM SanPham";
+       <?php
+// Truy vấn lấy sản phẩm bán chạy nhất
+$sql = "
+    SELECT sp.MaSanPham, sp.TenSanPham, sp.HinhAnh, sp.DonGia, SUM(cthd.SoLuong) AS TongSoLuong, sp.MaLoai
+    FROM SanPham sp
+    LEFT JOIN ChiTietHoaDon cthd ON sp.MaSanPham = cthd.MaSanPham
+    GROUP BY sp.MaSanPham, sp.TenSanPham, sp.HinhAnh, sp.DonGia, sp.MaLoai
+    ORDER BY sp.MaLoai, TongSoLuong DESC
+";
+
 $result = $conn->query($sql);
 
+$sanphamByLoai = [
+    'L01' => [], // Kem ốc quế
+    'L02' => [], // Kem que
+    'L03' => []  // Kem cốc
+];
+
+// Phân loại sản phẩm theo loại kem
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $sanphamByLoai[$row['MaLoai']][] = $row;
+    }
+}
+
+// Lấy 3 sản phẩm bán chạy nhất cho mỗi loại kem
+$topSanPham = [];
+foreach ($sanphamByLoai as $loai => $sanphams) {
+    $topSanPham[$loai] = array_slice($sanphams, 0, 3);  // Chỉ lấy 3 sản phẩm bán chạy nhất
+}
+
+// Hiển thị sản phẩm
+foreach ($topSanPham as $loai => $sanphams) {
+    foreach ($sanphams as $row) {
         echo '<div class="col-md-4">
                 <div class="cream_box">
                     <div class="cream_img">
@@ -248,15 +275,14 @@ if ($result->num_rows > 0) {
                 </div>
               </div>';
     }
-} else {
-    echo "<p>Không có sản phẩm nào.</p>";
 }
-
 ?>
+
         </div>
     </div>
     <div class="seemore_bt"><a href="#">Xem thêm</a></div>
 </div>
+
 
 <?php $conn->close(); ?>
 <?php if (isset($_GET['login']) && $_GET['login'] === 'success'): ?>
