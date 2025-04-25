@@ -92,7 +92,9 @@
                <?php
 
 // Truy vấn sản phẩm có MaLoai = 'L03' 
-$sql = "SELECT * FROM SanPham WHERE MaLoai = 'L03'";
+$sql = "SELECT * FROM SanPham  
+    WHERE TinhTrang = 1  -- Only select products that are visible (TinhTrang = 1)
+AND MaLoai = 'L03'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

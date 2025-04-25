@@ -232,9 +232,11 @@ $sql = "
     SELECT sp.MaSanPham, sp.TenSanPham, sp.HinhAnh, sp.DonGia, SUM(cthd.SoLuong) AS TongSoLuong, sp.MaLoai
     FROM SanPham sp
     LEFT JOIN ChiTietHoaDon cthd ON sp.MaSanPham = cthd.MaSanPham
+    WHERE sp.TinhTrang = 1  -- Only select products that are visible (TinhTrang = 1)
     GROUP BY sp.MaSanPham, sp.TenSanPham, sp.HinhAnh, sp.DonGia, sp.MaLoai
     ORDER BY sp.MaLoai, TongSoLuong DESC
 ";
+
 
 $result = $conn->query($sql);
 
