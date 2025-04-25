@@ -80,56 +80,138 @@
       <div class="cream_section layout_padding">
          <div class="container">
             <div class="row">
-                <?php require("..\db\connect.php"); ?>
+                    <?php
+                    require("..\db\connect.php");
 
-<div class="cream_section layout_padding">
-    <div class="container">
-        <div class="row">
-          
-        </div>
-        <div class="cream_section_2">
-            <div class="row">
-               <?php
+                    // Số sản phẩm mỗi trang
+                    $productsPerPage = 6;
 
-// Truy vấn sản phẩm có MaLoai = 'L03' 
-$sql = "SELECT * FROM SanPham  
-    WHERE TinhTrang = 1  -- Only select products that are visible (TinhTrang = 1)
-AND MaLoai = 'L03'";
-$result = $conn->query($sql);
+                    // Lấy trang hiện tại từ URL (nếu không có thì mặc định là trang 1)
+                    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                    $offset = ($page - 1) * $productsPerPage; // Tính offset để lấy sản phẩm từ đâu
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo '<div class="col-md-4">
-                <div class="cream_box">
-                    <div class="cream_img">
-                        <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
-                            <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '">
-                        </a>
+                    // Truy vấn tổng số sản phẩm
+                    $sqlCount = "SELECT COUNT(*) AS total FROM SanPham WHERE TinhTrang = 1 AND MaLoai = 'L03'";
+                    $resultCount = $conn->query($sqlCount);
+                    $rowCount = $resultCount->fetch_assoc();
+                    $totalProducts = $rowCount['total']; // Tổng số sản phẩm
+                    $totalPages = ceil($totalProducts / $productsPerPage); // Tổng số trang
+
+
+                    ?>
+                    <div class="cream_section layout_padding">
+                        <div class="container">
+                            <div class="row">
+                            
+                            </div>
+                            <div class="cream_section_2">
+                                <div class="row">
+                                <?php
+
+                    // Truy vấn sản phẩm có MaLoai = 'L03' 
+                    $sql = "SELECT * FROM SanPham WHERE TinhTrang = 1 AND MaLoai = 'L03' LIMIT $offset, $productsPerPage";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<div class="col-md-4">
+                                    <div class="cream_box">
+                                        <div class="cream_img">
+                                            <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
+                                                <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '">
+                                            </a>
+                                        </div>
+                                        <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
+                                        <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
+                                        <div class="cart_bt">
+                                            <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">Xem chi tiết</a>
+                                        </div>
+                                    </div>
+                                </div>';
+                        }
+                    } else {
+                        echo "<p>Không có sản phẩm nào.</p>";
+                    }
+
+                    echo '<nav aria-label="Page navigation example">';
+                    echo '<ul class="pagination justify-content-center">';
+                    echo '<ul class="pagination justify-content-center pastel-pagination">';
+
+
+                    // Nút "Trang trước"
+                    if ($page > 1) {
+                        echo '<li class="page-item"><a class="page-link" href="kemOcQue.php?page=' . ($page - 1) . '">Trước</a></li>';
+                    } else {
+                        echo '<li class="page-item disabled"><span class="page-link">Trước</span></li>';
+                    }
+
+                    // Các nút số trang
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        if ($i == $page) {
+                            echo '<li class="page-item active"><span class="page-link">' . $i . '</span></li>';
+                        } else {
+                            echo '<li class="page-item"><a class="page-link" href="kemOcQue.php?page=' . $i . '">' . $i . '</a></li>';
+                        }
+                    }
+
+                    // Nút "Trang sau"
+                    if ($page < $totalPages) {
+                        echo '<li class="page-item"><a class="page-link" href="kemOcQue.php?page=' . ($page + 1) . '">Sau</a></li>';
+                    } else {
+                        echo '<li class="page-item disabled"><span class="page-link">Sau</span></li>';
+                    }
+
+                    echo '</ul>';
+                    echo '</nav>';
+
+
+
+                    ?>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
-                    <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
-                    <div class="cart_bt">
-                        <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">Xem chi tiết</a>
-                    </div>
-                </div>
-              </div>';
-    }
-} else {
-    echo "<p>Không có sản phẩm nào.</p>";
-}
 
-?>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php $conn->close(); ?>
+                    <?php $conn->close(); ?>
 
             </div></div></div></div></body>     
 
- 
+ <style>
+   /* Phân trang pastel hồng nhẹ */
+.pastel-pagination .page-link {
+    color: #d63384;
+    background-color: #fff0f5;
+    border: 1px solid #f9c6d1;
+    border-radius: 8px;
+    margin: 0 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.pastel-pagination .page-link:hover {
+    background-color: #f9c6d1;
+    color: white;
+    border-color: #f9c6d1;
+}
+
+/* Trang đang chọn - chỉ đổi màu */
+.pastel-pagination .page-item.active .page-link {
+    background-color: #fc95c4;
+    color: white;
+    border-color: #fc95c4;
+}
+
+/* Trạng thái disabled */
+.pastel-pagination .page-item.disabled .page-link {
+    background-color: #fce4ec;
+    color: #d63384;
+    border-color: #fce4ec;
+}
+    
+</style>
+    
     
 
       <!-- testimonial section end -->
