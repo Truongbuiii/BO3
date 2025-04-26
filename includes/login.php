@@ -73,23 +73,33 @@ $conn->close();
     <div class="header_section header_bg">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.html"><img src="/images/logo.png"></a>
+                <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="index.html">Trang chủ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ly</a></li>
-                        <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ốc quế</a></li>
-                        <li class="nav-item"><a class="nav-link" href="icecream.html">Kem que</a></li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </form>
+                     <ul class="navbar-nav ml-auto">
+
+                     <li class="nav-item active">
+                        <a class="nav-link" href="/index.php">Trang chủ</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="kemLy.php">Kem ly</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="kemOcQue.php">Kem ốc quế</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="kemQue.php">Kem que</a>
+                     </li>
+                     
+                  </ul>
+                     <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
+                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
+                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                     </button>
+                  </form>
                 </div>
             </nav>
         </div>
@@ -110,13 +120,16 @@ $conn->close();
                                 <label for="password">Mật khẩu:</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
                             </div>
-                            <?php if (isset($error_message)): ?>
-                                <div class="alert alert-danger mt-3"><?php echo $error_message; ?></div>
-                            <?php endif; ?>
-                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                            <div class="text-center mt-3">
-                                <a href="/index.php" class="text-decoration-none">Quay lại</a>
-                            </div>
+                            
+                           <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+<div class="text-center mt-3">
+    <a href="/index.php" class="text-decoration-none">Quay lại</a>
+</div>
+<div class="text-center mt-2">
+    <span>Bạn chưa có tài khoản?</span>
+    <a href="signup.php" class="text-decoration-none ml-1">Đăng ký ngay</a>
+</div>
+
                         </form>
                     </div>
                 </div>
@@ -126,6 +139,53 @@ $conn->close();
     <script>
     handleLoginSuccess("Tên người dùng"); // Ví dụ lấy từ PHP: handleLoginSuccess("<?php echo $username; ?>");
 </script>
+<script>
+function showLoginError(message) {
+    // Nếu popup đang hiển thị thì không tạo lại
+    if (document.getElementById("error-popup")) return;
+
+    const popup = document.createElement("div");
+    popup.id = "error-popup";
+    popup.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.4); display: flex;
+        align-items: center; justify-content: center; z-index: 2000;
+    `;
+
+    const content = document.createElement("div");
+    content.style.cssText = `
+        background: white; padding: 20px 30px; border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3); text-align: center;
+        min-width: 280px; position: relative;
+    `;
+
+    const msg = document.createElement("p");
+    msg.innerText = message;
+    msg.style.cssText = "font-size: 16px; margin-bottom: 15px; color: black;";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.innerText = "Thử lại";
+    closeBtn.style.cssText = `
+        padding: 8px 16px; border: none; border-radius: 6px;
+        background-color: #fc95c4; color: white; font-size: 14px;
+        cursor: pointer;
+    `;
+    closeBtn.onclick = () => {
+        document.body.removeChild(popup);
+    };
+
+    content.appendChild(msg);
+    content.appendChild(closeBtn);
+    popup.appendChild(content);
+    document.body.appendChild(popup);
+}
+</script>
+<?php if (isset($error_message)): ?>
+<script>
+    showLoginError("<?php echo $error_message; ?>");
+</script>
+<?php endif; ?>
+
 
 
     <script src="js/jquery.min.js"></script>

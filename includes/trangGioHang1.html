@@ -1,27 +1,20 @@
 <?php
-session_start();
+session_start(); // Chỉ gọi một lần ở đầu
 
-// Kiểm tra nếu giỏ hàng đã tồn tại trong session
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    echo "<script>alert('Giỏ hàng của bạn hiện tại không có sản phẩm nào!'); window.location.href = '/index.php';</script>";
+// Kiểm tra nếu chưa đăng nhập thì chuyển hướng đến login
+if (!isset($_SESSION['username'])) {
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+    header("Location: /login.php");
     exit();
 }
-
-// Xử lý xóa sản phẩm khỏi giỏ hàng
-if (isset($_GET['remove']) && !empty($_GET['remove'])) {
-    $removeProduct = $_GET['remove'];
-    unset($_SESSION['cart'][$removeProduct]);
-}
-
-// Xử lý cập nhật số lượng sản phẩm
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset($_POST['quantity'])) {
-    $MaSanPham = $_POST['MaSanPham'];
-    $quantity = $_POST['quantity'];
-    if ($quantity > 0) {
-        $_SESSION['cart'][$MaSanPham]['quantity'] = $quantity;
-    }
-}
 ?>
+
+
+<script>
+    const isLoggedIn = <?= isset($_SESSION['username']) ? 'true' : 'false' ?>;
+</script>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -254,61 +247,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
                </div>
             </nav>
          </div>
-<div class="container">
-<h1 class="my-4 text-center fw-bold">Giỏ hàng của bạn</h1>
+
+         <div class="container my-8 text-center" id="cart-list">
+            <h1>Giỏ hàng</h1>
+            <table class="text-center table table-bordered" style="vertical-align: middle;">
+               <thead style="font-size: 20px; vertical-align: middle">
+                  <tr class="table-danger">
+                     <th width="3%"><input type="checkbox" id="check-all" class="check" onclick="checkAllChanged()"></th>
+                     <th width="20%">Hình ảnh</th>
+                     <th width="45%">Tên sản phẩm</th>
+                     <th width="10%">Số lượng</th>
+                     <th width="15%">Giá</th>
+                     <th width="7%"></th>
+                  </tr>
+               </thead>
+               <tbody id="cart-body">
+                  <tr>
+                     <td><input type="checkbox" class="check"></td>
+                     <td><img src="/images/kemLyDau.jpg" class="item-img"></td>
+                     <td>Kem dâu tươi</td>
+                     <td class="item-quantity">2</td>
+                     <td class="item-price">50000đ</td>
+                     <td><button class="btn btn-danger">Xóa</button></td>
+                  </tr>
+                  <tr>
+                     <td><input type="checkbox" class="check"></td>
+                     <td><img src="/images/kemQueSocola.jpg" class="item-img"></td>
+                     <td>Kem socola</td>
+                     <td class="item-quantity">1</td>
+                     <td class="item-price">30000đ</td>
+                     <td><button class="btn btn-danger">Xóa</button></td>
+                  </tr>
+               </tbody>
+            </table>
+
+            <div id="cart-action">            
+               <a href="/index.php" class="btn btn-continue">
+                  <i class="fa fa-arrow-left"></i> Tiếp tục xem sản phẩm
+               </a>
+            </div>
+
+            <a href="trangThanhToan.php">
+   <button class="nut-thanh-toan">
+      <i class="fa fa-arrow-right"></i> Thanh Toán
+   </button>
+</a>
+
+         </div>
+      </div>
 
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Hình ảnh</th>
-                <th>Tên sản phẩm</th>
-                <th>Giá</th>
-                <th>Số lượng</th>
-                <th>Thành tiền</th>
-                <th>Thao tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $total = 0;
-            foreach ($_SESSION['cart'] as $MaSanPham => $item) {
-                $total += $item['DonGia'] * $item['quantity'];
-            ?>
-            <tr>
-                <td><img src="/images/<?php echo $item['HinhAnh']; ?>" alt="<?php echo $item['TenSanPham']; ?>" width="80"></td>
-                <td><?php echo $item['TenSanPham']; ?></td>
-                <td><?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VND</td>
-                <td>
-                  <form method="POST">
-                     <button type="button" class="btn btn-secondary btn-sm" onclick="updateQuantity('<?php echo $MaSanPham; ?>', -1)">-</button>
-                     <span id="quantity-<?php echo $MaSanPham; ?>"><?php echo $item['quantity']; ?></span>
-                     <button type="button" class="btn btn-secondary btn-sm" onclick="updateQuantity('<?php echo $MaSanPham; ?>', 1)">+</button>
-                     <input type="hidden" name="MaSanPham" value="<?php echo $MaSanPham; ?>">
-                     <input type="hidden" name="quantity" id="hidden-quantity-<?php echo $MaSanPham; ?>" value="<?php echo $item['quantity']; ?>">
-                  </form>
-               </td>
-
-                <td><?php echo number_format($item['DonGia'] * $item['quantity'], 0, ',', '.'); ?> VND</td>
-                <td><a href="trangGioHang.php?remove=<?php echo $MaSanPham; ?>" class="btn btn-danger">Xóa</a></td>
-            </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-
-    <h3 class="text-right">Tổng cộng: <?php echo number_format($total, 0, ',', '.'); ?> VND</h3>
-
-    <div class="text-center mt-4">
-    <a href="trangThanhToan.php" class="btn" style="background-color: #fc95c4; color: white; padding: 12px 28px; border-radius: 6px; font-size: 18px; border: none;">Thanh toán</a>
-</div>
-
-    <div class="text-center mt-2">
-    <a href="/index.php" style="color:black; font-size: 18px; text-decoration: none;">Quay lại</a>
-</div>
-
-</div>
-
-<div class="contact_section layout_padding">
+    </div>
+      <!-- testimonial section end -->
+      <!-- contact section start -->
+      <div class="contact_section layout_padding">
     <div class="container-fluid"> <!-- Đổi container thành container-fluid -->
              <div class="row">
                  <div class="col-md-8">
@@ -351,25 +343,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
             </div>
          </div>
      </div>
-    <script>function updateQuantity(MaSanPham, change) {
-    var quantityElement = document.getElementById('quantity-' + MaSanPham);
-    var hiddenQuantityElement = document.getElementById('hidden-quantity-' + MaSanPham);
     
-    // Cập nhật số lượng trên giao diện
-    var currentQuantity = parseInt(quantityElement.textContent);
-    var newQuantity = currentQuantity + change;
-    if (newQuantity > 0) {
-        quantityElement.textContent = newQuantity;
-        hiddenQuantityElement.value = newQuantity;
-
-        // Gửi yêu cầu cập nhật số lượng qua POST
-        var form = quantityElement.closest('form');
-        form.submit();
-    }
-}
-
-
-</script>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>

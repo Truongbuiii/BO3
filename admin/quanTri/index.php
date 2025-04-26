@@ -22,53 +22,66 @@ if ($resultTongDonHang && mysqli_num_rows($resultTongDonHang) > 0) {
     $row = mysqli_fetch_assoc($resultTongDonHang);
     $tongDonHang = $row['TongSoDonHang'];
 }
+
+// Truy vấn tổng doanh thu tháng 4
+$sqlDoanhThu = "SELECT SUM(HoaDon.TongTien) AS DoanhThuThang4 
+                FROM HoaDon 
+                WHERE MONTH(HoaDon.NgayGio) = 4 AND YEAR(HoaDon.NgayGio) = 2025";
+$resultDoanhThu = mysqli_query($conn, $sqlDoanhThu);
+
+$doanhThuThang4 = 0;
+if ($resultDoanhThu && mysqli_num_rows($resultDoanhThu) > 0) {
+    $row = mysqli_fetch_assoc($resultDoanhThu);
+    $doanhThuThang4 = $row['DoanhThuThang4'];
+}
 ?>
 
+<!-- Content Row -->
+<div class="row">
 
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-4 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                      <div class="col mr-2">
-    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-        Lượng đặt mua hàng
-    </div>
-    <div class="h5 mb-0 font-weight-bold text-gray-800">
-        <?php echo $tongDonHang; ?> đơn hàng
-    </div>
-</div>
-
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Lượng đặt mua hàng
                         </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-4 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Doanh thu tháng</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">20.000.000đ</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <?php echo $tongDonHang; ?> đơn hàng
                         </div>
+                    </div>
 
-                       
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Doanh thu tháng 4</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            <?php echo number_format($doanhThuThang4, 0, ',', '.'); ?>đ
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-4 col-md-6 mb-4">

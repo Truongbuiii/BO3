@@ -92,7 +92,7 @@ if (!$result) {
                     <option value="Chưa xác nhận" <?php echo $tinhTrang == 'Chưa xác nhận' ? 'selected' : ''; ?>>Chưa xác nhận</option>
                     <option value="Đã xác nhận" <?php echo $tinhTrang == 'Đã xác nhận' ? 'selected' : ''; ?>>Đã xác nhận</option>
                     <option value="Đã giao thành công" <?php echo $tinhTrang == 'Đã giao thành công' ? 'selected' : ''; ?>>Đã giao thành công</option>
-                    <option value="Đã huỷ" <?php echo $tinhTrang == 'Đã huỷ' ? 'selected' : ''; ?>>Đã huỷ</option>
+                    <option value="Đã  huỷ" <?php echo $tinhTrang == 'Đã huỷ' ? 'selected' : ''; ?>>Đã huỷ</option>
                 </select>
             </div>
 
@@ -146,64 +146,92 @@ if (!$result) {
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Mã đơn hàng</th>
-                            <th>Tên Người nhận</th>
-                            <th>Email</th>
-                            <th>Thành phố/ Tỉnh</th>
-                            <th>Quận / Huyện</th>
-                            <th>Phường / Xã</th>
-                            <th>Địa chỉ cụ thể</th>
-                            <th>Ngày giờ</th>
-                            <th>Tổng tiền</th>
-                            <th>Trạng thái</th>
-                            <th>Hình thức thanh toán</th>
-                            <th>Chức năng</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Mã đơn hàng</th>
-                            <th>Tên Người nhận</th>
-                            <th>Email</th>
-                            <th>Thành phố/ Tỉnh</th>
-                            <th>Quận / Huyện</th>
-                            <th>Phường / Xã</th>
-                            <th>Địa chỉ cụ thể</th>
-                            <th>Ngày giờ</th>
-                            <th>Tổng tiền</th>
-                            <th>Trạng thái</th>
-                            <th>Hình thức thanh toán</th>
-                            <th>Chức năng</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php
-                        if($result && mysqli_num_rows($result) > 0 ){
-                            while ($row = mysqli_fetch_assoc($result)){
-                                echo "<tr>
-                                <td>{$row['MaHoaDon']}</td>
-                                <td>{$row['NguoiNhanHang']}</td>
-                                <td>{$row['Email']}</td>
-                                <td>{$row['TPTinh']}</td>
-                                <td>{$row['QuanHuyen']}</td>
-                                <td>{$row['PhuongXa']}</td>
-                                <td>{$row['DiaChiCuThe']}</td>
-                                <td>{$row['NgayGio']}</td>
-                                <td>{$row['TongTien']}</td>
-                                <td>{$row['TrangThai']}</td>
-                                <td>{$row['HinhThucThanhToan']}</td>
-                                <td>
-                                    <a href='suadonhang.php?mahoadon={$row['MaHoaDon']}' class='btn btn-warning btn-sm'>Sửa</a>
-                                </td>
-                                </tr>";
-                            }
-                        }
-                        ?>
-                    </tbody>
-                </table>
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>Tên Người nhận</th>
+            <th>Email</th>
+            <th>Thành phố/ Tỉnh</th>
+            <th>Quận / Huyện</th>
+            <th>Phường / Xã</th>
+            <th>Địa chỉ cụ thể</th>
+            <th>Ngày giờ</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th>Hình thức thanh toán</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>Tên Người nhận</th>
+            <th>Email</th>
+            <th>Thành phố/ Tỉnh</th>
+            <th>Quận / Huyện</th>
+            <th>Phường / Xã</th>
+            <th>Địa chỉ cụ thể</th>
+            <th>Ngày giờ</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th>Hình thức thanh toán</th>
+            <th>Chức năng</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        <?php
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                // Xác định lớp CSS cho trạng thái dựa trên giá trị của nó
+                $statusClass = '';
+                switch ($row['TrangThai']) {
+                    case 'Chưa xác nhận':
+                        $statusClass = 'bg-secondary white'; // Màu xám nhạt
+                        break;
+                    case 'Đã xác nhận':
+                        $statusClass = 'bg-info text-white'; // Màu xanh dương
+                        break;
+                    case 'Đã giao thành công':
+                        $statusClass = 'bg-success text-white'; // Màu xanh lá
+                        break;
+                    case 'Đã hủy':
+                        $statusClass = 'bg-danger text-white'; // Màu đỏ
+                        break;
+                    default:
+                        $statusClass = 'bg-light text-dark'; // Màu mặc định nếu trạng thái không xác định
+                        break;
+                }
+
+                // In ra hàng với màu sắc trạng thái động
+                echo "<tr>
+    <td>{$row['MaHoaDon']}</td>
+    <td>{$row['NguoiNhanHang']}</td>
+    <td>{$row['Email']}</td>
+    <td>{$row['TPTinh']}</td>
+    <td>{$row['QuanHuyen']}</td>
+    <td>{$row['PhuongXa']}</td>
+    <td>{$row['DiaChiCuThe']}</td>
+    <td>{$row['NgayGio']}</td>
+    <td>{$row['TongTien']}</td>
+    <td><span class='badge {$statusClass}'>{$row['TrangThai']}</span></td>
+    <td>{$row['HinhThucThanhToan']}</td>
+    <td>
+        <a href='suadonhang.php?mahoadon={$row['MaHoaDon']}' class='btn btn-warning btn-sm mb-1'>
+            <i class='fa fa-edit'></i> Sửa
+        </a>
+        <a href='chitiethoadon.php?MaHoaDon={$row['MaHoaDon']}' class='btn btn-info btn-sm'>
+            <i class='fa fa-eye'></i> Xem
+        </a>
+    </td>
+</tr>";
+;
+            }
+        }
+        ?>
+    </tbody>
+</table>
+
             </div>
         </div>
     </div>
@@ -367,6 +395,24 @@ if (!$result) {
     background-color: #f1f1f1;
     cursor: pointer;
 }
+/* Chỉnh sửa badge trong trạng thái */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    border-radius: 12px;
+    max-width: 100%;
+    word-wrap: break-word; /* Cho phép chữ xuống dòng khi cần */
+    white-space: normal;  /* Cho phép xuống dòng */
+}
+
+/* Đảm bảo phần trạng thái không bị tràn cột và xuống dòng khi cần */
+.table td.trangthai-cell {
+    max-width: 150px;  /* Giới hạn chiều rộng cột trạng thái */
+    word-wrap: break-word;  /* Cho phép chữ xuống dòng */
+    white-space: normal;  /* Cho phép xuống dòng */
+}
+
 
 
 /* Chỉnh sửa thêm style cho các phần tử khác */

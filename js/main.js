@@ -73,4 +73,7 @@ function handleCartClick() {
     } else {
         showUserPopup();
     }
+
 }
+
+

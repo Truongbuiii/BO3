@@ -23,9 +23,10 @@
 
 <div>
   <h3>Trang danh sách sản phẩm</h3>
-    <div class="themSanPham">
-                <a href="themsanpham.php"><button class="btn custom-btn" >Thêm sản phẩm</button></a>
-            </div>
+    <a href="themsanpham.php" class="btn btn-primary mb-3">
+    <i class="fas fa-user-plus"></i> Thêm sản phẩm
+</a>
+
 <?php
 
 require("./db/connect.php"); // Đảm bảo file kết nối đúng
@@ -53,43 +54,43 @@ if (!$result) {
     
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Loại kem</th>
-                        <th>Hương Vị kem</th>
-                        <th>Tình trạng</th>
-                        <th>Đơn giá</th>
-                        <th>Hình ảnh</th>
-                        <th>Chức năng</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                      <th>Mã sản phẩm</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Loại kem</th>
-                        <th>Hương Vị kem</th>
-                        <th>Tình trạng</th>
-                        <th>Đơn giá</th>
-                        <th>Hình ảnh</th>
-                        <th>Chức năng</th>
-                    </tr>
-                </tfoot>
-               <tbody>
+           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Loại kem</th>
+            <th>Hương Vị kem</th>
+            <th>Tình trạng</th>
+            <th>Đơn giá</th>
+            <th>Hình ảnh</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Mã sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Loại kem</th>
+            <th>Hương Vị kem</th>
+            <th>Tình trạng</th>
+            <th>Đơn giá</th>
+            <th>Hình ảnh</th>
+            <th>Chức năng</th>
+        </tr>
+    </tfoot>
+    <tbody>
     <?php
     if ($result && mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>
+            echo "<tr id='product-{$row['MaSanPham']}'>
                     <td>{$row['MaSanPham']}</td>
                     <td>{$row['TenSanPham']}</td>
                     <td>{$row['TenLoai']}</td>
                     <td>{$row['HuongVi']}</td>
                     <td>" . ($row['TinhTrang'] ? "<span class='text-success'>Mở</span>" : "<span class='text-danger'>Khóa</span>") . "</td>
                     <td>" . number_format($row['DonGia'], 0, ',', '.') . " VND</td>
-                    <td><img src='images/{$row['HinhAnh']}' width='100'></td>
+                    <td><img src='../../images/{$row['HinhAnh']}' width='100'></td>
                     <td>
                         <button class='btn btn-warning btn-sm edit-btn' 
                                 data-id='{$row['MaSanPham']}' 
@@ -113,88 +114,89 @@ if (!$result) {
         echo "<tr><td colspan='9' class='text-center'>Không có sản phẩm nào</td></tr>";
     }
     ?>
-</tbody>
+    </tbody>
+</table>
 
-            </table>
         </div>
     </div>
-</div>
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl"> 
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Chỉnh sửa sản phẩm</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="editForm" method="POST" action="suaSanPham.php" enctype="multipart/form-data">
-          <!-- Input ẩn để truyền ID sản phẩm -->
-          <input type="hidden" id="edit-id" name="MaSanPham">
+  </div>
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl"> 
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Chỉnh sửa sản phẩm</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm" method="POST" action="suaSanPham.php" enctype="multipart/form-data">
+            <!-- Input ẩn để truyền ID sản phẩm -->
+            <input type="hidden" id="edit-id" name="MaSanPham">
 
-          <!-- Chia thành 2 cột -->
-          <div class="row">
-            <!-- Cột 1 -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="edit-ten">Tên sản phẩm</label>
-                <input type="text" class="form-control" id="edit-ten" name="TenSanPham" required>
+            <!-- Chia thành 2 cột -->
+            <div class="row">
+              <!-- Cột 1 -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="edit-ten">Tên sản phẩm</label>
+                  <input type="text" class="form-control" id="edit-ten" name="TenSanPham" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="edit-loai">Loại kem</label>
+                  <select class="form-control" id="edit-loai" name="MaLoai">
+                    <?php
+                    require('./db/connect.php');
+                    $loaiQuery = "SELECT MaLoai, TenLoai FROM LoaiSanPham";
+                    $loaiResult = mysqli_query($conn, $loaiQuery);
+                    while ($loai = mysqli_fetch_assoc($loaiResult)) {
+                      echo "<option value='{$loai['MaLoai']}'>{$loai['TenLoai']}</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="edit-huongvi">Hương vị</label>
+                  <input type="text" class="form-control" id="edit-huongvi" name="HuongVi" required>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="edit-loai">Loại kem</label>
-                <select class="form-control" id="edit-loai" name="MaLoai">
-                  <?php
-                  require('./db/connect.php');
-                  $loaiQuery = "SELECT MaLoai, TenLoai FROM LoaiSanPham";
-                  $loaiResult = mysqli_query($conn, $loaiQuery);
-                  while ($loai = mysqli_fetch_assoc($loaiResult)) {
-                    echo "<option value='{$loai['MaLoai']}'>{$loai['TenLoai']}</option>";
-                  }
-                  ?>
-                </select>
-              </div>
+              <!-- Cột 2 -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="edit-tinhtrang">Tình trạng</label>
+                  <select class="form-control" id="edit-tinhtrang" name="TinhTrang">
+                    <option value="1">Mở</option>
+                    <option value="0">Khóa</option>
+                  </select>
+                </div>
 
-              <div class="form-group">
-                <label for="edit-huongvi">Hương vị</label>
-                <input type="text" class="form-control" id="edit-huongvi" name="HuongVi" required>
+                <div class="form-group">
+                  <label for="edit-gia">Giá (VND)</label>
+                  <input type="number" class="form-control" id="edit-gia" name="DonGia" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="edit-hinh">Hình ảnh</label>
+                  <img id="edit-hinh-preview" src="" width="200" class="mb-4" alt="Preview image">
+                  <input type="file" class="form-control-file" id="edit-hinh" name="HinhAnh" style="display:none;">
+                <input type="hidden" name="HinhAnh_cu" id="edit-hinh-cu">
+                  <button type="button" class="btn btn-secondary" id="change-image-btn">Thay ảnh</button>
+                  <small class="form-text text-muted">Chọn hình ảnh mới nếu bạn muốn thay đổi.</small>
+                </div>
               </div>
             </div>
+            <!-- Kết thúc chia cột -->
 
-            <!-- Cột 2 -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="edit-tinhtrang">Tình trạng</label>
-                <select class="form-control" id="edit-tinhtrang" name="TinhTrang">
-                  <option value="1">Còn hàng</option>
-                  <option value="0">Hết hàng</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="edit-gia">Giá (VND)</label>
-                <input type="number" class="form-control" id="edit-gia" name="DonGia" required>
-              </div>
-
-              <div class="form-group">
-                <label for="edit-hinh">Hình ảnh</label>
-                <img id="edit-hinh-preview" src="" width="200" class="mb-4" alt="Preview image">
-                <input type="file" class="form-control-file" id="edit-hinh" name="HinhAnh" style="display:none;">
-                <button type="button" class="btn btn-secondary" id="change-image-btn">Thay ảnh</button>
-                <small class="form-text text-muted">Chọn hình ảnh mới nếu bạn muốn thay đổi.</small>
-              </div>
-            </div>
-          </div>
-          <!-- Kết thúc chia cột -->
-
-          <button type="submit" class="btn btn-primary mt-3">Lưu thay đổi</button>
-        </form>
+            <button type="submit" class="btn btn-primary mt-3">Lưu thay đổi</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
@@ -215,6 +217,10 @@ if (!$result) {
       reader.readAsDataURL(file);
     }
   });
+
+
+
+
 </script>
 
       </div>
@@ -237,7 +243,7 @@ if (!$result) {
         Bạn có chắc chắn muốn xóa sản phẩm này không?
       </div>
       <div class="modal-footer">
-        <form id="deleteForm" method="POST" action="deleteSanPham.php">
+        <form id="deleteForm" method="POST" action="xoaSanPham.php">
           <input type="hidden" id="delete-id" name="id">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
           <button type="submit" class="btn btn-danger">Xóa</button>
@@ -257,7 +263,9 @@ if (!$result) {
                 document.getElementById("edit-ten").value = this.dataset.ten;
                 document.getElementById("edit-gia").value = this.dataset.gia;
                 document.getElementById("edit-huongvi").value = this.dataset.huongvi;
-                document.getElementById("edit-hinh-preview").src = "images/" + this.dataset.hinh;
+                document.getElementById("edit-hinh-preview").src = "../../images/" + this.dataset.hinh;
+                document.getElementById("edit-hinh-cu").value = this.dataset.hinh;
+
 
                 // Set selected Loại kem
                 let loaiSelect = document.getElementById("edit-loai");
@@ -279,6 +287,15 @@ if (!$result) {
             });
         });
     });
+
+document.querySelectorAll(".delete-btn").forEach(button => {
+    button.addEventListener("click", function() {
+        document.getElementById("delete-id").value = this.dataset.id;
+    });
+});
+
+
+
 </script>
 
 

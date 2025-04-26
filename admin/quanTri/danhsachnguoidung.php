@@ -10,6 +10,11 @@
   $result = mysqli_query($conn, $sql);
   ?>
 
+
+<a href="themnguoidung.php" class="btn btn-primary mb-3">
+    <i class="fas fa-user-plus"></i> Thêm người dùng
+</a>
+
   <div class="card shadow mb-4">
       <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">Danh Sách Người Dùng</h6>
@@ -97,12 +102,14 @@ if ($result && mysqli_num_rows($result) > 0) {
             </div>
             <div class="modal-body">
                 <form id="editUserForm">
-                    <input type="hidden" id="editTenNguoiDung" name="TenNguoiDung">
 
                     <div class="row">
                         <!-- Cột 1 -->
                         <div class="col-md-6">
-                             
+                             <div class="form-group">
+                                <label>Tên người dùng</label>
+                                <input type="text" class="form-control" id="editTenNguoiDung" name="TenNguoiDung" readonly>
+                            </div>
                             <div class="form-group">
                                 <label>Họ tên</label>
                                 <input type="text" class="form-control" id="editHoTen" name="HoTen">
@@ -126,9 +133,9 @@ if ($result && mysqli_num_rows($result) > 0) {
 
                             <div class="form-group">
                                 <label>Vai trò</label>
-                                <select class="form-control" id="editVaiTro" name="VaiTro">
+                                <select class="form-control" id="editVaiTro" name="VaiTro" required>
                                     <option value="Admin">Admin</option>
-                                    <option value="Customer">Người dùng</option>
+                                    <option value="Customer">Customer</option>
                                 </select>
                             </div>
 
@@ -141,7 +148,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
                                     <div class="form-group">
                                     <label>Tình trạng</label>
-                                    <select class="form-control" id="editTinhTrang" name="TinhTrang" onchange="handleTinhTrangChange()">
+<select id="editTinhTrang" name="TinhTrang" class="form-control" onchange="handleTinhTrangChange()">
                                         <option value="Mở" class="text-success">Mở</option>
                                         <option value="Khóa" class="text-danger">Khóa</option>
                                     </select>
@@ -348,10 +355,10 @@ function updateUser() {
 }
 
 
-
-// Kiểm tra khi thay đổi tình trạng
 function handleTinhTrangChange() {
     const tinhTrang = document.getElementById('editTinhTrang').value;
+    console.log('Tình trạng đã thay đổi:', tinhTrang); // Kiểm tra giá trị khi thay đổi
+
     const tinhTrangSelect = document.getElementById('editTinhTrang');
 
     // Reset màu
@@ -387,6 +394,8 @@ function handleTinhTrangChange() {
 }
 
 
+
+
 const data = {
     "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Thái Bình"],
     "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
@@ -415,6 +424,9 @@ quanSelect.addEventListener('change', function () {
         phuongSelect.appendChild(option);
     });
 });
+
+console.log('Dữ liệu gửi:', formData);
+
 </script>
 
 
