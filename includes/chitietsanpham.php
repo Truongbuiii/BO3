@@ -1,4 +1,5 @@
 <?php
+session_start();
 require("../db/connect.php");
 
 // Kiểm tra nếu có `MaSanPham` được truyền vào
@@ -23,12 +24,58 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-// Truy vấn sản phẩm liên quan (cùng loại nhưng khác sản phẩm hiện tại)
+if ($product['TinhTrang'] == 0) {
+    echo "<script>alert('Sản phẩm này hiện đang tạm khóa!'); window.history.back();</script>";
+    exit();
+}
+
+
+// Truy vấn sản phẩm liên quan
 $sql_related = "SELECT * FROM SanPham WHERE MaLoai = ? AND MaSanPham != ? LIMIT 3";
 $stmt_related = $conn->prepare($sql_related);
 $stmt_related->bind_param("ss", $product['MaLoai'], $MaSanPham);
 $stmt_related->execute();
 $related_products = $stmt_related->get_result();
+
+
+
+// Xử lý thêm sản phẩm vào giỏ hàng
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
+    $MaSanPham = $_POST['MaSanPham'];
+
+    // Lấy thông tin sản phẩm từ CSDL
+    $sql = "SELECT * FROM SanPham WHERE MaSanPham = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $MaSanPham);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+
+    if ($product) {
+        // Khởi tạo giỏ hàng nếu chưa có
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+
+        // Nếu sản phẩm đã tồn tại trong giỏ, tăng số lượng
+        if (isset($_SESSION['cart'][$MaSanPham])) {
+            $_SESSION['cart'][$MaSanPham]['quantity'] += 1;
+        } else {
+            // Thêm sản phẩm mới vào giỏ
+            $_SESSION['cart'][$MaSanPham] = [
+                'TenSanPham' => $product['TenSanPham'],
+                'DonGia' => $product['DonGia'],
+                'HinhAnh' => $product['HinhAnh'],
+                'quantity' => 1
+            ];
+        }
+
+        // Chuyển hướng đến trang giỏ hàng
+        echo "<script>window.location.href = 'trangGioHang.php';</script>";
+    } else {
+        echo "<script>alert('Sản phẩm không tồn tại.');</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,10 +87,14 @@ $related_products = $stmt_related->get_result();
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <script src="js/jquery.min.js"></script>
 </head>
 <body>
 
-<style>.product-info {
+<style>
+.product-info {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     color: #333;
@@ -71,6 +122,7 @@ $related_products = $stmt_related->get_result();
     font-weight: 500;
 }
 </style>
+
 <!-- Header -->
 <div class="header_section header_bg">
     <div class="container">
@@ -95,8 +147,8 @@ $related_products = $stmt_related->get_result();
                     </button>
                 </form>
                 <ul class="navbar-nav ml-3 d-flex align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cart.html"><i class="bi bi-bag-heart-fill custom-icon" style="font-size: 150%; color:#fc95c4;"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="trangHoSo.php"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="trangGioHang.php"><i class="bi bi-bag-heart-fill custom-icon" style="font-size: 150%; color:#fc95c4;"></i></a></li>
                 </ul>
             </div>
         </nav>
@@ -121,34 +173,35 @@ $related_products = $stmt_related->get_result();
                 <p class="product-flavor"><strong>Hương vị: </strong> <?php echo $product['HuongVi']; ?></p>
                 <p class="product-description">Diển giải : <?php echo $product['DienGiai']; ?></p>
                 <p class="tinhtrang">Tình trạng : <?php echo $product['TinhTrang']? "<span class='text-success'>Còn hàng</span>" : "<span class='text-danger'>Khóa</span>" ; ?></p>
-                <button class="btn btn-success">Thêm vào giỏ hàng</button>
+                <form method="POST">
+                    <button class="btn btn-success" name="MaSanPham" value="<?php echo $product['MaSanPham']; ?>">Thêm vào giỏ hàng</button>
+                </form>
             </div>
         </div>
     </div>
 
     <!-- Sản phẩm liên quan -->
-    <div class="related-products mt-5">
-        <h2 class="related-title text-center">Sản phẩm liên quan</h2>
-        <div class="row">
-            <?php while ($related = $related_products->fetch_assoc()) { ?>
-                <div class="col-md-4">
-                    <div class="related-item text-center">
-                        <a href="chitietsanpham.php?MaSanPham=<?php echo $related['MaSanPham']; ?>">
-                            <img src="/images/<?php echo $related['HinhAnh']; ?>" alt="<?php echo $related['TenSanPham']; ?>" class="related-image img-fluid">
-                        </a>
-                        <p class="mt-2"><strong><?php echo $related['TenSanPham']; ?></strong></p>
-                        <p class="text-danger"><?php echo number_format($related['DonGia']); ?> VND</p>
-                    </div>
+  <!-- Sản phẩm liên quan -->
+<div class="related-products mt-5">
+    <h2 class="related-title text-center">Sản phẩm liên quan</h2>
+    <div class="row justify-content-center">
+        <?php while ($related = $related_products->fetch_assoc()) { ?>
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="related-item text-center">
+                    <a href="chitietsanpham.php?MaSanPham=<?php echo $related['MaSanPham']; ?>">
+                        <img src="/images/<?php echo $related['HinhAnh']; ?>" alt="<?php echo $related['TenSanPham']; ?>" class="related-image img-fluid">
+                    </a>
+                    <p class="mt-2"><strong><?php echo $related['TenSanPham']; ?></strong></p>
+                    <p class="text-danger"><?php echo number_format($related['DonGia']); ?> VND</p>
                 </div>
-            <?php } ?>
-        </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
-
-      <!-- testimonial section end -->
-      <!-- contact section start -->
-      <div class="contact_section layout_padding">
-    <div class="container-fluid"> <!-- Đổi container thành container-fluid -->
+</div>
+<!-- Footer -->
+ <div class="contact_section layout_padding">
+         <div class="container">
              <div class="row">
                  <div class="col-md-8">
                      <div class="location_text">
@@ -190,12 +243,10 @@ $related_products = $stmt_related->get_result();
             </div>
          </div>
      </div>
-<!-- Script để thay đổi ảnh chính -->
-<script>
-    function changeImage(imagePath) {
-        document.querySelector(".product-main-image").src = imagePath;
-    }
-</script>
+
+
+
+ 
 
 
       <script src="js/jquery.min.js"></script>
@@ -206,9 +257,9 @@ $related_products = $stmt_related->get_result();
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
-</body>
-</html>
+      <script src="js/main.js"></script>
+      <!-- javascript --> 
 
-<?php
-$conn->close();
-?>
+      
+   </body>
+</html> 
