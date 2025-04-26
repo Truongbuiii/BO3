@@ -73,23 +73,33 @@ $conn->close();
     <div class="header_section header_bg">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.html"><img src="/images/logo.png"></a>
+                <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="index.html">Trang chủ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ly</a></li>
-                        <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ốc quế</a></li>
-                        <li class="nav-item"><a class="nav-link" href="icecream.html">Kem que</a></li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </form>
+                     <ul class="navbar-nav ml-auto">
+
+                     <li class="nav-item active">
+                        <a class="nav-link" href="/index.php">Trang chủ</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="kemLy.php">Kem ly</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="kemOcQue.php">Kem ốc quế</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="kemQue.php">Kem que</a>
+                     </li>
+                     
+                  </ul>
+                     <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
+                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
+                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                     </button>
+                  </form>
                 </div>
             </nav>
         </div>
@@ -111,10 +121,15 @@ $conn->close();
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
                             </div>
                             
-                            <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
-                            <div class="text-center mt-3">
-                                <a href="/index.php" class="text-decoration-none">Quay lại</a>
-                            </div>
+                           <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+<div class="text-center mt-3">
+    <a href="/index.php" class="text-decoration-none">Quay lại</a>
+</div>
+<div class="text-center mt-2">
+    <span>Bạn chưa có tài khoản?</span>
+    <a href="signup.php" class="text-decoration-none ml-1">Đăng ký ngay</a>
+</div>
+
                         </form>
                     </div>
                 </div>
