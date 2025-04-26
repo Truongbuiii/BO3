@@ -1,6 +1,6 @@
 <?php
 // Xử lý khi form được gửi
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Lấy dữ liệu từ form
     $username = $_POST['username'];
     $fullname = $_POST['fullname'];
@@ -15,9 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Kết nối cơ sở dữ liệu (Thay đổi các thông tin sau sao cho phù hợp với cơ sở dữ liệu của bạn)
     $servername = "localhost";
-    $dbusername = "root";
-    $dbpassword = "";
-    $dbname = "tiemkem"; // Tên cơ sở dữ liệu của bạn
+    $dbusername = "b03u";
+    $dbpassword = "1PsigViV46VdRyal";
+    $dbname = "b03db"; // Tên cơ sở dữ liệu của bạn
 
     // Tạo kết nối
     $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
@@ -87,29 +87,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="header_section header_bg">
          <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
+               <a class="navbar-brand" href="index.html"><img src="/images/logo.png"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                   <span class="navbar-toggler-icon"></span>
                </button>
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                   <ul class="navbar-nav ml-auto">
-
-                     <li class="nav-item active">
-                        <a class="nav-link" href="/index.php">Trang chủ</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemLy.php">Kem ly</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemOcQue.php">Kem ốc quế</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemQue.php">Kem que</a>
-                     </li>
-                     
+                  <ul class="navbar-nav ml-auto">
+                     <li class="nav-item active"><a class="nav-link" href="/index.php">Trang chủ</a></li>
+                     <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ly</a></li>
+                     <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ốc quế</a></li>
+                     <li class="nav-item"><a class="nav-link" href="icecream.html">Kem que</a></li>
                   </ul>
-                  <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
-                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
+                  <form class="form-inline my-2 my-lg-0">
+                     <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                      </button>
@@ -128,61 +118,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      <form action="" method="POST">
                         <div class="form-group">
                            <label for="username">Tên đăng nhập:</label>
-                           <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập của bạn" required>
+                           <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập của bạn">
                         </div>
                         
                         <div class="form-group">
                            <label for="fullname">Họ tên:</label>
-                           <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nhập họ tên của bạn"required>
+                           <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nhập họ tên của bạn">
                         </div>
                         
                         <div class="form-group">
                            <label for="email">Email:</label>
-                           <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email của bạn"required>
+                           <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email của bạn">
                         </div>
                         
                         <div class="form-group">
                            <label for="phone">Số điện thoại:</label>
-                           <input type="tel" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn"required>
+                           <input type="tel" class="form-control" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn">
                         </div>
                         
                         <div class="form-group">
                            <label for="address">Địa chỉ:</label>
-                           <input type="text" class="form-control" id="address" name="address" placeholder="Nhập địa chỉ cụ thể"required>
+                           <input type="text" class="form-control" id="address" name="address" placeholder="Nhập địa chỉ cụ thể">
                         </div>
 
                         <div class="form-group">
                            <label for="tinh">Thành phố:</label>
-                           <select class="form-control" id="tinh" name="tinh" onchange="loadHuyen()"required>
+                           <select class="form-control" id="tinh" name="tinh" onchange="loadHuyen()">
                                <option value="">Chọn Thành phố</option>
                            </select>
                         </div>
 
                         <div class="form-group">
                            <label for="huyen">Quận:</label>
-                           <select class="form-control" id="huyen" name="huyen" onchange="loadXa()" disabled required>
+                           <select class="form-control" id="huyen" name="huyen" onchange="loadXa()" disabled>
                                <option value="">Chọn Quận/Huyện</option>
                            </select>
                         </div>
 
                         <div class="form-group">
                            <label for="xa">Phường:</label>
-                           <select class="form-control" id="xa" name="xa" disabled required>
+                           <select class="form-control" id="xa" name="xa" disabled>
                                <option value="">Chọn Phường/Xã</option>
                            </select>
                         </div>
 
                         <div class="form-group">
                            <label for="password">Mật khẩu:</label>
-                           <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
+                           <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu của bạn">
                         </div>
                         
                         <div class="form-group">
                            <label for="confirm-password">Xác nhận mật khẩu:</label>
-                           <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu của bạn" required>
+                           <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu của bạn">
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+                        <button type="submit" name="submit" class="btn btn-primary btn-block">Đăng ký</button>
                         <div class="text-center mt-3">
                            <a href="/index.php" class="text-decoration-none">Quay lại</a>
                         </div>
