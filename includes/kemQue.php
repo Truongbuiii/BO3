@@ -82,7 +82,7 @@
          <div class="container">
             <div class="row">
                     <?php
-                    require("..\db\connect.php");
+                    require(__DIR__ . "/../db/connect.php");
 
                     // Số sản phẩm mỗi trang
                     $productsPerPage = 6;
