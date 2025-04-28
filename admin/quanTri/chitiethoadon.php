@@ -121,29 +121,43 @@ $chiTietSanPham = $result_ct->fetch_all(MYSQLI_ASSOC);
     </div>
 
     <table>
-        <thead>
+    <thead>
         <tr>
             <th>Sản phẩm</th>
             <th style="text-align: center;">SL</th>
             <th style="text-align: right;">Đơn giá</th>
             <th style="text-align: right;">Thành tiền</th>
         </tr>
-        </thead>
-        <tbody>
+    </thead>
+    <tbody>
         <?php foreach ($chiTietSanPham as $sp): ?>
             <tr>
                 <td><?= htmlspecialchars($sp['TenSanPham']) ?></td>
                 <td style="text-align: center;"><?= $sp['SoLuong'] ?></td>
-                <td style="text-align: right;"><?= number_format($sp['DonGia'], 0, ',', '.') ?>đ</td>
-                <td style="text-align: right;"><?= number_format($sp['SoLuong'] * $sp['DonGia'], 0, ',', '.') ?>đ</td>
+                <td style="text-align: right;">
+                    <?= number_format($sp['DonGia'], 0, ',', '.') ?>đ
+                </td>
+                <td style="text-align: right;">
+                    <?php 
+                        // Tính thành tiền
+                        $thanhTien = $sp['SoLuong'] * $sp['DonGia'];
+                        echo number_format($thanhTien, 0, ',', '.') . 'đ';
+                    ?>
+                </td>
             </tr>
         <?php endforeach; ?>
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-    <div class="totals">
-        Tổng cộng: <?= number_format($hoaDon['TongTien'], 0, ',', '.') ?>đ
-    </div>
+<div class="totals">
+    Tổng cộng: 
+    <?php 
+        // Tính tổng tiền
+        $tongTien = $hoaDon['TongTien']; 
+        echo number_format($tongTien, 0, ',', '.') . 'đ'; 
+    ?>
+</div>
+
 </div>
 
 
