@@ -81,6 +81,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Gắn tham số cho câu lệnh
     $stmt->bind_param("sssssss", $tenSanPham, $maLoai, $huongVi, $tinhTrang, $donGia, $hinhAnh, $maSanPham);
 
+
+     // Số sản phẩm mỗi trang (nên dùng đúng số ở danh sách)
+$limit = 10;
+
+// Lấy vị trí của sản phẩm theo thứ tự MaSanPham tăng dần
+$positionQuery = "SELECT COUNT(*) AS position FROM SanPham WHERE MaSanPham <= ? ORDER BY MaSanPham ASC";
+$stmtPos = $conn->prepare("SELECT COUNT(*) AS position FROM (SELECT MaSanPham FROM SanPham ORDER BY MaSanPham ASC) AS Ordered WHERE MaSanPham <= ?");
+$stmtPos->bind_param("s", $maSanPham);
+$stmtPos->execute();
+$resultPos = $stmtPos->get_result();
+$rowPos = $resultPos->fetch_assoc();
+
+$page = ceil($rowPos['position'] / $limit);
+$stmtPos->close();
+
+
     // Thực thi câu lệnh
     if ($stmt->execute()) {
         // Kiểm tra nếu sản phẩm đã bị khóa (TinhTrang == 'khóa')
@@ -91,10 +107,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     window.location.href = 'danhSachSanPham.php';  
                   </script>";
         } else {
-            echo "<script>
-                    alert('Cập nhật sản phẩm thành công!');
-                    window.location.href = 'danhSachSanPham.php';  
-                  </script>";
+           echo "<script>
+        alert('Cập nhật sản phẩm thành công!');
+        window.location.href = 'danhSachSanPham.php?page={$page}';  
+      </script>";
+
         }
     } else {
         echo "Lỗi: " . $stmt->error;

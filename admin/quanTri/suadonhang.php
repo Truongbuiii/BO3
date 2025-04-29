@@ -66,8 +66,8 @@ if (isset($_GET['mahoadon'])) {
         <div class="form-group">
             <label>Hình thức thanh toán</label>
             <select name="HinhThucThanhToan" class="form-control">
-                <option value="Tiền mặt" <?php if($row['HinhThucThanhToan']=='cod') echo 'selected'; ?>>Tiền mặt</option>
-                <option value="Chuyển khoản" <?php if($row['HinhThucThanhToan']=='bank') echo 'selected'; ?>>Chuyển khoản </option>
+                <option value="Tiền mặt" <?php if($row['HinhThucThanhToan']=='Tiền mặt') echo 'selected'; ?>>Tiền mặt</option>
+                <option value="Chuyển khoản" <?php if($row['HinhThucThanhToan']=='Chuyển khoản') echo 'selected'; ?>>Chuyển khoản </option>
               
             </select>
         </div>

@@ -66,7 +66,7 @@
                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                      </button>
-                  </form>
+                  </form>   
                   </li>
                   
                   <ul class="navbar-nav">

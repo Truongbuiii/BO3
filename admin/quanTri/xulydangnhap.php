@@ -17,59 +17,53 @@ if ($conn->connect_error) {
 $username = trim($_POST['username']);
 $password = trim($_POST['password']);
 
-// Chuẩn bị truy vấn
-$stmt = $conn->prepare("SELECT TenNguoiDung, MatKhau, VaiTro FROM NguoiDung WHERE TenNguoiDung = ?");
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$result = $stmt->get_result();
-
 // Biến lưu thông báo để hiển thị trong popup
 $message = "";
 $success = false;
 
-if ($result->num_rows === 1) {
-    $row = $result->fetch_assoc();
-    $hashedPassword = $row['MatKhau'];
-    
-    // Kiểm tra và loại bỏ khoảng trắng thừa trong VaiTro
-    $role = trim($row['VaiTro']);
+if (!empty($username) && !empty($password)) {
+    // Chuẩn bị truy vấn
+    $stmt = $conn->prepare("SELECT TenNguoiDung, MatKhau, VaiTro FROM NguoiDung WHERE TenNguoiDung = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // Kiểm tra mật khẩu và vai trò
-    if (password_verify($password, $hashedPassword)) {
-        // Kiểm tra vai trò Admin sau khi loại bỏ khoảng trắng
-        if ($role === 'Admin') {
-            $_SESSION['adminid'] = $row['TenNguoiDung'];
-            $message = "✅ Đăng nhập thành công!";
-            $success = true;
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        $hashedPassword = $row['MatKhau'];
+
+        // Kiểm tra mật khẩu và vai trò
+        if (password_verify($password, $hashedPassword)) {
+            $role = trim($row['VaiTro']);  // Loại bỏ khoảng trắng trong vai trò
+
+            // Kiểm tra vai trò Admin
+            if ($role === 'Admin') {
+                $_SESSION['adminid'] = $row['TenNguoiDung'];
+                $_SESSION['admin_role'] = $role;
+
+                // Lưu thông tin vào cookie (nếu cần)
+                setcookie("adminid", $row['TenNguoiDung'], time() + 3600, "/");
+
+                $message = "✅ Đăng nhập thành công!";
+                $success = true;
+            } else {
+                $message = "❌ Bạn không đủ thẩm quyền để truy cập!";
+            }
         } else {
-            $message = "❌ Bạn không đủ thẩm quyền để truy cập!";
+            $message = "❌ Sai mật khẩu!";
         }
     } else {
-        $message = "❌ Sai mật khẩu!";
+        $message = "❌ Tên người dùng không tồn tại!";
     }
 } else {
-    $message = "❌ Tên người dùng không tồn tại!";
+    $message = "❌ Vui lòng nhập tên người dùng và mật khẩu!";
 }
 
-$sql = "SELECT * FROM NguoiDung WHERE TenNguoiDung = '$username' AND MatKhau = '$password'";
-$result = mysqli_query($conn, $sql);
-if (mysqli_num_rows($result) == 1) {
-    $row = mysqli_fetch_assoc($result);
-
-    // Lưu thông tin người dùng vào session
-    session_start();
-    $_SESSION['admin_name'] = $row['TenNguoiDung']; // tên hiển thị
-    // có thể lưu thêm ID, vai trò, v.v. nếu cần
-
-    // Chuyển hướng sau đăng nhập
-    header("Location: /admin/index.php");
-    exit();
-}
-
-
+// Đóng kết nối và statement
 $stmt->close();
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -136,22 +130,19 @@ $conn->close();
         <h2>
             <?php echo $success ? 'Đăng nhập thành công!' : 'Đăng nhập thất bại!'; ?>
         </h2>
-        <p>Đang xử lý, vui lòng chờ giây lát...</p>
+        <p><?php echo $message; ?></p>
     </div>
-
-
 
     <script>
         setTimeout(() => {
             <?php if ($success): ?>
-                window.location.href = "/admin/quantri/index.php";
+                window.location.href = "/admin/quantri/index.php"; // Đưa tới trang quản trị
             <?php else: ?>
                 setTimeout(() => {
-                window.history.back(); // quay lại trang đăng nhập
-                 }    ,1200      )
+                    window.history.back(); // Quay lại trang đăng nhập sau khi thất bại
+                }, 1200);
             <?php endif; ?>
         }, 1200);
     </script>
 </body>
 </html>
-

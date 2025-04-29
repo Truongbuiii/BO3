@@ -28,20 +28,35 @@
 </a>
 
 <?php
+require("./db/connect.php"); // Phải nằm ở trên cùng để $conn tồn tại
 
-require("./db/connect.php"); // Đảm bảo file kết nối đúng
+// Số sản phẩm mỗi trang
+$limit = 10;
 
+// Trang hiện tại (mặc định là 1 nếu không có tham số 'page')
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$start = ($page - 1) * $limit;
+
+// Truy vấn tổng số sản phẩm
+$count_query = "SELECT COUNT(*) AS total FROM SanPham";
+$count_result = mysqli_query($conn, $count_query);
+$count_row = mysqli_fetch_assoc($count_result);
+$total_products = $count_row['total'];
+$total_pages = ceil($total_products / $limit);
+
+// Truy vấn sản phẩm theo phân trang
 $sql = "SELECT SanPham.MaSanPham, SanPham.TenSanPham, LoaiSanPham.TenLoai, 
                SanPham.HuongVi, SanPham.TinhTrang, SanPham.DonGia, SanPham.HinhAnh
         FROM SanPham
-        JOIN LoaiSanPham ON SanPham.MaLoai = LoaiSanPham.MaLoai"; // Sửa lỗi JOIN
-
+        JOIN LoaiSanPham ON SanPham.MaLoai = LoaiSanPham.MaLoai
+        LIMIT $start, $limit";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
-    die("Lỗi truy vấn: " . mysqli_error($conn)); // Kiểm tra lỗi truy vấn
+    die("Lỗi truy vấn: " . mysqli_error($conn));
 }
 ?>
+
 
 
 
@@ -116,6 +131,28 @@ if (!$result) {
     ?>
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <?php if ($page > 1): ?>
+      <li class="page-item">
+        <a class="page-link" href="?page=<?= $page - 1 ?>">Trang trước</a>
+      </li>
+    <?php endif; ?>
+
+    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+      <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+      </li>
+    <?php endfor; ?>
+
+    <?php if ($page < $total_pages): ?>
+      <li class="page-item">
+        <a class="page-link" href="?page=<?= $page + 1 ?>">Trang sau</a>
+      </li>
+    <?php endif; ?>
+  </ul>
+</nav>
 
         </div>
     </div>
