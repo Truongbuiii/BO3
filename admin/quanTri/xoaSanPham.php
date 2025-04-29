@@ -3,20 +3,17 @@ require('./db/connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Lấy MaSanPham từ form
-
-
-// Giả sử id là khóa chính số nguyên trong bảng SanPham
-$maSanPham = $_POST['id']; // giả sử POST gửi lên là 'SP001'
+    $maSanPham = $_POST['id']; // giả sử POST gửi lên là 'SP001'
     echo "<script>console.log('Mã sản phẩm nhận được từ form: " . $maSanPham . "');</script>";
 
-$sql_getMaSP = "SELECT MaSanPham FROM SanPham WHERE MaSanPham = ?";
-$stmt = $conn->prepare($sql_getMaSP);
-$stmt->bind_param("s", $maSanPham); // chuỗi ký tự SP001
-
-$stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
-$maSanPham = $row['MaSanPham'];
+    // Kiểm tra xem sản phẩm có tồn tại trong cơ sở dữ liệu
+    $sql_getMaSP = "SELECT MaSanPham FROM SanPham WHERE MaSanPham = ?";
+    $stmt = $conn->prepare($sql_getMaSP);
+    $stmt->bind_param("s", $maSanPham); // chuỗi ký tự SP001
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $maSanPham = $row['MaSanPham'];
 
     // Kiểm tra xem sản phẩm có tồn tại trong hóa đơn không
     $sql_check = "SELECT COUNT(DISTINCT MaHoaDon) AS count FROM ChiTietHoaDon WHERE MaSanPham = ?";
@@ -36,13 +33,13 @@ $maSanPham = $row['MaSanPham'];
                 var confirmHide = confirm('Sản phẩm này đã được bán. Bạn có chắc chắn muốn ẩn sản phẩm không?');
                 if (confirmHide) {
                     // Thực hiện ẩn sản phẩm nếu người dùng xác nhận
-                    window.location = 'danhsachsanpham.php?id=" . $maSanPham . "&action=hide';
+                    window.location = 'xoasanpham.php?id=" . $maSanPham . "&action=hide';
                 } else {
                     window.location = 'danhsachsanpham.php';
                 }
               </script>";
     } else {
-        // Xóa sản phẩm khỏi bảng SanPham (Nếu sản phẩm chưa được bán)
+        // Nếu sản phẩm chưa bán, xóa sản phẩm khỏi bảng SanPham
         $sql_delete = "DELETE FROM SanPham WHERE MaSanPham = ?";
         $stmt_delete = $conn->prepare($sql_delete);
         $stmt_delete->bind_param("s", $maSanPham);
@@ -60,9 +57,9 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == 'hide') {
     $maSanPham = $_GET['id'];
 
     // Kiểm tra lại MaSanPham
-if (!empty($maSanPham)) {
-        // Cập nhật trạng thái sản phẩm thành ẩn (tinhTrang = 0)
-        $sql_update = "UPDATE SanPham SET tinhTrang = 0 WHERE MaSanPham = ?";
+    if (!empty($maSanPham)) {
+        // Cập nhật trạng thái sản phẩm thành ẩn (tinhTrang = 0) - khóa sản phẩm
+        $sql_update = "UPDATE SanPham SET TinhTrang = '0' WHERE MaSanPham = ?";
         $stmt_update = $conn->prepare($sql_update);
         $stmt_update->bind_param("s", $maSanPham);
         if ($stmt_update->execute()) {
