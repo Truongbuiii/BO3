@@ -115,6 +115,7 @@ VALUES
 
 
 -- 3 tài khoản Admin
+-- 3 tài khoản Admin
 INSERT INTO NguoiDung (TenNguoiDung, MatKhau, HoTen, Email, SoDienThoai, VaiTro, TinhTrang, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe)
 VALUES
 ('admin1', '$2b$12$aKaT9vYvxDimjrfh3Mm0R.y54R1q9qVWsYijc4osCJYnEmIL8gzHO', 'Nguyễn Văn A', 'admin1@example.com', '0900000001', 'Admin', 'Mở', 'TP. Hồ Chí Minh', 'Quận 1', 'Phường Bến Nghé', '123 Lê Lợi'),
@@ -124,54 +125,54 @@ VALUES
 -- 10 tài khoản Customer
 INSERT INTO NguoiDung (TenNguoiDung, MatKhau, HoTen, Email, SoDienThoai, VaiTro, TinhTrang, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe)
 VALUES
-('user1', '$2b$12$nx2mLh2uDF0O9NReFQb23ecpvH0QfYEx6YUtqHsTZ./QvcLBWIjYy', 'Ngô Thanh Bình', 'user1@example.com', '0900001001', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận 10', 'Phường 12', '12 Tô Hiến Thành'),
+('user1', '$2b$12$nx2mLh2uDF0O9NReFQb23ecpvH0QfYEx6YUtqHsTZ./QvcLBWIjYy', 'Ngô Thanh Bình', 'user1@example.com', '0900001001', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận 10', 'Phường 2', '12 Tô Hiến Thành'),
 ('user2', '$2b$12$dwH8hPEGt6a/gC59XLwCp.4II1izfBqrnFOiTzH1.JPc5I9akUY9O', 'Phan Văn Dũng', 'user2@example.com', '0900001002', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận 7', 'Phường Tân Phong', '88 Nguyễn Văn Linh'),
 ('user3', '$2b$12$5MyZ2pHrPpnJOvG3mMqAnO1FLGPd8ZZooVuJKGw4jacl4xorDk8QG', 'Lưu Thị Hồng', 'user3@example.com', '0900001003', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận Bình Thạnh', 'Phường 25', '102 Điện Biên Phủ'),
 ('user4', '$2b$12$H/Rwdsy.YlvkfyadCG4xT.Ts8UaxXZhXij/vo4cPk.5RRZE5G4ZtW', 'Đặng Minh Châu', 'user4@example.com', '0900001004', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận Tân Bình', 'Phường 2', '56 Trường Chinh'),
 ('user5', '$2b$12$f/m5r.JrpDF1gUb7POhEX.rEaj.TKGOCACPdx1HXmhTAswlRYEWQu', 'Nguyễn Thị Lan', 'user5@example.com', '0900001005', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận Phú Nhuận', 'Phường 9', '23 Nguyễn Kiệm'),
 ('user6', '$2b$12$IjMHtWelKxO98CLP.jSTfuElnrpFntNM9nOrA4zqrwQ5oMumJDIxe', 'Võ Quốc Toàn', 'user6@example.com', '0900001006', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận 6', 'Phường 1', '67 Hậu Giang'),
 ('user7', '$2b$12$rzn7iDKpDxV6ZsG.taBZe.VMCVlhNLB2sJxBmwbLW2Kb1xbiWtgkC', 'Hồ Thị Mai', 'user7@example.com', '0900001007', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận 11', 'Phường 16', '75 Lạc Long Quân'),
-('user8', '$2b$12$yCVAp2IDiWChXOhneo4dcelXP.0IYaY.MsIEauZCB5fULs93cImJK', 'Bùi Văn Hậu', 'user8@example.com', '0900001008', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận Thủ Đức', 'Phường Linh Trung', '90 Võ Văn Ngân'),
+('user8', '$2b$12$yCVAp2IDiWChXOhneo4dcelXP.0IYaY.MsIEauZCB5fULs93cImJK', 'Bùi Văn Hậu', 'user8@example.com', '0900001008', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Thành phố Thủ Đức', 'Phường Linh Trung', '90 Võ Văn Ngân'),
 ('user9', '$2b$12$5AFhRaloYByPzEMZ3dNQTuI5NFJSkr1eQUl98M/2FQacGPv.VQ6B2', 'Đỗ Ngọc Trinh', 'user9@example.com', '0900001009', 'Customer', 'Mở', 'TP. Hồ Chí Minh', 'Quận Bình Tân', 'Phường Bình Hưng Hòa', '37 Tên Lửa'),
 ('user10', '$2b$12$fHqFKM/apXpI8GUgw18nzOHZc10FKgfs6AhqWO3yVQIrs8PlQGLzO', 'Lý Văn Phúc', 'user10@example.com', '0900001010', 'Customer', 'Khóa', 'TP. Hồ Chí Minh', 'Huyện Nhà Bè', 'Xã Phước Kiển', '18 Nguyễn Hữu Thọ');
 
 
 
 
-
 -- 30 Đơn hàng với ít nhất 6 người mua hàng khác nhau
-INSERT INTO HoaDon (MaHoaDon, NguoiNhanHang, Email, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe, NgayGio, TongTien, TrangThai, HinhThucThanhToan, TenNguoiDung)
-VALUES
-('HD001', 'Ngô Thanh Bình', 'user1@example.com', 'TP.HCM', 'Quận 1', 'Phường Bến Nghé', 'Số 1, Nguyễn Văn Cừ', '2025-04-10 10:00:00', 150000, 'Chưa xác nhận', 'Tiền mặt', 'user1'),
-('HD002', 'Phan Văn Dũng', 'user2@example.com', 'TP.HCM', 'Quận 2', 'Phường An Khánh', 'Số 15, Lê Văn Lương', '2025-04-11 11:30:00', 180000, 'Chưa xác nhận', 'Chuyển khoản', 'user2'),
-('HD003', 'Lưu Thị Hồng', 'user3@example.com', 'TP.HCM', 'Quận 3', 'Phường Võ Thị Sáu', 'Số 20, Lý Chính Thắng', '2025-04-12 09:45:00', 120000, 'Chưa xác nhận', 'Tiền mặt', 'user3'),
-('HD004', 'Đặng Minh Châu', 'user4@example.com', 'TP.HCM', 'Quận 4', 'Phường 13', 'Số 22, Đoàn Văn Bơ', '2025-04-13 08:20:00', 220000, 'Đã xác nhận', 'Tiền mặt', 'user4'),
-('HD005', 'Nguyễn Thị Lan', 'user5@example.com', 'TP.HCM', 'Quận 5', 'Phường 8', 'Số 5, An Dương Vương', '2025-04-14 12:00:00', 250000, 'Đã xác nhận', 'Chuyển khoản', 'user5'),
-('HD006', 'Võ Quốc Toàn', 'user6@example.com', 'TP.HCM', 'Quận 6', 'Phường 10', 'Số 10, Bà Hom', '2025-04-15 10:30:00', 190000, 'Đã xác nhận', 'Tiền mặt', 'user6'),
-('HD007', 'Hồ Thị Mai', 'user7@example.com', 'TP.HCM', 'Quận 7', 'Phường Tân Phong', 'Số 35, Nguyễn Văn Linh', '2025-04-16 11:45:00', 170000, 'Đã xác nhận', 'Chuyển khoản', 'user7'),
-('HD008', 'Bùi Văn Hậu', 'user8@example.com', 'TP.HCM', 'Quận 8', 'Phường 7', 'Số 40, Phạm Thế Hiển', '2025-04-17 09:30:00', 130000, 'Đã giao thành công', 'Tiền mặt', 'user8'),
-('HD009', 'Đỗ Ngọc Trinh', 'user9@example.com', 'TP.HCM', 'Quận 9', 'Phường Tăng Nhơn Phú', 'Số 12, Lê Văn Việt', '2025-04-18 14:10:00', 210000, 'Đã giao thành công', 'Chuyển khoản', 'user9'),
-('HD010', 'Lý Văn Phúc', 'user10@example.com', 'TP.HCM', 'Quận 10', 'Phường 5', 'Số 55, Hòa Hưng', '2025-04-19 08:50:00', 180000, 'Đã giao thành công', 'Tiền mặt', 'user10'),
-('HD011', 'Ngô Thanh Bình', 'user1@example.com', 'TP.HCM', 'Quận 1', 'Phường Bến Nghé', 'Số 1, Nguyễn Văn Cừ', '2025-04-20 12:00:00', 190000, 'Đã giao thành công', 'Chuyển khoản', 'user1'),
-('HD012', 'Phan Văn Dũng', 'user2@example.com', 'TP.HCM', 'Quận 2', 'Phường An Khánh', 'Số 15, Lê Văn Lương', '2025-04-21 11:30:00', 250000, 'Đã giao thành công', 'Tiền mặt', 'user2'),
-('HD013', 'Lưu Thị Hồng', 'user3@example.com', 'TP.HCM', 'Quận 3', 'Phường Võ Thị Sáu', 'Số 20, Lý Chính Thắng', '2025-04-22 09:45:00', 220000, 'Đã giao thành công', 'Chuyển khoản', 'user3'),
-('HD014', 'Đặng Minh Châu', 'user4@example.com', 'TP.HCM', 'Quận 4', 'Phường 13', 'Số 22, Đoàn Văn Bơ', '2025-04-23 08:20:00', 210000, 'Đã giao thành công', 'Tiền mặt', 'user4'),
-('HD015', 'Nguyễn Thị Lan', 'user5@example.com', 'TP.HCM', 'Quận 5', 'Phường 8', 'Số 5, An Dương Vương', '2025-04-24 12:00:00', 150000, 'Đã giao thành công', 'Chuyển khoản', 'user5'),
-('HD016', 'Võ Quốc Toàn', 'user6@example.com', 'TP.HCM', 'Quận 6', 'Phường 10', 'Số 10, Bà Hom', '2025-04-25 10:30:00', 170000, 'Đã giao thành công', 'Tiền mặt', 'user6'),
-('HD017', 'Hồ Thị Mai', 'user7@example.com', 'TP.HCM', 'Quận 7', 'Phường Tân Phong', 'Số 35, Nguyễn Văn Linh', '2025-04-26 11:45:00', 160000, 'Đã giao thành công', 'Chuyển khoản', 'user7'),
-('HD018', 'Bùi Văn Hậu', 'user8@example.com', 'TP.HCM', 'Quận 8', 'Phường 7', 'Số 40, Phạm Thế Hiển', '2025-04-27 09:30:00', 130000, 'Đã giao thành công', 'Tiền mặt', 'user8'),
-('HD019', 'Đỗ Ngọc Trinh', 'user9@example.com', 'TP.HCM', 'Quận 9', 'Phường Tăng Nhơn Phú', 'Số 12, Lê Văn Việt', '2025-04-28 14:10:00', 230000, 'Đã giao thành công', 'Chuyển khoản', 'user9'),
-('HD020', 'Lý Văn Phúc', 'user10@example.com', 'TP.HCM', 'Quận 10', 'Phường 5', 'Số 55, Hòa Hưng', '2025-04-29 08:50:00', 210000, 'Đã hủy', 'Tiền mặt', 'user10'),
-('HD021', 'Ngô Thanh Bình', 'user1@example.com', 'TP.HCM', 'Quận 1', 'Phường Bến Nghé', 'Số 1, Nguyễn Văn Cừ', '2025-05-01 10:00:00', 160000, 'Đã hủy', 'Chuyển khoản', 'user1'),
-('HD022', 'Phan Văn Dũng', 'user2@example.com', 'TP.HCM', 'Quận 2', 'Phường An Khánh', 'Số 15, Lê Văn Lương', '2025-05-02 11:30:00', 200000, 'Đã hủy', 'Tiền mặt', 'user2'),
-('HD023', 'Lưu Thị Hồng', 'user3@example.com', 'TP.HCM', 'Quận 3', 'Phường Võ Thị Sáu', 'Số 20, Lý Chính Thắng', '2025-05-03 09:45:00', 180000, 'Đã hủy', 'Chuyển khoản', 'user3'),
-('HD024', 'Đặng Minh Châu', 'user4@example.com', 'TP.HCM', 'Quận 4', 'Phường 13', 'Số 22, Đoàn Văn Bơ', '2025-05-04 08:20:00', 210000, 'Đã hủy', 'Tiền mặt', 'user4'),
-('HD025', 'Nguyễn Thị Lan', 'user5@example.com', 'TP.HCM', 'Quận 5', 'Phường 8', 'Số 5, An Dương Vương', '2025-05-05 12:00:00', 200000, 'Đã hủy', 'Chuyển khoản', 'user5'),
-('HD026', 'Võ Quốc Toàn', 'user6@example.com', 'TP.HCM', 'Quận 6', 'Phường 10', 'Số 10, Bà Hom', '2025-05-06 10:30:00', 210000, 'Đã xác nhận', 'Tiền mặt', 'user6'),
-('HD027', 'Hồ Thị Mai', 'user7@example.com', 'TP.HCM', 'Quận 7', 'Phường Tân Phong', 'Số 35, Nguyễn Văn Linh', '2025-05-07 11:45:00', 240000, 'Đã xác nhận', 'Chuyển khoản', 'user7'),
-('HD028', 'Bùi Văn Hậu', 'user8@example.com', 'TP.HCM', 'Quận 8', 'Phường 7', 'Số 40, Phạm Thế Hiển', '2025-05-08 09:30:00', 180000, 'Đã xác nhận', 'Tiền mặt', 'user8'),
-('HD029', 'Đỗ Ngọc Trinh', 'user9@example.com', 'TP.HCM', 'Quận 9', 'Phường Tăng Nhơn Phú', 'Số 12, Lê Văn Việt', '2025-05-09 14:10:00', 220000, 'Đã xác nhận', 'Chuyển khoản', 'user9'),
-('HD030', 'Lý Văn Phúc', 'user10@example.com', 'TP.HCM', 'Quận 10', 'Phường 5', 'Số 55, Hòa Hưng', '2025-05-10 08:50:00', 250000, 'Đã xác nhận', 'Tiền mặt', 'user10');
+INSERT INTO HoaDon (MaHoaDon, NguoiNhanHang, Email, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe, NgayGio, TongTien, TrangThai, HinhThucThanhToan, TenNguoiDung) VALUES
+('HD001', 'Nguyễn Văn A', 'nguyenvana@example.com', 'TP.HCM', 'Quận 1', 'Phường Bến Nghé', '123 Lê Lợi', '2025-04-03 10:15:00', 500000, 'Đã giao thành công', 'Chuyển khoản', 'user1'),
+('HD002', 'Trần Thị B', 'tranthib@example.com', 'TP.HCM', 'Quận 1', 'Phường Bến Thành', '456 Nguyễn Huệ', '2025-04-05 12:20:00', 750000, 'Đã giao thành công', 'Tiền mặt', 'user2'),
+('HD003', 'Lê Văn C', 'levanc@example.com', 'TP.HCM', 'Quận 3', 'Phường 7', '789 Cách Mạng Tháng 8', '2025-04-07 14:45:00', 450000, 'Đã xác nhận', 'Chuyển khoản', 'user3'),
+('HD004', 'Phạm Minh D', 'phamminhd@example.com', 'TP.HCM', 'Quận 5', 'Phường 8', '1011 Trần Hưng Đạo', '2025-04-08 09:30:00', 600000, 'Chưa xác nhận', 'Tiền mặt', 'user4'),
+('HD005', 'Hoàng Thị E', 'hoangthie@example.com', 'TP.HCM', 'Quận 10', 'Phường 5', '1213 Nguyễn Chí Thanh', '2025-04-09 11:00:00', 800000, 'Đã giao thành công', 'Chuyển khoản', 'user5'),
+('HD006', 'Nguyễn Minh F', 'nguyenminhf@example.com', 'TP.HCM', 'Quận 2', 'Phường An Phú', '1415 Lương Định Của', '2025-04-10 13:10:00', 900000, 'Đã giao thành công', 'Tiền mặt', 'user6'),
+('HD007', 'Vũ Tiến G', 'vutieng@example.com', 'TP.HCM', 'Quận 4', 'Phường 13', '1617 Võ Văn Kiệt', '2025-04-11 15:25:00', 550000, 'Đã xác nhận', 'Chuyển khoản', 'user7'),
+('HD008', 'Trần Minh H', 'tranminhh@example.com', 'TP.HCM', 'Quận 7', 'Phường Tân Thuận Tây', '1819 Huỳnh Tấn Phát', '2025-04-12 17:00:00', 700000, 'Chưa xác nhận', 'Tiền mặt', 'user8'),
+('HD009', 'Phan Thị I', 'phanthii@example.com', 'TP.HCM', 'Quận 8', 'Phường 15', '2021 Lê Quang Định', '2025-04-13 08:30:00', 650000, 'Đã giao thành công', 'Chuyển khoản', 'user9'),
+('HD010', 'Lê Thiên J', 'lethienj@example.com', 'TP.HCM', 'Quận 9', 'Phường Hiệp Phú', '2223 Nguyễn Văn Tạo', '2025-04-14 10:40:00', 850000, 'Đã xác nhận', 'Tiền mặt', 'user10'),
+('HD011', 'Nguyễn Hữu K', 'nguyenhuuk@example.com', 'TP.HCM', 'Quận 10', 'Phường 4', '2425 Lê Lợi', '2025-04-15 11:55:00', 550000, 'Đã giao thành công', 'Chuyển khoản', 'user1'),
+('HD012', 'Trương Thị L', 'truongthil@example.com', 'TP.HCM', 'Quận 6', 'Phường 8', '2627 Phạm Ngọc Thạch', '2025-04-16 13:10:00', 700000, 'Chưa xác nhận', 'Tiền mặt', 'user2'),
+('HD013', 'Nguyễn Quang M', 'nguyenquangm@example.com', 'TP.HCM', 'Quận 4', 'Phường 12', '2829 Nguyễn Thị Minh Khai', '2025-04-17 14:30:00', 800000, 'Đã giao thành công', 'Chuyển khoản', 'user3'),
+('HD014', 'Trần Vân N', 'tranvann@example.com', 'TP.HCM', 'Quận 3', 'Phường 14', '3031 Cách Mạng Tháng 8', '2025-04-18 16:00:00', 450000, 'Đã xác nhận', 'Tiền mặt', 'user4'),
+('HD015', 'Phạm Quang O', 'phamquango@example.com', 'TP.HCM', 'Quận 1', 'Phường Bến Nghé', '3233 Nguyễn Văn Cừ', '2025-04-19 10:20:00', 900000, 'Chưa xác nhận', 'Chuyển khoản', 'user5'),
+('HD016', 'Lê Thiện P', 'lethienp@example.com', 'TP.HCM', 'Quận 5', 'Phường 1', '3435 Trần Bình Trọng', '2025-04-20 11:30:00', 750000, 'Đã giao thành công', 'Tiền mặt', 'user6'),
+('HD017', 'Trần Đức Q', 'tranducq@example.com', 'TP.HCM', 'Quận 2', 'Phường An Phú', '3637 Lý Thái Tổ', '2025-04-21 12:40:00', 600000, 'Đã xác nhận', 'Chuyển khoản', 'user7'),
+('HD018', 'Vũ Thiện R', 'vuthienr@example.com', 'TP.HCM', 'Quận 9', 'Phường Hiệp Bình Chánh', '3839 Lê Quang Đạo', '2025-04-22 13:50:00', 950000, 'Chưa xác nhận', 'Tiền mặt', 'user8'),
+('HD019', 'Nguyễn Sơn S', 'nguyenson@example.com', 'TP.HCM', 'Quận 7', 'Phường Tân Phú', '4041 Trần Thị Lý', '2025-04-23 14:00:00', 850000, 'Đã giao thành công', 'Chuyển khoản', 'user9'),
+('HD020', 'Lê Kim T', 'lekimt@example.com', 'TP.HCM', 'Quận 10', 'Phường 9', '4243 Bà Huyện Thanh Quan', '2025-04-24 15:30:00', 700000, 'Đã xác nhận', 'Tiền mặt', 'user10'),
+('HD021', 'Nguyễn Hà U', 'nguyenhau@example.com', 'TP.HCM', 'Quận 3', 'Phường 5', '4445 Nguyễn Thị Nghĩa', '2025-04-25 16:00:00', 500000, 'Chưa xác nhận', 'Chuyển khoản', 'user1'),
+('HD022', 'Trần Khánh V', 'trankhanhv@example.com', 'TP.HCM', 'Quận 6', 'Phường 7', '4647 Võ Văn Kiệt', '2025-04-01 17:10:00', 600000, 'Đã giao thành công', 'Tiền mặt', 'user2'),
+('HD023', 'Phạm Minh W', 'phamminhw@example.com', 'TP.HCM', 'Quận 2', 'Phường Tân Phú', '4849 Lý Thường Kiệt', '2025-04-02 08:30:00', 550000, 'Đã xác nhận', 'Chuyển khoản', 'user3'),
+('HD024', 'Lê Thái X', 'lethaix@example.com', 'TP.HCM', 'Quận 4', 'Phường 10', '5051 Nguyễn Tri Phương', '2025-04-03 09:40:00', 700000, 'Chưa xác nhận', 'Tiền mặt', 'user4'),
+('HD025', 'Trần Bích Y', 'tranbichy@example.com', 'TP.HCM', 'Quận 1', 'Phường Cầu Kho', '5253 Trần Hưng Đạo', '2025-04-04 10:50:00', 600000, 'Đã giao thành công', 'Chuyển khoản', 'user5'),
+('HD026', 'Phan Tiến Z', 'phantienz@example.com', 'TP.HCM', 'Quận 9', 'Phường Long Trường', '5455 Nguyễn Tất Thành', '2025-04-05 11:00:00', 900000, 'Đã xác nhận', 'Tiền mặt', 'user6'),
+('HD027', 'Nguyễn Thế A', 'nguyenthea@example.com', 'TP.HCM', 'Quận 8', 'Phường 11', '5657 Phan Đình Phùng', '2025-04-06 12:20:00', 750000, 'Chưa xác nhận', 'Chuyển khoản', 'user7'),
+('HD028', 'Lê Quang B', 'lequangb@example.com', 'TP.HCM', 'Quận 2', 'Phường Tân Bình', '5859 Đoàn Văn Bơ', '2025-04-07 13:30:00', 800000, 'Đã giao thành công', 'Tiền mặt', 'user8'),
+('HD029', 'Trần Ngọc C', 'tranngocc@example.com', 'TP.HCM', 'Quận 7', 'Phường Tân Kiểng', '6061 Trần Xuân Soạn', '2025-04-08 14:40:00', 650000, 'Đã xác nhận', 'Chuyển khoản', 'user9'),
+('HD030', 'Phan Quốc D', 'phanquocd@example.com', 'TP.HCM', 'Quận 5', 'Phường 3', '6263 Lý Tự Trọng', '2025-04-09 15:50:00', 950000, 'Chưa xác nhận', 'Tiền mặt', 'user10');
+
+
 
 -- Bảng ChiTietHoaDon (chi tiết sản phẩm trong đơn hàng)
 INSERT INTO ChiTietHoaDon (MaHoaDon, MaSanPham, SoLuong, DonGia)
