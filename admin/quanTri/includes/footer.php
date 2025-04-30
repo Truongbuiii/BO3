@@ -9,7 +9,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; TiemCayKemF42025</span>
+                        <span>All Rights Reserved. Design by TiemKemF4</span>
                     </div>
                 </div>
             </footer>

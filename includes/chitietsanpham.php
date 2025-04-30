@@ -238,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
              </div>
              <div class="copyright_section">
                <div class="container">
-                  <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
+                  <p class="copyright_text">All Rights Reserved. Design by TiemKemF4</a></p>
                </div>
             </div>
          </div>

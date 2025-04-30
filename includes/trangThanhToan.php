@@ -7,7 +7,9 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     exit();
 }
 ?>
-
+  <script>
+    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+</script>
 
 <!DOCTYPE html>
 <html>
@@ -153,17 +155,36 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
                      
                   </ul>
                   <li>
-                     <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                           <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                     </form>
+                     <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
+                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
+                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                     </button>
+                  </form>
                   </li>
-                  <ul class="navbar-nav">
-
-                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
+                  <ul class="navbar-nav ml-3">
+            <li class="nav-item d-flex align-items-center">
                
+                        <a href="#" onclick="handleUserClick()">
+                        <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+                        </a>
+                        <a href="#" onclick="handleCartClick()">
+                            <i class="bi bi-bag-heart-fill custom-icon"  style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+                        </a>
+
+                        <?php if (isset($_SESSION['username'])): ?>
+                        <li class="nav-item">
+                            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
+                                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+                            </span>
+                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+                        </li>
+                        
+                        
+                         <?php endif; ?>
+
+             </li>
+             </ul>
 
                   </form>
                </div>
@@ -297,5 +318,7 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
             }
         }
     </script>
+          <script src="/js/main.js"></script>
+
 </body>
 </html>

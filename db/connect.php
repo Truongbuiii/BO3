@@ -6,3 +6,4 @@ $dbname = "tiemkem";
 
 // Kết nối MySQL
 $conn =  mysqli_connect("localhost", "root","", "tiemkem");
+
