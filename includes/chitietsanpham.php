@@ -41,6 +41,11 @@ $related_products = $stmt_related->get_result();
 
 // Xử lý thêm sản phẩm vào giỏ hàng
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
+       if (!isset($_SESSION['TenNguoiDung'])) {
+        echo "<script>alert('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!'); window.location.href = 'login.php';</script>";
+        exit();
+    }
+
     $MaSanPham = $_POST['MaSanPham'];
 
     // Lấy thông tin sản phẩm từ CSDL
