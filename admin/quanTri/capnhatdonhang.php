@@ -1,25 +1,7 @@
 <?php
 require('./db/connect.php');
 
-// Kiểm tra nếu có mã hóa đơn trên URL
-if (isset($_GET['MaHoaDon'])) {
-    $maHD = mysqli_real_escape_string($conn, $_GET['MaHoaDon']);
-
-    $sql = "SELECT * FROM HoaDon WHERE MaHoaDon='$maHD'";
-    $result = mysqli_query($conn, $sql);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-    } else {
-        echo "<div class='alert alert-danger'>❌ Không tìm thấy đơn hàng với mã $maHD.</div>";
-        exit;
-    }
-} else {
-    echo "<div class='alert alert-danger'>❌ Thiếu mã hóa đơn.</div>";
-    exit;
-}
-?>
-<?php
+// Xử lý cập nhật nếu là POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $maHD = mysqli_real_escape_string($conn, $_POST['MaHoaDon']);
     $nguoiNhan = mysqli_real_escape_string($conn, $_POST['NguoiNhanHang']);
@@ -50,8 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $thuTuMoi = $thuTuTrangThai[$trangThaiMoi] ?? 0;
 
         if ($thuTuMoi < $thuTuCu) {
-            // Trở lại trang sửa đơn với cảnh báo
-            header("Location: suadonhang.php?MaHoaDon=$maHD&error=reverse");
+            // Thông báo lỗi không cho cập nhật ngược trạng thái
+            echo "<div class='alert alert-warning'>⚠️ Không thể cập nhật trạng thái từ <strong>$trangThaiCu</strong> về <strong>$trangThaiMoi</strong>. Trạng thái mới phải tiến về phía trước.</div>";
+            echo "<a href='suadonhang.php?mahoadon=$maHD' class='btn btn-primary mt-3'>Quay lại chỉnh sửa</a>";
             exit;
         }
 
@@ -76,5 +59,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "❌ Không tìm thấy hóa đơn.";
     }
+    exit;
+}
+
+// Hiển thị thông tin hóa đơn nếu có mã từ GET
+if (isset($_GET['MaHoaDon'])) {
+    $maHD = mysqli_real_escape_string($conn, $_GET['MaHoaDon']);
+
+    $sql = "SELECT * FROM HoaDon WHERE MaHoaDon='$maHD'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+    } else {
+        echo "<div class='alert alert-danger'>❌ Không tìm thấy đơn hàng với mã $maHD.</div>";
+        exit;
+    }
+} else {
+    echo "<div class='alert alert-danger'>❌ Thiếu mã hóa đơn.</div>";
+    exit;
 }
 ?>

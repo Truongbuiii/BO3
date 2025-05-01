@@ -1,8 +1,6 @@
 <?php
 require('./db/connect.php');
 
-
-
 // Hàm kiểm tra trùng lặp email
 function checkDuplicateEmail($email, $tenNguoiDung, $conn) {
     $sqlCheckEmail = "SELECT COUNT(*) FROM NguoiDung WHERE Email = ? AND TenNguoiDung != ?";
@@ -42,9 +40,6 @@ $quanHuyen = isset($_POST['QuanHuyen']) ? $_POST['QuanHuyen'] : '';
 $phuongXa = isset($_POST['PhuongXa']) ? $_POST['PhuongXa'] : '';
 $diaChiCuThe = isset($_POST['DiaChiCuThe']) ? $_POST['DiaChiCuThe'] : '';
 
-
-
-
 // Kiểm tra nếu email đã tồn tại trong cơ sở dữ liệu
 if (checkDuplicateEmail($email, $tenNguoiDung, $conn)) {
     echo "Email này đã được sử dụng. Vui lòng nhập lại email khác.";
@@ -57,17 +52,16 @@ if (checkDuplicatePhone($soDienThoai, $tenNguoiDung, $conn)) {
     exit;
 }
 
-// Kiểm tra nếu tình trạng là "Khóa", chỉ cho phép cập nhật tình trạng
+// Kiểm tra tình trạng người dùng
 if ($tinhTrang === 'Khóa') {
-    // Chỉ cập nhật tình trạng, không thay đổi các thông tin khác
-    $tinhTrang = $_POST['TinhTrang'];
-$sql = "UPDATE NguoiDung SET TinhTrang = ? WHERE TenNguoiDung = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $tinhTrang, $tenNguoiDung);
-$stmt->execute();
-
+    // Cập nhật tình trạng người dùng thành "Khóa"
+    $sql = "UPDATE NguoiDung SET TinhTrang = ? WHERE TenNguoiDung = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $tinhTrang, $tenNguoiDung);
+    $stmt->execute();
+    echo "Người dùng đã bị khóa thành công!";
 } else {
-    // Nếu không bị khóa, cho phép thay đổi thông tin
+    // Nếu tình trạng không phải là "Khóa", thực hiện cập nhật thông tin người dùng
     if ($matKhau != '') {
         // Mã hóa mật khẩu nếu có
         $matKhauHash = password_hash($matKhau, PASSWORD_DEFAULT);
@@ -102,7 +96,7 @@ $stmt->execute();
     }
 }
 
-// Thực thi câu lệnh
+// Thực thi câu lệnh và thông báo kết quả
 if ($stmt->execute()) {
     echo "Cập nhật thành công!";
 } else {

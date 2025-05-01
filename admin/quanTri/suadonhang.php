@@ -1,12 +1,22 @@
 <?php
-require('includes/header.php');
 require('./db/connect.php');
+require('includes/header.php');
 
 if (isset($_GET['mahoadon'])) {
-    $maHD = $_GET['mahoadon'];
-    $sql = "SELECT * FROM HoaDon WHERE MaHoaDon = '$maHD'";
+    $maHD = mysqli_real_escape_string($conn, $_GET['mahoadon']);
+    // Truy vấn thông tin đơn hàng từ cơ sở dữ liệu
+    $sql = "SELECT * FROM HoaDon WHERE MaHoaDon='$maHD'";
     $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result); // Lấy thông tin đơn hàng vào biến $row
+    } else {
+        echo "<div class='alert alert-danger'>❌ Không tìm thấy đơn hàng với mã hóa đơn: $maHD.</div>";
+        exit;
+    }
+} else {
+    echo "<div class='alert alert-danger'>❌ Thiếu mã hóa đơn.</div>";
+    exit;
 }
 ?>
 
@@ -52,23 +62,20 @@ if (isset($_GET['mahoadon'])) {
         </div>
 
         <div class="form-group">
-    <label>Trạng thái</label>
-    <select name="TrangThai" class="form-control">
-    <option value="Chưa xác nhận" <?php if(trim($row['TrangThai']) === 'Chưa xác nhận') echo 'selected'; ?>>Chưa xác nhận</option>
-
-        <option value="Đã xác nhận" <?php if($row['TrangThai']=='Đã xác nhận') echo 'selected'; ?>>Đã xác nhận</option>
-        <option value="Đã giao thành công" <?php if($row['TrangThai']=='Đã giao thành công') echo 'selected'; ?>>Đã giao thành công</option>
-        <option value="Đã huỷ" <?php if($row['TrangThai']=='Đã huỷ') echo 'selected'; ?>>Đã huỷ</option>
-    </select>
-</div>
-
+            <label>Trạng thái</label>
+            <select name="TrangThai" class="form-control">
+                <option value="Chưa xác nhận" <?php if(trim($row['TrangThai']) === 'Chưa xác nhận') echo 'selected'; ?>>Chưa xác nhận</option>
+                <option value="Đã xác nhận" <?php if($row['TrangThai']=='Đã xác nhận') echo 'selected'; ?>>Đã xác nhận</option>
+                <option value="Đã giao thành công" <?php if($row['TrangThai']=='Đã giao thành công') echo 'selected'; ?>>Đã giao thành công</option>
+                <option value="Đã huỷ" <?php if($row['TrangThai']=='Đã huỷ') echo 'selected'; ?>>Đã huỷ</option>
+            </select>
+        </div>
 
         <div class="form-group">
             <label>Hình thức thanh toán</label>
             <select name="HinhThucThanhToan" class="form-control">
                 <option value="Tiền mặt" <?php if($row['HinhThucThanhToan']=='Tiền mặt') echo 'selected'; ?>>Tiền mặt</option>
-                <option value="Chuyển khoản" <?php if($row['HinhThucThanhToan']=='Chuyển khoản') echo 'selected'; ?>>Chuyển khoản </option>
-              
+                <option value="Chuyển khoản" <?php if($row['HinhThucThanhToan']=='Chuyển khoản') echo 'selected'; ?>>Chuyển khoản</option>
             </select>
         </div>
 
@@ -80,26 +87,11 @@ if (isset($_GET['mahoadon'])) {
 <script>
 const data = {
     "TP Hồ Chí Minh": {
-    "Quận 1": ["Phường Cầu Kho","Phường Bến Nghé", "Phường Bến Thành", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Thái Bình"],
-  "Quận 2":["Phường An Phú","Phường Tân Bình","Phường Tân Phú"],
-    "Quận 3": ["Phường Võ Thị Sáu", "Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7","Phường 14"],
-  "Quận 4":["Phường 10","Phường 11","Phường 12","Phường 13"],
-    "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 8"],
-  "Quận 6": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10"],
-  "Quận 7": ["Phường Tân Thuận Tây","Phường Tân Phong", "Phường Tân Hưng", "Phường Bình Thuận", "Phường Phú Mỹ", "Phường Tân Kiểng", "Phường Tân Quy", "Phường Tân Phú"],
-"Quận 8":["Phường 11","Phường 15"],
-"Quận 9":["Phường Hiệp Phú","Phường Hiệp Bình Chánh","Phường Long Trường"],
-  "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8","Phường 9"],
-  "Quận 11": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 16", "Phường 7"],
-  "Quận Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 25", "Phường 6", "Phường 7", "Phường 8"],
-  "Quận Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-  "Thành phố Thủ Đức": ["Phường Bình Chiểu", "Phường Bình Thọ", "Phường Hiệp Bình Chánh", "Phường Hiệp Phú", "Phường Linh Trung", "Phường Linh Đông"],
-  "Quận Bình Tân": ["Phường Bình Hưng Hòa", "Phường Bình Trị Đông", "Phường Tân Tạo", "Phường An Lạc", "Phường Bình Hưng Hòa A", "Phường Bình Hưng Hòa B"],
-  "Huyện Nhà Bè": ["Xã Phước Kiển", "Xã Hiệp Phước", "Xã Long Thới", "Xã Nhơn Đức"],
-  "Quận Phú Nhuận":["Phường 9"]
-}
+        "Quận 1": ["Phường Cầu Kho", "Phường Bến Nghé", "Phường Bến Thành", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Thái Bình"],
+        "Quận 2": ["Phường An Phú", "Phường Tân Bình", "Phường Tân Phú"],
+        "Quận 3": ["Phường Võ Thị Sáu", "Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 14"]
+    }
 };
-
 
 const districtSelect = document.getElementById('district');
 const wardSelect = document.getElementById('ward');
