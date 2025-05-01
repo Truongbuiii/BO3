@@ -3,12 +3,12 @@ session_start(); // Chỉ cần gọi session_start() 1 lần
 
 // Kết nối cơ sở dữ liệu
 $servername = "localhost";
-$dbusername = "root"; // Thay đổi theo thông tin của bạn
-$dbpassword = ""; // Thay đổi theo thông tin của bạn
-$dbname = "tiemkem"; // Tên cơ sở dữ liệu của bạn
+$dbusername = "b03u"; // Thay đổi theo thông tin của bạn
+$dbpassword = "1PsigViV46VdRyal"; // Thay đổi theo thông tin của bạn
+$dbname = "b03db"; // Tên cơ sở dữ liệu của bạn
 
 // Tạo kết nối
-$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+$conn =  mysqli_connect("localhost", "b03u","1PsigViV46VdRyal", "b03db");
 
 // Kiểm tra kết nối
 if ($conn->connect_error) {
