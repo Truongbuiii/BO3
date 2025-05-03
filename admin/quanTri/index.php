@@ -1,5 +1,36 @@
-<?php 
+<?php
 require('includes/header.php');
+
+// Nếu chưa đăng nhập thì hiển thị thông báo và chuyển hướng sau 3s
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    echo '<!DOCTYPE html>
+    <html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <title>Thông báo</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <script>
+            setTimeout(function() {
+                window.location.href = "login.php";
+            }, 2500); // Chuyển sau 3 giây
+        </script>
+    </head>
+    <body>
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="alert alert-warning text-center" role="alert">
+                Bạn cần đăng nhập để có thể truy cập vào trang quản trị!
+                <br><small>Đang chuyển hướng đến trang đăng nhập...</small>
+            </div>
+        </div>
+    </body>
+    </html>';
+    exit;
+}
+?>
+
+
+<?php 
+
 require('./db/connect.php');
 
 // Truy vấn sản phẩm
@@ -191,7 +222,9 @@ if ($resultDoanhThu && mysqli_num_rows($resultDoanhThu) > 0) {
                     <tbody>
                         <?php 
                         if ($result && mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
+                             $limit = 10;
+                            $count = 0;
+                          while ($count < $limit && ($row = mysqli_fetch_assoc($result))) {
                                 echo "<tr>
                                         <td>{$row['MaSanPham']}</td>
                                         <td>{$row['TenSanPham']}</td>
@@ -202,6 +235,8 @@ if ($resultDoanhThu && mysqli_num_rows($resultDoanhThu) > 0) {
                                             "<span class='badge badge-danger'>Khóa</span>") . "
                                         </td>
                                     </tr>";
+                                        $count++;
+
                             }
                         }
                         ?>
@@ -249,17 +284,19 @@ if ($resultDoanhThu && mysqli_num_rows($resultDoanhThu) > 0) {
                     <tbody>
                         <?php 
                         if ($result && mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<tr>
-                                        <td>{$row['MaHoaDon']}</td>
-                                        <td>{$row['NguoiNhanHang']}</td>
-                                        <td>{$row['Email']}</td>
-                                        <td>{$row['TongTien']}</td>
-                                      <td>{$row['TrangThai']}</td>
-                                       <td>{$row['HinhThucThanhToan']}</td>
-
-                                    </tr>";
-                            }
+                            $limit = 10;
+                            $count = 0;
+                          while ($count < $limit && ($row = mysqli_fetch_assoc($result))) {
+    echo "<tr>
+            <td>{$row['MaHoaDon']}</td>
+            <td>{$row['NguoiNhanHang']}</td>
+            <td>{$row['Email']}</td>
+            <td>{$row['TongTien']}</td>
+            <td>{$row['TrangThai']}</td>
+            <td>{$row['HinhThucThanhToan']}</td>
+          </tr>";
+    $count++;
+}
                         }
                         ?>
                     </tbody>

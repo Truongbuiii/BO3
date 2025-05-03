@@ -1,17 +1,6 @@
 <?php
-session_start();
-
-$host = "localhost";
-$db = "tiemKem";
-$user = "root";
-$pass = "";
-
-$conn = new mysqli($host, $user, $pass, $db);
-
-// Kiểm tra kết nối
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
+// Include file kết nối CSDL
+require_once './db/connect.php';
 
 // Lấy dữ liệu từ form
 $username = trim($_POST['username']);
@@ -21,8 +10,9 @@ $password = trim($_POST['password']);
 $message = "";
 $success = false;
 
+// Kiểm tra nếu có tên người dùng và mật khẩu
 if (!empty($username) && !empty($password)) {
-    // Chuẩn bị truy vấn
+    // Chuẩn bị truy vấn để tránh SQL injection
     $stmt = $conn->prepare("SELECT TenNguoiDung, MatKhau, VaiTro FROM NguoiDung WHERE TenNguoiDung = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -38,8 +28,11 @@ if (!empty($username) && !empty($password)) {
 
             // Kiểm tra vai trò Admin
             if ($role === 'Admin') {
+                // Lưu thông tin vào session
+                session_start();
                 $_SESSION['adminid'] = $row['TenNguoiDung'];
                 $_SESSION['admin_role'] = $role;
+                $_SESSION['loggedin'] = true;
 
                 // Lưu thông tin vào cookie (nếu cần)
                 setcookie("adminid", $row['TenNguoiDung'], time() + 3600, "/");
@@ -55,12 +48,12 @@ if (!empty($username) && !empty($password)) {
     } else {
         $message = "❌ Tên người dùng không tồn tại!";
     }
-} else {
-    $message = "❌ Vui lòng nhập tên người dùng và mật khẩu!";
+
+    // Đóng kết nối
+    $stmt->close();
 }
 
-// Đóng kết nối và statement
-$stmt->close();
+// Đóng kết nối cơ sở dữ liệu
 $conn->close();
 ?>
 

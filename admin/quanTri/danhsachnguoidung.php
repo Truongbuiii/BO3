@@ -293,100 +293,89 @@ document.getElementById('editQuanHuyen').addEventListener('change', function() {
 // --- Các hàm xử lý --- 
 
 function updateUser() {
-  const btn = document.querySelector('#editUserForm button');
-  btn.disabled = true;
-  btn.innerHTML = 'Đang lưu...';
+    const formData = {
+        TenNguoiDung: document.getElementById('editTenNguoiDung').value,
+        HoTen: document.getElementById('editHoTen').value,
+        Email: document.getElementById('editEmail').value,
+        MatKhau: document.getElementById('editMatKhau').value,
+        SoDienThoai: document.getElementById('editSoDienThoai').value,
+        VaiTro: document.getElementById('editVaiTro').value,
+        TinhTrang: document.getElementById('editTinhTrang').value, // ✅ thêm dòng này
+        TPTinh: document.getElementById('editTPTinh').value,
+        QuanHuyen: document.getElementById('editQuanHuyen').value,
+        PhuongXa: document.getElementById('editPhuongXa').value,
+        DiaChiCuThe: document.getElementById('editDiaChiCuThe').value
+    };
 
-  const tinhTrang = document.getElementById('editTinhTrang').value;
-  let formData = $('#editUserForm').serialize();
+    fetch('capNhapnguoidung.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // thông báo kết quả
+        location.reload(); // reload lại danh sách nếu cần
+    })
+    .catch(error => console.error('Error:', error));
+}
 
-  // Nếu tình trạng là "Khóa", chỉ gửi trường tình trạng
-  if (tinhTrang === 'Khóa') {
-    formData = $('#editUserForm').find('input, select').filter(function() {
-      return this.name === 'TinhTrang';
-    }).serialize();
+
+  function handleTinhTrangChange() {
+    const tinhTrangSelect = document.getElementById('editTinhTrang');
+    const tinhTrang = tinhTrangSelect.value;
+
+    tinhTrangSelect.classList.remove('border-success', 'border-danger', 'text-success', 'text-danger');
+
+    if (tinhTrang === 'Khóa') {
+      tinhTrangSelect.classList.add('border-danger', 'text-danger');
+      lockUserFields();
+    } else {
+      tinhTrangSelect.classList.add('border-success', 'text-success');
+      unlockUserFields();
+    }
   }
 
-  $.ajax({
-    type: 'POST',
-    url: 'capNhapNguoiDung.php',
-    data: formData,
-    success: function(response) {
-      alert(response);
-
-      if (tinhTrang === 'Khóa') {
-        lockUserFields();
-      } else {
-        unlockUserFields();
+  function lockUserFields() {
+    const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
+    allFields.forEach(field => {
+      if (field.id !== 'editTinhTrang') {
+        field.disabled = true;
       }
+    });
 
-      $('#editUserModal').modal('hide');
-      location.reload();
+    const deleteBtn = document.getElementById('deleteAccountBtn');
+    if (deleteBtn) deleteBtn.style.display = 'none';
 
-      btn.disabled = false;
-      btn.innerHTML = 'Lưu thay đổi';
-    },
-    error: function() {
-      alert('Có lỗi xảy ra!');
-      btn.disabled = false;
-      btn.innerHTML = 'Lưu thay đổi';
+    if (!document.getElementById('khoaWarning')) {
+      const warning = document.createElement('div');
+      warning.id = 'khoaWarning';
+      warning.className = 'alert alert-warning mt-3';
+      warning.innerText = 'Người dùng đã bị khóa. Bạn chỉ có thể thay đổi trạng thái hoặc mở khóa người dùng.';
+      document.getElementById('editTinhTrang').closest('.form-group').appendChild(warning);
     }
-  });
-}
 
-function handleTinhTrangChange() {
-  const tinhTrangSelect = document.getElementById('editTinhTrang');
-  const tinhTrang = tinhTrangSelect.value;
-
-  tinhTrangSelect.classList.remove('border-success', 'border-danger', 'text-success', 'text-danger');
-
-  if (tinhTrang === 'Khóa') {
-    tinhTrangSelect.classList.add('border-danger', 'text-danger');
-    lockUserFields();
-  } else {
-    tinhTrangSelect.classList.add('border-success', 'text-success');
-    unlockUserFields();
-  }
-}
-
-function lockUserFields() {
-  const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
-  allFields.forEach(field => {
-    if (field.id !== 'editTinhTrang') {
-      field.disabled = true;
-    }
-  });
-
-  const deleteBtn = document.getElementById('deleteAccountBtn');
-  if (deleteBtn) deleteBtn.style.display = 'none';
-
-  if (!document.getElementById('khoaWarning')) {
-    const warning = document.createElement('div');
-    warning.id = 'khoaWarning';
-    warning.className = 'alert alert-warning mt-3';
-    warning.innerText = 'Người dùng đã bị khóa. Bạn chỉ có thể thay đổi trạng thái hoặc mở khóa người dùng.';
-    document.getElementById('editTinhTrang').closest('.form-group').appendChild(warning);
+    const saveBtn = document.querySelector('#editUserForm button');
+    if (saveBtn) saveBtn.style.display = 'none';
   }
 
-  const saveBtn = document.querySelector('#editUserForm button');
-  if (saveBtn) saveBtn.style.display = 'none';
-}
+  function unlockUserFields() {
+    const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
+    allFields.forEach(field => {
+      field.disabled = false;
+    });
 
-function unlockUserFields() {
-  const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
-  allFields.forEach(field => {
-    field.disabled = false;
-  });
+    const deleteBtn = document.getElementById('deleteAccountBtn');
+    if (deleteBtn) deleteBtn.style.display = 'inline-block';
 
-  const deleteBtn = document.getElementById('deleteAccountBtn');
-  if (deleteBtn) deleteBtn.style.display = 'inline-block';
+    const warning = document.getElementById('khoaWarning');
+    if (warning) warning.remove();
 
-  const warning = document.getElementById('khoaWarning');
-  if (warning) warning.remove();
-
-  const saveBtn = document.querySelector('#editUserForm button');
-  if (saveBtn) saveBtn.style.display = 'inline-block';
-}
+    const saveBtn = document.querySelector('#editUserForm button');
+    if (saveBtn) saveBtn.style.display = 'inline-block';
+  }
 
 function editUser(TenNguoiDung, HoTen, Email, MatKhau, SoDienThoai, VaiTro, TinhTrang, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe) {
    document.getElementById('editTenNguoiDung').value = TenNguoiDung;
