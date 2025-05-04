@@ -1,8 +1,9 @@
 <?php
-require('includes/header.php');
+require('includes/header.php');  // Không cần gọi lại session_start() ở đây nữa
 
-// Nếu chưa đăng nhập thì hiển thị thông báo và chuyển hướng sau 3s
+// Kiểm tra session và đăng nhập
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // Nếu chưa đăng nhập, hiển thị thông báo và chuyển hướng sau 2.5 giây
     echo '<!DOCTYPE html>
     <html lang="vi">
     <head>
@@ -12,7 +13,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <script>
             setTimeout(function() {
                 window.location.href = "login.php";
-            }, 2500); // Chuyển sau 3 giây
+            }, 2500); // Chuyển hướng sau 2.5 giây
         </script>
     </head>
     <body>
@@ -24,9 +25,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
     </body>
     </html>';
-    exit;
+    exit; // Dừng thực thi mã còn lại
 }
 ?>
+
 
 
 <?php 

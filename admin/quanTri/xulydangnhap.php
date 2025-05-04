@@ -1,5 +1,7 @@
 <?php
 // Include file kết nối CSDL
+                session_start();
+
 require_once './db/connect.php';
 
 // Lấy dữ liệu từ form
@@ -29,13 +31,12 @@ if (!empty($username) && !empty($password)) {
             // Kiểm tra vai trò Admin
             if ($role === 'Admin') {
                 // Lưu thông tin vào session
-                session_start();
                 $_SESSION['adminid'] = $row['TenNguoiDung'];
                 $_SESSION['admin_role'] = $role;
                 $_SESSION['loggedin'] = true;
 
-                // Lưu thông tin vào cookie (nếu cần)
-                setcookie("adminid", $row['TenNguoiDung'], time() + 3600, "/");
+// Lưu thông tin vào cookie
+setcookie("adminid", $row['TenNguoiDung'], time() + 3600, "/", "", isset($_SERVER['HTTPS']), true);
 
                 $message = "✅ Đăng nhập thành công!";
                 $success = true;

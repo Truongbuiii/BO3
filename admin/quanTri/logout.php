@@ -1,31 +1,26 @@
 <?php
-// logout.php
-session_start();  // Bắt đầu session để có thể thao tác với session
+// Bắt đầu session
+session_start();
 
-// Xóa tất cả các session
-$_SESSION = [];  // Làm sạch dữ liệu trong session
+// Xóa toàn bộ biến session
+$_SESSION = [];
 
-// Nếu session cookie tồn tại, xoá cookie đó
+// Nếu dùng cookie session, xóa luôn cookie đó
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+    setcookie(session_name(), '', time() - 42000, 
+        $params["path"], $params["domain"], 
+        $params["secure"], $params["httponly"]
+    );
 }
 
-// Hủy session
-session_destroy();  // Hủy session hiện tại
+// Xóa cookie adminid
+setcookie("adminid", "", time() - 3600, "/", "", isset($_SERVER['HTTPS']), true);
 
-// Xoá cookie lưu trữ adminid nếu có
-if (isset($_COOKIE['adminid'])) {
-    setcookie('adminid', '', time() - 3600, '/');  // Xóa cookie 'adminid' với thời gian đã qua
-}
+// Hủy session trên server
+session_destroy();
 
-// Đảm bảo rằng người dùng không còn ở trạng thái đã đăng nhập khi vào lại index
-// Xóa cookie "adminid" nếu có tồn tại, không chỉ trong logout mà ngay cả khi quay lại index
-if (isset($_COOKIE['adminid'])) {
-    setcookie('adminid', '', time() - 3600, '/'); // Xóa cookie adminid
-}
-
-// Chuyển hướng về trang login
+// Chuyển hướng về trang đăng nhập
 header("Location: login.php");
-exit;
+exit();
 ?>
