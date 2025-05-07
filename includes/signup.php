@@ -1,7 +1,5 @@
 <?php
-// Xử lý khi form được gửi
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Lấy dữ liệu từ form
     $username = $_POST['username'];
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
@@ -11,29 +9,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $huyen = $_POST['huyen'];
     $xa = $_POST['xa'];
     $password = $_POST['password'];
-    $role = 'Customer'; // Vai trò mặc định là Customer
+    $confirmPassword = $_POST['confirm-password'];
+    $role = 'Customer';
 
-    // Kết nối cơ sở dữ liệu (Thay đổi các thông tin sau sao cho phù hợp với cơ sở dữ liệu của bạn)
+    // Cấu hình kết nối
     $servername = "localhost";
-    $dbusername = "b03u";
-    $dbpassword = "1PsigViV46VdRyal";
-    $dbname = "b03db"; // Tên cơ sở dữ liệu của bạn
+    $db_username = "root";
+    $db_password = "";
+    $dbname = "b03db";
 
-    // Tạo kết nối
-    $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+    $conn = mysqli_connect($servername, $db_username, $db_password, $dbname);
 
-    // Kiểm tra kết nối
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
     }
 
     // Kiểm tra mật khẩu xác nhận
-    if ($password !== $_POST['confirm-password']) {
+    if ($password !== $confirmPassword) {
         echo "<script>alert('Mật khẩu xác nhận không khớp!'); window.history.back();</script>";
         exit();
     }
 
-    // Kiểm tra tên người dùng và email đã tồn tại chưa
+    // Kiểm tra trùng lặp
     $check = $conn->prepare("SELECT * FROM NguoiDung WHERE TenNguoiDung = ? OR Email = ? OR SoDienThoai = ?");
     $check->bind_param("sss", $username, $email, $phone);
     $check->execute();
@@ -47,27 +44,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Mã hóa mật khẩu
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Sử dụng prepared statement để thực thi câu lệnh SQL
-    $sql = $conn->prepare("INSERT INTO NguoiDung (TenNguoiDung, MatKhau, HoTen, Email, SoDienThoai, VaiTro, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe)
+    // Thêm người dùng mới
+    $sql = $conn->prepare("INSERT INTO NguoiDung (TenNguoiDung, MatKhau, HoTen, Email, SoDienThoai, VaiTro, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe) 
                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-    // Liên kết tham số với câu lệnh SQL
     $sql->bind_param("ssssssssss", $username, $hashedPassword, $fullname, $email, $phone, $role, $tinh, $huyen, $xa, $address);
 
-    // Thực thi câu lệnh SQL
     if ($sql->execute()) {
-        // Hiển thị thông báo thành công và chuyển hướng đến trang đăng nhập
         echo "<script>alert('Đăng ký thành công!'); window.location.href = 'login.php';</script>";
     } else {
         echo "Lỗi: " . $sql->error;
     }
 
-    // Đóng kết nối
     $conn->close();
 }
 ?>
-
-
 
 
 <!DOCTYPE html>

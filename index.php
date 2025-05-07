@@ -57,9 +57,8 @@ session_start();
 
 </style>
    </head>
-   <script>
-    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
-</script>
+   <?php require_once("kiemtradangnhap.php"); ?>
+
 
    <body>
       <div class="header_section">
@@ -104,28 +103,49 @@ session_start();
 
             <!-- Icon User & Giỏ hàng -->
             <ul class="navbar-nav ml-3">
-            <li class="nav-item d-flex align-items-center">
-               
-                        <a href="#" onclick="handleUserClick()">
-                        <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
-                        </a>
-                        <a href="#" onclick="handleCartClick()">
-                            <i class="bi bi-bag-heart-fill custom-icon"  style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
-                        </a>
+    <li class="nav-item d-flex align-items-center">
+        <!-- Icon người dùng -->
+        <a href="#" onclick="handleUserClick()">
+            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+        </a>
 
-                        <?php if (isset($_SESSION['username'])): ?>
-                        <li class="nav-item">
-                            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
-                                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
-                            </span>
-                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
-                        </li>
-                        
-                        
-                         <?php endif; ?>
+        <!-- Icon giỏ hàng -->
+        <a href="#" onclick="handleCartClick()">
+            <i class="bi bi-bag-heart-fill custom-icon" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+        </a>
 
-             </li>
-             </ul>
+        <!-- Hiển thị tên và nút đăng xuất nếu đã đăng nhập -->
+        <?php if (isset($_SESSION['username'])): ?>
+            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
+                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+            </span>
+            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+        <?php endif; ?>
+    </li>
+</ul>
+
+<!-- Đặt đoạn script bên dưới, trước </body> hoặc ở cuối file -->
+<script>
+    // Kiểm tra trạng thái đăng nhập từ PHP
+    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+
+    function handleUserClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
+        } else {
+            window.location.href = "login.php"; // Nếu chưa đăng nhập
+        }
+    }
+
+    function handleCartClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
+        } else {
+            alert("Bạn cần đăng nhập để xem giỏ hàng!");
+            window.location.href = "login.php";
+        }
+    }
+</script>
 
 
 
@@ -258,7 +278,20 @@ session_start();
          </div>
       </div>
 
-   <?php require("./db/connect.php"); ?>
+      <?php
+$servername = "localhost";
+$username = "root";  // thường mặc định là root
+$password = "";      // thường mặc định password trống
+$dbname = "b03db";   // tên database bạn đang dùng
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
 
 
 <div class="cream_section">
