@@ -139,7 +139,7 @@ session_start();
 
     function handleCartClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/cart.php"; // Giỏ hàng nếu đã đăng nhập
+            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
         } else {
             alert("Bạn cần đăng nhập để xem giỏ hàng!");
             window.location.href = "login.php";
@@ -278,7 +278,20 @@ session_start();
          </div>
       </div>
 
-   <?php require("./db/connect.php"); ?>
+      <?php
+$servername = "localhost";
+$username = "root";  // thường mặc định là root
+$password = "";      // thường mặc định password trống
+$dbname = "b03db";   // tên database bạn đang dùng
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
 
 
 <div class="cream_section">
