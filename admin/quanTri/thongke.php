@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td><?= htmlspecialchars($product['TenSanPham']) ?></td>
                         <td><?= htmlspecialchars($product['SoLuongBan']) ?></td>
                         <td><?= number_format($product['DoanhThu'], 0, ',', '.') ?> VNĐ</td>
-                        <td><a class="btn" href="xemdonhang.php?MaSanPham=<?= urlencode($product['MaSanPham']) ?>">Xem hóa đơn</a></td>
+                        <td><a class="btn" href="xemdonhangtheomathang.php?MaSanPham=<?= urlencode($product['MaSanPham']) ?>">Xem hóa đơn</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -106,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 <?php endif; ?>
+
 <!-- Thống kê theo khách hàng -->
 <?php if (!empty($top_customers)): ?>
     <div class="container-fluid">
@@ -125,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td><?= htmlspecialchars($customer['Email']) ?></td>
                         <td><?= htmlspecialchars($customer['NguoiNhanHang']) ?></td>
                         <td><?= number_format($customer['TongChiTieu'], 0, ',', '.') ?> VNĐ</td>
-                        <td><a class="btn" href="xemdonhang.php?tennguoidung=<?= urlencode($customer['TenNguoiDung']) ?>&start_date=<?= urlencode($_POST['start_date']) ?>&end_date=<?= urlencode($_POST['end_date']) ?>">Xem hóa đơn</a></td>
+                        <td><a class="btn" href="xemdonhang.php?tennguoidung=<?= urlencode($customer['NguoiNhanHang']) ?>&start_date=<?= urlencode($_POST['start_date']) ?>&end_date=<?= urlencode($_POST['end_date']) ?>">Xem hóa đơn</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
