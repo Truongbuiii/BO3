@@ -1,7 +1,12 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-if (!isset($_SESSION['username'])) {
-    // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
+// Lấy tên trang hiện tại
+$currentPage = basename($_SERVER['PHP_SELF']);
+
+if (!isset($_SESSION['username']) && $currentPage !== 'login.php' && $currentPage !== 'index.php') {
     header("Location: index.php");
     exit();
 }
