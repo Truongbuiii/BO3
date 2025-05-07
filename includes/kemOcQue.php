@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../kiemtradangnhap.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -9,7 +14,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Kem Ly</title>
+      <title>Kem Ốc Quế</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -70,7 +75,51 @@
                   </li>
                   <ul class="navbar-nav">
 
-                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
+                  <ul class="navbar-nav ml-3">
+    <li class="nav-item d-flex align-items-center">
+        <!-- Icon người dùng -->
+        <a href="#" onclick="handleUserClick()">
+            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+        </a>
+
+        <!-- Icon giỏ hàng -->
+        <a href="#" onclick="handleCartClick()">
+            <i class="bi bi-bag-heart-fill custom-icon" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+        </a>
+
+        <!-- Hiển thị tên và nút đăng xuất nếu đã đăng nhập -->
+        <?php if (isset($_SESSION['username'])): ?>
+            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
+                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+            </span>
+            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+        <?php endif; ?>
+    </li>
+</ul>
+
+<!-- Đặt đoạn script bên dưới, trước </body> hoặc ở cuối file -->
+<script>
+    // Kiểm tra trạng thái đăng nhập từ PHP
+    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+
+    function handleUserClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
+        } else {
+            window.location.href = "login.php"; // Nếu chưa đăng nhập
+        }
+    }
+
+    function handleCartClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
+        } else {
+            alert("Bạn cần đăng nhập để xem giỏ hàng!");
+            window.location.href = "login.php";
+        }
+    }
+</script>
+
                
 
                   </form>

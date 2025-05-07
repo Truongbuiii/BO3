@@ -57,7 +57,8 @@ session_start();
 
 </style>
    </head>
-   <?php require_once("kiemtradangnhap.php"); ?>
+   <?phprequire_once(__DIR__ . '/includes/kiemtradangnhap.php');
+ ?>
 
 
    <body>
