@@ -3,18 +3,12 @@ session_start(); // Chỉ cần gọi session_start() 1 lần
 
 // Kết nối cơ sở dữ liệu
 $servername = "localhost";
-$dbusername = "b03u"; // Thay đổi theo thông tin của bạn
-$dbpassword = "1PsigViV46VdRyal"; // Thay đổi theo thông tin của bạn
-$dbname = "b03db"; // Tên cơ sở dữ liệu của bạn
+$username = "root"; // Mặc định của XAMPP
+$password = ""; // XAMPP không có mật khẩu mặc định
+$dbname = "b03db";
 
-// Tạo kết nối
-$conn =  mysqli_connect("localhost", "b03u","1PsigViV46VdRyal", "b03db");
-
-// Kiểm tra kết nối
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+// Kết nối MySQL
+$conn =  mysqli_connect("localhost", "root","", "b03db");
 // Kiểm tra nếu form được submit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $_POST['email']; // Lấy tên đăng nhập
