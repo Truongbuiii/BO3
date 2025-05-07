@@ -2,6 +2,8 @@
 require('includes/header.php');
 require("./db/connect.php");
 
+
+
 // Khởi tạo các biến lọc
 $startDate = $_GET['start-date'] ?? '';
 $endDate = $_GET['end-date'] ?? '';
@@ -108,17 +110,24 @@ if (!$result) {
             <div class="filter">
                 <label for="quan">Quận/Huyện:</label>
                 <select id="quan" name="quan" class="form-control">
-                <option value="" disabled selected>-- Chọn quận/huyện --</option>
-                <option value="Quận 1">Quận 1</option>
-                <option value="Quận 3">Quận 3</option>
-                <option value="Quận 5">Quận 5</option>
-                <option value="Quận 7">Quận 7</option>
-                <option value="Bình Thạnh">Bình Thạnh</option>
-                <option value="Gò Vấp">Gò Vấp</option>
-                <option value="Tân Bình">Tân Bình</option>
-                <option value="Thủ Đức">Thủ Đức</option>
-                <option value="Quận 10">Quận 10</option>
-                    <!-- Thêm các quận khác nếu cần -->
+        <option value="">-- Chọn quận/huyện --</option>
+        <option value="Quận 1">Quận 1</option>
+        <option value="Quận 2">Quận 2</option>   
+        <option value="Quận 3">Quận 3</option>
+        <option value="Quận 4">Quận 4</option>
+        <option value="Quận 5">Quận 5</option>
+        <option value="Quận 6">Quận 6</option>
+        <option value="Quận 7">Quận 7</option>
+        <option value="Quận 8">Quận 8</option>
+        <option value="Quận 9">Quận 9</option>
+        <option value="Quận 10">Quận 10</option>
+        <option value="Quận 11">Quận 11</option>
+        <option value="Quận Bình Thạnh">Bình Thạnh</option>
+        <option value="Quận Phú Nhuận">Phú Nhuận</option>
+        <option value="Quận Tân Bình">Tân Bình</option>
+        <option value="Quận Bình Tân">Bình Tân</option>
+        <option value="Thành phố Thủ Đức">Thủ Đức</option>
+        <option value="Huyện Nhà Bè">Huyện Nhà Bè</option>
                 </select>
             </div>
 
@@ -242,34 +251,74 @@ if (!$result) {
 
 <!-- JavaScript for Dynamic Dropdowns -->
 <script>
-  const data = {
-      "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Thái Bình"],
-      "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-      "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-      "Quận 7": ["Tân Phong", "Tân Hưng", "Bình Thuận", "Phú Mỹ", "Tân Kiểng", "Tân Quy"],
-      "Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 5", "Phường 6", "Phường 7", "Phường 8"],
-      "Gò Vấp": ["Phường 1", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8"],
-      "Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-      "Thủ Đức": ["Bình Chiểu", "Bình Thọ", "Hiệp Bình Chánh", "Hiệp Phú", "Linh Chiểu", "Linh Đông"],
-      "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8"]
-  };
+const data = {
+        "Quận 1": ["Phường Cầu Kho","Phường Bến Nghé", "Phường Bến Thành", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Thái Bình"],
+        "Quận 2":["Phường An Phú","Phường Tân Bình","Phường Tân Phú"],
+        "Quận 3": ["Phường Võ Thị Sáu", "Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7","Phường 14"],
+        "Quận 4":["Phường 10","Phường 11","Phường 12","Phường 13"],
+        "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 8"],
+        "Quận 6": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10"],
+        "Quận 7": ["Phường Tân Thuận Tây","Phường Tân Phong", "Phường Tân Hưng", "Phường Bình Thuận", "Phường Phú Mỹ", "Phường Tân Kiểng", "Phường Tân Quy", "Phường Tân Phú"],
+        "Quận 8":["Phường 11","Phường 15"],
+        "Quận 9":["Phường Hiệp Phú","Phường Hiệp Bình Chánh","Phường Long Trường"],
+        "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8","Phường 9"],
+        "Quận 11": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 16", "Phường 7"],
+        "Quận Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 25", "Phường 6", "Phường 7", "Phường 8"],
+        "Quận Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
+        "Thành phố Thủ Đức": ["Phường Bình Chiểu", "Phường Bình Thọ", "Phường Hiệp Bình Chánh", "Phường Hiệp Phú", "Phường Linh Trung", "Phường Linh Đông"],
+        "Quận Bình Tân": ["Phường Bình Hưng Hòa", "Phường Bình Trị Đông", "Phường Tân Tạo", "Phường An Lạc", "Phường Bình Hưng Hòa A", "Phường Bình Hưng Hòa B"],
+        "Huyện Nhà Bè": ["Xã Phước Kiển", "Xã Hiệp Phước", "Xã Long Thới", "Xã Nhơn Đức"],
+        "Quận Phú Nhuận":["Phường 9"]
+};
 
-  const quanSelect = document.getElementById('quan');
-  const phuongSelect = document.getElementById('phuong');
+document.getElementById('quan').addEventListener('change', function() {
+        const selectedQuan = this.value;
+        const phuongs = data[selectedQuan] || [];
 
-  quanSelect.addEventListener('change', function() {
-      const selectedQuan = this.value;
-      const phuongs = data[selectedQuan] || [];
+        const phuongSelect = document.getElementById('phuong');
+        phuongSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>'; // Xóa các phường cũ
 
-      phuongSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+        phuongs.forEach(phuong => {
+            const option = document.createElement('option');
+            option.value = phuong;
+            option.textContent = phuong;
+            phuongSelect.appendChild(option);
+        });
+    });
 
-      phuongs.forEach(phuong => {
-          const option = document.createElement('option');
-          option.value = phuong;
-          option.textContent = phuong;
-          phuongSelect.appendChild(option);
-      });
-  });
+function editUser(TenNguoiDung, HoTen, Email, MatKhau, SoDienThoai, VaiTro, TinhTrang, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe) {
+    document.getElementById('editTenNguoiDung').value = TenNguoiDung;
+    document.getElementById('editHoTen').value = HoTen;
+    document.getElementById('editEmail').value = Email;
+    document.getElementById('editMatKhau').value = MatKhau;
+    document.getElementById('editSoDienThoai').value = SoDienThoai;
+    document.getElementById('editVaiTro').value = VaiTro;
+    document.getElementById('editTinhTrang').value = TinhTrang;
+    document.getElementById('editTPTinh').value = TPTinh;
+    document.getElementById('editQuanHuyen').value = QuanHuyen;
+
+    // Cập nhật danh sách phường theo quận
+    const phuongs = data[QuanHuyen] || [];
+    const phuongSelect = document.getElementById('editPhuongXa');
+    phuongSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+    phuongs.forEach(phuong => {
+        const option = document.createElement('option');
+        option.value = phuong;
+        option.textContent = phuong;
+        phuongSelect.appendChild(option);
+    });
+
+    // Sau khi đã render xong danh sách phường thì set value cho Phường/Xã
+    document.getElementById('editPhuongXa').value = PhuongXa;
+
+    // Set địa chỉ cụ thể
+    document.getElementById('editDiaChiCuThe').value = DiaChiCuThe;
+
+    // Mở popup
+    const myModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+    myModal.show();
+}
+
 </script>
 
 <!-- CSS Giao diện -->

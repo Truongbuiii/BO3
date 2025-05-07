@@ -24,6 +24,12 @@ if ($result->num_rows > 0) {
     exit();
 }
 
+if ($product['TinhTrang'] == 0) {
+    echo "<script>alert('Sản phẩm này hiện đang tạm khóa!'); window.history.back();</script>";
+    exit();
+}
+
+
 // Truy vấn sản phẩm liên quan
 $sql_related = "SELECT * FROM SanPham WHERE MaLoai = ? AND MaSanPham != ? LIMIT 3";
 $stmt_related = $conn->prepare($sql_related);
@@ -31,8 +37,15 @@ $stmt_related->bind_param("ss", $product['MaLoai'], $MaSanPham);
 $stmt_related->execute();
 $related_products = $stmt_related->get_result();
 
+
+
 // Xử lý thêm sản phẩm vào giỏ hàng
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
+       if (!isset($_SESSION['TenNguoiDung'])) {
+        echo "<script>alert('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!'); window.location.href = 'login.php';</script>";
+        exit();
+    }
+
     $MaSanPham = $_POST['MaSanPham'];
 
     // Lấy thông tin sản phẩm từ CSDL
@@ -79,6 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <script src="js/jquery.min.js"></script>
 </head>
 <body>
@@ -137,8 +152,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
                     </button>
                 </form>
                 <ul class="navbar-nav ml-3 d-flex align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" href="cart.html"><i class="bi bi-bag-heart-fill custom-icon" style="font-size: 150%; color:#fc95c4;"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="trangHoSo.php"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="trangGioHang.php"><i class="bi bi-bag-heart-fill custom-icon" style="font-size: 150%; color:#fc95c4;"></i></a></li>
                 </ul>
             </div>
         </nav>
@@ -228,11 +243,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
              </div>
              <div class="copyright_section">
                <div class="container">
-                  <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distribution by <a href="https://themewagon.com">ThemeWagon</a></p>
+                  <p class="copyright_text">All Rights Reserved. Design by TiemKemF4</a></p>
                </div>
             </div>
          </div>
      </div>
+
+
+
+ 
+
+
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>

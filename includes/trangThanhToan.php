@@ -1,9 +1,32 @@
+
 <?php
 session_start();
+require_once __DIR__ . '/../db/connect.php'; // kết nối DB
 
 // Kiểm tra nếu giỏ hàng trống thì chuyển hướng về trang chủ
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     echo "<script>alert('Không có sản phẩm để thanh toán!'); window.location.href = '/index.php';</script>";
+    exit();
+}
+
+// Kiểm tra đăng nhập
+if (!isset($_SESSION['username'])) {
+    echo "<script>alert('Vui lòng đăng nhập để tiếp tục thanh toán!'); window.location.href = '/login.php';</script>";
+    exit();
+}
+
+// Lấy thông tin người dùng từ database
+$username = $_SESSION['username'];
+$sql = "SELECT HoTen, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe FROM NguoiDung WHERE TenNguoiDung = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $userData = $result->fetch_assoc();
+} else {
+    echo "<script>alert('Không tìm thấy thông tin người dùng!'); window.location.href = '/index.php';</script>";
     exit();
 }
 ?>
@@ -125,7 +148,7 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
    </style>
 
 
-</style>
+
    </head>
    <body>
       <div class="header_section">
@@ -172,68 +195,78 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
 
 
 
-    <!-- Checkout Form Section -->
-    <div class="container my-5 checkout-wrapper">
-        <div class="checkout-container">
-            <h2>Thông tin thanh toán</h2>
-            <form id="checkout-form">
-                <div class="form-group">
-                    <label for="name">Họ và tên <span class="required">*</span></label>
-                    <input type="text" id="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email <span class="required">*</span></label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Số điện thoại <span class="required">*</span></label>
-                    <input type="text" id="phone" required>
-                </div>
-                <div class="form-group">
-                    <label>Chọn địa chỉ giao hàng <span class="required">*</span></label>
-                    <input type="radio" name="address-option" id="use-account" checked> Dùng địa chỉ tài khoản
-                    <input type="radio" name="address-option" id="enter-new" style="margin-left:20px;"> Nhập địa chỉ mới
-                </div>
+ <!-- Checkout Form Section -->
+<div class="container my-5 checkout-wrapper">
+    <div class="checkout-container">
+        <h2>Thông tin thanh toán</h2>
+        <form id="checkout-form">
+            <div class="form-group">
+                <label for="name">Họ và tên <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($userData['HoTen']); ?>">
+            </div>
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required value="<?php echo htmlspecialchars($userData['Email']); ?>">
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại <span class="required">*</span></label>
+                <input type="text" id="phone" name="phone" required value="<?php echo htmlspecialchars($userData['SoDienThoai']); ?>">
+            </div>
+            <div class="form-group">
+                <label>Chọn địa chỉ giao hàng <span class="required">*</span></label>
+                <input type="radio" name="address-option" id="use-account" checked> Dùng địa chỉ tài khoản
+                <input type="radio" name="address-option" id="enter-new" style="margin-left:20px;"> Nhập địa chỉ mới
+            </div>
+                
 
                 <!-- Account Address -->
-                <div id="account-address">
-                    <div class="form-group">
-                        <label for="city">Tỉnh/Thành phố</label>
-                        <input type="text" id="city" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="district">Quận/Huyện</label>
-                        <input type="text" id="district" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="ward">Phường/Xã</label>
-                        <input type="text" id="ward" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
-                        <input type="text" id="address" required>
-                    </div>
+            <div id="account-address">
+                <div class="form-group">
+                    <label for="city">Tỉnh/Thành phố</label>
+                    <input type="text" id="city" name="city" readonly value="<?php echo htmlspecialchars($userData['TPTinh']); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="district">Quận/Huyện</label>
+                    <input type="text" id="district" name="district" readonly value="<?php echo htmlspecialchars($userData['QuanHuyen']); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="ward">Phường/Xã</label>
+                    <input type="text" id="ward" name="ward" readonly value="<?php echo htmlspecialchars($userData['PhuongXa']); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
+                    <input type="text" id="address" name="address" readonly value="<?php echo htmlspecialchars($userData['DiaChiCuThe']); ?>">
                 </div>
 
+            </div>
+
                 <!-- New Address -->
-                <div id="new-address" class="hidden">
-                    <div class="form-group">
-                        <label for="new-city">Tỉnh/Thành phố <span class="required">*</span></label>
-                        <input type="text" id="new-city">
-                    </div>
-                    <div class="form-group">
-                        <label for="new-district">Quận/Huyện <span class="required">*</span></label>
-                        <input type="text" id="new-district">
-                    </div>
-                    <div class="form-group">
-                        <label for="new-ward">Phường/Xã <span class="required">*</span></label>
-                        <input type="text" id="new-ward">
-                    </div>
-                    <div class="form-group">
-                        <label for="new-address">Địa chỉ cụ thể <span class="required">*</span></label>
-                        <input type="text" id="new-address">
-                    </div>
-                </div>
+<div id="new-address" class="hidden">
+    <div class="form-group">
+        <label for="new-city">Tỉnh/Thành phố <span class="required">*</span></label>
+        <select id="new-city" name="new-city" required>
+            <option value="">-- Chọn Tỉnh/Thành phố --</option>
+            <option value="HCM">TP. Hồ Chí Minh</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="new-district">Quận/Huyện <span class="required">*</span></label>
+        <select id="new-district" name="new-district" required>
+            <option value="">-- Chọn Quận/Huyện --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="new-ward">Phường/Xã <span class="required">*</span></label>
+        <select id="new-ward" name="new-ward" required>
+            <option value="">-- Chọn Phường/Xã --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="new-address-detail">Địa chỉ cụ thể <span class="required">*</span></label>
+        <input type="text" id="new-address-detail" name="new-address-detail" required>
+    </div>
+</div>
+
 
                 <!-- Payment Method Section -->
                 <div class="form-group">
@@ -270,11 +303,56 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
             ?>
 
             <button type="button" class="btn-submit" onclick="confirmPayment()">Xác nhận thanh toán</button>
-            <a href="cart.php" class="btn-back-cart">Quay lại giỏ hàng</a>
+            <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
         </div>
     </div>
 
     <script>
+    const addressData = {
+            "TP Hồ Chí Minh": {
+                "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Thái Bình"],
+                "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
+                "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
+                "Quận 7": ["Tân Phong", "Tân Hưng", "Bình Thuận", "Phú Mỹ", "Tân Kiểng", "Tân Quy"],
+                "Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 5", "Phường 6", "Phường 7", "Phường 8"],
+                "Gò Vấp": ["Phường 1", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8"],
+                "Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
+                "Thủ Đức": ["Bình Chiểu", "Bình Thọ", "Hiệp Bình Chánh", "Hiệp Phú", "Linh Chiểu", "Linh Đông"],
+                "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8"]
+            }
+        };
+         const citySelect = document.getElementById('new-city');
+    const districtSelect = document.getElementById('new-district');
+    const wardSelect = document.getElementById('new-ward');
+
+    citySelect.addEventListener('change', function () {
+      if (this.value === 'HCM') {
+        // Đổ dữ liệu Quận/Huyện
+        districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>';
+        for (const quan in addressData["TP Hồ Chí Minh"]) {
+  const option = document.createElement('option');
+  option.value = quan;
+  option.textContent = quan;
+  districtSelect.appendChild(option);
+}
+
+      } else {
+        districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>';
+        wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+      }
+    });
+
+    districtSelect.addEventListener('change', function () {
+      const phuongs = addressData["TP Hồ Chí Minh"][this.value] || [];
+
+      wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+      phuongs.forEach(phuong => {
+        const option = document.createElement('option');
+        option.value = phuong;
+        option.textContent = phuong;
+        wardSelect.appendChild(option);
+      });
+    });
         // Show/Hide address forms based on selected option
         document.getElementById('use-account').addEventListener('change', function() {
             document.getElementById('account-address').style.display = 'block';
@@ -292,6 +370,7 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
             let valid = form.checkValidity();
             if (valid) {
                 alert("Thanh toán thành công!");
+                form.submit();
             } else {
                 alert("Vui lòng điền đầy đủ thông tin!");
             }

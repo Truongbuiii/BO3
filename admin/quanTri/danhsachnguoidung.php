@@ -102,12 +102,14 @@ if ($result && mysqli_num_rows($result) > 0) {
             </div>
             <div class="modal-body">
                 <form id="editUserForm">
-                    <input type="hidden" id="editTenNguoiDung" name="TenNguoiDung">
 
                     <div class="row">
                         <!-- Cột 1 -->
                         <div class="col-md-6">
-                             
+                             <div class="form-group">
+                                <label>Tên người dùng</label>
+                                <input type="text" class="form-control" id="editTenNguoiDung" name="TenNguoiDung" readonly>
+                            </div>
                             <div class="form-group">
                                 <label>Họ tên</label>
                                 <input type="text" class="form-control" id="editHoTen" name="HoTen">
@@ -133,7 +135,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                                 <label>Vai trò</label>
                                 <select class="form-control" id="editVaiTro" name="VaiTro" required>
                                     <option value="Admin">Admin</option>
-                                    <option value="Customer">Người dùng</option>
+                                    <option value="Customer">Customer</option>
                                 </select>
                             </div>
 
@@ -158,21 +160,30 @@ if ($result && mysqli_num_rows($result) > 0) {
                             </div>
 
 
-                            <div class="form-group">
-                                <label for="quan">Quận/Huyện</label>
-                                <select id="editQuanHuyen" name="QuanHuyen" class="form-control" required>
-                                    <option value="">-- Chọn quận/huyện --</option>
-                                    <option value="Quận 1">Quận 1</option>
-                                    <option value="Quận 3">Quận 3</option>
-                                    <option value="Quận 5">Quận 5</option>
-                                    <option value="Quận 7">Quận 7</option>
-                                    <option value="Bình Thạnh">Bình Thạnh</option>
-                                    <option value="Gò Vấp">Gò Vấp</option>
-                                    <option value="Tân Bình">Tân Bình</option>
-                                    <option value="Thủ Đức">Thủ Đức</option>
-                                    <option value="Quận 10">Quận 10</option>
-                                </select>
-                            </div>
+                           <div class="form-group">
+    <label for="quan">Quận/Huyện</label>
+    <select id="editQuanHuyen" name="QuanHuyen" class="form-control" required>
+        <option value="">-- Chọn quận/huyện --</option>
+       <option value="Quận 1">Quận 1</option>
+        <option value="Quận 2">Quận 2</option>   
+        <option value="Quận 3">Quận 3</option>
+        <option value="Quận 4">Quận 4</option>
+        <option value="Quận 5">Quận 5</option>
+        <option value="Quận 6">Quận 6</option>
+        <option value="Quận 7">Quận 7</option>
+        <option value="Quận 8">Quận 8</option>
+        <option value="Quận 9">Quận 9</option>
+        <option value="Quận 10">Quận 10</option>
+        <option value="Quận 11">Quận 11</option>
+        <option value="Quận Bình Thạnh">Bình Thạnh</option>
+        <option value="Quận Phú Nhuận">Phú Nhuận</option>
+        <option value="Quận Tân Bình">Tân Bình</option>
+        <option value="Quận Bình Tân">Bình Tân</option>
+        <option value="Thành phố Thủ Đức">Thủ Đức</option>
+        <option value="Huyện Nhà Bè">Huyện Nhà Bè</option>
+    </select>
+</div>
+
 
                             <div class="form-group">
                                 <label for="phuong">Phường/Xã</label>
@@ -233,13 +244,141 @@ if ($result && mysqli_num_rows($result) > 0) {
 </style>
 
 
+<script>
+// --- Dữ liệu quận/phường ---
+const data = {
+ "Quận 1": ["Phường Cầu Kho","Phường Bến Nghé", "Phường Bến Thành", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Thái Bình"],
+  "Quận 2":["Phường An Phú","Phường Tân Bình","Phường Tân Phú"],
+    "Quận 3": ["Phường Võ Thị Sáu", "Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7","Phường 14"],
+  "Quận 4":["Phường 10","Phường 11","Phường 12","Phường 13"],
+    "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 8"],
+  "Quận 6": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10"],
+  "Quận 7": ["Phường Tân Thuận Tây","Phường Tân Phong", "Phường Tân Hưng", "Phường Bình Thuận", "Phường Phú Mỹ", "Phường Tân Kiểng", "Phường Tân Quy", "Phường Tân Phú"],
+"Quận 8":["Phường 11","Phường 15"],
+"Quận 9":["Phường Hiệp Phú","Phường Hiệp Bình Chánh","Phường Long Trường"],
+  "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8","Phường 9"],
+  "Quận 11": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 16", "Phường 7"],
+  "Quận Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 25", "Phường 6", "Phường 7", "Phường 8"],
+  "Quận Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
+  "Thành phố Thủ Đức": ["Phường Bình Chiểu", "Phường Bình Thọ", "Phường Hiệp Bình Chánh", "Phường Hiệp Phú", "Phường Linh Trung", "Phường Linh Đông"],
+  "Quận Bình Tân": ["Phường Bình Hưng Hòa", "Phường Bình Trị Đông", "Phường Tân Tạo", "Phường An Lạc", "Phường Bình Hưng Hòa A", "Phường Bình Hưng Hòa B"],
+  "Huyện Nhà Bè": ["Xã Phước Kiển", "Xã Hiệp Phước", "Xã Long Thới", "Xã Nhơn Đức"],
+  "Quận Phú Nhuận":["Phường 9"]
+};
 
 
-<script> 
-    
+function loadPhuongXa(quanHuyen, selectedPhuongXa = "") {
+    const phuongXaSelect = document.getElementById('editPhuongXa');
+    phuongXaSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>'; // Reset lại
 
-function editUser(TenNguoiDung, HoTen, Email,MatKhau , SoDienThoai, VaiTro, TinhTrang, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe) {
-    document.getElementById('editTenNguoiDung').value = TenNguoiDung;
+    if (data[quanHuyen]) {
+        data[quanHuyen].forEach(function(phuong) {
+            const option = document.createElement('option');
+            option.value = phuong;
+            option.text = phuong;
+            if (phuong === selectedPhuongXa) {
+                option.selected = true;
+            }
+            phuongXaSelect.appendChild(option);
+        });
+    }
+}
+
+// Cập nhật phường/xã khi chọn quận
+document.getElementById('editQuanHuyen').addEventListener('change', function() {
+    const selectedQuan = this.value;
+    loadPhuongXa(selectedQuan); // Cập nhật phường/xã khi thay đổi quận
+});
+
+// --- Các hàm xử lý --- 
+
+function updateUser() {
+    const formData = {
+        TenNguoiDung: document.getElementById('editTenNguoiDung').value,
+        HoTen: document.getElementById('editHoTen').value,
+        Email: document.getElementById('editEmail').value,
+        MatKhau: document.getElementById('editMatKhau').value,
+        SoDienThoai: document.getElementById('editSoDienThoai').value,
+        VaiTro: document.getElementById('editVaiTro').value,
+        TinhTrang: document.getElementById('editTinhTrang').value, // ✅ thêm dòng này
+        TPTinh: document.getElementById('editTPTinh').value,
+        QuanHuyen: document.getElementById('editQuanHuyen').value,
+        PhuongXa: document.getElementById('editPhuongXa').value,
+        DiaChiCuThe: document.getElementById('editDiaChiCuThe').value
+    };
+
+    fetch('capNhapnguoidung.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data); // thông báo kết quả
+        location.reload(); // reload lại danh sách nếu cần
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+  function handleTinhTrangChange() {
+    const tinhTrangSelect = document.getElementById('editTinhTrang');
+    const tinhTrang = tinhTrangSelect.value;
+
+    tinhTrangSelect.classList.remove('border-success', 'border-danger', 'text-success', 'text-danger');
+
+    if (tinhTrang === 'Khóa') {
+      tinhTrangSelect.classList.add('border-danger', 'text-danger');
+      lockUserFields();
+    } else {
+      tinhTrangSelect.classList.add('border-success', 'text-success');
+      unlockUserFields();
+    }
+  }
+
+  function lockUserFields() {
+    const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
+    allFields.forEach(field => {
+      if (field.id !== 'editTinhTrang') {
+        field.disabled = true;
+      }
+    });
+
+    const deleteBtn = document.getElementById('deleteAccountBtn');
+    if (deleteBtn) deleteBtn.style.display = 'none';
+
+    if (!document.getElementById('khoaWarning')) {
+      const warning = document.createElement('div');
+      warning.id = 'khoaWarning';
+      warning.className = 'alert alert-warning mt-3';
+      warning.innerText = 'Người dùng đã bị khóa. Bạn chỉ có thể thay đổi trạng thái hoặc mở khóa người dùng.';
+      document.getElementById('editTinhTrang').closest('.form-group').appendChild(warning);
+    }
+
+    const saveBtn = document.querySelector('#editUserForm button');
+    if (saveBtn) saveBtn.style.display = 'none';
+  }
+
+  function unlockUserFields() {
+    const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
+    allFields.forEach(field => {
+      field.disabled = false;
+    });
+
+    const deleteBtn = document.getElementById('deleteAccountBtn');
+    if (deleteBtn) deleteBtn.style.display = 'inline-block';
+
+    const warning = document.getElementById('khoaWarning');
+    if (warning) warning.remove();
+
+    const saveBtn = document.querySelector('#editUserForm button');
+    if (saveBtn) saveBtn.style.display = 'inline-block';
+  }
+
+function editUser(TenNguoiDung, HoTen, Email, MatKhau, SoDienThoai, VaiTro, TinhTrang, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe) {
+   document.getElementById('editTenNguoiDung').value = TenNguoiDung;
     document.getElementById('editHoTen').value = HoTen;
     document.getElementById('editEmail').value = Email;
     document.getElementById('editMatKhau').value = MatKhau;
@@ -247,185 +386,47 @@ function editUser(TenNguoiDung, HoTen, Email,MatKhau , SoDienThoai, VaiTro, Tinh
     document.getElementById('editVaiTro').value = VaiTro;
     document.getElementById('editTinhTrang').value = TinhTrang;
     document.getElementById('editTPTinh').value = TPTinh;
+
+    // Gán trước Quận/Huyện
     document.getElementById('editQuanHuyen').value = QuanHuyen;
 
-    // Cập nhật danh sách phường theo quận
-    const phuongs = data[QuanHuyen] || [];
-    const phuongSelect = document.getElementById('editPhuongXa');
-    phuongSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
-    phuongs.forEach(phuong => {
-        const option = document.createElement('option');
-        option.value = phuong;
-        option.textContent = phuong;
-        phuongSelect.appendChild(option);
-    });
-
-    // Sau khi danh sách phường đã đầy đủ, gán giá trị
-    document.getElementById('editPhuongXa').value = PhuongXa;
+    // Load Phường/Xã theo Quận/Huyện đã chọn
+    loadPhuongXa(QuanHuyen, PhuongXa);
 
     document.getElementById('editDiaChiCuThe').value = DiaChiCuThe;
 
-    $('#editUserModal').modal('show');
+  $('#editUserModal').modal('show');
 }
 
 
-function updateUser() {
-    const btn = document.querySelector('#editUserForm button');
-    btn.disabled = true;
-    btn.innerHTML = 'Đang lưu...';
+function updatePhuongXaOptions(quan) {
+  const phuongSelect = document.getElementById('editPhuongXa');
+  const phuongs = data[quan] || [];
 
-    const tinhTrang = document.getElementById('editTinhTrang').value;
+  // Xóa hết các options cũ
+  phuongSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
 
-    // Lấy dữ liệu từ form
-    var formData = $('#editUserForm').serialize();
-
-    // Nếu tình trạng là "Khóa", chỉ gửi dữ liệu tình trạng
-    if (tinhTrang === 'Khóa') {
-        formData = $('#editUserForm').find('input, select').filter(function() {
-            return this.name === 'TinhTrang'; // Chỉ gửi trường tình trạng
-        }).serialize();
-    }
-
-    // Gửi AJAX yêu cầu cập nhật
-    $.ajax({
-        type: 'POST',
-        url: 'capNhapNguoiDung.php', // Đảm bảo file PHP xử lý cập nhật
-        data: formData,
-        success: function(response) {
-            alert(response);
-
-            // Nếu tình trạng là "Khóa", disable các trường và ẩn nút xóa
-            if (tinhTrang === 'Khóa') {
-                const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
-                const tinhTrangSelect = document.getElementById('editTinhTrang');
-
-                // Disable tất cả các trường, trừ tình trạng
-                allFields.forEach(field => {
-                    if (field.id !== 'editTinhTrang') {
-                        field.disabled = true;
-                    }
-                });
-
-                // Ẩn nút xóa tài khoản
-                const deleteBtn = document.getElementById('deleteAccountBtn');
-                if (deleteBtn) deleteBtn.style.display = 'none';
-
-                // Thêm cảnh báo nếu chưa có
-                if (!document.getElementById('khoaWarning')) {
-                    const warning = document.createElement('div');
-                    warning.id = 'khoaWarning';
-                    warning.className = 'alert alert-warning mt-3';
-                    warning.innerText = 'Người dùng đã bị khóa. Bạn chỉ có thể thay đổi trạng thái hoặc mở khóa người dùng.';
-                    tinhTrangSelect.closest('.form-group').appendChild(warning);
-                }
-
-                // Ẩn nút lưu
-                btn.style.display = 'none';
-            } else {
-                // Nếu trạng thái không phải "Khóa", mở lại các trường và hiển thị nút xóa
-                const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
-                allFields.forEach(field => {
-                    field.disabled = false;
-                });
-
-                const warning = document.getElementById('khoaWarning');
-                if (warning) warning.remove();
-
-                const deleteBtn = document.getElementById('deleteAccountBtn');
-                if (deleteBtn) deleteBtn.style.display = 'inline-block';
-
-                btn.style.display = 'inline-block';
-            }
-
-            // Đóng modal và reload trang sau khi cập nhật
-            $('#editUserModal').modal('hide');
-            location.reload(); // Tải lại trang để hiển thị thông tin mới
-
-            btn.disabled = false;
-            btn.innerHTML = 'Lưu thay đổi';
-        },
-        error: function() {
-            alert('Có lỗi xảy ra!');
-            btn.disabled = false;
-            btn.innerHTML = 'Lưu thay đổi';
-        }
-    });
-}
-
-
-function handleTinhTrangChange() {
-    const tinhTrang = document.getElementById('editTinhTrang').value;
-    console.log('Tình trạng đã thay đổi:', tinhTrang); // Kiểm tra giá trị khi thay đổi
-
-    const tinhTrangSelect = document.getElementById('editTinhTrang');
-
-    // Reset màu
-    tinhTrangSelect.classList.remove('border-success', 'border-danger', 'text-success', 'text-danger');
-
-    if (tinhTrang === 'Khóa') {
-        tinhTrangSelect.classList.add('border-danger', 'text-danger');
-
-        // Disable toàn bộ fields, trừ tình trạng
-        const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
-        allFields.forEach(field => {
-            if (field.id !== 'editTinhTrang') {
-                field.disabled = true;
-            }
-        });
-
-        // Ẩn nút xóa tài khoản
-        const deleteBtn = document.getElementById('deleteAccountBtn');
-        if (deleteBtn) deleteBtn.style.display = 'none';
-    } else {
-        tinhTrangSelect.classList.add('border-success', 'text-success');
-
-        // Mở lại các fields
-        const allFields = document.querySelectorAll('#editUserForm input, #editUserForm select, #editUserForm textarea');
-        allFields.forEach(field => {
-            field.disabled = false;
-        });
-
-        // Hiển thị lại nút xóa tài khoản
-        const deleteBtn = document.getElementById('deleteAccountBtn');
-        if (deleteBtn) deleteBtn.style.display = 'inline-block';
-    }
-}
-
-
-
-
-const data = {
-    "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Thái Bình"],
-    "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-    "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-    "Quận 7": ["Tân Phong", "Tân Hưng", "Bình Thuận", "Phú Mỹ", "Tân Kiểng", "Tân Quy"],
-    "Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 5", "Phường 6", "Phường 7", "Phường 8"],
-    "Gò Vấp": ["Phường 1", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8"],
-    "Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-    "Thủ Đức": ["Bình Chiểu", "Bình Thọ", "Hiệp Bình Chánh", "Hiệp Phú", "Linh Chiểu", "Linh Đông"],
-    "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8"]
-};
-
-const quanSelect = document.getElementById('editQuanHuyen');
-const phuongSelect = document.getElementById('editPhuongXa');
-
-quanSelect.addEventListener('change', function () {
-    const selectedQuan = this.value;
-    const phuongs = data[selectedQuan] || [];
-
-    phuongSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
-
+  // Nếu có phường/xã, thêm vào các lựa chọn
+  if (phuongs.length > 0) {
     phuongs.forEach(phuong => {
-        const option = document.createElement('option');
-        option.value = phuong;
-        option.textContent = phuong;
-        phuongSelect.appendChild(option);
+      const option = document.createElement('option');
+      option.value = phuong;
+      option.text = phuong;
+      phuongSelect.appendChild(option);
     });
+  } else {
+    console.log('Không có phường/xã cho quận này');
+  }
+}
+
+document.getElementById('editQuanHuyen').addEventListener('change', function() {
+  updatePhuongXaOptions(this.value);
 });
 
-console.log('Dữ liệu gửi:', formData);
+alert.log(phuongSelect.options.length); // In ra số lượng options hiện tại
 
 </script>
+
 
 
 <?php require('includes/footer.php'); ?>

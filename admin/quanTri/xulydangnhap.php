@@ -1,50 +1,63 @@
 <?php
-session_start();
+// Include file kết nối CSDL
+                session_start();
 
-$host = "localhost";
-$db = "tiemKem";
-$user = "root";
-$pass = "";
-
-$conn = new mysqli($host, $user, $pass, $db);
-
-// Kiểm tra kết nối
-if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
+require_once './db/connect.php';
 
 // Lấy dữ liệu từ form
 $username = trim($_POST['username']);
 $password = trim($_POST['password']);
 
-// Chuẩn bị truy vấn
-$stmt = $conn->prepare("SELECT TenNguoiDung, MatKhau FROM NguoiDung WHERE TenNguoiDung = ?");
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$result = $stmt->get_result();
-
 // Biến lưu thông báo để hiển thị trong popup
 $message = "";
 $success = false;
 
-if ($result->num_rows === 1) {
-    $row = $result->fetch_assoc();
-    $hashedPassword = $row['MatKhau'];
+// Kiểm tra nếu có tên người dùng và mật khẩu
+if (!empty($username) && !empty($password)) {
+    // Chuẩn bị truy vấn để tránh SQL injection
+    $stmt = $conn->prepare("SELECT TenNguoiDung, MatKhau, VaiTro FROM NguoiDung WHERE TenNguoiDung = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if (password_verify($password, $hashedPassword)) {
-        $_SESSION['adminid'] = $row['TenNguoiDung'];
-        $message = "✅ Đăng nhập thành công!";
-        $success = true;
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        $hashedPassword = $row['MatKhau'];
+
+        // Kiểm tra mật khẩu và vai trò
+        if (password_verify($password, $hashedPassword)) {
+            $role = trim($row['VaiTro']);  // Loại bỏ khoảng trắng trong vai trò
+
+            // Kiểm tra vai trò Admin
+            if ($role === 'Admin') {
+                // Lưu thông tin vào session
+                $_SESSION['adminid'] = $row['TenNguoiDung'];
+                $_SESSION['admin_role'] = $role;
+                $_SESSION['loggedin'] = true;
+
+// Lưu thông tin vào cookie
+setcookie("adminid", $row['TenNguoiDung'], time() + 3600, "/", "", isset($_SERVER['HTTPS']), true);
+
+                $message = "✅ Đăng nhập thành công!";
+                $success = true;
+            } else {
+                $message = "❌ Bạn không đủ thẩm quyền để truy cập!";
+            }
+        } else {
+            $message = "❌ Sai mật khẩu!";
+        }
     } else {
-        $message = "❌ Sai mật khẩu!";
+        $message = "❌ Tên người dùng không tồn tại!";
     }
-} else {
-    $message = "❌ Tên người dùng không tồn tại!";
+
+    // Đóng kết nối
+    $stmt->close();
 }
 
-$stmt->close();
+// Đóng kết nối cơ sở dữ liệu
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -111,22 +124,19 @@ $conn->close();
         <h2>
             <?php echo $success ? 'Đăng nhập thành công!' : 'Đăng nhập thất bại!'; ?>
         </h2>
-        <p>Đang xử lý, vui lòng chờ giây lát...</p>
+        <p><?php echo $message; ?></p>
     </div>
-
-
 
     <script>
         setTimeout(() => {
             <?php if ($success): ?>
-                window.location.href = "/admin/quantri/index.php";
+                window.location.href = "/admin/quantri/index.php"; // Đưa tới trang quản trị
             <?php else: ?>
                 setTimeout(() => {
-                window.history.back(); // quay lại trang đăng nhập
-                 }    ,1200      )
+                    window.history.back(); // Quay lại trang đăng nhập sau khi thất bại
+                }, 1200);
             <?php endif; ?>
         }, 1200);
     </script>
 </body>
 </html>
-
