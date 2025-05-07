@@ -52,7 +52,6 @@ if (checkDuplicatePhone($soDienThoai, $tenNguoiDung, $conn)) {
     exit;
 }
 
-
 // Trước khi cập nhật, kiểm tra nếu người dùng đang bị khóa
 $sqlCheckStatus = "SELECT TinhTrang FROM NguoiDung WHERE TenNguoiDung = ?";
 $stmtCheck = $conn->prepare($sqlCheckStatus);
@@ -63,9 +62,24 @@ $stmtCheck->fetch();
 $stmtCheck->close();
 
 if ($currentTinhTrang === 'Khóa') {
-    echo "Không thể cập nhật người dùng đang bị khóa.";
+    // Nếu chỉ muốn cập nhật tình trạng để mở khóa
+    if ($tinhTrang !== 'Khóa') {
+        $sqlUnlock = "UPDATE NguoiDung SET TinhTrang = ? WHERE TenNguoiDung = ?";
+        $stmt = $conn->prepare($sqlUnlock);
+        $stmt->bind_param("ss", $tinhTrang, $tenNguoiDung);
+        if ($stmt->execute()) {
+            echo "Đã mở khóa người dùng thành công!";
+        } else {
+            echo "Lỗi khi mở khóa người dùng: " . $stmt->error;
+        }
+        $stmt->close();
+    } else {
+        echo "Không thể cập nhật người dùng đang bị khóa, trừ khi mở khóa.";
+    }
+    $conn->close();
     exit;
 }
+
 
 // Cập nhật thông tin người dùng (kể cả Tình Trạng)
 if (!empty($matKhau)) {
