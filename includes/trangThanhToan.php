@@ -307,74 +307,94 @@ if ($result->num_rows > 0) {
         </div>
     </div>
 
-    <script>
-    const addressData = {
-            "TP Hồ Chí Minh": {
-                "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Thái Bình"],
-                "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-                "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-                "Quận 7": ["Tân Phong", "Tân Hưng", "Bình Thuận", "Phú Mỹ", "Tân Kiểng", "Tân Quy"],
-                "Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 5", "Phường 6", "Phường 7", "Phường 8"],
-                "Gò Vấp": ["Phường 1", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8"],
-                "Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-                "Thủ Đức": ["Bình Chiểu", "Bình Thọ", "Hiệp Bình Chánh", "Hiệp Phú", "Linh Chiểu", "Linh Đông"],
-                "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8"]
-            }
-        };
-         const citySelect = document.getElementById('new-city');
-    const districtSelect = document.getElementById('new-district');
-    const wardSelect = document.getElementById('new-ward');
+  
+    </script><script>
+const addressData = {
+    "TP Hồ Chí Minh": {
+        "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Thái Bình"],
+        "Quận 3": ["Phường 1", "Phường 2", "Phường 3"],
+        "Quận 5": ["Phường 1", "Phường 2", "Phường 3"],
+        "Quận 7": ["Tân Phong", "Tân Hưng"],
+        "Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3"],
+        "Gò Vấp": ["Phường 1", "Phường 3", "Phường 4"],
+        "Tân Bình": ["Phường 1", "Phường 2", "Phường 3"],
+        "Thủ Đức": ["Bình Chiểu", "Bình Thọ"],
+        "Quận 10": ["Phường 1", "Phường 2", "Phường 3"]
+    }
+};
 
-    citySelect.addEventListener('change', function () {
-      if (this.value === 'HCM') {
-        // Đổ dữ liệu Quận/Huyện
-        districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>';
-        for (const quan in addressData["TP Hồ Chí Minh"]) {
-  const option = document.createElement('option');
-  option.value = quan;
-  option.textContent = quan;
-  districtSelect.appendChild(option);
-}
+const citySelect = document.getElementById('new-city');
+const districtSelect = document.getElementById('new-district');
+const wardSelect = document.getElementById('new-ward');
 
-      } else {
-        districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>';
-        wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
-      }
-    });
-
-    districtSelect.addEventListener('change', function () {
-      const phuongs = addressData["TP Hồ Chí Minh"][this.value] || [];
-
-      wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
-      phuongs.forEach(phuong => {
-        const option = document.createElement('option');
-        option.value = phuong;
-        option.textContent = phuong;
-        wardSelect.appendChild(option);
-      });
-    });
-        // Show/Hide address forms based on selected option
-        document.getElementById('use-account').addEventListener('change', function() {
-            document.getElementById('account-address').style.display = 'block';
-            document.getElementById('new-address').style.display = 'none';
-        });
-
-        document.getElementById('enter-new').addEventListener('change', function() {
-            document.getElementById('account-address').style.display = 'none';
-            document.getElementById('new-address').style.display = 'block';
-        });
-
-        // Confirm Payment Logic
-        function confirmPayment() {
-            let form = document.getElementById('checkout-form');
-            let valid = form.checkValidity();
-            if (valid) {
-                alert("Thanh toán thành công!");
-                form.submit();
-            } else {
-                alert("Vui lòng điền đầy đủ thông tin!");
-            }
+// Khi chọn tỉnh/thành
+citySelect.addEventListener('change', function () {
+    const selectedCity = citySelect.options[citySelect.selectedIndex].text;
+    districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>';
+    wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+    if (addressData[selectedCity]) {
+        for (const district in addressData[selectedCity]) {
+            const option = document.createElement('option');
+            option.value = district;
+            option.text = district;
+            districtSelect.appendChild(option);
         }
-    </script>
+    }
+});
+
+// Khi chọn quận/huyện
+districtSelect.addEventListener('change', function () {
+    const selectedCity = citySelect.options[citySelect.selectedIndex].text;
+    const selectedDistrict = this.value;
+    wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+    if (addressData[selectedCity] && addressData[selectedCity][selectedDistrict]) {
+        addressData[selectedCity][selectedDistrict].forEach(ward => {
+            const option = document.createElement('option');
+            option.value = ward;
+            option.text = ward;
+            wardSelect.appendChild(option);
+        });
+    }
+});
+
+// Ẩn/hiện địa chỉ theo lựa chọn
+const useAccountRadio = document.getElementById('use-account');
+const enterNewRadio = document.getElementById('enter-new');
+const accountAddress = document.getElementById('account-address');
+const newAddress = document.getElementById('new-address');
+
+useAccountRadio.addEventListener('change', () => {
+    if (useAccountRadio.checked) {
+        accountAddress.classList.remove('hidden');
+        newAddress.classList.add('hidden');
+    }
+});
+enterNewRadio.addEventListener('change', () => {
+    if (enterNewRadio.checked) {
+        accountAddress.classList.add('hidden');
+        newAddress.classList.remove('hidden');
+    }
+});
+
+// Xác nhận thanh toán
+function confirmPayment() {
+    const method = document.getElementById('payment-method').value;
+    const isUsingNew = enterNewRadio.checked;
+
+    if (isUsingNew) {
+        if (!citySelect.value || !districtSelect.value || !wardSelect.value || !document.getElementById('new-address-detail').value) {
+            alert("Vui lòng nhập đầy đủ địa chỉ mới!");
+            return;
+        }
+    }
+
+    alert("Đặt hàng thành công với phương thức: " + (method === 'cod' ? "Tiền mặt khi nhận hàng" : "Thanh toán trực tuyến"));
+    // Có thể thực hiện gọi API POST để lưu vào DB ở đây.
+    // Chuyển hướng đến trang "Hoàn tất đơn hàng"
+    window.location.href = "/hoanTatDonHang.php";  // Đổi "/hoan-tat-don-hang.php" thành URL của trang hoàn tất đơn hàng của bạn
+
+}
+</script>
+
 </body>
 </html>
