@@ -1,7 +1,6 @@
 
 <?php
 session_start();
-require_once __DIR__ . '/../kiemtradangnhap.php';
 require_once __DIR__ . '/../db/connect.php'; // kết nối DB
 
 // Kiểm tra nếu giỏ hàng trống thì chuyển hướng về trang chủ
@@ -186,51 +185,7 @@ if ($result->num_rows > 0) {
                   </li>
                   <ul class="navbar-nav">
 
-                  <ul class="navbar-nav ml-3">
-    <li class="nav-item d-flex align-items-center">
-        <!-- Icon người dùng -->
-        <a href="#" onclick="handleUserClick()">
-            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
-        </a>
-
-        <!-- Icon giỏ hàng -->
-        <a href="#" onclick="handleCartClick()">
-            <i class="bi bi-bag-heart-fill custom-icon" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
-        </a>
-
-        <!-- Hiển thị tên và nút đăng xuất nếu đã đăng nhập -->
-        <?php if (isset($_SESSION['username'])): ?>
-            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
-                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
-            </span>
-            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
-        <?php endif; ?>
-    </li>
-</ul>
-
-<!-- Đặt đoạn script bên dưới, trước </body> hoặc ở cuối file -->
-<script>
-    // Kiểm tra trạng thái đăng nhập từ PHP
-    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
-
-    function handleUserClick() {
-        if (isLoggedIn) {
-            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
-        } else {
-            window.location.href = "login.php"; // Nếu chưa đăng nhập
-        }
-    }
-
-    function handleCartClick() {
-        if (isLoggedIn) {
-            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
-        } else {
-            alert("Bạn cần đăng nhập để xem giỏ hàng!");
-            window.location.href = "login.php";
-        }
-    }
-</script>
-
+                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
                
 
                   </form>
@@ -355,16 +310,25 @@ if ($result->num_rows > 0) {
   
     </script><script>
 const addressData = {
-    "TP Hồ Chí Minh": {
-        "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Thái Bình"],
-        "Quận 3": ["Phường 1", "Phường 2", "Phường 3"],
-        "Quận 5": ["Phường 1", "Phường 2", "Phường 3"],
-        "Quận 7": ["Tân Phong", "Tân Hưng"],
-        "Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3"],
-        "Gò Vấp": ["Phường 1", "Phường 3", "Phường 4"],
-        "Tân Bình": ["Phường 1", "Phường 2", "Phường 3"],
-        "Thủ Đức": ["Bình Chiểu", "Bình Thọ"],
-        "Quận 10": ["Phường 1", "Phường 2", "Phường 3"]
+    "TP. Hồ Chí Minh": {
+       "Quận 1": ["Tân Định", "Đa Kao", "Bến Nghé", "Bến Thành", "Nguyễn Thái Bình", "Cầu Ông Lãnh", "Cô Giang", "Nguyễn Cư Trinh", "Phạm Ngũ Lão", "Cầu Kho"],
+    "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Võ Thị Sáu"],
+    "Quận 4": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 6", "Phường 8", "Phường 9", "Phường 10", "Phường 13", "Phường 14", "Phường 15", "Phường 16", "Phường 18"],
+    "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14"],
+    "Quận 6": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14"],
+    "Quận 7": ["Tân Thuận Đông", "Tân Thuận Tây", "Tân Kiểng", "Tân Hưng", "Tân Phong", "Tân Phú", "Phú Mỹ", "Phú Thuận", "Bình Thuận", "Tân Quy"],
+    "Quận 8": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16"],
+    "Quận 10": ["Phường 1", "Phường 2", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
+    "Quận 11": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16"],
+    "Quận 12": ["An Phú Đông", "Đông Hưng Thuận", "Hiệp Thành", "Tân Chánh Hiệp", "Tân Hưng Thuận", "Tân Thới Hiệp", "Tân Thới Nhất", "Thạnh Lộc", "Thạnh Xuân", "Thới An", "Trung Mỹ Tây"],
+    "Bình Tân": ["An Lạc", "An Lạc A", "Bình Hưng Hòa", "Bình Hưng Hòa A", "Bình Hưng Hòa B", "Bình Trị Đông", "Bình Trị Đông A", "Bình Trị Đông B", "Tân Tạo", "Tân Tạo A"],
+    "Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 5", "Phường 6", "Phường 7", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 17", "Phường 19", "Phường 21", "Phường 22", "Phường 24", "Phường 25", "Phường 26", "Phường 27", "Phường 28"],
+    "Gò Vấp": ["Phường 1", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16", "Phường 17"],
+    "Phú Nhuận": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 13", "Phường 15", "Phường 17"],
+    "Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
+    "Tân Phú": ["Hiệp Tân", "Hòa Thạnh", "Phú Thạnh", "Phú Thọ Hòa", "Phú Trung", "Sơn Kỳ", "Tân Quý", "Tân Sơn Nhì", "Tân Thành", "Tây Thạnh"],
+    "Thủ Đức": ["Hiệp Bình Chánh", "Hiệp Bình Phước", "Linh Chiểu", "Linh Đông", "Linh Tây", "Linh Trung", "Linh Xuân", "Bình Chiểu", "Bình Thọ", "Tam Bình", "Tam Phú", "Trường Thọ", "Bình An", "Bình Trưng Đông", "Bình Trưng Tây", "Cát Lái", "Thảo Điền", "An Khánh", "An Phú", "Phước Long A", "Phước Long B", "Tăng Nhơn Phú A", "Tăng Nhơn Phú B", "Phước Bình", "Tân Phú", "Trường Thạnh", "Long Thạnh Mỹ", "Long Phước", "Long Trường", "Phú Hữu", "Thạnh Mỹ Lợi", "Thủ Thiêm"]
+
     }
 };
 
