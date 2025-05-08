@@ -1,8 +1,15 @@
 <?php
-session_start();
+session_start(); // Khởi tạo session
+
+require_once __DIR__ . '/../kiemtradangnhap.php';
+
+// Khởi tạo giỏ hàng nếu chưa có
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = array();
+}
 
 // Kiểm tra nếu giỏ hàng đã tồn tại trong session
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+if (empty($_SESSION['cart'])) {
     echo "<script>alert('Giỏ hàng của bạn hiện tại không có sản phẩm nào!'); window.location.href = '/index.php';</script>";
     exit();
 }
@@ -10,7 +17,9 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
 // Xử lý xóa sản phẩm khỏi giỏ hàng
 if (isset($_GET['remove']) && !empty($_GET['remove'])) {
     $removeProduct = $_GET['remove'];
-    unset($_SESSION['cart'][$removeProduct]);
+    if (isset($_SESSION['cart'][$removeProduct])) {
+        unset($_SESSION['cart'][$removeProduct]); // Xóa sản phẩm nếu tồn tại
+    }
 }
 
 // Xử lý cập nhật số lượng sản phẩm
@@ -18,7 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
     $MaSanPham = $_POST['MaSanPham'];
     $quantity = $_POST['quantity'];
     if ($quantity > 0) {
-        $_SESSION['cart'][$MaSanPham]['quantity'] = $quantity;
+        $_SESSION['cart'][$MaSanPham]['quantity'] = $quantity; // Cập nhật số lượng
+    } else {
+        echo "<script>alert('Số lượng không hợp lệ!');</script>";
     }
 }
 ?>
@@ -249,7 +260,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
                      </form>
                   </li>
                   <ul class="navbar-nav">
-                     <div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
+                  <ul class="navbar-nav ml-3">
+    <li class="nav-item d-flex align-items-center">
+        <!-- Icon người dùng -->
+        <a href="#" onclick="handleUserClick()">
+            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+        </a>
+
+        <!-- Icon giỏ hàng -->
+        <a href="#" onclick="handleCartClick()">
+            <i class="bi bi-bag-heart-fill custom-icon" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+        </a>
+
+        <!-- Hiển thị tên và nút đăng xuất nếu đã đăng nhập -->
+        <?php if (isset($_SESSION['username'])): ?>
+            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
+                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+            </span>
+            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+        <?php endif; ?>
+    </li>
+</ul>
+
+<!-- Đặt đoạn script bên dưới, trước </body> hoặc ở cuối file -->
+<script>
+    // Kiểm tra trạng thái đăng nhập từ PHP
+    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+
+    function handleUserClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
+        } else {
+            window.location.href = "login.php"; // Nếu chưa đăng nhập
+        }
+    }
+
+    function handleCartClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
+        } else {
+            alert("Bạn cần đăng nhập để xem giỏ hàng!");
+            window.location.href = "login.php";
+        }
+    }
+</script>
                   </form>
                </div>
             </nav>

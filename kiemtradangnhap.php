@@ -11,3 +11,9 @@ if (!isset($_SESSION['username']) && $currentPage !== 'login.php' && $currentPag
     exit();
 }
 ?>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+

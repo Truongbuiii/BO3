@@ -1,13 +1,8 @@
 <?php
-require_once __DIR__ . '/../kiemtradangnhap.php';
-
-?>
-
-<?php
 session_start();
+require_once __DIR__ . '/../kiemtradangnhap.php';
 require("../db/connect.php");
 
-// Kiểm tra nếu có `MaSanPham` được truyền vào
 if (!isset($_GET['MaSanPham']) || empty($_GET['MaSanPham'])) {
     echo "<script>alert('Thiếu thông tin sản phẩm!'); window.location.href = '/index.php';</script>";
     exit();
@@ -15,77 +10,69 @@ if (!isset($_GET['MaSanPham']) || empty($_GET['MaSanPham'])) {
 
 $MaSanPham = $_GET['MaSanPham'];
 
-// Truy vấn thông tin sản phẩm
+// Lấy thông tin sản phẩm
 $sql = "SELECT * FROM SanPham WHERE MaSanPham = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $MaSanPham);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    $product = $result->fetch_assoc();
-} else {
+if ($result->num_rows === 0) {
     echo "<script>alert('Sản phẩm không tồn tại!'); window.location.href = '/index.php';</script>";
     exit();
 }
+
+$product = $result->fetch_assoc();
 
 if ($product['TinhTrang'] == 0) {
     echo "<script>alert('Sản phẩm này hiện đang tạm khóa!'); window.history.back();</script>";
     exit();
 }
 
+// Xử lý thêm giỏ hàng
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
+   
+    if (!isset($_SESSION['TenNguoiDung'])) {
+        echo "<script>alert('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!'); window.location.href = 'login.php';</script>";
+        exit();
+    }
 
-// Truy vấn sản phẩm liên quan
+    $maSanPhamPost = $_POST['MaSanPham'];
+    $stmt = $conn->prepare("SELECT * FROM SanPham WHERE MaSanPham = ?");
+    $stmt->bind_param("s", $maSanPhamPost);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 0) {
+        echo "<script>alert('Sản phẩm không tồn tại.'); window.location.href = '/index.php';</script>";
+        exit();
+    }
+
+    $productPost = $result->fetch_assoc();
+
+    if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
+
+    if (isset($_SESSION['cart'][$maSanPhamPost])) {
+        $_SESSION['cart'][$maSanPhamPost]['quantity'] += 1;
+    } else {
+        $_SESSION['cart'][$maSanPhamPost] = [
+            'TenSanPham' => $productPost['TenSanPham'],
+            'DonGia' => $productPost['DonGia'],
+            'HinhAnh' => $productPost['HinhAnh'],
+            'quantity' => 1
+        ];
+    }
+
+    echo "<script>window.location.href = 'trangGioHang.php';</script>";
+    exit();
+}
+
+// Lấy sản phẩm liên quan
 $sql_related = "SELECT * FROM SanPham WHERE MaLoai = ? AND MaSanPham != ? LIMIT 3";
 $stmt_related = $conn->prepare($sql_related);
 $stmt_related->bind_param("ss", $product['MaLoai'], $MaSanPham);
 $stmt_related->execute();
 $related_products = $stmt_related->get_result();
-
-
-
-// Xử lý thêm sản phẩm vào giỏ hàng
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
-       if (!isset($_SESSION['TenNguoiDung'])) {
-        echo "<script>alert('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!'); window.location.href = 'login.php';</script>";
-        exit();
-    }
-
-    $MaSanPham = $_POST['MaSanPham'];
-
-    // Lấy thông tin sản phẩm từ CSDL
-    $sql = "SELECT * FROM SanPham WHERE MaSanPham = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $MaSanPham);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $product = $result->fetch_assoc();
-
-    if ($product) {
-        // Khởi tạo giỏ hàng nếu chưa có
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = [];
-        }
-
-        // Nếu sản phẩm đã tồn tại trong giỏ, tăng số lượng
-        if (isset($_SESSION['cart'][$MaSanPham])) {
-            $_SESSION['cart'][$MaSanPham]['quantity'] += 1;
-        } else {
-            // Thêm sản phẩm mới vào giỏ
-            $_SESSION['cart'][$MaSanPham] = [
-                'TenSanPham' => $product['TenSanPham'],
-                'DonGia' => $product['DonGia'],
-                'HinhAnh' => $product['HinhAnh'],
-                'quantity' => 1
-            ];
-        }
-
-        // Chuyển hướng đến trang giỏ hàng
-        echo "<script>window.location.href = 'trangGioHang.php';</script>";
-    } else {
-        echo "<script>alert('Sản phẩm không tồn tại.');</script>";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -94,52 +81,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết sản phẩm</title>
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="js/jquery.min.js"></script>
+
+    <style>
+        .product-info { font-family: 'Roboto', sans-serif; font-size: 16px; color: #333; }
+        .product-title { font-size: 24px; font-weight: 700; color: #222; }
+        .product-price { font-size: 20px; font-weight: bold; color: #e74c3c; }
+        .product-flavor, .product-description { font-size: 16px; color: #555; }
+        .btn-success { font-size: 16px; font-weight: 500; }
+        .related-image { width: 80%; height: auto; border-radius: 10px; }
+    </style>
 </head>
 <body>
-
-<style>
-.product-info {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    color: #333;
-}
-
-.product-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #222;
-}
-
-.product-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #e74c3c;
-}
-
-.product-flavor, .product-description {
-    font-size: 16px;
-    color: #555;
-}
-
-.btn-success {
-    font-size: 16px;
-    font-weight: 500;
-}
-</style>
 
 <!-- Header -->
 <div class="header_section header_bg">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/index.php">
-                <img src="/images/logo.png">
-            </a>
+            <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -157,160 +120,97 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
                     </button>
                 </form>
                 <ul class="navbar-nav ml-3">
-    <li class="nav-item d-flex align-items-center">
-        <!-- Icon người dùng -->
-        <a href="#" onclick="handleUserClick()">
-            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
-        </a>
-
-        <!-- Icon giỏ hàng -->
-        <a href="#" onclick="handleCartClick()">
-            <i class="bi bi-bag-heart-fill custom-icon" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
-        </a>
-
-        <!-- Hiển thị tên và nút đăng xuất nếu đã đăng nhập -->
-        <?php if (isset($_SESSION['username'])): ?>
-            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
-                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
-            </span>
-            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
-        <?php endif; ?>
-    </li>
-</ul>
-
-<!-- Đặt đoạn script bên dưới, trước </body> hoặc ở cuối file -->
-<script>
-    // Kiểm tra trạng thái đăng nhập từ PHP
-    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
-
-    function handleUserClick() {
-        if (isLoggedIn) {
-            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
-        } else {
-            window.location.href = "login.php"; // Nếu chưa đăng nhập
-        }
-    }
-
-    function handleCartClick() {
-        if (isLoggedIn) {
-            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
-        } else {
-            alert("Bạn cần đăng nhập để xem giỏ hàng!");
-            window.location.href = "login.php";
-        }
-    }
-</script>
-
+                    <li class="nav-item d-flex align-items-center">
+                        <a href="#" onclick="handleUserClick()">
+                            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+                        </a>
+                        <a href="#" onclick="handleCartClick()">
+                            <i class="bi bi-bag-heart-fill custom-icon" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+                        </a>
+                        <?php if (isset($_SESSION['username'])): ?>
+                            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
+                                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+                            </span>
+                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+                        <?php endif; ?>
+                    </li>
+                </ul>
+                <script>
+                    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+                    function handleUserClick() {
+                        if (isLoggedIn) window.location.href = "includes/userProfile.php";
+                        else window.location.href = "login.php";
+                    }
+                    function handleCartClick() {
+                        if (isLoggedIn) window.location.href = "includes/trangGioHang.php";
+                        else {
+                            alert("Bạn cần đăng nhập để xem giỏ hàng!");
+                            window.location.href = "login.php";
+                        }
+                    }
+                </script>
             </div>
         </nav>
     </div>
 </div>
 
 <!-- Chi tiết sản phẩm -->
-<div class="container product-detail-container">
+<div class="container product-detail-container mt-5">
     <div class="row">
-        <!-- Hình ảnh sản phẩm -->
         <div class="col-md-6">
-            <div class="product-images">
-                <img src="/images/<?php echo $product['HinhAnh']; ?>" alt="<?php echo $product['TenSanPham']; ?>" class="product-main-image">
-            </div>
+            <img src="/images/<?php echo $product['HinhAnh']; ?>" alt="<?php echo $product['TenSanPham']; ?>" class="product-main-image img-fluid rounded">
         </div>
-
-        <!-- Thông tin sản phẩm -->
-        <div class="col-md-6">
-            <div class="product-info">
-                <h1 class="product-title"><?php echo $product['TenSanPham']; ?></h1>
-                <p class="product-price"><strong>Giá: </strong> <?php echo number_format($product['DonGia']); ?> VND</p>
-                <p class="product-flavor"><strong>Hương vị: </strong> <?php echo $product['HuongVi']; ?></p>
-                <p class="product-description">Diển giải : <?php echo $product['DienGiai']; ?></p>
-                <p class="tinhtrang">Tình trạng : <?php echo $product['TinhTrang']? "<span class='text-success'>Còn hàng</span>" : "<span class='text-danger'>Khóa</span>" ; ?></p>
-                <form method="POST">
-                    <button class="btn btn-success" name="MaSanPham" value="<?php echo $product['MaSanPham']; ?>">Thêm vào giỏ hàng</button>
-                </form>
-            </div>
+        <div class="col-md-6 product-info">
+            <h1 class="product-title"><?php echo $product['TenSanPham']; ?></h1>
+            <p class="product-price">Giá: <?php echo number_format($product['DonGia']); ?> VND</p>
+            <p class="product-flavor"><strong>Hương vị:</strong> <?php echo $product['HuongVi']; ?></p>
+            <p class="product-description">Diễn giải: <?php echo $product['DienGiai']; ?></p>
+            <p>Tình trạng: <?php echo $product['TinhTrang'] ? "<span class='text-success'>Còn hàng</span>" : "<span class='text-danger'>Khóa</span>"; ?></p>
+            <form method="POST">
+                <button class="btn btn-success" name="MaSanPham" value="<?php echo $product['MaSanPham']; ?>">Thêm vào giỏ hàng</button>
+            </form>
         </div>
     </div>
 
     <!-- Sản phẩm liên quan -->
-  <!-- Sản phẩm liên quan -->
-<div class="related-products mt-5">
-    <h2 class="related-title text-center">Sản phẩm liên quan</h2>
-    <div class="row justify-content-center">
-        <?php while ($related = $related_products->fetch_assoc()) { ?>
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="related-item text-center">
+    <div class="related-products mt-5">
+        <h2 class="text-center">Sản phẩm liên quan</h2>
+        <div class="row justify-content-center">
+            <?php while ($related = $related_products->fetch_assoc()) { ?>
+                <div class="col-md-4 text-center mb-4">
                     <a href="chitietsanpham.php?MaSanPham=<?php echo $related['MaSanPham']; ?>">
-                        <img src="/images/<?php echo $related['HinhAnh']; ?>" alt="<?php echo $related['TenSanPham']; ?>" class="related-image img-fluid">
+                        <img src="/images/<?php echo $related['HinhAnh']; ?>" class="related-image" alt="<?php echo $related['TenSanPham']; ?>">
                     </a>
-                    <p class="mt-2"><strong><?php echo $related['TenSanPham']; ?></strong></p>
+                    <p class="mt-2 font-weight-bold"><?php echo $related['TenSanPham']; ?></p>
                     <p class="text-danger"><?php echo number_format($related['DonGia']); ?> VND</p>
                 </div>
-            </div>
-        <?php } ?>
+            <?php } ?>
+        </div>
     </div>
 </div>
-</div>
+
 <!-- Footer -->
- <div class="contact_section layout_padding">
-         <div class="container">
-             <div class="row">
-                 <div class="col-md-8">
-                     <div class="location_text">
-                         <ul>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                     1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                     Call : +01 23456789
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                                     Email : BeYeukem1234@gmail.com
-                                 </a>
-                             </li>
-                         </ul>
-                     </div>
-                 </div>
-             </div>
-             <div class="footer_social_icon">
-                 <ul>
-                     <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                 </ul>
-             </div>
-             <div class="copyright_section">
-               <div class="container">
-                  <p class="copyright_text">All Rights Reserved. Design by TiemKemF4</a></p>
-               </div>
+<div class="contact_section layout_padding mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="location_text">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-map-marker"></i> 1234 Cây kem, Phường 1, Quận 2, TP.HCM</a></li>
+                        <li><a href="#"><i class="fa fa-phone"></i> Call : +01 23456789</a></li>
+                        <li><a href="#"><i class="fa fa-envelope"></i> Email : BeYeukem1234@gmail.com</a></li>
+                    </ul>
+                </div>
             </div>
-         </div>
-     </div>
+        </div>
+        <div class="footer_social_icon text-center mt-3">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</div>
 
-
-
- 
-
-
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <script src="js/main.js"></script>
-      <!-- javascript --> 
-
-      
-   </body>
-</html> 
+</body>
+</html>

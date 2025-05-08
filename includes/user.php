@@ -281,7 +281,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                 <a href="includes/logout.php" class="logout-btn" onclick="return confirm('Bạn có chắc chắn muốn đăng xuất?');">Xác nhận đăng xuất</a>
             </div>
         </div>
-    </div>
+    </div>  
 </div>
 
 <script>
