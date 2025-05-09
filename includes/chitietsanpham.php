@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once __DIR__ . '/../kiemtradangnhap.php';
-require("../db/connect.php");
 
 if (!isset($_GET['MaSanPham']) || empty($_GET['MaSanPham'])) {
     echo "<script>alert('Thiếu thông tin sản phẩm!'); window.location.href = '/index.php';</script>";
