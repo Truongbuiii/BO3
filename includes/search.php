@@ -1,7 +1,7 @@
 <?php
 
 session_start(); // Khởi tạo session
-// require_once __DIR__ . '/../kiemtradangnhap.php'; // Tắt kiểm tra đăng nhập ở trang tìm kiếm
+
 require(__DIR__ . "/../db/connect.php");
 
 // Kết nối tới cơ sở dữ liệu
