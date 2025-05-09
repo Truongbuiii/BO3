@@ -297,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
 
     function handleCartClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
+            window.location.href = "trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
         } else {
             alert("Bạn cần đăng nhập để xem giỏ hàng!");
             window.location.href = "login.php";

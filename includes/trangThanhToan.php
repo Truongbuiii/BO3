@@ -400,7 +400,7 @@ function confirmPayment() {
     alert("Đặt hàng thành công với phương thức: " + (method === 'cod' ? "Tiền mặt khi nhận hàng" : "Thanh toán trực tuyến"));
     // Có thể thực hiện gọi API POST để lưu vào DB ở đây.
     // Chuyển hướng đến trang "Hoàn tất đơn hàng"
-    window.location.href = "/hoanTatDonHang.php";  // Đổi "/hoan-tat-don-hang.php" thành URL của trang hoàn tất đơn hàng của bạn
+    window.location.href = "/includes/hoanTatDonHang.php";
 
 }
 </script>
