@@ -1,14 +1,11 @@
---xemdonhang--
 <?php
 require 'includes/header.php';
 require './db/connect.php';
 
-// Lấy thông tin từ URL
 $tennguoidung = $_GET['tennguoidung'];
 $start_date = $_GET['start_date'] . " 00:00:00";
 $end_date = $_GET['end_date'] . " 23:59:59";
 
-// Truy vấn các hóa đơn của khách hàng trong khoảng thời gian đã chọn
 $query = "
     SELECT HoaDon.MaHoaDon, HoaDon.NgayGio, HoaDon.TongTien, HoaDon.NguoiNhanHang
     FROM HoaDon
@@ -24,7 +21,9 @@ $result = $stmt->get_result();
 <div class="container-fluid">
     <h3 class="text-center mt-4">Danh sách hóa đơn của khách hàng: <?= htmlspecialchars($tennguoidung) ?></h3>
     <h4 class="text-center">Từ ngày: <?= htmlspecialchars($_GET['start_date']) ?> đến ngày: <?= htmlspecialchars($_GET['end_date']) ?></h4>
-    
+
+  
+
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -41,7 +40,7 @@ $result = $stmt->get_result();
                     <td><?= htmlspecialchars($row['NgayGio']) ?></td>
                     <td><?= number_format($row['TongTien'], 0, ',', '.') ?> VNĐ</td>
                     <td>
-                        <a href="chitiethoadon.php?MaHoaDon=<?= urlencode($row['MaHoaDon']) ?>" class="btn btn-info">
+                        <a href="chitiethoadon.php?MaHoaDon=<?= urlencode($row['MaHoaDon']) ?>" class="btn btn-outline-primary">
                             Xem chi tiết
                         </a>
                     </td>
@@ -51,6 +50,5 @@ $result = $stmt->get_result();
     </table>
 </div>
 
-<?php
-require 'includes/footer.php';
-?>
+
+<?php require 'includes/footer.php'; ?>

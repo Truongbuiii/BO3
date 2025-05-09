@@ -2,11 +2,11 @@
 require 'includes/header.php';
 require './db/connect.php'; // Kết nối cơ sở dữ liệu
 
-// Lấy mã hóa đơn và mã sản phẩm từ URL
-$MaHoaDon = isset($_GET['MaHoaDon']) ? $_GET['MaHoaDon'] : '';
-$MaSanPham = isset($_GET['MaSanPham']) ? $_GET['MaSanPham'] : '';
+// Lấy mã hóa đơn và mã sản phẩm từ URL và sanitize
+$MaHoaDon = isset($_GET['MaHoaDon']) ? htmlspecialchars($_GET['MaHoaDon']) : '';
+$MaSanPham = isset($_GET['MaSanPham']) ? htmlspecialchars($_GET['MaSanPham']) : '';
 
-// Nếu mã hóa đơn được truyền vào, lấy thông tin chi tiết hóa đơn
+// Kiểm tra điều kiện có mã hóa đơn hoặc mã sản phẩm
 if ($MaHoaDon != '') {
     // Truy vấn lấy chi tiết hóa đơn theo mã hóa đơn
     $query = "
@@ -33,6 +33,10 @@ elseif ($MaSanPham != '') {
     $stmt->execute();
     $result = $stmt->get_result();
 }
+else {
+    echo "Vui lòng cung cấp mã hóa đơn hoặc mã sản phẩm để xem chi tiết.";
+    exit;
+}
 ?>
 
 <div class="container-fluid">
@@ -46,33 +50,38 @@ elseif ($MaSanPham != '') {
         <h4>Mã Sản Phẩm: <?= htmlspecialchars($MaSanPham) ?></h4>
     <?php endif; ?>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Mã Hóa Đơn</th>
-                <th>Email Khách Hàng</th>
-                <th>Tên Người Nhận</th>
-                <th>Ngày Giờ</th>
-                <th>Số Lượng</th>
-                <th>Đơn Giá</th>
-                <th>Thành Tiền</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = $result->fetch_assoc()): ?>
+    <?php if ($result->num_rows > 0): ?>
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($row['MaHoaDon']) ?></td>
-                    <td><?= htmlspecialchars($row['Email']) ?></td>
-                    <td><?= htmlspecialchars($row['NguoiNhanHang']) ?></td>
-                    <td><?= htmlspecialchars($row['NgayGio']) ?></td>
-                    <td><?= htmlspecialchars($row['SoLuong']) ?></td>
-                    <td><?= number_format($row['DonGia'], 0, ',', '.') ?> VNĐ</td>
-                    <td><?= number_format($row['ThanhTien'], 0, ',', '.') ?> VNĐ</td>
+                    <th>Mã Hóa Đơn</th>
+                    <th>Email Khách Hàng</th>
+                    <th>Tên Người Nhận</th>
+                    <th>Ngày Giờ</th>
+                    <th>Số Lượng</th>
+                    <th>Đơn Giá</th>
+                    <th>Thành Tiền</th>
                 </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['MaHoaDon']) ?></td>
+                        <td><?= htmlspecialchars($row['Email']) ?></td>
+                        <td><?= htmlspecialchars($row['NguoiNhanHang']) ?></td>
+                        <td><?= date('d-m-Y H:i', strtotime($row['NgayGio'])) ?></td>
+                        <td><?= htmlspecialchars($row['SoLuong']) ?></td>
+                        <td><?= number_format($row['DonGia'], 0, ',', '.') ?> VNĐ</td>
+                        <td><?= number_format($row['ThanhTien'], 0, ',', '.') ?> VNĐ</td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p class="text-center">Không có dữ liệu để hiển thị.</p>
+    <?php endif; ?>
+
+    
 
 <?php
 // Đóng kết nối

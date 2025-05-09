@@ -161,15 +161,11 @@ $chiTietSanPham = $result_ct->fetch_all(MYSQLI_ASSOC);
 </div>
 
 
-    <div class="text-end mt-3">
-        <a href="danhsachdonhang.php" class="btn btn-secondary">
-          Quay lại danh sách
-        </a>
-    </div>
-</div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
+  
 <?php require('includes/footer.php'); ?>
