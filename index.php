@@ -284,7 +284,7 @@ $username = "root";  // thường mặc định là root
 $password = "";      // thường mặc định password trống
 $dbname = "b03db";   // tên database bạn đang dùng
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli("localhost", "root", "", "b03db");
 
 // Check connection
 if ($conn->connect_error) {
