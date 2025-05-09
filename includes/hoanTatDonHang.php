@@ -1,3 +1,60 @@
+<?php
+// Kết nối tới cơ sở dữ liệu
+$servername = "localhost";
+$username = "root"; // Mặc định của XAMPP
+$password = ""; // XAMPP không có mật khẩu mặc định
+$dbname = "b03db";
+
+// Kết nối MySQL
+$conn = mysqli_connect("localhost", "root", "", "b03db");
+
+// Kiểm tra nếu có mã hóa đơn từ query string hoặc session
+if (isset($_GET['maHoaDon'])) {
+    $maHoaDon = $_GET['maHoaDon'];
+} else {
+    echo "Mã hóa đơn không hợp lệ!";
+    exit;
+}
+
+// Kiểm tra mã hóa đơn
+echo "Mã hóa đơn: " . $maHoaDon;
+
+// Lấy thông tin từ bảng HoaDon
+$sql = "SELECT * FROM HoaDon WHERE MaHoaDon = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $maHoaDon);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Kiểm tra nếu không tìm thấy mã hóa đơn
+if ($result->num_rows > 0) {
+    $order = $result->fetch_assoc();
+} else {
+    echo "Không tìm thấy đơn hàng!";
+    exit;
+}
+
+// Truy vấn chi tiết sản phẩm trong đơn hàng từ bảng ChiTietHoaDon
+$sql_ct = "SELECT * FROM ChiTietHoaDon WHERE MaHoaDon = ?";
+$stmt_ct = $conn->prepare($sql_ct);
+$stmt_ct->bind_param("s", $maHoaDon);
+$stmt_ct->execute();
+$result_ct = $stmt_ct->get_result();
+
+// Kiểm tra xem có chi tiết hóa đơn không
+if ($result_ct->num_rows > 0) {
+    // Lưu thông tin sản phẩm vào mảng
+    $order_details = [];
+    while ($item = $result_ct->fetch_assoc()) {
+        $order_details[] = $item;
+    }
+} else {
+    echo "Không có sản phẩm trong hóa đơn!";
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -66,6 +123,24 @@
         <i class="fa-solid fa-ice-cream"></i>
         <h2>Đơn hàng đã được đặt thành công!</h2>
         <p>Cảm ơn bạn đã lựa chọn cửa hàng kem của chúng tôi. Chúng tôi sẽ xác nhận đơn và giao hàng sớm nhất có thể.</p>
+
+        <!-- Hiển thị thông tin đơn hàng -->
+        <h4>Mã hóa đơn: <?php echo $order['MaHoaDon']; ?></h4>
+        <p>Người nhận: <?php echo $order['NguoiNhanHang']; ?></p>
+        <p>Địa chỉ giao hàng: <?php echo $order['DiaChiCuThe']; ?></p>
+        <p>Tổng tiền: <?php echo number_format($order['TongTien'], 2, ',', '.'); ?> VNĐ</p>
+        <p>Hình thức thanh toán: <?php echo $order['HinhThucThanhToan']; ?></p>
+
+        <!-- Danh sách sản phẩm trong đơn -->
+        <h5>Chi tiết đơn hàng:</h5>
+        <ul class="list-group">
+            <?php foreach ($order_details as $item): ?>
+                <li class="list-group-item">
+                    <strong><?php echo $item['MaSanPham']; ?></strong> - <?php echo $item['SoLuong']; ?> x <?php echo number_format($item['DonGia'], 2, ',', '.'); ?> VNĐ
+                </li>
+            <?php endforeach; ?>
+        </ul>
+
         <a href="../index.php" class="btn-back-home">Quay lại trang chủ</a>
     </div>
 </body>
