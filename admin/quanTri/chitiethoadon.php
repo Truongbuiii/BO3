@@ -87,6 +87,7 @@ $chiTietSanPham = $result_ct->fetch_all(MYSQLI_ASSOC);
     <div class="top-section">
         <div class="billed-to">
             <strong>Họ tên người nhận :</strong> <?= htmlspecialchars($hoaDon['NguoiNhanHang']) ?><br>
+             <strong>Số điện thoại : </strong><?= htmlspecialchars($hoaDon['SoDienThoai']) ?><br>
             <strong>Email : </strong><?= htmlspecialchars($hoaDon['Email']) ?><br>
             <strong>Địa chỉ : </strong><?= "{$hoaDon['DiaChiCuThe']}, {$hoaDon['PhuongXa']}, {$hoaDon['QuanHuyen']}, {$hoaDon['TPTinh']}" ?>
         </div>

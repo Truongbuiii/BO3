@@ -56,7 +56,7 @@ $whereSql = '';
 if (!empty($whereClauses)) {
     $whereSql = 'WHERE ' . implode(' AND ', $whereClauses);
 }
-$sql = "SELECT HD.MaHoaDon, HD.TenNguoiDung, HD.NguoiNhanHang, HD.TPTinh, HD.QuanHuyen, HD.PhuongXa, HD.DiaChiCuThe, HD.NgayGio, HD.Email, HD.TongTien, HD.TrangThai, HD.HinhThucThanhToan FROM HoaDon AS HD $whereSql LIMIT ? OFFSET ?";
+$sql = "SELECT HD.MaHoaDon, HD.TenNguoiDung, HD.NguoiNhanHang,HD.SoDienThoai ,HD.TPTinh, HD.QuanHuyen, HD.PhuongXa, HD.DiaChiCuThe, HD.NgayGio, HD.Email, HD.TongTien, HD.TrangThai, HD.HinhThucThanhToan FROM HoaDon AS HD $whereSql LIMIT ? OFFSET ?";
 $params[] = $limit;
 $params[] = $offset;
 $types .= 'ii';
@@ -164,115 +164,114 @@ $totalPages = ceil($totalRows / $limit);
         </form>
     </div>
 
-    <!-- Table Section -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <thead>
-        <tr>
-            <th>Mã đơn hàng</th>
-            <th>Tên Người nhận</th>
-            <th>Email</th>
-            <th>Thành phố/ Tỉnh</th>
-            <th>Quận / Huyện</th>
-            <th>Phường / Xã</th>
-            <th>Địa chỉ cụ thể</th>
-            <th>Ngày giờ</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th>Hình thức thanh toán</th>
-            <th>Chức năng</th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <th>Mã đơn hàng</th>
-            <th>Tên Người nhận</th>
-            <th>Email</th>
-            <th>Thành phố/ Tỉnh</th>
-            <th>Quận / Huyện</th>
-            <th>Phường / Xã</th>
-            <th>Địa chỉ cụ thể</th>
-            <th>Ngày giờ</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th>Hình thức thanh toán</th>
-            <th>Chức năng</th>
-        </tr>
-    </tfoot>
-    <tbody>
-        <?php
-        if ($result && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                // Xác định lớp CSS cho trạng thái dựa trên giá trị của nó
-                $statusClass = '';
-                switch ($row['TrangThai']) {
-                    case 'Chưa xác nhận':
-                        $statusClass = 'bg-secondary white'; // Màu xám nhạt
-                        break;
-                    case 'Đã xác nhận':
-                        $statusClass = 'bg-info text-white'; // Màu xanh dương
-                        break;
-                    case 'Đã giao thành công':
-                        $statusClass = 'bg-success text-white'; // Màu xanh lá
-                        break;
-                    case 'Đã hủy':
-                        $statusClass = 'bg-danger text-white'; // Màu đỏ
-                        break;
-                    default:
-                        $statusClass = 'bg-light text-dark'; // Màu mặc định nếu trạng thái không xác định
-                        break;
-                }
+ <!-- Table Section -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên Người nhận</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Quận / Huyện</th>
+                        <th>Phường / Xã</th>
+                        <th>Địa chỉ cụ thể</th>
+                        <th>Ngày giờ</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Hình thức thanh toán</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên Người nhận</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Quận / Huyện</th>
+                        <th>Phường / Xã</th>
+                        <th>Địa chỉ cụ thể</th>
+                        <th>Ngày giờ</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Hình thức thanh toán</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <?php
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            // Xác định lớp CSS cho trạng thái dựa trên giá trị của nó
+                            $statusClass = '';
+                            switch ($row['TrangThai']) {
+                                case 'Chưa xác nhận':
+                                    $statusClass = 'bg-secondary white'; // Màu xám nhạt
+                                    break;
+                                case 'Đã xác nhận':
+                                    $statusClass = 'bg-info text-white'; // Màu xanh dương
+                                    break;
+                                case 'Đã giao thành công':
+                                    $statusClass = 'bg-success text-white'; // Màu xanh lá
+                                    break;
+                                case 'Đã hủy':
+                                    $statusClass = 'bg-danger text-white'; // Màu đỏ
+                                    break;
+                                default:
+                                    $statusClass = 'bg-light text-dark'; // Màu mặc định nếu trạng thái không xác định
+                                    break;
+                            }
 
-                // In ra hàng với màu sắc trạng thái động
-                echo "<tr>
-    <td>{$row['MaHoaDon']}</td>
-    <td>{$row['NguoiNhanHang']}</td>
-    <td>{$row['Email']}</td>
-    <td>{$row['TPTinh']}</td>
-    <td>{$row['QuanHuyen']}</td>
-    <td>{$row['PhuongXa']}</td>
-    <td>{$row['DiaChiCuThe']}</td>
-    <td>{$row['NgayGio']}</td>
-    <td>" . number_format($row['TongTien'], 0, ',', '.') . " VND</td>
-    <td><span class='badge {$statusClass}'>{$row['TrangThai']}</span></td>
-    <td>{$row['HinhThucThanhToan']}</td>
-    <td>
-        <a href='suadonhang.php?mahoadon={$row['MaHoaDon']}' class='btn btn-warning btn-sm mb-1'>
-            <i class='fa fa-edit'></i> Sửa
-        </a>
-        <a href='chitiethoadon.php?MaHoaDon={$row['MaHoaDon']}' class='btn btn-info btn-sm'>
-            <i class='fa fa-eye'></i> Xem
-        </a>
-    </td>
-</tr>";
-;
-            }
-        }
-        ?>
-    </tbody>
-</table>
-<?php if ($totalPages > 1): ?>
-<nav>
-  <ul class="pagination justify-content-center">
-    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-        <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
-            <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>">
-                <?php echo $i; ?>
-            </a>
-        </li>
-    <?php endfor; ?>
-  </ul>
-</nav>
-<?php endif; ?>
-
-            </div>
+                            // In ra hàng với màu sắc trạng thái động
+                            echo "<tr>
+                                <td>{$row['MaHoaDon']}</td>
+                                <td>{$row['NguoiNhanHang']}</td>
+                                <td>{$row['Email']}</td>
+                                <td>{$row['SoDienThoai']}</td>
+                                <td>{$row['QuanHuyen']}</td>
+                                <td>{$row['PhuongXa']}</td>
+                                <td>{$row['DiaChiCuThe']}</td>
+                                <td>{$row['NgayGio']}</td>
+                                <td>" . number_format($row['TongTien'], 0, ',', '.') . " VND</td>
+                                <td><span class='badge {$statusClass}'>{$row['TrangThai']}</span></td>
+                                <td>{$row['HinhThucThanhToan']}</td>
+                                <td>
+                                    <a href='suadonhang.php?mahoadon={$row['MaHoaDon']}' class='btn btn-warning btn-sm mb-1'>
+                                        <i class='fa fa-edit'></i> Sửa
+                                    </a>
+                                    <a href='chitiethoadon.php?MaHoaDon={$row['MaHoaDon']}' class='btn btn-info btn-sm'>
+                                        <i class='fa fa-eye'></i> Xem
+                                    </a>
+                                </td>
+                            </tr>";
+                        }
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <?php if ($totalPages > 1): ?>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                            <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+                                <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>">
+                                    <?php echo $i; ?>
+                                </a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                </nav>
+            <?php endif; ?>
         </div>
     </div>
+</div>
+
 </div>
 
 <?php require('includes/footer.php'); ?>

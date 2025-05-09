@@ -5,6 +5,7 @@ require('./db/connect.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $maHD = mysqli_real_escape_string($conn, $_POST['MaHoaDon']);
     $nguoiNhan = mysqli_real_escape_string($conn, $_POST['NguoiNhanHang']);
+    $sodienthoai = mysqli_real_escape_string($conn, $_POST['SoDienThoai']);
     $email = mysqli_real_escape_string($conn, $_POST['Email']);
     $tpTinh = mysqli_real_escape_string($conn, $_POST['TPTinh']);
     $quanHuyen = mysqli_real_escape_string($conn, $_POST['QuanHuyen']);
@@ -40,15 +41,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Thực hiện cập nhật
         $sql = "UPDATE HoaDon SET 
-                    NguoiNhanHang='$nguoiNhan',
-                    Email='$email',
-                    TPTinh='$tpTinh',
-                    QuanHuyen='$quanHuyen',
-                    PhuongXa='$phuongXa',
-                    DiaChiCuThe='$diaChi',
-                    TrangThai='$trangThaiMoi',
-                    HinhThucThanhToan='$htThanhToan'
-                WHERE MaHoaDon='$maHD'";
+            NguoiNhanHang='$nguoiNhan',
+            SoDienThoai='$sodienthoai',
+            Email='$email',
+            TPTinh='$tpTinh',
+            QuanHuyen='$quanHuyen',
+            PhuongXa='$phuongXa',
+            DiaChiCuThe='$diaChi',
+            TrangThai='$trangThaiMoi',
+            HinhThucThanhToan='$htThanhToan'
+        WHERE MaHoaDon='$maHD'";
+
 
         if (mysqli_query($conn, $sql)) {
             header("Location: danhsachdonhang.php");
