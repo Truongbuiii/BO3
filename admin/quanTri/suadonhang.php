@@ -22,12 +22,23 @@ if (isset($_GET['mahoadon'])) {
 
 <div class="container mt-4">
     <h3>Chỉnh sửa thông tin đơn hàng</h3>
+    <div class="card shadow mb-4" style="border: 1px solid #ddd; padding: 20px;">
     <form method="POST" action="capnhatdonhang.php">
         <input type="hidden" name="MaHoaDon" value="<?php echo $row['MaHoaDon']; ?>">
 
         <div class="form-group">
+            <label>Mã đơn hàng</label>
+            <input type="text" class="form-control" value="<?php echo $row['MaHoaDon']; ?>" disabled>
+        </div>
+
+        <div class="form-group">
             <label>Người nhận hàng</label>
             <input type="text" name="NguoiNhanHang" class="form-control" value="<?php echo $row['NguoiNhanHang']; ?>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Số điện thoại</label>
+            <input type="text" name="SoDienThoai" class="form-control" value="<?php echo $row['SoDienThoai']; ?>" required>
         </div>
 
         <div class="form-group">
@@ -79,9 +90,32 @@ if (isset($_GET['mahoadon'])) {
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-        <a href="danhsachdonhang.php" class="btn btn-secondary">Quay lại</a>
+        <div class="d-flex justify-content-between">
+    <button type="submit" class="btn btn-secondary btn-lg btn-save">Lưu thay đổi</button>
+    <a href="danhsachdonhang.php" class="btn btn-secondary btn-lg btn-cancel">Quay lại</a>
+</div>
+<style> .btn-save {
+            background-color: #28a745; /* Xanh lá */
+            color: white;
+            border: none;
+        }
+
+        .btn-save:hover {
+            background-color: #218838;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545; /* Đỏ */
+            color: white;
+            border: none;
+        }
+
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }</style>
     </form>
+</div>
+
 </div>
 
 <script>

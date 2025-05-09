@@ -7,7 +7,7 @@ $start_date = $_GET['start_date'] . " 00:00:00";
 $end_date = $_GET['end_date'] . " 23:59:59";
 
 $query = "
-    SELECT HoaDon.MaHoaDon, HoaDon.NgayGio, HoaDon.TongTien, HoaDon.NguoiNhanHang
+    SELECT HoaDon.MaHoaDon, HoaDon.NgayGio, HoaDon.TongTien, HoaDon.NguoiNhanHang, HoaDon.SoDienThoai
     FROM HoaDon
     WHERE HoaDon.NguoiNhanHang = ? AND HoaDon.NgayGio BETWEEN ? AND ?
 ";

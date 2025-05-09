@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 // Kết nối CSDL
-$conn = new mysqli("localhost", "root", "", "tiemkem");
+$conn = new mysqli("localhost", "root", "", "b03db");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

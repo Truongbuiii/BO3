@@ -263,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
                   <ul class="navbar-nav ml-3">
     <li class="nav-item d-flex align-items-center">
         <!-- Icon người dùng -->
-        <a href="#" onclick="handleUserClick()">
+        <a href="user.php" onclick="handleUserClick()">
             <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
         </a>
 
@@ -289,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
 
     function handleUserClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
+            window.location.href = "includes/user.php"; // Chuyển tới trang thông tin người dùng
         } else {
             window.location.href = "login.php"; // Nếu chưa đăng nhập
         }
@@ -297,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
 
     function handleCartClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
+            window.location.href = "trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
         } else {
             alert("Bạn cần đăng nhập để xem giỏ hàng!");
             window.location.href = "login.php";
