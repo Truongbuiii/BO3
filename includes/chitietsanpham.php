@@ -1,7 +1,10 @@
 <?php
 session_start();
+<<<<<<< Updated upstream
 require_once __DIR__ . '/../kiemtradangnhap.php';
 require_once __DIR__ . '/../db/connect.php';
+=======
+>>>>>>> Stashed changes
 
 
 if (!isset($_GET['MaSanPham']) || empty($_GET['MaSanPham'])) {
