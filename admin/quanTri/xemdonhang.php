@@ -1,4 +1,3 @@
-
 <?php
 require 'includes/header.php';
 require './db/connect.php';
