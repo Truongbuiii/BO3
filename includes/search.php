@@ -6,11 +6,13 @@ require(__DIR__ . "/../db/connect.php");
 
 // Kết nối tới cơ sở dữ liệu
 $servername = "localhost";
-$username = "root"; // Sử dụng tên người dùng MySQL của bạn
-$password = ""; // Mật khẩu MySQL của bạn
-$dbname = "bo03db";
+$username = "root"; // Mặc định của XAMPP
+$password = ""; // XAMPP không có mật khẩu mặc định
+$dbname = "b03db";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Kết nối MySQL
+$conn =  mysqli_connect("localhost", "root","", "b03db");
+
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -127,30 +129,28 @@ $category_result = $conn->query($category_sql);
 
    </head>
    <body>
-      <div class="header_section header_bg">
-         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand"href="/index.php"><img src="/images/logo.png"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
-                     <li class="nav-item active">
-                        <a class="nav-link" href="/index.php">Trang chủ</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemLy.php">Kem Ly</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemOcQue.php">Kem Ốc Quế</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemQue.php">Kem Que</a>
-                     </li>
-                    
-                  </ul>
-                  <ul class="navbar-nav ml-3">
+     <div class="header_section header_bg">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a class="nav-link" href="/index.php">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kemLy.php">Kem ly</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kemOcQue.php">Kem ốc quế</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kemQue.php">Kem que</a></li>
+                </ul>
+                <form class="form-inline" action="search.php" method="GET">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm...">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+
+                <ul class="navbar-nav ml-3">
                     <li class="nav-item d-flex align-items-center">
                         <a href="#" onclick="handleUserClick()">
                             <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
@@ -166,21 +166,10 @@ $category_result = $conn->query($category_sql);
                         <?php endif; ?>
                     </li>
                 </ul>
-                  
-                  <form action="search.php" method="GET" class="form-inline my-2 my-lg-0">
-    <input type="text" name="search" class="form-control mr-sm-2" placeholder="Tìm theo tên sản phẩm" value="<?php echo htmlspecialchars($search); ?>" style="height: 38px;">
-    
-    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" style="height: 38px;">
-        <i class="fa fa-search" style="color: aliceblue;"></i>
-    </button>
-</form>
-<div class="login_bt"><a href="#"><i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 150%;"></i></a><i class="bi bi-bag-heart-fill custom-icon"></i>
-
             </div>
         </nav>
     </div>
 </div>
-
 <!-- Search Header -->
 <div class="search-header">
     <h2>Kết quả tìm kiếm:</h2>
