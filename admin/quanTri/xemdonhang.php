@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 7fcf67c7cc5e53bd5ffe7bc27a1a72d4fee0e843
 <?php
 require 'includes/header.php';
 require './db/connect.php';

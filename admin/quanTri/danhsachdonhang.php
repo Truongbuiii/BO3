@@ -238,7 +238,7 @@ $totalPages = ceil($totalRows / $limit);
     <td>{$row['PhuongXa']}</td>
     <td>{$row['DiaChiCuThe']}</td>
     <td>{$row['NgayGio']}</td>
-    <td>{$row['TongTien']}</td>
+    <td>" . number_format($row['TongTien'], 0, ',', '.') . " VND</td>
     <td><span class='badge {$statusClass}'>{$row['TrangThai']}</span></td>
     <td>{$row['HinhThucThanhToan']}</td>
     <td>
