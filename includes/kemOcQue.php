@@ -1,304 +1,144 @@
 <?php
+session_start(); // Khởi tạo session
 require_once __DIR__ . '/../kiemtradangnhap.php';
+require(__DIR__ . "/../db/connect.php");
 
+// Số sản phẩm mỗi trang
+$productsPerPage = 6;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $productsPerPage;
+
+// Tổng số sản phẩm
+$sqlCount = "SELECT COUNT(*) AS total FROM SanPham WHERE TinhTrang = 1 AND MaLoai = 'L01'";
+$resultCount = $conn->query($sqlCount);
+$rowCount = $resultCount->fetch_assoc();
+$totalProducts = $rowCount['total'];
+$totalPages = ceil($totalProducts / $productsPerPage);
+
+// Lấy danh sách sản phẩm
+$sql = "SELECT * FROM SanPham WHERE TinhTrang = 1 AND MaLoai = 'L01' LIMIT $offset, $productsPerPage";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>Kem Ốc Quế</title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-      <!-- style css -->
-      <link rel="stylesheet" type="text/css" href="/css/style.css">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="/css/responsive.css">
-      <!-- fevicon -->
-      <link rel="icon" href="/images/fevicon.png" type="image/gif" />
-      <!-- font css -->
-      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<head>
+    <meta charset="utf-8">
+    <title>Kem Óc Quế</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
 
-
-   </head>
-   
-
-   <body>
-    
-      <div class="header_section header_bg">
-         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand"href="/index.php"><img src="/images/logo.png"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
-
-                     <li class="nav-item active">
-                        <a class="nav-link" href="/index.php">Trang chủ</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemLy.php">Kem ly</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemOcQue.php">Kem ốc quế</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="kemQue.php">Kem que</a>
-                     </li>
-                     
-                  </ul>
-                  <li>
-                     <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
-                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
-                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+<!-- Header + Navbar -->
+<div class="header_section header_bg">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a class="nav-link" href="/index.php">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kemLy.php">Kem ly</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kemOcQue.php">Kem ốc quế</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kemQue.php">Kem que</a></li>
+                </ul>
+                <form class="form-inline" action="search.php" method="GET">
+                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm...">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                     </button>
-                  </form>
-                  </li>
-                  <ul class="navbar-nav">
+                    </button>
+                </form>
 
-                  <ul class="navbar-nav ml-3">
-    <li class="nav-item d-flex align-items-center">
-        <!-- Icon người dùng -->
-        <a href="#" onclick="handleUserClick()">
-            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
-        </a>
+                <ul class="navbar-nav ml-3">
+                    <li class="nav-item d-flex align-items-center">
+                        <a href="#" onclick="handleUserClick()">
+                            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
+                        </a>
+                        <a href="#" onclick="handleCartClick()">
+                            <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
+                        </a>
+                        <?php if (isset($_SESSION['username'])): ?>
+                            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
+                                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+                            </span>
+                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+                        <?php endif; ?>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
 
-        <!-- Icon giỏ hàng -->
-        <a href="#" onclick="handleCartClick()">
-            <i class="bi bi-bag-heart-fill custom-icon" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
-        </a>
-
-        <!-- Hiển thị tên và nút đăng xuất nếu đã đăng nhập -->
-        <?php if (isset($_SESSION['username'])): ?>
-            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
-                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
-            </span>
-            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
-        <?php endif; ?>
-    </li>
-</ul>
-
-<!-- Đặt đoạn script bên dưới, trước </body> hoặc ở cuối file -->
-<script>
-    // Kiểm tra trạng thái đăng nhập từ PHP
-    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
-
-    function handleUserClick() {
-        if (isLoggedIn) {
-            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
-        } else {
-            window.location.href = "login.php"; // Nếu chưa đăng nhập
-        }
-    }
-
-    function handleCartClick() {
-        if (isLoggedIn) {
-            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
-        } else {
-            alert("Bạn cần đăng nhập để xem giỏ hàng!");
-            window.location.href = "login.php";
-        }
-    }
-</script>
-
-               
-
-                  </form>
-               </div>
-            </nav>
-         </div>
-      <div class="cream_section layout_padding">
-         <div class="container">
-            <div class="row">
-                    <?php
-                    require(__DIR__ . "/../db/connect.php");
-
-                    // Số sản phẩm mỗi trang
-                    $productsPerPage = 6;
-
-                    // Lấy trang hiện tại từ URL (nếu không có thì mặc định là trang 1)
-                    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-                    $offset = ($page - 1) * $productsPerPage; // Tính offset để lấy sản phẩm từ đâu
-
-                    // Truy vấn tổng số sản phẩm
-                    $sqlCount = "SELECT COUNT(*) AS total FROM SanPham WHERE TinhTrang = 1 AND MaLoai = 'L01'";
-                    $resultCount = $conn->query($sqlCount);
-                    $rowCount = $resultCount->fetch_assoc();
-                    $totalProducts = $rowCount['total']; // Tổng số sản phẩm
-                    $totalPages = ceil($totalProducts / $productsPerPage); // Tổng số trang
-
-
-                    ?>
-                    <div class="cream_section layout_padding">
-                        <div class="container">
-                            <div class="row">
-                            
-                            </div>
-                            <div class="cream_section_2">
-                                <div class="row">
-                                <?php
-
-                    // Truy vấn sản phẩm có MaLoai = 'L01' 
-                    $sql = "SELECT * FROM SanPham WHERE TinhTrang = 1 AND MaLoai = 'L01' LIMIT $offset, $productsPerPage";
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<div class="col-md-4">
-                                    <div class="cream_box">
-                                        <div class="cream_img">
-                                            <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
-                                                <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '">
-                                            </a>
-                                        </div>
-                                        <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
-                                        <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
-                                        <div class="cart_bt">
-                                            <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">Xem chi tiết</a>
-                                        </div>
-                                    </div>
-                                </div>';
-                        }
-                    } else {
-                        echo "<p>Không có sản phẩm nào.</p>";
-                    }
-
-                    echo '<nav aria-label="Page navigation example">';
-                    echo '<ul class="pagination justify-content-center">';
-                    echo '<ul class="pagination justify-content-center pastel-pagination">';
-
-
-                    // Nút "Trang trước"
-                    if ($page > 1) {
-                        echo '<li class="page-item"><a class="page-link" href="kemOcQue.php?page=' . ($page - 1) . '">Trước</a></li>';
-                    } else {
-                        echo '<li class="page-item disabled"><span class="page-link">Trước</span></li>';
-                    }
-
-                    // Các nút số trang
-                    for ($i = 1; $i <= $totalPages; $i++) {
-                        if ($i == $page) {
-                            echo '<li class="page-item active"><span class="page-link">' . $i . '</span></li>';
-                        } else {
-                            echo '<li class="page-item"><a class="page-link" href="kemOcQue.php?page=' . $i . '">' . $i . '</a></li>';
-                        }
-                    }
-
-                    // Nút "Trang sau"
-                    if ($page < $totalPages) {
-                        echo '<li class="page-item"><a class="page-link" href="kemOcQue.php?page=' . ($page + 1) . '">Sau</a></li>';
-                    } else {
-                        echo '<li class="page-item disabled"><span class="page-link">Sau</span></li>';
-                    }
-
-                    echo '</ul>';
-                    echo '</nav>';
-
-
-                    ?>
-
+<!-- Danh sách sản phẩm -->
+<div class="cream_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <?php
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<div class="col-md-4">
+                            <div class="cream_box">
+                                <div class="cream_img">
+                                    <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
+                                        <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '">
+                                    </a>
+                                </div>
+                                <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
+                                <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
+                                <div class="cart_bt">
+                                    <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">Xem chi tiết</a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>';
+                }
+            } else {
+                echo "<p>Không có sản phẩm nào.</p>";
+            }
+            ?>
+        </div>
+    </div>
+</div>
 
-                    <?php $conn->close(); ?>
+<!-- Phân trang -->
+<div class="pagination-container" style="margin-top: 40px;">
+    <nav>
+        <ul class="pagination justify-content-center pastel-pagination">
+            <?php
+            if ($page > 1) {
+                echo '<li class="page-item"><a class="page-link" href="kemOcQue.php?page=' . ($page - 1) . '">Trước</a></li>';
+            } else {
+                echo '<li class="page-item disabled"><span class="page-link">Trước</span></li>';
+            }
 
-            </div></div></div></div></body>     
+            for ($i = 1; $i <= $totalPages; $i++) {
+                if ($i == $page) {
+                    echo '<li class="page-item active"><span class="page-link">' . $i . '</span></li>';
+                } else {
+                    echo '<li class="page-item"><a class="page-link" href="kemOCQue.php?page=' . $i . '">' . $i . '</a></li>';
+                }
+            }
 
- <style>
-   /* Phân trang pastel hồng nhẹ */
-.pastel-pagination .page-link {
-    color: #d63384;
-    background-color: #fff0f5;
-    border: 1px solid #f9c6d1;
-    border-radius: 8px;
-    margin: 0 4px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
+            if ($page < $totalPages) {
+                echo '<li class="page-item"><a class="page-link" href="kemOCQue.php?page=' . ($page + 1) . '">Sau</a></li>';
+            } else {
+                echo '<li class="page-item disabled"><span class="page-link">Sau</span></li>';
+            }
+            ?>
+        </ul>
+    </nav>
+</div>
 
-/* Hover effect */
-.pastel-pagination .page-link:hover {
-    background-color: #f9c6d1;
-    color: white;
-    border-color: #f9c6d1;
-}
-
-/* Trang đang chọn - chỉ đổi màu */
-.pastel-pagination .page-item.active .page-link {
-    background-color: #fc95c4;
-    color: white;
-    border-color: #fc95c4;
-}
-
-/* Trạng thái disabled */
-.pastel-pagination .page-item.disabled .page-link {
-    background-color: #fce4ec;
-    color: #d63384;
-    border-color: #fce4ec;
-}
+<!-- Liên hệ -->
+<div class="contact_section layout_padding">
     
-</style>
-    
-
-      <!-- testimonial section end -->
-      <!-- contact section start -->
-      <div class="contact_section layout_padding">
-    <div class="container-fluid"> <!-- Đổi container thành container-fluid -->
-             <div class="row">
-                 <div class="col-md-8">
-                     <div class="location_text">
-                         <ul>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                                     1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                     Call : +01 23456789
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                                     Email : BeYeukem1234@gmail.com
-                                 </a>
-                             </li>
-                         </ul>
-                     </div>
-                 </div>
-             </div>
-             <div class="footer_social_icon">
-                 <ul>
-                     <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                     <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                 </ul>
-             </div>
              <div class="copyright_section">
                <div class="container">
                   <p class="copyright_text">All Rights Reserved. Design by TiemKemF4</a></p>
@@ -314,6 +154,53 @@ require_once __DIR__ . '/../kiemtradangnhap.php';
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
-      <!-- javascript --> 
-   </body>
+
+<!-- Script điều hướng -->
+<script>
+    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+    function handleUserClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/userProfile.php";
+        } else {
+            window.location.href = "login.php";
+        }
+    }
+
+    function handleCartClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/trangGioHang.php";
+        } else {
+            alert("Bạn cần đăng nhập để xem giỏ hàng!");
+            window.location.href = "login.php";
+        }
+    }
+</script>
+
+<!-- CSS phân trang -->
+<style>
+.pastel-pagination .page-link {
+    color: #d63384;
+    background-color: #fff0f5;
+    border: 1px solid #f9c6d1;
+    border-radius: 8px;
+    margin: 0 4px;
+    font-weight: 500;
+}
+.pastel-pagination .page-link:hover {
+    background-color: #f9c6d1;
+    color: white;
+}
+.pastel-pagination .page-item.active .page-link {
+    background-color: #fc95c4;
+    color: white;
+}
+.pastel-pagination .page-item.disabled .page-link {
+    background-color: #fce4ec;
+    color: #d63384;
+}
+</style>
+
+</body>
 </html>
+
+<?php $conn->close(); ?>
