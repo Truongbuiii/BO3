@@ -33,7 +33,7 @@ if ($product['TinhTrang'] == 0) {
 // Xử lý thêm giỏ hàng
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham'])) {
    
-    if (!isset($_SESSION['TenNguoiDung'])) {
+    if (!isset($_SESSION['username'])) {
         echo "<script>alert('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!'); window.location.href = 'login.php';</script>";
         exit();
     }
