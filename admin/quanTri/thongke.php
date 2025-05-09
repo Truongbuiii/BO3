@@ -92,11 +92,26 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start_date']) && isset($
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <div class="text-center">
-            <p><strong>Tổng doanh thu: <?= number_format($total_revenue, 0, ',', '.') ?> VNĐ</strong></p>
-            <p><strong>Sản phẩm bán chạy nhất: <?= $best_selling['TenSanPham'] ?> (<?= number_format($best_selling['DoanhThu'], 0, ',', '.') ?> VNĐ)</strong></p>
-            <p><strong>Sản phẩm ế nhất: <?= $worst_selling['TenSanPham'] ?> (<?= number_format($worst_selling['DoanhThu'], 0, ',', '.') ?> VNĐ)</strong></p>
-        </div>
+       <div class="container-fluid">
+    <h5 class="text-center mt-4">Tổng Quan</h5>
+    <table class="table table-bordered text-center w-50 mx-auto">
+        <tbody>
+            <tr>
+                <th scope="row">Tổng doanh thu</th>
+                <td><?= number_format($total_revenue, 0, ',', '.') ?> VNĐ</td>
+            </tr>
+            <tr>
+                <th scope="row">Sản phẩm bán chạy nhất</th>
+                <td><?= htmlspecialchars($best_selling['TenSanPham']) ?> (<?= number_format($best_selling['DoanhThu'], 0, ',', '.') ?> VNĐ)</td>
+            </tr>
+            <tr>
+                <th scope="row">Sản phẩm bán chậm nhất</th>
+                <td><?= htmlspecialchars($worst_selling['TenSanPham']) ?> (<?= number_format($worst_selling['DoanhThu'], 0, ',', '.') ?> VNĐ)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
     </div>
 <?php endif; ?>
 

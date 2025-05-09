@@ -2,8 +2,6 @@
 require('includes/header.php');
 require("./db/connect.php");
 
-
-
 // Khởi tạo các biến lọc
 $startDate = $_GET['start-date'] ?? '';
 $endDate = $_GET['end-date'] ?? '';
@@ -12,61 +10,79 @@ $tinh = $_GET['tinh'] ?? '';
 $quan = $_GET['quan'] ?? '';
 $phuong = $_GET['phuong'] ?? '';
 
-// Xây dựng mảng điều kiện lọc và giá trị tương ứng
+$types = '';
 $whereClauses = [];
 $params = [];
 
+// Xử lý điều kiện lọc
 if (!empty($startDate)) {
     $whereClauses[] = "HD.NgayGio >= ?";
     $params[] = $startDate;
+    $types .= 's';
 }
 if (!empty($endDate)) {
     $whereClauses[] = "HD.NgayGio <= ?";
     $params[] = $endDate;
+    $types .= 's';
 }
 if (!empty($tinhTrang)) {
     $whereClauses[] = "HD.TrangThai = ?";
     $params[] = $tinhTrang;
+    $types .= 's';
 }
 if (!empty($tinh)) {
     $whereClauses[] = "HD.TPTinh = ?";
     $params[] = $tinh;
+    $types .= 's';
 }
 if (!empty($quan)) {
     $whereClauses[] = "HD.QuanHuyen = ?";
     $params[] = $quan;
+    $types .= 's';
 }
 if (!empty($phuong)) {
     $whereClauses[] = "HD.PhuongXa = ?";
     $params[] = $phuong;
+    $types .= 's';
 }
 
-// Kết hợp điều kiện WHERE
+// Phân trang
+$limit = 10;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+
+// Truy vấn chính
 $whereSql = '';
 if (!empty($whereClauses)) {
     $whereSql = 'WHERE ' . implode(' AND ', $whereClauses);
 }
-
-// Câu truy vấn
-$sql = "SELECT HD.MaHoaDon, HD.TenNguoiDung, HD.NguoiNhanHang, HD.TPTinh, HD.QuanHuyen, HD.PhuongXa, HD.DiaChiCuThe, HD.NgayGio, HD.Email, HD.TongTien, HD.TrangThai, HD.HinhThucThanhToan FROM HoaDon AS HD $whereSql";
+$sql = "SELECT HD.MaHoaDon, HD.TenNguoiDung, HD.NguoiNhanHang, HD.TPTinh, HD.QuanHuyen, HD.PhuongXa, HD.DiaChiCuThe, HD.NgayGio, HD.Email, HD.TongTien, HD.TrangThai, HD.HinhThucThanhToan FROM HoaDon AS HD $whereSql LIMIT ? OFFSET ?";
+$params[] = $limit;
+$params[] = $offset;
+$types .= 'ii';
 
 // Chuẩn bị truy vấn
 $stmt = mysqli_prepare($conn, $sql);
-
-// Gán các giá trị nếu có điều kiện
-if (!empty($params)) {
-    // Tạo kiểu dữ liệu cho bind_param
-    $types = str_repeat('s', count($params)); // tất cả là chuỗi
-    mysqli_stmt_bind_param($stmt, $types, ...$params);
-}
-
-// Thực thi truy vấn
+mysqli_stmt_bind_param($stmt, $types, ...$params);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
-
 if (!$result) {
     die("Lỗi truy vấn: " . mysqli_error($conn));
 }
+
+// Truy vấn đếm tổng số bản ghi (cho phân trang)
+$countSql = "SELECT COUNT(*) AS total FROM HoaDon AS HD $whereSql";
+$countStmt = mysqli_prepare($conn, $countSql);
+if (!empty($whereClauses)) {
+    // Sử dụng lại params ban đầu (trừ 2 phần tử LIMIT, OFFSET)
+    $countParams = array_slice($params, 0, -2);
+    $countTypes = substr($types, 0, -2);
+    mysqli_stmt_bind_param($countStmt, $countTypes, ...$countParams);
+}
+mysqli_stmt_execute($countStmt);
+$countResult = mysqli_stmt_get_result($countStmt);
+$totalRows = mysqli_fetch_assoc($countResult)['total'];
+$totalPages = ceil($totalRows / $limit);
 ?>
 
 
@@ -94,7 +110,7 @@ if (!$result) {
                     <option value="Chưa xác nhận" <?php echo $tinhTrang == 'Chưa xác nhận' ? 'selected' : ''; ?>>Chưa xác nhận</option>
                     <option value="Đã xác nhận" <?php echo $tinhTrang == 'Đã xác nhận' ? 'selected' : ''; ?>>Đã xác nhận</option>
                     <option value="Đã giao thành công" <?php echo $tinhTrang == 'Đã giao thành công' ? 'selected' : ''; ?>>Đã giao thành công</option>
-                    <option value="Đã  huỷ" <?php echo $tinhTrang == 'Đã huỷ' ? 'selected' : ''; ?>>Đã huỷ</option>
+                    <option value="Đã huỷ" <?php echo $tinhTrang == 'Đã huỷ' ? 'selected' : ''; ?>>Đã huỷ</option>
                 </select>
             </div>
 
@@ -240,6 +256,19 @@ if (!$result) {
         ?>
     </tbody>
 </table>
+<?php if ($totalPages > 1): ?>
+<nav>
+  <ul class="pagination justify-content-center">
+    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+            <a class="page-link" href="?<?php echo http_build_query(array_merge($_GET, ['page' => $i])); ?>">
+                <?php echo $i; ?>
+            </a>
+        </li>
+    <?php endfor; ?>
+  </ul>
+</nav>
+<?php endif; ?>
 
             </div>
         </div>
