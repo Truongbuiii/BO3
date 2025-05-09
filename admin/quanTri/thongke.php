@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start_date']) && isset($
                         <td><?= htmlspecialchars($product['TenSanPham']) ?></td>
                         <td><?= htmlspecialchars($product['SoLuongBan']) ?></td>
                         <td><?= number_format($product['DoanhThu'], 0, ',', '.') ?> VNĐ</td>
-                        <td><a class="btn" href="xemdonhangtheomathang.php?MaSanPham=<?= urlencode($product['MaSanPham']) ?>">Xem hóa đơn</a></td>
+                        <td><a class="btn btn-outline-primary" href="xemdonhangtheomathang.php?MaSanPham=<?= urlencode($product['MaSanPham']) ?>">Xem hóa đơn</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start_date']) && isset($
                         <td><?= htmlspecialchars($customer['NguoiNhanHang']) ?></td>
                         <td><?= number_format($customer['TongChiTieu'], 0, ',', '.') ?> VNĐ</td>
                         <td>
-                            <a class="btn" href="xemdonhang.php?tennguoidung=<?= urlencode($customer['NguoiNhanHang']) ?>&start_date=<?= urlencode($_GET['start_date']) ?>&end_date=<?= urlencode($_GET['end_date']) ?>">
+                            <a class="btn btn-outline-primary" href="xemdonhang.php?tennguoidung=<?= urlencode($customer['NguoiNhanHang']) ?>&start_date=<?= urlencode($_GET['start_date']) ?>&end_date=<?= urlencode($_GET['end_date']) ?>">
                                 Xem hóa đơn
                             </a>
                         </td>
