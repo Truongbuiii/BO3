@@ -1,15 +1,14 @@
 <?php
 require 'includes/header.php';
-require './db/connect.php'; // Kết nối cơ sở dữ liệu
+require './db/connect.php';
 
 $start_date = $end_date = "";
 $top_products = [];
 $top_customers = [];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy khoảng thời gian từ form
-    $start_date = $_POST['start_date'] . " 00:00:00";
-    $end_date = $_POST['end_date'] . " 23:59:59";
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start_date']) && isset($_GET['end_date'])) {
+    $start_date = $_GET['start_date'] . " 00:00:00";
+    $end_date = $_GET['end_date'] . " 23:59:59";
 
     // Thống kê theo mặt hàng
     $query_products = "
@@ -22,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ORDER BY DoanhThu DESC
     ";
 
-    // Thống kê theo khách hàng
     $query_customers = "
         SELECT HoaDon.Email, HoaDon.NguoiNhanHang, SUM(ChiTietHoaDon.SoLuong * ChiTietHoaDon.DonGia) AS TongChiTieu
         FROM HoaDon
@@ -33,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         LIMIT 5
     ";
 
-    // Thực thi truy vấn cho mặt hàng
     $stmt_products = $conn->prepare($query_products);
     $stmt_products->bind_param("ss", $start_date, $end_date);
     $stmt_products->execute();
@@ -42,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $top_products[] = $row;
     }
 
-    // Thực thi truy vấn cho khách hàng
     $stmt_customers = $conn->prepare($query_customers);
     $stmt_customers->bind_param("ss", $start_date, $end_date);
     $stmt_customers->execute();
@@ -53,23 +49,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!-- Form lọc -->
 <div class="container-fluid">
-    <form method="POST" class="user text-center">
+    <form method="GET" class="user text-center">
         <div class="form-group">
             <label>Từ ngày:</label>
-            <input type="date" name="start_date" class="form-control" required>
+            <input type="date" name="start_date" class="form-control" value="<?= isset($_GET['start_date']) ? htmlspecialchars($_GET['start_date']) : '' ?>" required>
         </div>
         <div class="form-group">
             <label>Đến ngày:</label>
-            <input type="date" name="end_date" class="form-control" required>
+            <input type="date" name="end_date" class="form-control" value="<?= isset($_GET['end_date']) ? htmlspecialchars($_GET['end_date']) : '' ?>" required>
         </div>
         <button type="submit" class="btn btn-primary">Thống kê</button>
     </form>
 </div>
-  
 
-<!-- Thống kê theo mặt hàng -->
 <?php if (!empty($top_products)): ?>
     <div class="container-fluid">
         <h3 class="text-center mt-4">Thống kê Mặt Hàng</h3>
@@ -122,7 +115,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 <?php endif; ?>
 
-<!-- Thống kê theo khách hàng -->
 <?php if (!empty($top_customers)): ?>
     <div class="container-fluid">
         <h3 class="text-center mt-4">Top 5 Khách Hàng Chi Tiêu Nhiều Nhất</h3>
@@ -141,7 +133,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td><?= htmlspecialchars($customer['Email']) ?></td>
                         <td><?= htmlspecialchars($customer['NguoiNhanHang']) ?></td>
                         <td><?= number_format($customer['TongChiTieu'], 0, ',', '.') ?> VNĐ</td>
-                        <td><a class="btn" href="xemdonhang.php?tennguoidung=<?= urlencode($customer['NguoiNhanHang']) ?>&start_date=<?= urlencode($_POST['start_date']) ?>&end_date=<?= urlencode($_POST['end_date']) ?>">Xem hóa đơn</a></td>
+                        <td>
+                            <a class="btn" href="xemdonhang.php?tennguoidung=<?= urlencode($customer['NguoiNhanHang']) ?>&start_date=<?= urlencode($_GET['start_date']) ?>&end_date=<?= urlencode($_GET['end_date']) ?>">
+                                Xem hóa đơn
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
