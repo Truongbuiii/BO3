@@ -283,6 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
         </div>
     </div>  
 </div>
+</div>
 
 <script>
     const menuItems = document.querySelectorAll(".menu-item");

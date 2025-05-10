@@ -30,11 +30,7 @@ if (!empty($tinhTrang)) {
     $params[] = $tinhTrang;
     $types .= 's';
 }
-if (!empty($tinh)) {
-    $whereClauses[] = "HD.TPTinh = ?";
-    $params[] = $tinh;
-    $types .= 's';
-}
+
 if (!empty($quan)) {
     $whereClauses[] = "HD.QuanHuyen = ?";
     $params[] = $quan;
@@ -90,9 +86,11 @@ $totalPages = ceil($totalRows / $limit);
 <div class="container mt-4">
     <h3 class="text-center mb-4">Trang danh sách đơn hàng</h3>
 
-    <!-- Filter Section -->
-    <div class="filter-form mb-4">
-        <form action="danhsachdonhang.php" method="GET" class="d-flex justify-content-between">
+   <!-- Filter Section -->
+<div class="filter-form mb-4">
+    <form action="danhsachdonhang.php" method="GET" class="d-flex flex-column">
+        <!-- Time and Status Filters (Top) -->
+        <div class="d-flex justify-content-between mb-3">
             <div class="d-flex">
                 <div class="filter">
                     <label for="start-date">Từ ngày:</label>
@@ -113,37 +111,31 @@ $totalPages = ceil($totalRows / $limit);
                     <option value="Đã huỷ" <?php echo $tinhTrang == 'Đã huỷ' ? 'selected' : ''; ?>>Đã huỷ</option>
                 </select>
             </div>
+        </div>
 
-            <!-- Thành phố, Quận, Phường -->
-            <div class="filter">
-                <label for="tinh">Thành phố:</label>
-                <select id="tinh" name="tinh" class="form-control">
-                    <option value="" disabled selected>-- Chọn thành phố --</option>
-                    <!-- Thêm các thành phố khác nếu cần -->
-                </select>
-            </div>
-
+        <!-- District and Ward Filters (Bottom) -->
+        <div class="d-flex justify-content-between mb-3">
             <div class="filter">
                 <label for="quan">Quận/Huyện:</label>
                 <select id="quan" name="quan" class="form-control">
-        <option value="">-- Chọn quận/huyện --</option>
-        <option value="Quận 1">Quận 1</option>
-        <option value="Quận 2">Quận 2</option>   
-        <option value="Quận 3">Quận 3</option>
-        <option value="Quận 4">Quận 4</option>
-        <option value="Quận 5">Quận 5</option>
-        <option value="Quận 6">Quận 6</option>
-        <option value="Quận 7">Quận 7</option>
-        <option value="Quận 8">Quận 8</option>
-        <option value="Quận 9">Quận 9</option>
-        <option value="Quận 10">Quận 10</option>
-        <option value="Quận 11">Quận 11</option>
-        <option value="Quận Bình Thạnh">Bình Thạnh</option>
-        <option value="Quận Phú Nhuận">Phú Nhuận</option>
-        <option value="Quận Tân Bình">Tân Bình</option>
-        <option value="Quận Bình Tân">Bình Tân</option>
-        <option value="Thành phố Thủ Đức">Thủ Đức</option>
-        <option value="Huyện Nhà Bè">Huyện Nhà Bè</option>
+                    <option value="">-- Chọn quận/huyện --</option>
+                    <option value="Quận 1">Quận 1</option>
+                    <option value="Quận 2">Quận 2</option>   
+                    <option value="Quận 3">Quận 3</option>
+                    <option value="Quận 4">Quận 4</option>
+                    <option value="Quận 5">Quận 5</option>
+                    <option value="Quận 6">Quận 6</option>
+                    <option value="Quận 7">Quận 7</option>
+                    <option value="Quận 8">Quận 8</option>
+                    <option value="Quận 10">Quận 10</option>
+                    <option value="Quận 11">Quận 11</option>
+                    <option value="Quận 12">Quận 12</option>
+                    <option value="Quận Bình Thạnh">Bình Thạnh</option>
+                    <option value="Quận Phú Nhuận">Quận Phú Nhuận</option>
+                    <option value="Quận Tân Bình">Quận Tân Bình</option>
+                    <option value="Quận Bình Tân">Quận Bình Tân</option>
+                    <option value="Thành phố Thủ Đức">Thành phố Thủ Đức</option>
+                    <option value="Huyện Nhà Bè">Huyện Nhà Bè</option>
                 </select>
             </div>
 
@@ -154,15 +146,16 @@ $totalPages = ceil($totalRows / $limit);
                     <!-- Thêm các phường/xã tùy theo quận đã chọn -->
                 </select>
             </div>
+        </div>
 
-         <div class="filter-button d-flex justify-content-start gap-3 mt-3">
-    <button class="btn btn-primary btn-lg px-4" type="submit">Lọc</button>
-    <a href="danhsachdonhang.php" class="btn btn-danger btn-lg px-4">Hủy lọc</a>
+        <!-- Filter Buttons -->
+        <div class="filter-button d-flex justify-content-start gap-3 mt-3">
+            <button class="btn btn-secondary btn-lg btn-save" type="submit">Lọc</button>
+            <a href="danhsachdonhang.php" class="btn btn-secondary btn-lg btn-cancel">Hủy lọc</a>
+        </div>
+    </form>
 </div>
 
-
-        </form>
-    </div>
 
  <!-- Table Section -->
 <div class="card shadow mb-4">
@@ -280,23 +273,25 @@ $totalPages = ceil($totalRows / $limit);
 <!-- JavaScript for Dynamic Dropdowns -->
 <script>
 const data = {
-        "Quận 1": ["Phường Cầu Kho","Phường Bến Nghé", "Phường Bến Thành", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Thái Bình"],
-        "Quận 2":["Phường An Phú","Phường Tân Bình","Phường Tân Phú"],
-        "Quận 3": ["Phường Võ Thị Sáu", "Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7","Phường 14"],
-        "Quận 4":["Phường 10","Phường 11","Phường 12","Phường 13"],
-        "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 8"],
-        "Quận 6": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10"],
-        "Quận 7": ["Phường Tân Thuận Tây","Phường Tân Phong", "Phường Tân Hưng", "Phường Bình Thuận", "Phường Phú Mỹ", "Phường Tân Kiểng", "Phường Tân Quy", "Phường Tân Phú"],
-        "Quận 8":["Phường 11","Phường 15"],
-        "Quận 9":["Phường Hiệp Phú","Phường Hiệp Bình Chánh","Phường Long Trường"],
-        "Quận 10": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8","Phường 9"],
-        "Quận 11": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 16", "Phường 7"],
-        "Quận Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 25", "Phường 6", "Phường 7", "Phường 8"],
-        "Quận Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7"],
-        "Thành phố Thủ Đức": ["Phường Bình Chiểu", "Phường Bình Thọ", "Phường Hiệp Bình Chánh", "Phường Hiệp Phú", "Phường Linh Trung", "Phường Linh Đông"],
-        "Quận Bình Tân": ["Phường Bình Hưng Hòa", "Phường Bình Trị Đông", "Phường Tân Tạo", "Phường An Lạc", "Phường Bình Hưng Hòa A", "Phường Bình Hưng Hòa B"],
-        "Huyện Nhà Bè": ["Xã Phước Kiển", "Xã Hiệp Phước", "Xã Long Thới", "Xã Nhơn Đức"],
-        "Quận Phú Nhuận":["Phường 9"]
+    "Quận 1": ["Phường Tân Định", "Phường Đa Kao", "Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Cư Trinh", "Phường Phạm Ngũ Lão", "Phường Cầu Kho"],
+    "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường Võ Thị Sáu"],
+    "Quận 4": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 6", "Phường 8", "Phường 9", "Phường 10", "Phường 13", "Phường 14", "Phường 15", "Phường 16", "Phường 18"],
+    "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14"],
+    "Quận 6": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14"],
+    "Quận 7": ["Phường Tân Thuận Đông", "Phường Tân Thuận Tây", "Phường Tân Kiểng", "Phường Tân Hưng", "Phường Tân Phong", "Phường Tân Phú", "Phường Phú Mỹ", "Phường Phú Thuận", "Phường Bình Thuận", "Phường Tân Quy"],
+    "Quận 8": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16"],
+    "Quận 10": ["Phường 1", "Phường 2", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
+    "Quận 11": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16"],
+    "Quận 12": ["Phường An Phú Đông", "Phường Đông Hưng Thuận", "Phường Hiệp Thành", "Phường Tân Chánh Hiệp", "Phường Tân Hưng Thuận", "Phường Tân Thới Hiệp", "Phường Tân Thới Nhất", "Phường Thạnh Lộc", "Phường Thạnh Xuân", "Phường Thới An", "Phường Trung Mỹ Tây"],
+    "Quận Bình Tân": ["Phường An Lạc", "Phường An Lạc A", "Phường Bình Hưng Hòa", "Phường Bình Hưng Hòa A", "Phường Bình Hưng Hòa B", "Phường Bình Trị Đông", "Phường Bình Trị Đông A", "Phường Bình Trị Đông B", "Phường Tân Tạo", "Phường Tân Tạo A"],
+    "Quận Bình Thạnh": ["Phường 1", "Phường 2", "Phường 3", "Phường 5", "Phường 6", "Phường 7", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 17", "Phường 19", "Phường 21", "Phường 22", "Phường 24", "Phường 25", "Phường 26", "Phường 27", "Phường 28"],
+    "Quận Gò Vấp": ["Phường 1", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15", "Phường 16", "Phường 17"],
+    "Quận Phú Nhuận": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 13", "Phường 15", "Phường 17"],
+    "Quận Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
+    "Quận Tân Phú": ["Phường Hiệp Tân", "Phường Hòa Thạnh", "Phường Phú Thạnh", "Phường Phú Thọ Hòa", "Phường Phú Trung", "Phường Sơn Kỳ", "Phường Tân Quý", "Phường Tân Sơn Nhì", "Phường Tân Thành", "Phường Tây Thạnh"],
+    "Thành phố Thủ Đức": ["Phường Hiệp Bình Chánh", "Phường Hiệp Bình Phước", "Phường Linh Chiểu", "Phường Linh Đông", "Phường Linh Tây", "Phường Linh Trung", "Phường Linh Xuân", "Phường Bình Chiểu", "Phường Bình Thọ", "Phường Tam Bình", "Phường Tam Phú", "Phường Trường Thọ", "Phường Bình An", "Phường Bình Trưng Đông", "Phường Bình Trưng Tây", "Phường Cát Lái", "Phường Thảo Điền", "Phường An Khánh", "Phường An Phú", "Phường Phước Long A", "Phường Phước Long B", "Phường Tăng Nhơn Phú A", "Phường Tăng Nhơn Phú B", "Phường Phước Bình", "Phường Tân Phú", "Phường Trường Thạnh", "Phường Long Thạnh Mỹ", "Phường Long Phước", "Phường Long Trường", "Phường Phú Hữu", "Phường Thạnh Mỹ Lợi", "Phường Thủ Thiêm"],
+    "Huyện Nhà Bè": ["Xã Phước Kiển", "Xã Hiệp Phước", "Xã Long Thới", "Xã Nhơn Đức"],
+    "Quận Phú Nhuận": ["Phường 9"]
 };
 
 document.getElementById('quan').addEventListener('change', function() {
@@ -351,6 +346,26 @@ function editUser(TenNguoiDung, HoTen, Email, MatKhau, SoDienThoai, VaiTro, Tinh
 
 <!-- CSS Giao diện -->
 <style>
+     .btn-save {
+            background-color: #28a745; /* Xanh lá */
+            color: white;
+            border: none;
+            width:13%;
+        }
+
+        .btn-save:hover {
+            background-color: #218838;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545; /* Đỏ */
+            color: white;
+            border: none;
+        }
+
+        .btn-cancel:hover {
+            background-color: #c82333;
+        }
 /* Form Lọc */
 .filter-form {
     background-color: #f8f9fa;
