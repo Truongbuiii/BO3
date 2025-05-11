@@ -58,10 +58,10 @@ $result = $conn->query($sql);
 
                 <ul class="navbar-nav ml-3">
                     <li class="nav-item d-flex align-items-center">
-                        <a href="#" onclick="handleUserClick()">
+                        <a href="user.php" onclick="handleUserClick()">
                             <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
                         </a>
-                        <a href="#" onclick="handleCartClick()">
+                        <a href="trangGioHang.php" onclick="handleCartClick()">
                             <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
                         </a>
                         <?php if (isset($_SESSION['username'])): ?>
