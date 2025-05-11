@@ -156,7 +156,7 @@ if ($result->num_rows > 0) {
       <div class="header_section">
          <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand"href="/index.php"><img src="/images/logo.png"></a>
+               <a class="navbar-brand"href="/index.php"><img src=></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
                </button>
@@ -186,21 +186,24 @@ if ($result->num_rows > 0) {
                      </form>
                   </li>
                   <ul class="navbar-nav ml-3">
-                    <li class="nav-item d-flex align-items-center">
-                        <a href="user.php" onclick="handleUserClick()">
-                            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
-                        </a>
-                        <a href="trangGioHang.php" onclick="handleCartClick()">
-                            <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
-                        </a>
-                        <?php if (isset($_SESSION['username'])): ?>
-                            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
-                                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
-                            </span>
-                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
-                        <?php endif; ?>
-                    </li>
-                </ul>
+    <li class="nav-item d-flex align-items-center">
+        <a href="#" onclick="handleUserClick()" class="mr-3">
+            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%;"></i>
+        </a>
+        <a href="#" onclick="handleCartClick()" class="mr-3">
+            <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%;"></i>
+        </a>
+        <?php if (isset($_SESSION['username'])): ?>
+            <div class="d-flex flex-column align-items-start ml-2">
+                <span style="color: #fc95c4; font-weight: bold;">
+                    Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+                </span>
+                <a href="logout.php" class="btn btn-outline-danger btn-sm mt-1">Đăng xuất</a>
+            </div>
+        <?php endif; ?>
+    </li>
+</ul>
+
                </div>
             </nav>
          </div>
