@@ -35,7 +35,13 @@ if ($result->num_rows > 0) {
 }
 
 // Truy vấn chi tiết sản phẩm trong đơn hàng từ bảng ChiTietHoaDon
-$sql_ct = "SELECT * FROM ChiTietHoaDon WHERE MaHoaDon = ?";
+$sql_ct = "SELECT cthd.SoLuong, cthd.DonGia, sp.TenSanPham 
+           FROM ChiTietHoaDon cthd 
+           JOIN SanPham sp ON cthd.MaSanPham = sp.MaSanPham 
+           WHERE cthd.MaHoaDon = ?";
+
+
+
 $stmt_ct = $conn->prepare($sql_ct);
 $stmt_ct->bind_param("s", $maHoaDon);
 $stmt_ct->execute();
@@ -134,12 +140,16 @@ if ($result_ct->num_rows > 0) {
         <!-- Danh sách sản phẩm trong đơn -->
         <h5>Chi tiết đơn hàng:</h5>
         <ul class="list-group">
-            <?php foreach ($order_details as $item): ?>
-                <li class="list-group-item">
-                    <strong><?php echo $item['MaSanPham']; ?></strong> - <?php echo $item['SoLuong']; ?> x <?php echo number_format($item['DonGia'], 2, ',', '.'); ?> VNĐ
-                </li>
-            <?php endforeach; ?>
-        </ul>
+    <?php foreach ($order_details as $item): ?>
+        <li class="list-group-item">
+            <strong><?php echo $item['TenSanPham']; ?></strong> - 
+            <?php echo $item['SoLuong']; ?> x 
+            <?php echo number_format($item['DonGia'], 2, ',', '.'); ?> VNĐ
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+
 
         <a href="../index.php" class="btn-back-home">Quay lại trang chủ</a>
     </div>
