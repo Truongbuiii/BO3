@@ -232,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
 
          <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
+               <a class="navbar-brand" href="/index.php"><img src=></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
                </button>
@@ -262,25 +262,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
                   <ul class="navbar-nav">
                   <ul class="navbar-nav ml-3">
     <li class="nav-item d-flex align-items-center">
-        <!-- Icon người dùng -->
-        <a href="user.php" onclick="handleUserClick()">
-            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+        <a href="user.php" onclick="handleUserClick()" class="mr-3">
+            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%;"></i>
         </a>
-
-        <!-- Icon giỏ hàng -->
-        <a href="#" onclick="handleCartClick()">
-            <i class="bi bi-bag-heart-fill custom-icon" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
+        <a href="trangGioHang.php" onclick="handleCartClick()" class="mr-3">
+            <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%;"></i>
         </a>
-
-        <!-- Hiển thị tên và nút đăng xuất nếu đã đăng nhập -->
         <?php if (isset($_SESSION['username'])): ?>
-            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
-                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
-            </span>
-            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+            <div class="d-flex flex-column align-items-start ml-2">
+                <span style="color: #fc95c4; font-weight: bold;">
+                    Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+                </span>
+                <a href="logout.php" class="btn btn-outline-danger btn-sm mt-1">Đăng xuất</a>
+            </div>
         <?php endif; ?>
     </li>
 </ul>
+
 
 <!-- Đặt đoạn script bên dưới, trước </body> hoặc ở cuối file -->
 <script>
