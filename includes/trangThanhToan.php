@@ -187,10 +187,10 @@ if ($result->num_rows > 0) {
                   </li>
                   <ul class="navbar-nav ml-3">
     <li class="nav-item d-flex align-items-center">
-        <a href="#" onclick="handleUserClick()" class="mr-3">
+        <a href="user.php" onclick="handleUserClick()" class="mr-3">
             <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%;"></i>
         </a>
-        <a href="#" onclick="handleCartClick()" class="mr-3">
+        <a href="trangGioHang.php" onclick="handleCartClick()" class="mr-3">
             <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%;"></i>
         </a>
         <?php if (isset($_SESSION['username'])): ?>
