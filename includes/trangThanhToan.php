@@ -1,11 +1,8 @@
-
 <?php
-session_start(); // Khởi tạo session
-
+session_start();
 require(__DIR__ . "/../db/connect.php");
 
-
-// Kiểm tra nếu giỏ hàng trống thì chuyển hướng về trang chủ
+// Kiểm tra giỏ hàng
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     echo "<script>alert('Không có sản phẩm để thanh toán!'); window.location.href = '/index.php';</script>";
     exit();
@@ -17,7 +14,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-// Lấy thông tin người dùng từ database
+// Lấy thông tin người dùng
 $username = $_SESSION['username'];
 $sql = "SELECT HoTen, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe FROM NguoiDung WHERE TenNguoiDung = ?";
 $stmt = $conn->prepare($sql);
@@ -25,13 +22,66 @@ $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if ($result->num_rows > 0) {
-    $userData = $result->fetch_assoc();
-} else {
+if ($result->num_rows === 0) {
     echo "<script>alert('Không tìm thấy thông tin người dùng!'); window.location.href = '/index.php';</script>";
     exit();
 }
+$user = $result->fetch_assoc();
+
+// Tính tổng tiền
+$tongTien = 0;
+foreach ($_SESSION['cart'] as $item) {
+    $tongTien += $item['DonGia'] * $item['SoLuong'];
+}
+
+// Tạo mã hóa đơn (ví dụ: HD001, HD002...)
+$maHoaDon = "HD" . str_pad(rand(1, 99999), 5, "0", STR_PAD_LEFT);
+
+// Thêm vào bảng HoaDon
+$sqlHD = "INSERT INTO HoaDon (
+    MaHoaDon, NguoiNhanHang, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe,
+    TongTien, HinhThucThanhToan, TenNguoiDung
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+$stmtHD = $conn->prepare($sqlHD);
+$hinhThuc = "Tiền mặt"; // Hoặc lấy từ form nếu có
+$stmtHD->bind_param("sssssssssss",
+    $maHoaDon,
+    $user['HoTen'],
+    $user['Email'],
+    $user['SoDienThoai'],
+    $user['TPTinh'],
+    $user['QuanHuyen'],
+    $user['PhuongXa'],
+    $user['DiaChiCuThe'],
+    $tongTien,
+    $hinhThuc,
+    $username
+);
+
+$luuThanhCong = $stmtHD->execute();
+
+if ($luuThanhCong) {
+    // Lưu chi tiết hóa đơn
+    $sqlCT = "INSERT INTO ChiTietHoaDon (MaHoaDon, MaSanPham, SoLuong, DonGia) VALUES (?, ?, ?, ?)";
+    $stmtCT = $conn->prepare($sqlCT);
+
+    foreach ($_SESSION['cart'] as $item) {
+        $stmtCT->bind_param("ssid", $maHoaDon, $item['ma'], $item['soluong'], $item['gia']);
+        $stmtCT->execute();
+    }
+
+    // Xóa giỏ hàng
+    unset($_SESSION['cart']);
+
+    // Chuyển hướng
+    header("Location: trangHoanTatDonHang.php?maHoaDon=" . urlencode($maHoaDon));
+    exit();
+} else {
+    echo "Lỗi khi lưu hóa đơn!";
+}
 ?>
+
 
 
 <!DOCTYPE html>
