@@ -175,4 +175,6 @@ if ($result_ct->num_rows > 0) {
 </body>
 </html>
   
-<?php require('includes/footer.php'); ?>
+<?php
+    require 'includes/footer.php';
+    ?>
