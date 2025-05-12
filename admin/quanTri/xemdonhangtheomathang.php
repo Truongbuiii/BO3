@@ -81,7 +81,9 @@ else {
         <p class="text-center">Không có dữ liệu để hiển thị.</p>
     <?php endif; ?>
 
-    
+    <?php
+    require 'includes/footer.php';
+    ?>
 
 <?php
 // Đóng kết nối

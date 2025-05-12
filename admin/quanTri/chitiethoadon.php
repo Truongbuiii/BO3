@@ -29,7 +29,15 @@ $stmt_ct = $conn->prepare($sql_ct);
 $stmt_ct->bind_param("s", $maHD);
 $stmt_ct->execute();
 $result_ct = $stmt_ct->get_result();
-$chiTietSanPham = $result_ct->fetch_all(MYSQLI_ASSOC);
+
+// Kiểm tra nếu có dữ liệu trả về
+if ($result_ct->num_rows > 0) {
+    $chiTietSanPham = $result_ct->fetch_all(MYSQLI_ASSOC);
+} else {
+    $chiTietSanPham = [];  // Đảm bảo biến này luôn tồn tại và là mảng rỗng nếu không có dữ liệu
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -160,9 +168,7 @@ $chiTietSanPham = $result_ct->fetch_all(MYSQLI_ASSOC);
 </div>
 
 </div>
-
-
-
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

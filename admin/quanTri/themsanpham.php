@@ -119,8 +119,8 @@ $stmt->bind_param("sssssiis", $newMaSanPham, $tenSanPham, $maLoai, $huongVi, $di
                         <label for="tinhTrang">Tình trạng</label>
                         <select class="form-control" id="tinhTrang" name="tinhTrang" required>
                             <option value="" disabled selected>Chọn tình trạng</option>
-                            <option value="1">Sẵn hàng</option>
-                            <option value="2">Không sẵn hàng</option>
+                            <option value="1">Mở</option>
+                            <option value="2">Khóa</option>
                         </select>
                     </div>
                     <div class="form-group">
