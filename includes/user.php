@@ -247,22 +247,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                 <label>Địa chỉ:</label>
                 <input type="text" name="diachi" class="form-control" value="<?= htmlspecialchars($user['DiaChiCuThe']) ?>" required>
             </div>
-            <div class="form-group">
-                <label>Phường/Xã:</label>
-                <input type="text" name="phuongxa" class="form-control" value="<?= htmlspecialchars($user['PhuongXa']) ?>" required>
-            </div>
-            <div class="form-group">
-                <label>Quận/Huyện:</label>
-                <input type="text" name="quanhuyen" class="form-control" value="<?= htmlspecialchars($user['QuanHuyen']) ?>" required>
-            </div>
-            <div class="form-group">
+              <div class="form-group">
                 <label>Tỉnh/TP:</label>
                 <input type="text" name="tptinh" class="form-control" value="<?= htmlspecialchars($user['TPTinh']) ?>" required>
             </div>
+             <div class="form-group">
+                <label>Quận/Huyện:</label>
+                <input type="text" name="quanhuyen" class="form-control" value="<?= htmlspecialchars($user['QuanHuyen']) ?>" required>
+            </div>
+           
+           <div class="form-group">
+                <label>Phường/Xã:</label>
+                <input type="text" name="phuongxa" class="form-control" value="<?= htmlspecialchars($user['PhuongXa']) ?>" required>
+            </div>
+           
+          
 
             <button type="submit" name="update" class="btn btn-primary mt-3">Cập nhật</button>
            <div class="text-center mt-2">
     <a href="#" class="text-decoration-underline text-secondary" onclick="toggleEdit()">Hủy</a>
+    <script>
+    function toggleEdit() {
+        const view = document.getElementById("view-info");
+        const edit = document.getElementById("edit-info");
+        view.style.display = view.style.display === "none" ? "block" : "none";
+        edit.style.display = edit.style.display === "none" ? "block" : "none";
+    }
+
+    // Chuyển đổi giữa các mục menu bên trái
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', function () {
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(this.dataset.target).classList.add('active');
+        });
+    });
+</script>
+
 </div>
         </form>
     </div>

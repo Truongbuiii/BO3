@@ -131,7 +131,7 @@ session_start();
 
     function handleUserClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
+            window.location.href = "includes/user.php"; // Chuyển tới trang thông tin người dùng
         } else {
             window.location.href = "login.php"; // Nếu chưa đăng nhập
         }
