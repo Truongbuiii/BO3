@@ -306,56 +306,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
                </div>
             </nav>
          </div>
-<div class="container">
-<h1 class="my-4 text-center fw-bold">Giỏ hàng của bạn</h1>
+         <div class="container">
+    <h1 class="my-4 text-center fw-bold">Giỏ hàng của bạn</h1>
 
+    <!-- Bắt đầu form để gửi dữ liệu giỏ hàng -->
+    <form method="POST" action="trangThanhToan.php">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $total = 0;
+                foreach ($_SESSION['cart'] as $MaSanPham => $item) {
+                    $total += $item['DonGia'] * $item['quantity'];
+                ?>
+                <tr>
+                    <td><img src="/images/<?php echo $item['HinhAnh']; ?>" alt="<?php echo $item['TenSanPham']; ?>" width="80"></td>
+                    <td><?php echo $item['TenSanPham']; ?></td>
+                    <td><?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VND</td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="updateQuantity('<?php echo $MaSanPham; ?>', -1)">-</button>
+                        <span id="quantity-<?php echo $MaSanPham; ?>"><?php echo $item['quantity']; ?></span>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="updateQuantity('<?php echo $MaSanPham; ?>', 1)">+</button>
+                        <input type="hidden" name="cart[<?php echo $MaSanPham; ?>][MaSanPham]" value="<?php echo $MaSanPham; ?>">
+                        <input type="hidden" name="cart[<?php echo $MaSanPham; ?>][quantity]" value="<?php echo $item['quantity']; ?>">
+                        <input type="hidden" name="cart[<?php echo $MaSanPham; ?>][DonGia]" value="<?php echo $item['DonGia']; ?>">
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Hình ảnh</th>
-                <th>Tên sản phẩm</th>
-                <th>Giá</th>
-                <th>Số lượng</th>
-                <th>Thành tiền</th>
-                <th>Thao tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $total = 0;
-            foreach ($_SESSION['cart'] as $MaSanPham => $item) {
-                $total += $item['DonGia'] * $item['quantity'];
-            ?>
-            <tr>
-                <td><img src="/images/<?php echo $item['HinhAnh']; ?>" alt="<?php echo $item['TenSanPham']; ?>" width="80"></td>
-                <td><?php echo $item['TenSanPham']; ?></td>
-                <td><?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VND</td>
-                <td>
-                  <form method="POST">
-                     <button type="button" class="btn btn-secondary btn-sm" onclick="updateQuantity('<?php echo $MaSanPham; ?>', -1)">-</button>
-                     <span id="quantity-<?php echo $MaSanPham; ?>"><?php echo $item['quantity']; ?></span>
-                     <button type="button" class="btn btn-secondary btn-sm" onclick="updateQuantity('<?php echo $MaSanPham; ?>', 1)">+</button>
-                     <input type="hidden" name="MaSanPham" value="<?php echo $MaSanPham; ?>">
-                     <input type="hidden" name="quantity" id="hidden-quantity-<?php echo $MaSanPham; ?>" value="<?php echo $item['quantity']; ?>">
-                  </form>
-               </td>
+                    </td>
 
-                <td><?php echo number_format($item['DonGia'] * $item['quantity'], 0, ',', '.'); ?> VND</td>
-                <td><a href="trangGioHang.php?remove=<?php echo $MaSanPham; ?>" class="btn btn-danger">Xóa</a></td>
-            </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+                    <td><?php echo number_format($item['DonGia'] * $item['quantity'], 0, ',', '.'); ?> VND</td>
+                    <td><a href="trangGioHang.php?remove=<?php echo $MaSanPham; ?>" class="btn btn-danger">Xóa</a></td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
 
-    <h3 class="text-right">Tổng cộng: <?php echo number_format($total, 0, ',', '.'); ?> VND</h3>
+        <h3 class="text-right">Tổng cộng: <?php echo number_format($total, 0, ',', '.'); ?> VND</h3>
 
-    <div class="text-center mt-4">
-    <a href="trangThanhToan.php" class="btn" style="background-color: #fc95c4; color: white; padding: 12px 28px; border-radius: 6px; font-size: 18px; border: none;">Thanh toán</a>
-</div>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn" style="background-color: #fc95c4; color: white; padding: 12px 28px; border-radius: 6px; font-size: 18px; border: none;">
+                Thanh toán
+            </button>
+        </div>
+    </form>
 
     <div class="text-center mt-2">
-    <a href="/index.php" style="color:black; font-size: 18px; text-decoration: none;">Quay lại</a>
+        <a href="/index.php" style="color:black; font-size: 18px; text-decoration: none;">Quay lại</a>
+    </div>
 </div>
 
 </div>

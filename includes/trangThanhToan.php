@@ -14,6 +14,12 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+
+echo '<pre>';
+print_r($_SESSION['cart']);
+echo '</pre>';
+
+
 // Lấy thông tin người dùng
 $username = $_SESSION['username'];
 $sql = "SELECT HoTen, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe FROM NguoiDung WHERE TenNguoiDung = ?";
@@ -31,10 +37,17 @@ $user = $result->fetch_assoc();
 // Tính tổng tiền
 $tongTien = 0;
 foreach ($_SESSION['cart'] as $item) {
-    $tongTien += $item['DonGia'] * $item['SoLuong'];
+    // Kiểm tra nếu 'DonGia' tồn tại trong sản phẩm
+    if (isset($item['DonGia'])) {
+        $tongTien += $item['DonGia'] * $item['quantity'];
+    } else {
+        echo "Giá không tồn tại cho sản phẩm " . $item['MaSanPham'];
+        exit(); // Dừng lại nếu không có giá
+    }
 }
 
-// Tạo mã hóa đơn (ví dụ: HD001, HD002...)
+
+// Tạo mã hóa đơn
 $maHoaDon = "HD" . str_pad(rand(1, 99999), 5, "0", STR_PAD_LEFT);
 
 // Thêm vào bảng HoaDon
@@ -42,7 +55,6 @@ $sqlHD = "INSERT INTO HoaDon (
     MaHoaDon, NguoiNhanHang, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe,
     TongTien, HinhThucThanhToan, TenNguoiDung
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
 $stmtHD = $conn->prepare($sqlHD);
 $hinhThuc = "Tiền mặt"; // Hoặc lấy từ form nếu có
 $stmtHD->bind_param("sssssssssss",
@@ -66,22 +78,28 @@ if ($luuThanhCong) {
     $sqlCT = "INSERT INTO ChiTietHoaDon (MaHoaDon, MaSanPham, SoLuong, DonGia) VALUES (?, ?, ?, ?)";
     $stmtCT = $conn->prepare($sqlCT);
 
-    foreach ($_SESSION['cart'] as $item) {
-        $stmtCT->bind_param("ssid", $maHoaDon, $item['ma'], $item['soluong'], $item['gia']);
-        $stmtCT->execute();
+    foreach ($_POST['cart'] as $item) {
+        // Kiểm tra sự tồn tại của DonGia trong từng sản phẩm
+        if (isset($item['DonGia'])) {
+            $stmtCT->bind_param("ssid", $maHoaDon, $item['MaSanPham'], $item['quantity'], $item['DonGia']);
+            $stmtCT->execute();
+        } else {
+            echo "Giá không tồn tại cho sản phẩm " . $item['MaSanPham'];
+            exit();
+        }
     }
 
     // Xóa giỏ hàng
     unset($_SESSION['cart']);
 
     // Chuyển hướng
-    header("Location: trangHoanTatDonHang.php?maHoaDon=" . urlencode($maHoaDon));
+    header("Location: trangThanhToan.php?maHoaDon=" . urlencode($maHoaDon));
     exit();
 } else {
     echo "Lỗi khi lưu hóa đơn!";
 }
-?>
 
+?>
 
 
 <!DOCTYPE html>
@@ -264,8 +282,8 @@ if ($luuThanhCong) {
 <div class="container my-5 checkout-wrapper">
     <div class="checkout-container">
         <h2>Thông tin thanh toán</h2>
-        <form id="checkout-form">
-            <div class="form-group">
+        <form id="checkout-form" method="post" action="trangthanhtoan.php">
+        <div class="form-group">
                 <label for="name">Họ và tên <span class="required">*</span></label>
                 <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($userData['HoTen']); ?>">
             </div>

@@ -42,7 +42,7 @@ CREATE TABLE HoaDon (
     MaHoaDon VARCHAR(15) PRIMARY KEY, -- Mã hóa đơn có thể là HD001, HD002...
     NguoiNhanHang VARCHAR(100) NOT NULL,
     Email VARCHAR(100),
-        SoDienThoai VARCHAR(15),
+    SoDienThoai VARCHAR(15),
     TPTinh VARCHAR(50),
     QuanHuyen VARCHAR(50),
     PhuongXa VARCHAR(50),
@@ -53,7 +53,8 @@ CREATE TABLE HoaDon (
     HinhThucThanhToan VARCHAR(50) NOT NULL, -- Ví dụ: "Tiền mặt", "Chuyển khoản"
     TenNguoiDung VARCHAR(50), -- Khách đặt hàng
     FOREIGN KEY (TenNguoiDung) REFERENCES NguoiDung(TenNguoiDung)
-);
+); 
+
 
 -- Bảng ChiTietHoaDon (chi tiết sản phẩm trong đơn hàng)
 CREATE TABLE ChiTietHoaDon (
@@ -139,23 +140,6 @@ VALUES
 
 
 
--- Bảng HoaDon (quản lý đơn hàng)
-CREATE TABLE HoaDon (
-    MaHoaDon VARCHAR(15) PRIMARY KEY, -- Mã hóa đơn có thể là HD001, HD002...
-    NguoiNhanHang VARCHAR(100) NOT NULL,
-    Email VARCHAR(100),
-    SoDienThoai VARCHAR(15),
-    TPTinh VARCHAR(50),
-    QuanHuyen VARCHAR(50),
-    PhuongXa VARCHAR(50),
-    DiaChiCuThe TEXT,
-    NgayGio DATETIME DEFAULT CURRENT_TIMESTAMP,
-    TongTien DECIMAL(10,2) NOT NULL,
-    TrangThai ENUM('Chưa xác nhận', 'Đã xác nhận', 'Đã giao thành công', 'Đã hủy') NOT NULL DEFAULT 'Chưa xác nhận',
-    HinhThucThanhToan VARCHAR(50) NOT NULL, -- Ví dụ: "Tiền mặt", "Chuyển khoản"
-    TenNguoiDung VARCHAR(50), -- Khách đặt hàng
-    FOREIGN KEY (TenNguoiDung) REFERENCES NguoiDung(TenNguoiDung)
-); 
 
 -- 30 Đơn hàng với ít nhất 6 người mua hàng khác nhau
 INSERT INTO HoaDon (MaHoaDon, NguoiNhanHang, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe, NgayGio, TongTien, TrangThai, HinhThucThanhToan, TenNguoiDung) VALUES
