@@ -2,14 +2,10 @@
 session_start();
 require(__DIR__ . "/../db/connect.php");
 
-// Debug toàn bộ dữ liệu GET
-echo "<pre>";
-print_r($_GET);
-echo "</pre>";
 
 // Kiểm tra mã hóa đơn nhận được từ GET
 if (isset($_GET['maHoaDon']) && !empty($_GET['maHoaDon'])) {
-    $maHoaDon = filter_var($_GET['maHoaDon'], FILTER_SANITIZE_STRING); // Làm sạch mã hóa đơn
+    $maHoaDon = filter_var($_GET['maHoaDon'] ); // Làm sạch mã hóa đơn
     error_log("Mã hóa đơn nhận được: " . $maHoaDon);
 } else {
     error_log("Không nhận được mã hóa đơn từ GET");

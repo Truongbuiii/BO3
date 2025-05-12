@@ -209,116 +209,126 @@ if ($result->num_rows > 0) {
 
  <!-- Checkout Form Section -->
 <div class="container my-5 checkout-wrapper">
-    <div class="checkout-container">
-        <h2>Thông tin thanh toán</h2>
-        <form id="checkout-form" method="POST" action="xuLyHoanTatDonHang.php">
+<div class="checkout-container bg-white p-20 rounded shadow">
 
-            <div class="form-group">
-                <label for="name">Họ và tên <span class="required">*</span></label>
-                <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($userData['HoTen']); ?>">
-            </div>
-            <div class="form-group">
-                <label for="email">Email <span class="required">*</span></label>
-                <input type="email" id="email" name="email" required value="<?php echo htmlspecialchars($userData['Email']); ?>">
-            </div>
-            <div class="form-group">
-                <label for="phone">Số điện thoại <span class="required">*</span></label>
-                <input type="text" id="phone" name="phone" required value="<?php echo htmlspecialchars($userData['SoDienThoai']); ?>">
-            </div>
-            <div class="form-group">
-                <label>Chọn địa chỉ giao hàng <span class="required">*</span></label>
-                <input type="radio" name="address-option" id="use-account" checked> Dùng địa chỉ tài khoản
-                <input type="radio" name="address-option" id="enter-new" style="margin-left:20px;"> Nhập địa chỉ mới
-            </div>
-                
+    <form id="checkout-form" method="POST" action="xuLyHoanTatDonHang.php">
+        <div class="row">
+            <!-- Cột trái: Thông tin người dùng -->
+            <div class="col-md-7">
+                <h2>Thông tin thanh toán</h2>
+
+                <div class="form-group">
+                    <label for="name">Họ và tên <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($userData['HoTen']); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required value="<?php echo htmlspecialchars($userData['Email']); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số điện thoại <span class="required">*</span></label>
+                    <input type="text" id="phone" name="phone" required value="<?php echo htmlspecialchars($userData['SoDienThoai']); ?>">
+                </div>
+                <div class="form-group">
+                    <label>Chọn địa chỉ giao hàng <span class="required">*</span></label><br>
+                    <input type="radio" name="address-option" id="use-account" value="use-account" checked> Dùng địa chỉ tài khoản
+<input type="radio" name="address-option" id="enter-new" value="enter-new" style="margin-left:20px;"> Nhập địa chỉ mới
+
+                </div>
 
                 <!-- Account Address -->
-            <div id="account-address">
-                <div class="form-group">
-                    <label for="city">Tỉnh/Thành phố</label>
-                    <input type="text" id="city" name="city" readonly value="<?php echo htmlspecialchars($userData['TPTinh']); ?>">
+                <div id="account-address">
+                    <div class="form-group">
+                        <label for="city">Tỉnh/Thành phố</label>
+                        <input type="text" id="city" name="city" readonly value="<?php echo htmlspecialchars($userData['TPTinh']); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="district">Quận/Huyện</label>
+                        <input type="text" id="district" name="district" readonly value="<?php echo htmlspecialchars($userData['QuanHuyen']); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="ward">Phường/Xã</label>
+                        <input type="text" id="ward" name="ward" readonly value="<?php echo htmlspecialchars($userData['PhuongXa']); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
+                        <input type="text" id="address" name="address" readonly value="<?php echo htmlspecialchars($userData['DiaChiCuThe']); ?>">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="district">Quận/Huyện</label>
-                    <input type="text" id="district" name="district" readonly value="<?php echo htmlspecialchars($userData['QuanHuyen']); ?>">
-                </div>
-                <div class="form-group">
-                    <label for="ward">Phường/Xã</label>
-                    <input type="text" id="ward" name="ward" readonly value="<?php echo htmlspecialchars($userData['PhuongXa']); ?>">
-                </div>
-                <div class="form-group">
-                    <label for="address">Địa chỉ cụ thể <span class="required">*</span></label>
-                    <input type="text" id="address" name="address" readonly value="<?php echo htmlspecialchars($userData['DiaChiCuThe']); ?>">
-                </div>
-
-            </div>
 
                 <!-- New Address -->
-<div id="new-address" class="hidden">
-    <div class="form-group">
-        <label for="new-city">Tỉnh/Thành phố <span class="required">*</span></label>
-        <select id="new-city" name="new-city" required>
-            <option value="">-- Chọn Tỉnh/Thành phố --</option>
-            <option value="HCM">TP. Hồ Chí Minh</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="new-district">Quận/Huyện <span class="required">*</span></label>
-        <select id="new-district" name="new-district" required>
-            <option value="">-- Chọn Quận/Huyện --</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="new-ward">Phường/Xã <span class="required">*</span></label>
-        <select id="new-ward" name="new-ward" required>
-            <option value="">-- Chọn Phường/Xã --</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="new-address-detail">Địa chỉ cụ thể <span class="required">*</span></label>
-        <input type="text" id="new-address-detail" name="new-address-detail" required>
-    </div>
-</div>
+                <div id="new-address" class="hidden">
+                    <div class="form-group">
+                        <label for="new-city">Tỉnh/Thành phố <span class="required">*</span></label>
+                        <select id="new-city" name="new-city">
+                            <option value="">-- Chọn Tỉnh/Thành phố --</option>
+                            <option value="HCM">TP. Hồ Chí Minh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-district">Quận/Huyện <span class="required">*</span></label>
+                        <select id="new-district" name="new-district">
+                            <option value="">-- Chọn Quận/Huyện --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-ward">Phường/Xã <span class="required">*</span></label>
+                        <select id="new-ward" name="new-ward">
+                            <option value="">-- Chọn Phường/Xã --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-address-detail">Địa chỉ cụ thể <span class="required">*</span></label>
+                        <input type="text" id="new-address-detail" name="new-address-detail">
+                    </div>
+                </div>
 
-
-                <!-- Payment Method Section -->
+                <!-- Payment Method -->
                 <div class="form-group">
                     <label for="payment-method">Chọn phương thức thanh toán <span class="required">*</span></label>
-                    <select id="payment-method" required>
-                        <option value="online">Thanh toán trực tuyến</option>
-                        <option value="cod">Tiền mặt khi nhận hàng</option>
+                    <select id="payment-method" name="payment-method" required>
+                        <option value="Chuyển khoản">Thanh toán trực tuyến</option>
+                        <option value="Tiền mặt">Tiền mặt khi nhận hàng</option>
                     </select>
                 </div>
-            </form>
-        </div>
+            </div>
 
-        <div class="order-summary">
-            <h2>Đơn hàng của bạn</h2>
-            <?php
-            // Check if cart is not empty
-            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-                $tongTien = 0;
-                echo "<ul>";
-                foreach ($_SESSION['cart'] as $item) {
-                    $thanhTien = $item['DonGia'] * $item['quantity'];
-                    $tongTien += $thanhTien;
-                    echo "<li><strong>{$item['TenSanPham']}</strong> - " . number_format($item['DonGia'], 0, ',', '.') . " VND x {$item['quantity']} = " . number_format($thanhTien, 0, ',', '.') . " VND</li>";
-                }
-                echo "</ul>";
-                $shippingFee = 30000; // example shipping fee
-                $totalAmount = $tongTien + $shippingFee;
-                echo "<p><strong>Tạm tính:</strong> " . number_format($tongTien, 0, ',', '.') . " VND</p>";
-                echo "<p><strong>Giao hàng:</strong> " . number_format($shippingFee, 0, ',', '.') . " VND</p>";
-                echo "<p><strong>Tổng:</strong> <span style='color:red; font-weight: bold;'>" . number_format($totalAmount, 0, ',', '.') . " VND</span></p>";
-            } else {
-                echo "<p>Không có sản phẩm trong giỏ hàng.</p>";
-            }
-            ?>
+            <!-- Cột phải: Thống kê đơn hàng -->
+            <div class="col-md-5">
+                <div class="order-summary">
+                    <h2>Đơn hàng của bạn</h2>
+                    <?php
+                    if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+                        $tongTien = 0;
+                        echo "<ul>";
+                        foreach ($_SESSION['cart'] as $item) {
+                            $thanhTien = $item['DonGia'] * $item['quantity'];
+                            $tongTien += $thanhTien;
+                            echo "<li><strong>{$item['TenSanPham']}</strong> - " . number_format($item['DonGia'], 0, ',', '.') . " VND x {$item['quantity']} = " . number_format($thanhTien, 0, ',', '.') . " VND</li>";
+                        }
+                        echo "</ul>";
+                        $shippingFee = 30000;
+                        $totalAmount = $tongTien + $shippingFee;
 
-            <button type="button" class="btn-submit" onclick="confirmPayment()">Xác nhận thanh toán</button>
-            <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
+                        // hidden inputs to submit
+                        echo "<input type='hidden' name='tongTien' value='$totalAmount'>";
+                        echo "<input type='hidden' name='phiVanChuyen' value='$shippingFee'>";
+
+                        echo "<p><strong>Tạm tính:</strong> " . number_format($tongTien, 0, ',', '.') . " VND</p>";
+                        echo "<p><strong>Giao hàng:</strong> " . number_format($shippingFee, 0, ',', '.') . " VND</p>";
+                        echo "<p><strong>Tổng:</strong> <span style='color:red; font-weight: bold;'>" . number_format($totalAmount, 0, ',', '.') . " VND</span></p>";
+                    } else {
+                        echo "<p>Không có sản phẩm trong giỏ hàng.</p>";
+                    }
+                    ?>
+                    <button type="submit" class="btn-submit">Xác nhận thanh toán</button>
+                    <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
+</div>
+<
 
   
     </script><script>
@@ -399,24 +409,7 @@ enterNewRadio.addEventListener('change', () => {
     }
 });
 
-// Xác nhận thanh toán
-function confirmPayment() {
-    const method = document.getElementById('payment-method').value;
-    const isUsingNew = enterNewRadio.checked;
 
-    if (isUsingNew) {
-        if (!citySelect.value || !districtSelect.value || !wardSelect.value || !document.getElementById('new-address-detail').value) {
-            alert("Vui lòng nhập đầy đủ địa chỉ mới!");
-            return;
-        }
-    }
-
-    alert("Đặt hàng thành công với phương thức: " + (method === 'cod' ? "Tiền mặt khi nhận hàng" : "Thanh toán trực tuyến"));
-    // Có thể thực hiện gọi API POST để lưu vào DB ở đây.
-    // Chuyển hướng đến trang "Hoàn tất đơn hàng"
-    window.location.href = "/includes/hoanTatDonHang.php";
-
-}
 </script>
 
 </body>

@@ -2,10 +2,11 @@
 session_start();
 require(__DIR__ . "/../db/connect.php");
 
-if (!isset($_SESSION['username']) || !isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+if (!isset($_POST['name']) || !isset($_POST['email']) || !isset($_POST['phone']) || !isset($_POST['payment-method']) || !isset($_POST['address-option'])) {
     echo "<script>alert('Dữ liệu không hợp lệ.'); window.location.href='trangThanhToan.php';</script>";
     exit();
 }
+
 
 $username = $_SESSION['username'];
 $cart = $_SESSION['cart'];
@@ -27,10 +28,17 @@ if ($option === 'use-account') {
     $huyen = $_POST['new-district'];
     $xa = $_POST['new-ward'];
     $diaChi = $_POST['new-address-detail'];
+    if ($option === 'enter-new' && (empty($tinh) || empty($huyen) || empty($xa) || empty($diaChi))) {
+        echo "<script>alert('Vui lòng nhập đầy đủ địa chỉ mới.'); window.location.href='trangThanhToan.php';</script>";
+        exit();
+    }
+    
 }
 
+
+
 if (empty($hoTen) || empty($email) || empty($sdt) || empty($diaChi)) {
-    echo "<script>alert('Vui lòng nhập đầy đủ thông tin.'); window.location.href='trangThanhToan.php';</script>";
+    echo "<script>alert('Vui lòng nhập đầy đủ thông tin.');</script>";
     exit();
 }
 
@@ -55,10 +63,10 @@ if ($result && $result->num_rows > 0) {
 }
 
 
-$sqlHD = "INSERT INTO HoaDon (MaHoaDon, TenNguoiDung, HoTen, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe, NgayLap, TongTien, PhuongThucThanhToan)
+$sqlHD = "INSERT INTO HoaDon (MaHoaDon, TenNguoiDung, NguoiNhanHang, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe, NgayGio, TongTien, HinhThucThanhToan)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sqlHD);
-$stmt->bind_param("ssssssssssis", $maHoaDon, $username, $hoTen, $email, $sdt, $tinh, $huyen, $xa, $diaChi, $ngayLap, $tongThanhToan, $paymentMethod);
+$stmt->bind_param("ssssssssssds", $maHoaDon, $username, $hoTen, $email, $sdt, $tinh, $huyen, $xa, $diaChi, $ngayLap, $tongThanhToan, $paymentMethod);
 
 if (!$stmt->execute()) {
     error_log("Lỗi khi tạo hóa đơn: " . $stmt->error);
@@ -66,26 +74,58 @@ if (!$stmt->execute()) {
     exit();
 }
 
+
+
+// Kiểm tra xem giỏ hàng có trống hay không
+if (empty($cart)) {
+    error_log("Giỏ hàng trống hoặc không có sản phẩm hợp lệ.");
+    exit();
+}
+
+// Kiểm tra mã hóa đơn đã được tạo chưa
+if (empty($maHoaDon)) {
+    error_log("Mã hóa đơn không được tạo.");
+    exit();
+}
+
 $sqlCT = "INSERT INTO ChiTietHoaDon (MaHoaDon, MaSanPham, SoLuong, DonGia) VALUES (?, ?, ?, ?)";
 $stmtCT = $conn->prepare($sqlCT);
 
-foreach ($cart as $item) {
-    $maSP = $item['MaSanPham'];
-    $soLuong = $item['quantity'];
-    $donGia = $item['DonGia'];
-    $stmtCT->bind_param("siid", $maHoaDon, $maSP, $soLuong, $donGia);
+// Kiểm tra kết nối SQL
+if (!$stmtCT) {
+    error_log("Lỗi chuẩn bị câu lệnh SQL: " . $conn->error);
+    exit();
+}
+foreach ($_SESSION['cart'] as $maSanPham => $item) {
+    // Tính giá tiền của sản phẩm này
+    $donGia = $item['DonGia']; // Giá tại thời điểm mua
+    $soLuong = $item['quantity']; // Số lượng sản phẩm
     
-    if (!$stmtCT->execute()) {
-        error_log("Lỗi khi lưu chi tiết hóa đơn (MaSP: $maSP): " . $stmtCT->error);
-        echo "<script>alert('Lỗi khi lưu chi tiết hóa đơn.'); window.location.href='trangThanhToan.php';</script>";
-        exit();
+    // Chèn dữ liệu vào bảng ChiTietHoaDon
+    $sql = "INSERT INTO ChiTietHoaDon (MaHoaDon, MaSanPham, SoLuong, DonGia) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssid", $maHoaDon, $maSanPham, $soLuong, $donGia);
+    
+    if ($stmt->execute()) {
+        echo "Sản phẩm đã được thêm vào chi tiết hóa đơn.";
+    } else {
+        echo "Lỗi: " . $stmt->error;
     }
 }
 
-unset($_SESSION['cart']);
+// Lưu giỏ hàng và xóa sau khi lưu hóa đơn
 error_log("✅ Mã hóa đơn được tạo: " . $maHoaDon);
 
-// 👉 ĐÂY là phần quan trọng
+// Kiểm tra giỏ hàng sau khi thanh toán
+if (isset($_SESSION['cart'])) {
+    error_log("Giỏ hàng hiện tại: " . print_r($_SESSION['cart'], true));
+} else {
+    error_log("Giỏ hàng trống.");
+}
+
+// Xóa giỏ hàng sau khi lưu hóa đơn thành công
+unset($_SESSION['cart']);
+
+// Chuyển hướng sau khi lưu hóa đơn thành công
 header("Location: hoanTatDonHang.php?maHoaDon=" . urlencode($maHoaDon));
 exit();
-?>
