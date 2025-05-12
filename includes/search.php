@@ -1,46 +1,54 @@
 <?php
-
-session_start(); // Khởi tạo session
+session_start(); // Bắt đầu phiên làm việc
 
 require(__DIR__ . "/../db/connect.php");
 
-// Kết nối tới cơ sở dữ liệu
+// Kết nối MySQL (nếu chưa được trong file connect.php)
 $servername = "localhost";
-$username = "root"; // Mặc định của XAMPP
-$password = ""; // XAMPP không có mật khẩu mặc định
+$username = "root";
+$password = "";
 $dbname = "b03db";
 
-// Kết nối MySQL
-$conn =  mysqli_connect("localhost", "root","", "b03db");
-
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+if (!$conn) {
+    die("Kết nối thất bại: " . mysqli_connect_error());
 }
 
-// Lấy giá trị tìm kiếm từ form
-$search = isset($_GET['search']) ? $_GET['search'] : '';
+// Lấy dữ liệu từ form tìm kiếm
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $category = isset($_GET['category']) ? $_GET['category'] : '';
-$price_range = isset($_GET['price_range']) ? $_GET['price_range'] : '';
+$min_price = isset($_GET['min_price']) ? (int)$_GET['min_price'] : '';
+$max_price = isset($_GET['max_price']) ? (int)$_GET['max_price'] : '';
 
-// Truy vấn tìm kiếm sản phẩm theo tên, phân loại và khoảng giá
-$sql = "SELECT * FROM SanPham WHERE TenSanPham LIKE '%$search%'";
+// Truy vấn chính
+$sql = "SELECT * FROM SanPham WHERE 1";
 
-if ($category) {
-    $sql .= " AND MaLoai = '$category'";
+// Thêm điều kiện tìm kiếm theo tên
+if (!empty($search)) {
+    $sql .= " AND TenSanPham LIKE '%" . $conn->real_escape_string($search) . "%'";
 }
 
-if ($price_range) {
-    list($min_price, $max_price) = explode('-', $price_range);
-    $sql .= " AND DonGia BETWEEN $min_price AND $max_price";
+// Thêm điều kiện phân loại
+if (!empty($category)) {
+    $sql .= " AND MaLoai = '" . $conn->real_escape_string($category) . "'";
 }
 
+// Thêm điều kiện giá
+if (!empty($min_price)) {
+    $sql .= " AND DonGia >= $min_price";
+}
+if (!empty($max_price)) {
+    $sql .= " AND DonGia <= $max_price";
+}
+
+// Thực thi truy vấn
 $result = $conn->query($sql);
 
-// Lấy danh sách phân loại từ bảng LoaiSanPham
+// Truy vấn lấy danh sách phân loại
 $category_sql = "SELECT * FROM LoaiSanPham";
 $category_result = $conn->query($category_sql);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -96,6 +104,74 @@ $category_result = $conn->query($category_sql);
             color: #e74c3c;
             margin-top: 30px;
         }
+        /* Ẩn nút tăng/giảm trong input type=number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Cải thiện kiểu dáng của form */
+form {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Tùy chỉnh tiêu đề (label) */
+.form-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #495057;
+}
+
+/* Cải thiện các input */
+input.form-control, select.form-control {
+    border-radius: 0.375rem; /* Bo tròn góc */
+    padding: 0.5rem;  /* Padding cho input */
+    font-size: 1rem;  /* Kích thước font */
+}
+
+/* Cải thiện nút tìm kiếm */
+button[type="submit"] {
+    font-size: 1rem;
+    padding: 0.5rem;
+    background-color: #28a745;  /* Màu xanh nút */
+    color: white;
+    border: none;
+    border-radius: 0.375rem;  /* Bo tròn góc */
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;  /* Màu nút khi hover */
+}
+
+/* Cải thiện các khoảng cách giữa các phần tử */
+.g-3 {
+    gap: 1.5rem;
+}
+
+/* Giảm khoảng cách giữa các input */
+.col-md-2 input, .col-md-3 select {
+    width: 100%;
+}
+
+/* Cải thiện khoảng cách trong các input */
+input.form-control, select.form-control {
+    padding-left: 1rem;  /* Padding thêm vào bên trái */
+}
+
+/* Cải thiện kiểu của tiêu đề */
+h5 {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
     </style>
 
     <!-- basic -->
@@ -175,37 +251,37 @@ $category_result = $conn->query($category_sql);
     <h2>Kết quả tìm kiếm:</h2>
 </div>
 
-<!-- Search Form for Category and Price Range -->
+
 <div class="container mt-4">
-    <form action="search.php" method="GET" class="row justify-content-center g-2">
-        <div class="col-auto">
-            <select name="category" class="form-select">
-                <option value="">-- Chọn phân loại --</option>
-                <?php
-                if ($category_result->num_rows > 0) {
-                    while ($row = $category_result->fetch_assoc()) {
-                        echo "<option value='" . $row['MaLoai'] . "' " . ($category == $row['MaLoai'] ? 'selected' : '') . ">" . $row['TenLoai'] . "</option>";
-                    }
+    <form action="search.php" method="GET" class="form-inline justify-content-center flex-wrap gap-2">
+        <select name="category" class="form-control mb-2 mr-sm-2">
+             <label for="category" class="form-label">Phân loại</label>
+            <option value="">-- Chọn phân loại --</option>
+            <?php
+            if ($category_result->num_rows > 0) {
+                while ($row = $category_result->fetch_assoc()) {
+                    echo "<option value='" . $row['MaLoai'] . "' " . ($category == $row['MaLoai'] ? 'selected' : '') . ">" . $row['TenLoai'] . "</option>";
                 }
-                ?>
-            </select>
-        </div>
+            }
+            ?>
+        </select>
 
-        <div class="col-auto">
-            <input type="number" name="min_price" class="form-control" placeholder="Giá từ" min="0" value="<?php echo isset($_GET['min_price']) ? htmlspecialchars($_GET['min_price']) : ''; ?>">
-        </div>
+        <!-- Giá từ -->
+          <label for="min_price" class="form-label">Giá từ (đ)</label>
+        <input type="number" name="min_price" class="form-control mb-2 mr-sm-2" placeholder="Giá từ" min="0"
+               value="<?php echo isset($_GET['min_price']) ? htmlspecialchars($_GET['min_price']) : ''; ?>">
 
-        <div class="col-auto">
-            <input type="number" name="max_price" class="form-control" placeholder="Đến" min="0" value="<?php echo isset($_GET['max_price']) ? htmlspecialchars($_GET['max_price']) : ''; ?>">
-        </div>
+        <!-- Giá đến -->
+          <label for="max_price" class="form-label">Đến (đ)</label>
+        <input type="number" name="max_price" class="form-control mb-2 mr-sm-2" placeholder="Đến" min="0"
+               value="<?php echo isset($_GET['max_price']) ? htmlspecialchars($_GET['max_price']) : ''; ?>">
 
-        <div class="col-auto">
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-search"></i>
-            </button>
-        </div>
+        <button type="submit" class="btn btn-success mb-2">
+            <i class="fa fa-search me-1"></i>
+        </button>
     </form>
 </div>
+
 
 <!-- Display Search Results -->
 <div class="container mt-4 search-results">
