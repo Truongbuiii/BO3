@@ -46,7 +46,8 @@ function displayCart() {
                 <td>
                     <input type="number" class="text-center" value="${item.amount}" min="1" max="" style="width: 60px" onchange="tinhTong(this, ${i})" onkeyup="checkKey(this, event);">
                 </td>
-                <td>${getGia(item.total)}</td>
+               <td>${getGia(item.total ?? (item.amount * item.price))}</td>
+
                 <td>
                     <button class="btn btn-danger" onclick="deleteCart(${i})">Xóa</button>
                 </td>

@@ -34,8 +34,6 @@ if ($option === 'use-account') {
     }
     
 }
-error_log("DEBUG: HoTen=$hoTen, Email=$email, SDT=$sdt, DiaChi=$diaChi");
-
 
 
 
