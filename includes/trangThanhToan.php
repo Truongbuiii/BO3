@@ -1,8 +1,11 @@
+
 <?php
-session_start();
+session_start(); // Khởi tạo session
+
 require(__DIR__ . "/../db/connect.php");
 
-// Kiểm tra giỏ hàng
+
+// Kiểm tra nếu giỏ hàng trống thì chuyển hướng về trang chủ
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     echo "<script>alert('Không có sản phẩm để thanh toán!'); window.location.href = '/index.php';</script>";
     exit();
@@ -14,13 +17,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-
-echo '<pre>';
-print_r($_SESSION['cart']);
-echo '</pre>';
-
-
-// Lấy thông tin người dùng
+// Lấy thông tin người dùng từ database
 $username = $_SESSION['username'];
 $sql = "SELECT HoTen, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe FROM NguoiDung WHERE TenNguoiDung = ?";
 $stmt = $conn->prepare($sql);
@@ -28,77 +25,12 @@ $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if ($result->num_rows === 0) {
+if ($result->num_rows > 0) {
+    $userData = $result->fetch_assoc();
+} else {
     echo "<script>alert('Không tìm thấy thông tin người dùng!'); window.location.href = '/index.php';</script>";
     exit();
 }
-$user = $result->fetch_assoc();
-
-// Tính tổng tiền
-$tongTien = 0;
-foreach ($_SESSION['cart'] as $item) {
-    // Kiểm tra nếu 'DonGia' tồn tại trong sản phẩm
-    if (isset($item['DonGia'])) {
-        $tongTien += $item['DonGia'] * $item['quantity'];
-    } else {
-        echo "Giá không tồn tại cho sản phẩm " . $item['MaSanPham'];
-        exit(); // Dừng lại nếu không có giá
-    }
-}
-
-
-// Tạo mã hóa đơn
-$maHoaDon = "HD" . str_pad(rand(1, 99999), 5, "0", STR_PAD_LEFT);
-
-// Thêm vào bảng HoaDon
-$sqlHD = "INSERT INTO HoaDon (
-    MaHoaDon, NguoiNhanHang, Email, SoDienThoai, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe,
-    TongTien, HinhThucThanhToan, TenNguoiDung
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-$stmtHD = $conn->prepare($sqlHD);
-$hinhThuc = "Tiền mặt"; // Hoặc lấy từ form nếu có
-$stmtHD->bind_param("sssssssssss",
-    $maHoaDon,
-    $user['HoTen'],
-    $user['Email'],
-    $user['SoDienThoai'],
-    $user['TPTinh'],
-    $user['QuanHuyen'],
-    $user['PhuongXa'],
-    $user['DiaChiCuThe'],
-    $tongTien,
-    $hinhThuc,
-    $username
-);
-
-$luuThanhCong = $stmtHD->execute();
-
-if ($luuThanhCong) {
-    // Lưu chi tiết hóa đơn
-    $sqlCT = "INSERT INTO ChiTietHoaDon (MaHoaDon, MaSanPham, SoLuong, DonGia) VALUES (?, ?, ?, ?)";
-    $stmtCT = $conn->prepare($sqlCT);
-
-    foreach ($_POST['cart'] as $item) {
-        // Kiểm tra sự tồn tại của DonGia trong từng sản phẩm
-        if (isset($item['DonGia'])) {
-            $stmtCT->bind_param("ssid", $maHoaDon, $item['MaSanPham'], $item['quantity'], $item['DonGia']);
-            $stmtCT->execute();
-        } else {
-            echo "Giá không tồn tại cho sản phẩm " . $item['MaSanPham'];
-            exit();
-        }
-    }
-
-    // Xóa giỏ hàng
-    unset($_SESSION['cart']);
-
-    // Chuyển hướng
-    header("Location: trangThanhToan.php?maHoaDon=" . urlencode($maHoaDon));
-    exit();
-} else {
-    echo "Lỗi khi lưu hóa đơn!";
-}
-
 ?>
 
 
@@ -224,7 +156,7 @@ if ($luuThanhCong) {
       <div class="header_section">
          <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand"href="/index.php"><img src=></a>
+               <a class="navbar-brand"href="/index.php"><img src="/images/logo.png"></a>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
                </button>
@@ -254,24 +186,21 @@ if ($luuThanhCong) {
                      </form>
                   </li>
                   <ul class="navbar-nav ml-3">
-    <li class="nav-item d-flex align-items-center">
-        <a href="user.php" onclick="handleUserClick()" class="mr-3">
-            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%;"></i>
-        </a>
-        <a href="trangGioHang.php" onclick="handleCartClick()" class="mr-3">
-            <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%;"></i>
-        </a>
-        <?php if (isset($_SESSION['username'])): ?>
-            <div class="d-flex flex-column align-items-start ml-2">
-                <span style="color: #fc95c4; font-weight: bold;">
-                    Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
-                </span>
-                <a href="logout.php" class="btn btn-outline-danger btn-sm mt-1">Đăng xuất</a>
-            </div>
-        <?php endif; ?>
-    </li>
-</ul>
-
+                    <li class="nav-item d-flex align-items-center">
+                        <a href="#" onclick="handleUserClick()">
+                            <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
+                        </a>
+                        <a href="#" onclick="handleCartClick()">
+                            <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
+                        </a>
+                        <?php if (isset($_SESSION['username'])): ?>
+                            <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
+                                Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+                            </span>
+                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+                        <?php endif; ?>
+                    </li>
+                </ul>
                </div>
             </nav>
          </div>
@@ -282,8 +211,8 @@ if ($luuThanhCong) {
 <div class="container my-5 checkout-wrapper">
     <div class="checkout-container">
         <h2>Thông tin thanh toán</h2>
-        <form id="checkout-form" method="post" action="trangthanhtoan.php">
-        <div class="form-group">
+        <form id="checkout-form">
+            <div class="form-group">
                 <label for="name">Họ và tên <span class="required">*</span></label>
                 <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($userData['HoTen']); ?>">
             </div>
@@ -394,7 +323,7 @@ if ($luuThanhCong) {
     </script><script>
 const addressData = {
     "TP. Hồ Chí Minh": {
-        "Quận 1": ["Phường Tân Định", "Phường Đa Kao", "Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Cư Trinh", "Phường Phạm Ngũ Lão", "Phường Cầu Kho"],
+       "Quận 1": ["Phường Tân Định", "Phường Đa Kao", "Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Cư Trinh", "Phường Phạm Ngũ Lão", "Phường Cầu Kho"],
     "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường Võ Thị Sáu"],
     "Quận 4": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 6", "Phường 8", "Phường 9", "Phường 10", "Phường 13", "Phường 14", "Phường 15", "Phường 16", "Phường 18"],
     "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14"],
