@@ -64,9 +64,7 @@ session_start();
       <div class="header_section">
          <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/index.php ">
-            <img src="images/logo.png" alt="Logo">
-        </a>
+       
 
         <!-- Nút toggle menu trên mobile -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
