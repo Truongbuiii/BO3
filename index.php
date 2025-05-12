@@ -258,7 +258,7 @@ session_start();
 </style>
 
       <!-- services section end -->
-
+         </div>
       <div class="about_section layout_padding">
          <div class="container">
             <div class="row">
@@ -461,7 +461,7 @@ foreach ($topSanPham as $loai => $sanphams) {
    }
 </style>
 
-         </div></div>
+         </div>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
