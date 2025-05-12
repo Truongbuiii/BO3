@@ -116,35 +116,37 @@ $totalPages = ceil($totalRows / $limit);
         <!-- District and Ward Filters (Bottom) -->
         <div class="d-flex justify-content-between mb-3">
             <div class="filter">
-                <label for="quan">Quận/Huyện:</label>
-                <select id="quan" name="quan" class="form-control">
-                    <option value="">-- Chọn quận/huyện --</option>
-                    <option value="Quận 1">Quận 1</option>
-                    <option value="Quận 2">Quận 2</option>   
-                    <option value="Quận 3">Quận 3</option>
-                    <option value="Quận 4">Quận 4</option>
-                    <option value="Quận 5">Quận 5</option>
-                    <option value="Quận 6">Quận 6</option>
-                    <option value="Quận 7">Quận 7</option>
-                    <option value="Quận 8">Quận 8</option>
-                    <option value="Quận 10">Quận 10</option>
-                    <option value="Quận 11">Quận 11</option>
-                    <option value="Quận 12">Quận 12</option>
-                    <option value="Quận Bình Thạnh">Bình Thạnh</option>
-                    <option value="Quận Phú Nhuận">Quận Phú Nhuận</option>
-                    <option value="Quận Tân Bình">Quận Tân Bình</option>
-                    <option value="Quận Bình Tân">Quận Bình Tân</option>
-                    <option value="Thành phố Thủ Đức">Thành phố Thủ Đức</option>
-                    <option value="Huyện Nhà Bè">Huyện Nhà Bè</option>
-                </select>
+            <label for="quan">Quận/Huyện:</label>
+<select id="quan" name="quan" class="form-control">
+    <option value="">-- Chọn quận/huyện --</option>
+    <option value="Quận 1">Quận 1</option>
+    <option value="Quận 2">Quận 2</option>   
+    <option value="Quận 3">Quận 3</option>
+    <option value="Quận 4">Quận 4</option>
+    <option value="Quận 5">Quận 5</option>
+    <option value="Quận 6">Quận 6</option>
+    <option value="Quận 7">Quận 7</option>
+    <option value="Quận 8">Quận 8</option>
+    <option value="Quận 10">Quận 10</option>
+    <option value="Quận 11">Quận 11</option>
+    <option value="Quận 12">Quận 12</option>
+    <option value="Quận Bình Thạnh">Quận Bình Thạnh</option>
+    <option value="Quận Gò Vấp">Quận Gò Vấp</option>
+    <option value="Quận Tân Phú">Quận Tân Phú</option>
+    <option value="Quận Phú Nhuận">Quận Phú Nhuận</option>
+    <option value="Quận Tân Bình">Quận Tân Bình</option>
+    <option value="Quận Bình Tân">Quận Bình Tân</option>
+    <option value="Thành phố Thủ Đức">Thành phố Thủ Đức</option>
+    <option value="Huyện Nhà Bè">Huyện Nhà Bè</option>
+</select>
+
             </div>
 
             <div class="filter">
-                <label for="phuong">Phường/Xã:</label>
-                <select id="phuong" name="phuong" class="form-control">
-                    <option value="" disabled selected>-- Chọn phường/xã --</option>
-                    <!-- Thêm các phường/xã tùy theo quận đã chọn -->
-                </select>
+            <label for="phuong">Phường/Xã:</label>
+<select id="phuong" name="phuong" class="form-control">
+    <option value="">-- Chọn phường/xã --</option>
+</select>
             </div>
         </div>
 
@@ -273,7 +275,8 @@ $totalPages = ceil($totalRows / $limit);
 <!-- JavaScript for Dynamic Dropdowns -->
 <script>
 const data = {
-    "Quận 1": ["Phường Tân Định", "Phường Đa Kao", "Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Cư Trinh", "Phường Phạm Ngũ Lão", "Phường Cầu Kho"],
+    "Quận 1": ["Phường Tân Định", "Phường Đa Kao", "Phường Bến Nghé", "Phường Bến Thành", "Phường Nguyễn Thái Bình", "Phường Cầu Ông Lãnh", "Phường Cô Giang", "Phường Nguyễn Cư Trinh", "Phường Phạm Ngũ Lão", "Phường Cầu Kho"],   
+   "Quận 2":[ "Phường Cát Lái", "Phường Thảo Điền", "Phường An Khánh", "Phường An Phú", "Phường Thủ Thiêm"],
     "Quận 3": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường Võ Thị Sáu"],
     "Quận 4": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 6", "Phường 8", "Phường 9", "Phường 10", "Phường 13", "Phường 14", "Phường 15", "Phường 16", "Phường 18"],
     "Quận 5": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14"],
@@ -289,26 +292,57 @@ const data = {
     "Quận Phú Nhuận": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 13", "Phường 15", "Phường 17"],
     "Quận Tân Bình": ["Phường 1", "Phường 2", "Phường 3", "Phường 4", "Phường 5", "Phường 6", "Phường 7", "Phường 8", "Phường 9", "Phường 10", "Phường 11", "Phường 12", "Phường 13", "Phường 14", "Phường 15"],
     "Quận Tân Phú": ["Phường Hiệp Tân", "Phường Hòa Thạnh", "Phường Phú Thạnh", "Phường Phú Thọ Hòa", "Phường Phú Trung", "Phường Sơn Kỳ", "Phường Tân Quý", "Phường Tân Sơn Nhì", "Phường Tân Thành", "Phường Tây Thạnh"],
-    "Thành phố Thủ Đức": ["Phường Hiệp Bình Chánh", "Phường Hiệp Bình Phước", "Phường Linh Chiểu", "Phường Linh Đông", "Phường Linh Tây", "Phường Linh Trung", "Phường Linh Xuân", "Phường Bình Chiểu", "Phường Bình Thọ", "Phường Tam Bình", "Phường Tam Phú", "Phường Trường Thọ", "Phường Bình An", "Phường Bình Trưng Đông", "Phường Bình Trưng Tây", "Phường Cát Lái", "Phường Thảo Điền", "Phường An Khánh", "Phường An Phú", "Phường Phước Long A", "Phường Phước Long B", "Phường Tăng Nhơn Phú A", "Phường Tăng Nhơn Phú B", "Phường Phước Bình", "Phường Tân Phú", "Phường Trường Thạnh", "Phường Long Thạnh Mỹ", "Phường Long Phước", "Phường Long Trường", "Phường Phú Hữu", "Phường Thạnh Mỹ Lợi", "Phường Thủ Thiêm"],
+    "Thành phố Thủ Đức": ["Phường Hiệp Bình Chánh", "Phường Hiệp Bình Phước", "Phường Linh Chiểu", "Phường Linh Đông", "Phường Linh Tây", "Phường Linh Trung", "Phường Linh Xuân", "Phường Bình Chiểu", "Phường Bình Thọ", "Phường Tam Bình", "Phường Tam Phú", "Phường Trường Thọ", "Phường Bình An", "Phường Bình Trưng Đông", "Phường Bình Trưng Tây", "Phường Phước Long A", "Phường Phước Long B", "Phường Tăng Nhơn Phú A", "Phường Tăng Nhơn Phú B", "Phường Phước Bình", "Phường Tân Phú", "Phường Trường Thạnh", "Phường Long Thạnh Mỹ", "Phường Long Phước", "Phường Long Trường", "Phường Phú Hữu", "Phường Thạnh Mỹ Lợi"],
     "Huyện Nhà Bè": ["Xã Phước Kiển", "Xã Hiệp Phước", "Xã Long Thới", "Xã Nhơn Đức"],
-    "Quận Phú Nhuận": ["Phường 9"]
 };
+document.addEventListener("DOMContentLoaded", function () {
+    const selectedQuan = "<?php echo isset($_GET['quan']) ? $_GET['quan'] : ''; ?>";
+    const selectedPhuong = "<?php echo isset($_GET['phuong']) ? $_GET['phuong'] : ''; ?>";
 
-document.getElementById('quan').addEventListener('change', function() {
-        const selectedQuan = this.value;
-        const phuongs = data[selectedQuan] || [];
+    const quanSelect = document.getElementById("quan");
+    const phuongSelect = document.getElementById("phuong");
 
-        const phuongSelect = document.getElementById('phuong');
-        phuongSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>'; // Xóa các phường cũ
+    // Nếu có giá trị quận được chọn từ URL, thì chọn quận và cập nhật phường
+    if (selectedQuan) {
+        quanSelect.value = selectedQuan;
+        updatePhuongOptions(selectedQuan, phuongSelect, selectedPhuong);
+    }
 
-        phuongs.forEach(phuong => {
-            const option = document.createElement('option');
-            option.value = phuong;
-            option.textContent = phuong;
-            phuongSelect.appendChild(option);
-        });
+    // Nếu có giá trị phường được chọn từ URL, thì chọn phường
+    if (selectedPhuong) {
+        phuongSelect.value = selectedPhuong;
+    }
+
+    // Sự kiện thay đổi quận
+    quanSelect.addEventListener("change", function() {
+        updatePhuongOptions(this.value, phuongSelect);
     });
+});
 
+// Hàm cập nhật các phường khi quận được chọn
+function updatePhuongOptions(quanValue, phuongSelect, selectedPhuong = '') {
+    // Lấy danh sách phường từ data theo quận
+    const phuongs = data[quanValue] || [];
+    
+    // Xóa các option cũ
+    phuongSelect.innerHTML = "<option value=''>-- Chọn phường/xã --</option>";
+
+    // Tạo các option mới cho Phường tương ứng
+    phuongs.forEach(phuong => {
+        const option = document.createElement("option");
+        option.value = phuong;
+        option.textContent = phuong;
+
+        // Nếu có phường đã chọn từ trước, đánh dấu là selected
+        if (phuong === selectedPhuong) {
+            option.selected = true;
+        }
+
+        phuongSelect.appendChild(option);
+    });
+}
+
+// Hàm mở modal và cập nhật phường khi quận được chọn từ modal
 function editUser(TenNguoiDung, HoTen, Email, MatKhau, SoDienThoai, VaiTro, TinhTrang, TPTinh, QuanHuyen, PhuongXa, DiaChiCuThe) {
     document.getElementById('editTenNguoiDung').value = TenNguoiDung;
     document.getElementById('editHoTen').value = HoTen;
@@ -320,19 +354,9 @@ function editUser(TenNguoiDung, HoTen, Email, MatKhau, SoDienThoai, VaiTro, Tinh
     document.getElementById('editTPTinh').value = TPTinh;
     document.getElementById('editQuanHuyen').value = QuanHuyen;
 
-    // Cập nhật danh sách phường theo quận
-    const phuongs = data[QuanHuyen] || [];
+    // Cập nhật danh sách phường khi quận đã chọn trong modal
     const phuongSelect = document.getElementById('editPhuongXa');
-    phuongSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
-    phuongs.forEach(phuong => {
-        const option = document.createElement('option');
-        option.value = phuong;
-        option.textContent = phuong;
-        phuongSelect.appendChild(option);
-    });
-
-    // Sau khi đã render xong danh sách phường thì set value cho Phường/Xã
-    document.getElementById('editPhuongXa').value = PhuongXa;
+    updatePhuongOptions(QuanHuyen, phuongSelect, PhuongXa);
 
     // Set địa chỉ cụ thể
     document.getElementById('editDiaChiCuThe').value = DiaChiCuThe;
