@@ -197,7 +197,7 @@ if ($result->num_rows > 0) {
                             <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
                                 Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                             </span>
-                           
+                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
                         <?php endif; ?>
                     </li>
                 </ul>
@@ -211,7 +211,7 @@ if ($result->num_rows > 0) {
 <div class="container my-5 checkout-wrapper">
     <div class="checkout-container">
         <h2>Thông tin thanh toán</h2>
-        <form id="checkout-form" method="POST" action="xuLyHoanTatDonHang.php">
+      <form id="checkout-form" method="POST" action="xuLyHoanTatDonHang.php">
             <div class="form-group">
                 <label for="name">Họ và tên <span class="required">*</span></label>
                 <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($userData['HoTen']); ?>">
@@ -283,15 +283,11 @@ if ($result->num_rows > 0) {
                 <!-- Payment Method Section -->
                 <div class="form-group">
                     <label for="payment-method">Chọn phương thức thanh toán <span class="required">*</span></label>
-                    <select id="payment-method" name="payment_method" required> <!-- thêm name -->
-    <option value="online">Thanh toán trực tuyến</option>
-    <option value="cod">Tiền mặt khi nhận hàng</option>
-</select>
-
+                    <select id="payment-method" required>
+                        <option value="online">Thanh toán trực tuyến</option>
+                        <option value="cod">Tiền mặt khi nhận hàng</option>
+                    </select>
                 </div>
-                <div class="form-group">
-    
-</div>
             </form>
         </div>
 
@@ -318,8 +314,12 @@ if ($result->num_rows > 0) {
             }
             ?>
 
+<<<<<<< HEAD
+            <button type="button" class="btn-submit" onclick="confirmPayment()">Xác nhận thanh toán</button>
+=======
 
             <button type="submit" class="btn-submit">Xác nhận thanh toán</button>
+>>>>>>> 59e51064fe24d722b41b6e7d9e8f885a7887c082
             <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
         </div>
     </div>

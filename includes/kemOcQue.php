@@ -122,7 +122,7 @@ $result = $conn->query($sql);
                 if ($i == $page) {
                     echo '<li class="page-item active"><span class="page-link">' . $i . '</span></li>';
                 } else {
-                    echo '<li class="page-item"><a class="page-link" href="kemOcQue.php?page=' . $i . '">' . $i . '</a></li>';
+                    echo '<li class="page-item"><a class="page-link" href="kemOCQue.php?page=' . $i . '">' . $i . '</a></li>';
                 }
             }
 
