@@ -109,7 +109,7 @@ $stmtPos->close();
         } else {
            echo "<script>
         alert('Cập nhật sản phẩm thành công!');
-        window.location.href = 'danhSachSanPham.php?page={$page}';  
+        window.location.href = 'danhsachsanpham.php?page={$page}';  
       </script>";
 
         }
