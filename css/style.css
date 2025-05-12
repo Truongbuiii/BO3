@@ -147,7 +147,8 @@ h6 a {
     opacity: 1
 }
 
-button:focus {
+
+ton:focus {
     outline: none;
 }
 
