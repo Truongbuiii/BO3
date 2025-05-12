@@ -2,27 +2,27 @@
 // Kết nối tới cơ sở dữ liệu
 $servername = "localhost";
 $username = "root"; // Mặc định của XAMPP
-$password = ""; // XAMPP không có mật khẩu mặc định
+$password = ""; // Mặc định không có mật khẩu
 $dbname = "b03db";
 
 // Kết nối MySQL
-$conn = mysqli_connect("localhost", "root", "", "b03db");
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+if (!$conn) {
+    die("Kết nối thất bại: " . mysqli_connect_error());
+}
 
-// Kiểm tra nếu có mã hóa đơn từ query string hoặc session
-if (isset($_GET['maHoaDon'])) {
+// Kiểm tra nếu có mã hóa đơn từ query string
+if (isset($_GET['maHoaDon']) && is_numeric($_GET['maHoaDon'])) {
     $maHoaDon = $_GET['maHoaDon'];
 } else {
     echo "Mã hóa đơn không hợp lệ!";
     exit;
 }
 
-// Kiểm tra mã hóa đơn
-echo "Mã hóa đơn: " . $maHoaDon;
-
-// Lấy thông tin từ bảng HoaDon
+// Truy vấn thông tin hóa đơn từ bảng HoaDon
 $sql = "SELECT * FROM HoaDon WHERE MaHoaDon = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $maHoaDon);
+$stmt->bind_param("i", $maHoaDon);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -34,41 +34,29 @@ if ($result->num_rows > 0) {
     exit;
 }
 
-// Truy vấn chi tiết sản phẩm trong đơn hàng từ bảng ChiTietHoaDon
+// Truy vấn chi tiết sản phẩm trong hóa đơn từ bảng ChiTietHoaDon
 $sql_ct = "SELECT cthd.SoLuong, cthd.DonGia, sp.TenSanPham 
            FROM ChiTietHoaDon cthd 
            JOIN SanPham sp ON cthd.MaSanPham = sp.MaSanPham 
            WHERE cthd.MaHoaDon = ?";
-
-
-
 $stmt_ct = $conn->prepare($sql_ct);
-$stmt_ct->bind_param("s", $maHoaDon);
+$stmt_ct->bind_param("i", $maHoaDon);
 $stmt_ct->execute();
 $result_ct = $stmt_ct->get_result();
 
-// Kiểm tra xem có chi tiết hóa đơn không
-if ($result_ct->num_rows > 0) {
-    // Lưu thông tin sản phẩm vào mảng
-    $order_details = [];
-    while ($item = $result_ct->fetch_assoc()) {
-        $order_details[] = $item;
-    }
-} else {
-    echo "Không có sản phẩm trong hóa đơn!";
-    exit;
+$order_details = [];
+while ($item = $result_ct->fetch_assoc()) {
+    $order_details[] = $item;
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hoàn tất đơn hàng</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(to right, #ffe6ec, #e3f6f5);
@@ -79,34 +67,29 @@ if ($result_ct->num_rows > 0) {
             height: 100vh;
             margin: 0;
         }
-
         .thankyou-container {
             background: #ffffff;
             padding: 40px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             text-align: center;
-            max-width: 500px;
+            max-width: 550px;
             width: 100%;
         }
-
         .thankyou-container i {
             font-size: 60px;
             color: #90e0ef;
             margin-bottom: 20px;
         }
-
         .thankyou-container h2 {
             color: #0081a7;
             margin-bottom: 10px;
             font-weight: 600;
         }
-
         .thankyou-container p {
             color: #555;
             font-size: 16px;
         }
-
         .btn-back-home {
             margin-top: 25px;
             padding: 10px 25px;
@@ -118,9 +101,12 @@ if ($result_ct->num_rows > 0) {
             font-weight: 500;
             transition: background-color 0.3s ease;
         }
-
         .btn-back-home:hover {
             background-color: #0077b6;
+        }
+        .order-summary {
+            text-align: left;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -130,26 +116,23 @@ if ($result_ct->num_rows > 0) {
         <h2>Đơn hàng đã được đặt thành công!</h2>
         <p>Cảm ơn bạn đã lựa chọn cửa hàng kem của chúng tôi. Chúng tôi sẽ xác nhận đơn và giao hàng sớm nhất có thể.</p>
 
-        <!-- Hiển thị thông tin đơn hàng -->
-        <h4>Mã hóa đơn: <?php echo $order['MaHoaDon']; ?></h4>
-        <p>Người nhận: <?php echo $order['NguoiNhanHang']; ?></p>
-        <p>Địa chỉ giao hàng: <?php echo $order['DiaChiCuThe']; ?></p>
-        <p>Tổng tiền: <?php echo number_format($order['TongTien'], 2, ',', '.'); ?> VNĐ</p>
-        <p>Hình thức thanh toán: <?php echo $order['HinhThucThanhToan']; ?></p>
+        <div class="order-summary">
+            <p><strong>Mã hóa đơn:</strong> <?php echo $order['MaHoaDon']; ?></p>
+            <p><strong>Người nhận:</strong> <?php echo $order['HoTen']; ?></p>
+            <p><strong>Địa chỉ giao hàng:</strong> <?php echo $order['DiaChiCuThe'] . ', ' . $order['PhuongXa'] . ', ' . $order['QuanHuyen'] . ', ' . $order['TPTinh']; ?></p>
+            <p><strong>Tổng tiền:</strong> <?php echo number_format($order['TongTien'], 0, ',', '.'); ?> VNĐ</p>
+            <p><strong>Hình thức thanh toán:</strong> <?php echo $order['PhuongThucThanhToan']; ?></p>
 
-        <!-- Danh sách sản phẩm trong đơn -->
-        <h5>Chi tiết đơn hàng:</h5>
-        <ul class="list-group">
-    <?php foreach ($order_details as $item): ?>
-        <li class="list-group-item">
-            <strong><?php echo $item['TenSanPham']; ?></strong> - 
-            <?php echo $item['SoLuong']; ?> x 
-            <?php echo number_format($item['DonGia'], 2, ',', '.'); ?> VNĐ
-        </li>
-    <?php endforeach; ?>
-</ul>
-
-
+            <h5 class="mt-4">Chi tiết đơn hàng:</h5>
+            <ul class="list-group">
+                <?php foreach ($order_details as $item): ?>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <?php echo $item['TenSanPham']; ?>
+                        <span><?php echo $item['SoLuong']; ?> x <?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VNĐ</span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
 
         <a href="../index.php" class="btn-back-home">Quay lại trang chủ</a>
     </div>
