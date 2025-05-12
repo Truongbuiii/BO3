@@ -28,6 +28,8 @@ if ($option === 'use-account') {
     $xa = $_POST['new-ward'];
     $diaChi = $_POST['new-address-detail'];
 }
+error_log("DEBUG: HoTen=$hoTen, Email=$email, SDT=$sdt, DiaChi=$diaChi");
+
 
 if (empty($hoTen) || empty($email) || empty($sdt) || empty($diaChi)) {
     echo "<script>alert('Vui lòng nhập đầy đủ thông tin.'); window.location.href='trangThanhToan.php';</script>";
