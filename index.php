@@ -270,7 +270,7 @@ session_start();
                   <p class="about_text">Kem – món tráng miệng mát lạnh và thơm ngon, là sự kết hợp hoàn hảo giữa sữa, đường và các hương vị tự nhiên. Với kết cấu mềm mịn tan chảy ngay trên đầu lưỡi, kem mang đến cảm giác sảng khoái và ngọt ngào khó cưỡng.
 
                      Từ những hương vị cổ điển như vanilla, socola, dâu tây đến những biến tấu độc đáo như trà xanh, caramel muối, hoặc trái cây nhiệt đới, kem luôn là lựa chọn yêu thích của mọi lứa tuổi. Không chỉ là một món ăn, kem còn gắn liền với những khoảnh khắc vui vẻ và đáng nhớ trong cuộc sống.</p>
-                  <div class="read_bt_1"><a href="#">Xem thêm</a></div>
+                  
                </div>
             </div>
          </div>
@@ -356,7 +356,7 @@ foreach ($topSanPham as $loai => $sanphams) {
 
         </div>
     </div>
-    <div class="seemore_bt"><a href="#">Xem thêm</a></div>
+   
 </div>
 
 
