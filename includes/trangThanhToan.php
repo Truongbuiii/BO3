@@ -314,7 +314,12 @@ if ($result->num_rows > 0) {
             }
             ?>
 
+<<<<<<< HEAD
             <button type="button" class="btn-submit" onclick="confirmPayment()">Xác nhận thanh toán</button>
+=======
+
+            <button type="submit" class="btn-submit">Xác nhận thanh toán</button>
+>>>>>>> 59e51064fe24d722b41b6e7d9e8f885a7887c082
             <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
         </div>
     </div>
