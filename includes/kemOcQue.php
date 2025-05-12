@@ -136,7 +136,6 @@ $result = $conn->query($sql);
     </nav>
 </div>
 
-<!-- Liên hệ -->
 <!-- contact section start -->
 <div class="contact_section layout_padding" style="background-color: #343a40; padding: 50px 0; color: white;">
    <div class="container">

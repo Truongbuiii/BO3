@@ -258,7 +258,7 @@ session_start();
 </style>
 
       <!-- services section end -->
-
+         </div>
       <div class="about_section layout_padding">
          <div class="container">
             <div class="row">
@@ -396,6 +396,7 @@ foreach ($topSanPham as $loai => $sanphams) {
                   </a>
                </li>
             </ul>
+
          </div>
 
          <!-- Social Media -->
@@ -462,6 +463,75 @@ foreach ($topSanPham as $loai => $sanphams) {
 </style>
 
          </div></div>
+
+         </div>
+
+         <!-- Social Media -->
+         <div class="col-md-6 mb-4">
+            <h2 class="text-light mb-4">Kết Nối Với Chúng Tôi</h2>
+            <p class="text-muted">Theo dõi chúng tôi trên các mạng xã hội để cập nhật thông tin mới nhất:</p>
+            <ul class="list-inline">
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-facebook-f"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-twitter"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-linkedin-in"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-instagram"></i>
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center mt-5">
+         <p class="mb-0" style="font-size: 14px; color: #6c757d;">© 2025 TiemKemF4. Tất cả các quyền được bảo lưu.</p>
+         <p style="font-size: 16px; color: #6c757d;">Thiết kế bởi <strong>TiemKemF4</strong> – Mang vị ngọt đến mọi nhà 🍦</p>
+      </div>
+   </div>
+</div>
+<!-- contact section end -->
+
+<!-- CSS for Hover Effect -->
+<style>
+   .hover-effect:hover {
+      color: #ff6f61;
+      transition: all 0.3s ease;
+   }
+
+   .social-icon:hover i {
+      color: #ff6f61;
+   }
+
+   .social-icon i {
+      font-size: 25px;
+      transition: color 0.3s ease;
+   }
+
+   .text-light {
+      color: #f8f9fa !important;
+   }
+
+   .text-muted {
+      color: #adb5bd;
+   }
+</style>
+
+
+         </div>
+
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>

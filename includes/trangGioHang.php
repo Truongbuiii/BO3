@@ -364,7 +364,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
 </div>
 
 </div>
-
 <!-- contact section start -->
 <div class="contact_section layout_padding" style="background-color: #343a40; padding: 50px 0; color: white;">
    <div class="container">

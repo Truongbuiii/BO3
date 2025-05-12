@@ -283,6 +283,5 @@ $related_products = $stmt_related->get_result();
    }
 </style>
 
-
 </body>
 </html>
