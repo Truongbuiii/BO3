@@ -315,10 +315,6 @@ if ($result->num_rows > 0) {
             ?>
 
             <button type="button" class="btn-submit" onclick="confirmPayment()">Xác nhận thanh toán</button>
-<<<<<<< HEAD
-
-=======
->>>>>>> 882615fc330de160453c66284e83b6178520ebd6
             <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
         </div>
     </div>
