@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
       <div class="header_section header_bg">
          <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand" href="index.html"><img src="/images/logo.png"></a>
+               
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                   <span class="navbar-toggler-icon"></span>
                </button>
@@ -88,8 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                      <li class="nav-item"><a class="nav-link" href="icecream.html">Kem ốc quế</a></li>
                      <li class="nav-item"><a class="nav-link" href="icecream.html">Kem que</a></li>
                   </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                     <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                   <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
+                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                      </button>

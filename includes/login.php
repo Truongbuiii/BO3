@@ -94,6 +94,7 @@ $conn->close();
                         <i class="fa-solid fa-magnifying-glass"></i>
                      </button>
                   </form>
+                  
                 </div>
             </nav>
         </div>

@@ -49,13 +49,13 @@ $result = $conn->query($sql);
                     <li class="nav-item"><a class="nav-link" href="kemOcQue.php">Kem ốc quế</a></li>
                     <li class="nav-item"><a class="nav-link" href="kemQue.php">Kem que</a></li>
                 </ul>
-                <form class="form-inline" action="search.php" method="GET">
-                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm...">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
+                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
+                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-
+                     </button>
+                  </form>
+                  
                 <ul class="navbar-nav ml-3">
                     <li class="nav-item d-flex align-items-center">
                         <a href="user.php" onclick="handleUserClick()">
@@ -230,6 +230,8 @@ $result = $conn->query($sql);
 </style>
 
      </div>
+      
+     
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
@@ -238,27 +240,17 @@ $result = $conn->query($sql);
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
+      <script src="js/main.js"></script>
+      <!-- javascript --> 
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Script điều hướng -->
-<script>
-    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
-    function handleUserClick() {
-        if (isLoggedIn) {
-            window.location.href = "user.php";
-        } else {
-            window.location.href = "login.php";
-        }
-    }
+<!-- Popper.js (để dropdown/toggle hoạt động) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
 
-    function handleCartClick() {
-        if (isLoggedIn) {
-            window.location.href = "includes/trangGioHang.php";
-        } else {
-            alert("Bạn cần đăng nhập để xem giỏ hàng!");
-            window.location.href = "login.php";
-        }
-    }
-</script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
 
 <!-- CSS phân trang -->
 <style>

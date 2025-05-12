@@ -49,12 +49,12 @@ $result = $conn->query($sql);
                     <li class="nav-item"><a class="nav-link" href="kemOcQue.php">Kem ốc quế</a></li>
                     <li class="nav-item"><a class="nav-link" href="kemQue.php">Kem que</a></li>
                 </ul>
-                <form class="form-inline" action="search.php" method="GET">
-                    <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm...">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
+                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
+                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
+                     </button>
+                  </form>
 
                 <ul class="navbar-nav ml-3">
                     <li class="nav-item d-flex align-items-center">
