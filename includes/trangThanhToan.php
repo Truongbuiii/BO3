@@ -211,7 +211,8 @@ if ($result->num_rows > 0) {
 <div class="container my-5 checkout-wrapper">
     <div class="checkout-container">
         <h2>Thông tin thanh toán</h2>
-      <form id="checkout-form" method="POST" action="xuLyHoanTatDonHang.php">
+        <form id="checkout-form" method="POST" action="xuLyHoanTatDonHang.php">
+
             <div class="form-group">
                 <label for="name">Họ và tên <span class="required">*</span></label>
                 <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($userData['HoTen']); ?>">

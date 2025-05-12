@@ -67,7 +67,7 @@ $conn->close();
     <div class="header_section header_bg">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
+               
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
