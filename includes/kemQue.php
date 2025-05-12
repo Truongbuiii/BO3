@@ -136,15 +136,99 @@ $result = $conn->query($sql);
     </nav>
 </div>
 
-<!-- Liên hệ -->
-<div class="contact_section layout_padding">
-    
-             <div class="copyright_section">
-               <div class="container">
-                  <p class="copyright_text">All Rights Reserved. Design by TiemKemF4</a></p>
-               </div>
-            </div>
+<!-- contact section start -->
+<div class="contact_section layout_padding" style="background-color: #343a40; padding: 50px 0; color: white;">
+   <div class="container">
+      <div class="row">
+         <!-- Contact Info -->
+         <div class="col-md-6 mb-4">
+            <h2 class="text-light mb-4">Liên Hệ Với Chúng Tôi</h2>
+            <p class="text-muted">Chúng tôi luôn sẵn sàng phục vụ và giải đáp thắc mắc của bạn. Hãy liên lạc ngay với chúng tôi qua các phương thức dưới đây:</p>
+            <ul class="list-unstyled">
+               <li class="mb-3">
+                  <a href="#" class="text-decoration-none text-white hover-effect">
+                     <i class="fa fa-map-marker-alt me-3" aria-hidden="true" style="color: #ff6f61;"></i>
+                     <span class="font-weight-bold">Địa chỉ:</span> 1234 Cây Kem, Phường 1, Quận 2, TP. Hồ Chí Minh, Trái Đất
+                  </a>
+               </li>
+               <li class="mb-3">
+                  <a href="tel:+0123456789" class="text-decoration-none text-white hover-effect">
+                     <i class="fa fa-phone-alt me-3" aria-hidden="true" style="color: #ff6f61;"></i>
+                     <span class="font-weight-bold">Hotline:</span> +01 2345 6789
+                  </a>
+               </li>
+               <li class="mb-3">
+                  <a href="mailto:BeYeukem1234@gmail.com" class="text-decoration-none text-white hover-effect">
+                     <i class="fa fa-envelope me-3" aria-hidden="true" style="color: #ff6f61;"></i>
+                     <span class="font-weight-bold">Email:</span> BeYeukem1234@gmail.com
+                  </a>
+               </li>
+            </ul>
          </div>
+
+         <!-- Social Media -->
+         <div class="col-md-6 mb-4">
+            <h2 class="text-light mb-4">Kết Nối Với Chúng Tôi</h2>
+            <p class="text-muted">Theo dõi chúng tôi trên các mạng xã hội để cập nhật thông tin mới nhất:</p>
+            <ul class="list-inline">
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-facebook-f"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-twitter"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-linkedin-in"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-instagram"></i>
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center mt-5">
+         <p class="mb-0" style="font-size: 14px; color: #6c757d;">© 2025 TiemKemF4. Tất cả các quyền được bảo lưu.</p>
+         <p style="font-size: 16px; color: #6c757d;">Thiết kế bởi <strong>TiemKemF4</strong> – Mang vị ngọt đến mọi nhà 🍦</p>
+      </div>
+   </div>
+</div>
+<!-- contact section end -->
+
+<!-- CSS for Hover Effect -->
+<style>
+   .hover-effect:hover {
+      color: #ff6f61;
+      transition: all 0.3s ease;
+   }
+
+   .social-icon:hover i {
+      color: #ff6f61;
+   }
+
+   .social-icon i {
+      font-size: 25px;
+      transition: color 0.3s ease;
+   }
+
+   .text-light {
+      color: #f8f9fa !important;
+   }
+
+   .text-muted {
+      color: #adb5bd;
+   }
+</style>
+
      </div>
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
