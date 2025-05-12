@@ -368,35 +368,51 @@ foreach ($topSanPham as $loai => $sanphams) {
 <?php endif; ?>
 
 
-<!-- contact section start -->
-<div class="contact_section layout_padding" style="background-color: #343a40; padding: 50px 0; color: white;">
-   <div class="container">
-      <div class="row">
-         <!-- Contact Info -->
-         <div class="col-md-6 mb-4">
-            <h2 class="text-light mb-4">Liên Hệ Với Chúng Tôi</h2>
-            <p class="text-muted">Chúng tôi luôn sẵn sàng phục vụ và giải đáp thắc mắc của bạn. Hãy liên lạc ngay với chúng tôi qua các phương thức dưới đây:</p>
-            <ul class="list-unstyled">
-               <li class="mb-3">
-                  <a href="#" class="text-decoration-none text-white hover-effect">
-                     <i class="fa fa-map-marker-alt me-3" aria-hidden="true" style="color: #ff6f61;"></i>
-                     <span class="font-weight-bold">Địa chỉ:</span> 1234 Cây Kem, Phường 1, Quận 2, TP. Hồ Chí Minh, Trái Đất
-                  </a>
-               </li>
-               <li class="mb-3">
-                  <a href="tel:+0123456789" class="text-decoration-none text-white hover-effect">
-                     <i class="fa fa-phone-alt me-3" aria-hidden="true" style="color: #ff6f61;"></i>
-                     <span class="font-weight-bold">Hotline:</span> +01 2345 6789
-                  </a>
-               </li>
-               <li class="mb-3">
-                  <a href="mailto:BeYeukem1234@gmail.com" class="text-decoration-none text-white hover-effect">
-                     <i class="fa fa-envelope me-3" aria-hidden="true" style="color: #ff6f61;"></i>
-                     <span class="font-weight-bold">Email:</span> BeYeukem1234@gmail.com
-                  </a>
-               </li>
-            </ul>
+
+      <!-- contact section start -->
+      <div class="contact_section layout_padding">
+         <div class="container">
+             <div class="row">
+                 <div class="col-md-8">
+                     <div class="location_text">
+                         <ul>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10 active"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                     1234 Cây kem, Phường 1, Quận 2, Thành Phố Hồ Chí Minh, Trái Đất.
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                     Call : +01 23456789
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="#">
+                                     <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                     Email : BeYeukem1234@gmail.com
+                                 </a>
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+             <div class="footer_social_icon">
+                 <ul>
+                     <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                 </ul>
+             </div>
+             <div class="copyright_section">
+               <div class="container">
+                  <p class="copyright_text">All Rights Reserved. Design by TiemKemF4</a></p>
+               </div>
+            </div>
          </div>
+<<<<<<< HEAD
 
          <!-- Social Media -->
          <div class="col-md-6 mb-4">
@@ -462,6 +478,9 @@ foreach ($topSanPham as $loai => $sanphams) {
 </style>
 
          </div>
+=======
+     </div>
+>>>>>>> dcf89b4a980c1a22bf8894254a232bb779476b70
       <script src="js/jquery.min.js"></script>
       <script src="js/popper.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
