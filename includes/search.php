@@ -132,7 +132,7 @@ $category_result = $conn->query($category_sql);
      <div class="header_section header_bg">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/index.php"><img src="/images/logo.png"></a>
+          
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -162,7 +162,7 @@ $category_result = $conn->query($category_sql);
                             <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
                                 Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                             </span>
-                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+                           
                         <?php endif; ?>
                     </li>
                 </ul>
@@ -177,31 +177,33 @@ $category_result = $conn->query($category_sql);
 
 <!-- Search Form for Category and Price Range -->
 <div class="container mt-4">
-    <form action="search.php" method="GET" class="form-inline justify-content-center">
-        <select name="category" class="form-control mb-2 mr-sm-2">
-            <option value="">-- Chọn phân loại --</option>
-            <?php
-            if ($category_result->num_rows > 0) {
-                while ($row = $category_result->fetch_assoc()) {
-                    echo "<option value='" . $row['MaLoai'] . "' " . ($category == $row['MaLoai'] ? 'selected' : '') . ">" . $row['TenLoai'] . "</option>";
+    <form action="search.php" method="GET" class="row justify-content-center g-2">
+        <div class="col-auto">
+            <select name="category" class="form-select">
+                <option value="">-- Chọn phân loại --</option>
+                <?php
+                if ($category_result->num_rows > 0) {
+                    while ($row = $category_result->fetch_assoc()) {
+                        echo "<option value='" . $row['MaLoai'] . "' " . ($category == $row['MaLoai'] ? 'selected' : '') . ">" . $row['TenLoai'] . "</option>";
+                    }
                 }
-            }
-            ?>
-        </select>
+                ?>
+            </select>
+        </div>
 
-        <select name="price_range" class="form-control mb-2 mr-sm-2" style="height: 38px;">
-    <option value="">-- Chọn khoảng giá --</option>
-    <option value="10000-12000" <?php echo ($price_range == '10000-12000' ? 'selected' : ''); ?>>10,000đ - 12,000đ</option>
-    <option value="13000-15000" <?php echo ($price_range == '13000-15000' ? 'selected' : ''); ?>>13,000đ - 15,000đ</option>
-    <option value="16000-20000" <?php echo ($price_range == '16000-20000' ? 'selected' : ''); ?>>16,000đ - 20,000đ</option>
-</select>
+        <div class="col-auto">
+            <input type="number" name="min_price" class="form-control" placeholder="Giá từ" min="0" value="<?php echo isset($_GET['min_price']) ? htmlspecialchars($_GET['min_price']) : ''; ?>">
+        </div>
 
-<button type="submit" class="btn btn-outline-success mb-2" style="height: 38px;">
-    <i class="fa fa-search" style="color: aliceblue;"></i>
-</button>
+        <div class="col-auto">
+            <input type="number" name="max_price" class="form-control" placeholder="Đến" min="0" value="<?php echo isset($_GET['max_price']) ? htmlspecialchars($_GET['max_price']) : ''; ?>">
+        </div>
 
-
-
+        <div class="col-auto">
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
     </form>
 </div>
 
