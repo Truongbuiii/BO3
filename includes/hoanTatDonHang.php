@@ -1,12 +1,9 @@
 <?php
-// Kết nối tới cơ sở dữ liệu
-$servername = "localhost";
-$username = "root"; // Mặc định của XAMPP
-$password = ""; // XAMPP không có mật khẩu mặc định
-$dbname = "b03db";
+session_start(); // Khởi tạo session
 
-// Kết nối MySQL
-$conn = mysqli_connect("localhost", "root", "", "b03db");
+// Kết nối tới cơ sở dữ liệu
+require(__DIR__ . "/../db/connect.php");
+
 
 // Kiểm tra nếu có mã hóa đơn từ query string hoặc session
 if (isset($_GET['maHoaDon'])) {

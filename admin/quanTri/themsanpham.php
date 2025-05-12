@@ -123,11 +123,10 @@ $stmt->bind_param("sssssiis", $newMaSanPham, $tenSanPham, $maLoai, $huongVi, $di
                             <option value="2">Không sẵn hàng</option>
                         </select>
                     </div>
-
                     <div class="form-group">
-                        <label for="price">Đơn giá</label>
-<input type="text" class="form-control" id="price" name="DonGia" placeholder="Hãy nhập giá sản phẩm" required>
-                    </div>
+    <label for="price">Đơn giá</label>
+    <input type="number" class="form-control" id="price" name="DonGia" placeholder="Hãy nhập giá sản phẩm" required min="0">
+</div>
 
                   
                 <div class="form-group">
@@ -232,10 +231,8 @@ document.querySelector('form.user').addEventListener('submit', function(event) {
         alert(errorMessages.join("\n"));
     }
 });
-</script>
 
 
-<script>
   function showModal(message, type = 'success') {
     const modal = new bootstrap.Modal(document.getElementById('messageModal'));
     const modalBody = document.querySelector('#messageModal .modal-body');
@@ -246,6 +243,8 @@ document.querySelector('form.user').addEventListener('submit', function(event) {
     modal.show();
   }
 </script>
+
+
 
 
 
