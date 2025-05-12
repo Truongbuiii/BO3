@@ -187,10 +187,10 @@ if ($result->num_rows > 0) {
                   </li>
                   <ul class="navbar-nav ml-3">
                     <li class="nav-item d-flex align-items-center">
-                        <a href="#" onclick="handleUserClick()">
+                        <a href="user.php" onclick="handleUserClick()">
                             <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
                         </a>
-                        <a href="#" onclick="handleCartClick()">
+                        <a href="trangGioHang.php" onclick="handleCartClick()">
                             <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
                         </a>
                         <?php if (isset($_SESSION['username'])): ?>
@@ -211,7 +211,7 @@ if ($result->num_rows > 0) {
 <div class="container my-5 checkout-wrapper">
     <div class="checkout-container">
         <h2>Thông tin thanh toán</h2>
-        <form id="checkout-form">
+        <form id="checkout-form" method="POST" action="xuLyHoanTatDonHang.php">
             <div class="form-group">
                 <label for="name">Họ và tên <span class="required">*</span></label>
                 <input type="text" id="name" name="name" required value="<?php echo htmlspecialchars($userData['HoTen']); ?>">
@@ -283,11 +283,15 @@ if ($result->num_rows > 0) {
                 <!-- Payment Method Section -->
                 <div class="form-group">
                     <label for="payment-method">Chọn phương thức thanh toán <span class="required">*</span></label>
-                    <select id="payment-method" required>
-                        <option value="online">Thanh toán trực tuyến</option>
-                        <option value="cod">Tiền mặt khi nhận hàng</option>
-                    </select>
+                    <select id="payment-method" name="payment_method" required> <!-- thêm name -->
+    <option value="online">Thanh toán trực tuyến</option>
+    <option value="cod">Tiền mặt khi nhận hàng</option>
+</select>
+
                 </div>
+                <div class="form-group">
+    <button type="submit" class="btn-submit">Xác nhận thanh toán</button>
+</div>
             </form>
         </div>
 
@@ -314,7 +318,8 @@ if ($result->num_rows > 0) {
             }
             ?>
 
-            <button type="button" class="btn-submit" onclick="confirmPayment()">Xác nhận thanh toán</button>
+
+
             <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
         </div>
     </div>

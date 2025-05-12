@@ -144,3 +144,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['start_date']) && isset($
         </table>
     </div>
 <?php endif; ?>
+<?php
+    require 'includes/footer.php';
+    ?>
