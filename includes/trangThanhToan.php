@@ -290,7 +290,7 @@ if ($result->num_rows > 0) {
 
                 </div>
                 <div class="form-group">
-    <button type="submit" class="btn-submit">Xác nhận thanh toán</button>
+    
 </div>
             </form>
         </div>
@@ -319,7 +319,7 @@ if ($result->num_rows > 0) {
             ?>
 
 
-
+<button type="submit" class="btn-submit">Xác nhận thanh toán</button>
             <a href="trangGioHang.php" class="btn-back-cart">Quay lại giỏ hàng</a>
         </div>
     </div>
