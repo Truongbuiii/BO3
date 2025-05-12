@@ -211,10 +211,11 @@ if (!$result) {
                   </select>
                 </div>
 
-                <div class="form-group">
-                  <label for="edit-gia">Giá (VND)</label>
-                  <input type="number" class="form-control" id="edit-gia" name="DonGia" required>
-                </div>
+               <div class="form-group">
+                                <label for="edit-gia">Giá (VND)</label>
+                                <input type="number" class="form-control" id="edit-gia" name="DonGia" required min="0" step="any">
+                            </div>
+
 
                 <div class="form-group">
                   <label for="edit-hinh">Hình ảnh</label>

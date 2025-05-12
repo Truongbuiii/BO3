@@ -1,5 +1,16 @@
 <?php
 session_start();
+;
+
+// Kiểm tra nếu có yêu cầu đăng xuất
+if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
+    session_unset();  // Xóa tất cả các biến session
+    session_destroy();  // Hủy session
+    header("Location: /index.php");  // Chuyển hướng về trang chủ
+    exit();  // Dừng mã tiếp theo
+}
+
+
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
@@ -133,9 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
       <div class="header_section">
          <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">
-            <img src="images/logo.png" alt="Logo">
-        </a>
+       
 
         <!-- Nút toggle menu trên mobile -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
@@ -186,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                             <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
                                 Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                             </span>
-                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+                            
                         </li>
                         
                         
@@ -205,70 +214,81 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     <div class="profile-wrapper">
         <!-- Sidebar -->
         <div class="profile-sidebar">
-            <i class="fa-solid fa-user-circle profile-icon"></i>
+            <div class="profile-icon-wrapper">
+                <i class="fa-solid fa-user-circle profile-icon"></i>
+            </div>
+
             <h2 class="profile-name"><?= htmlspecialchars($user['HoTen']) ?></h2>
+
             <ul class="profile-menu">
-                <li class="menu-item active" data-target="info-section">Thông tin cá nhân</li>
-                <li class="menu-item" data-target="order-history-section">Lịch sử đơn hàng</li>
-                <li class="menu-item" data-target="logout-section">Đăng xuất</li>
+                <li class="menu-item active" data-target="info-section">
+                    <i class="fa-solid fa-user"></i> Thông tin cá nhân
+                </li>
+                <li class="menu-item" data-target="order-history-section">
+                    <i class="fa-solid fa-box"></i> Lịch sử đơn hàng
+                </li>
+                <li class="menu-item" data-target="logout-section">
+                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </li>
             </ul>
         </div>
 
         <!-- Nội dung chính -->
         <div class="profile-content">
-            <div id="info-section" class="content-section active">
-            <div id="info-section" class="content-section active">
-    <!-- Phần hiển thị thông tin -->
-    <div id="view-info">
-        <h3>Thông Tin Cá Nhân</h3>
-        <p><strong>Email:</strong> <?= htmlspecialchars($user['Email']) ?></p>
-        <p><strong>SĐT:</strong> <?= htmlspecialchars($user['SoDienThoai']) ?></p>
-        <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($user['DiaChiCuThe']) ?>,
-            <?= htmlspecialchars($user['PhuongXa']) ?>,
-            <?= htmlspecialchars($user['QuanHuyen']) ?>,
-            <?= htmlspecialchars($user['TPTinh']) ?></p>
-        <p><strong>Vai trò:</strong> <?= htmlspecialchars($user['VaiTro']) ?></p>
-        <button class="edit-btn btn btn-outline-primary mt-3" onclick="toggleEdit()" style="color:#fff">Chỉnh sửa thông tin</button>
-    </div>
+            <!-- Thông tin cá nhân -->
+            <div id="info-section" class="content-section" style="display: block;">
+                <!-- Hiển thị thông tin -->
+                <div id="view-info">
+                    <h3>Thông Tin Cá Nhân</h3>
+                    <p><strong>Email:</strong> <?= htmlspecialchars($user['Email']) ?></p>
+                    <p><strong>SĐT:</strong> <?= htmlspecialchars($user['SoDienThoai']) ?></p>
+                    <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($user['DiaChiCuThe']) ?>,
+                        <?= htmlspecialchars($user['PhuongXa']) ?>,
+                        <?= htmlspecialchars($user['QuanHuyen']) ?>,
+                        <?= htmlspecialchars($user['TPTinh']) ?></p>
+                    <p><strong>Vai trò:</strong> <?= htmlspecialchars($user['VaiTro']) ?></p>
+                    <button class="edit-btn btn btn-outline-primary mt-3" onclick="toggleEdit()" style="color:#fff">Chỉnh sửa thông tin</button>
+                </div>
 
-    <!-- Phần form cập nhật -->
-    <div id="edit-info" style="display: none;">
-        <h3>Chỉnh Sửa Thông Tin</h3>
-        <form method="post" action="">
-            <div class="form-group">
-                <label>Email:</label>
-                <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['Email']) ?>" required>
-            </div>
-            <div class="form-group">
-                <label>SĐT:</label>
-                <input type="text" name="sdt" class="form-control" value="<?= htmlspecialchars($user['SoDienThoai']) ?>" required>
-            </div>
-            <div class="form-group">
-                <label>Địa chỉ:</label>
-                <input type="text" name="diachi" class="form-control" value="<?= htmlspecialchars($user['DiaChiCuThe']) ?>" required>
-            </div>
-            <div class="form-group">
-                <label>Phường/Xã:</label>
-                <input type="text" name="phuongxa" class="form-control" value="<?= htmlspecialchars($user['PhuongXa']) ?>" required>
-            </div>
-            <div class="form-group">
-                <label>Quận/Huyện:</label>
-                <input type="text" name="quanhuyen" class="form-control" value="<?= htmlspecialchars($user['QuanHuyen']) ?>" required>
-            </div>
-            <div class="form-group">
-                <label>Tỉnh/TP:</label>
-                <input type="text" name="tptinh" class="form-control" value="<?= htmlspecialchars($user['TPTinh']) ?>" required>
+                <!-- Form cập nhật -->
+                <div id="edit-info" style="display: none;">
+                    <h3>Chỉnh Sửa Thông Tin</h3>
+                    <form method="post" action="">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['Email']) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>SĐT:</label>
+                            <input type="text" name="sdt" class="form-control" value="<?= htmlspecialchars($user['SoDienThoai']) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Địa chỉ:</label>
+                            <input type="text" name="diachi" class="form-control" value="<?= htmlspecialchars($user['DiaChiCuThe']) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tỉnh/TP:</label>
+                            <input type="text" name="tptinh" class="form-control" value="<?= htmlspecialchars($user['TPTinh']) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Quận/Huyện:</label>
+                            <input type="text" name="quanhuyen" class="form-control" value="<?= htmlspecialchars($user['QuanHuyen']) ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phường/Xã:</label>
+                            <input type="text" name="phuongxa" class="form-control" value="<?= htmlspecialchars($user['PhuongXa']) ?>" required>
+                        </div>
+
+                        <button type="submit" name="update" class="btn btn-primary mt-3">Cập nhật</button>
+                        <div class="text-center mt-2">
+                            <a href="#" class="text-decoration-underline text-secondary" onclick="toggleEdit()">Hủy</a>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <button type="submit" name="update" class="btn btn-primary mt-3">Cập nhật</button>
-           <div class="text-center mt-2">
-    <a href="#" class="text-decoration-underline text-secondary" onclick="toggleEdit()">Hủy</a>
-</div>
-        </form>
-    </div>
-</div>
-
-            <div id="order-history-section" class="content-section">
+            <!-- Lịch sử đơn hàng -->
+            <div id="order-history-section" class="content-section" style="display: none;">
                 <h3>Lịch sử đơn hàng</h3>
                 <ul>
                     <li>Đơn hàng #001 - Đã giao</li>
@@ -276,13 +296,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                     <li>Đơn hàng #003 - Đã hủy</li>
                 </ul>
             </div>
-            <div id="logout-section" class="content-section">
-                <h3>Đăng xuất</h3>
-                <a href="includes/logout.php" class="logout-btn" onclick="return confirm('Bạn có chắc chắn muốn đăng xuất?');">Xác nhận đăng xuất</a>
-            </div>
+
+            <!-- Đăng xuất -->
+            <div id="logout-section" class="content-section" style="display: none;">
+            <h3>Đăng xuất</h3>
+         <form method="GET" action="user.php">
+            <button type="submit" name="logout" value="true" class="logout-btn">Đăng Xuất</button>
+        </form>
+        <style>.logout-btn {
+    background-color: #ff4d4d;  /* Màu nền đỏ */
+    color: white;  /* Màu chữ trắng */
+    border: none;  /* Không có đường viền */
+    padding: 10px 20px;  /* Khoảng cách bên trong nút */
+    font-size: 16px;  /* Kích thước chữ */
+    cursor: pointer;  /* Con trỏ chuột thay đổi khi di chuột vào nút */
+    border-radius: 5px;  /* Bo tròn các góc của nút */
+    transition: background-color 0.3s ease;  /* Hiệu ứng chuyển màu khi hover */
+}
+
+.logout-btn:hover {
+    background-color: #e60000;  /* Màu nền khi hover */
+}
+</style>
+
+
         </div>
-    </div>  
-</div>
+
+        </div>
+    </div>
 </div>
 
 <script>
@@ -319,6 +360,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     function handleCartClick() {
         window.location.href = "trangGioHang.php"; // Điều hướng đến trang giỏ hàng
     }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const menuItems = document.querySelectorAll(".menu-item");
+    const sections = document.querySelectorAll(".content-section");
+
+    menuItems.forEach(item => {
+        item.addEventListener("click", function () {
+            // Active menu
+            menuItems.forEach(i => i.classList.remove("active"));
+            this.classList.add("active");
+
+            // Hide all sections
+            sections.forEach(section => section.style.display = "none");
+
+            // Show target section
+            const target = this.getAttribute("data-target");
+            const targetSection = document.getElementById(target);
+            if (targetSection) {
+                targetSection.style.display = "block";
+            }
+        });
+    });
+});
+
+function toggleEdit() {
+    const view = document.getElementById("view-info");
+    const form = document.getElementById("edit-info");
+
+    if (view.style.display === "none") {
+        view.style.display = "block";
+        form.style.display = "none";
+    } else {
+        view.style.display = "none";
+        form.style.display = "block";
+    }
+}
+
+
+
 </script>
 
 </body>

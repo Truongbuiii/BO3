@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 // Kết nối tới cơ sở dữ liệu
 $servername = "localhost";
 $username = "root"; // Mặc định của XAMPP
@@ -10,6 +11,13 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Kết nối thất bại: " . mysqli_connect_error());
 }
+=======
+session_start(); // Khởi tạo session
+
+// Kết nối tới cơ sở dữ liệu
+require(__DIR__ . "/../db/connect.php");
+
+>>>>>>> af1e3015f65142c8919d982ac506faf1de771016
 
 // Kiểm tra nếu có mã hóa đơn từ query string
 if (isset($_GET['maHoaDon']) && is_numeric($_GET['maHoaDon'])) {

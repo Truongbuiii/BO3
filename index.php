@@ -119,7 +119,7 @@ session_start();
             <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
                 Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
             </span>
-            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+           
         <?php endif; ?>
     </li>
 </ul>
@@ -131,7 +131,7 @@ session_start();
 
     function handleUserClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/userProfile.php"; // Chuyển tới trang thông tin người dùng
+            window.location.href = "includes/user.php"; // Chuyển tới trang thông tin người dùng
         } else {
             window.location.href = "login.php"; // Nếu chưa đăng nhập
         }
