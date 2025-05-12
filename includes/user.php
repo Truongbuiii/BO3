@@ -299,9 +299,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
             <!-- Đăng xuất -->
             <div id="logout-section" class="content-section" style="display: none;">
             <h3>Đăng xuất</h3>
-         <form method="GET" action="user.php">
-            <button type="submit" name="logout" value="true" class="logout-btn">Đăng Xuất</button>
-        </form>
+        
+        <form method="GET" action="user.php" onsubmit="return confirmLogout();">
+    <button type="submit" name="logout" value="true" class="logout-btn">Đăng Xuất</button>
+</form>
+
+<script>
+function confirmLogout() {
+    return confirm("Bạn có chắc chắn muốn đăng xuất?");
+}
+</script>
+
         <style>.logout-btn {
     background-color: #ff4d4d;  /* Màu nền đỏ */
     color: white;  /* Màu chữ trắng */
