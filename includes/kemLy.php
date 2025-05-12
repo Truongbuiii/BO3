@@ -160,7 +160,7 @@ $result = $conn->query($sql);
     const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
     function handleUserClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/userProfile.php";
+            window.location.href = "user.php";
         } else {
             window.location.href = "login.php";
         }
