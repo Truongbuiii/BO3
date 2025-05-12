@@ -79,18 +79,18 @@ session_start();
                   <ul class="navbar-nav">
 
                      <li class="nav-item active">
-                        <a class="nav-link" href="/index.php">Trang chủ</a>
+                        <a class="nav-link" href="index.php">Trang chủ</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="includes/kemLy.php">Kem ly</a>
+                        <a class="nav-link" href="/includes/kemLy.php">Kem ly</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="includes/kemOcQue.php">Kem ốc quế</a>
+                        <a class="nav-link" href="/includes/kemOcQue.php">Kem ốc quế</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="includes/kemQue.php">Kem que</a>
+                        <a class="nav-link" href="/includes/kemQue.php">Kem que</a>
                      </li>
-                     
+
                   </ul>
 
                   <form class="form-inline my-2 my-lg-0" action="includes/search.php" method="GET">

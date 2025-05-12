@@ -3,17 +3,15 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Lấy tên trang hiện tại
+// Lấy tên file của trang hiện tại
 $currentPage = basename($_SERVER['PHP_SELF']);
 
-if (!isset($_SESSION['username']) && $currentPage !== 'login.php' && $currentPage !== 'index.php') {
+// Các trang không yêu cầu đăng nhập
+$allowedPages = ['index.php',  'kemLy.php','kemOcQue.php','kemQue.php',  'chitietsanpham.php']; // Thêm tên file bạn muốn cho truy cập tự do
+
+// Nếu chưa đăng nhập và trang hiện tại không nằm trong danh sách cho phép
+if (!isset($_SESSION['username']) && !in_array($currentPage, $allowedPages)) {
     header("Location: index.php");
     exit();
 }
 ?>
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-

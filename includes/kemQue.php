@@ -68,7 +68,7 @@ $result = $conn->query($sql);
                             <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
                                 Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                             </span>
-                            <a href="logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+                            <a href="index.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
                         <?php endif; ?>
                     </li>
                 </ul>
@@ -160,7 +160,7 @@ $result = $conn->query($sql);
     const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
     function handleUserClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/userProfile.php";
+            window.location.href = "user.php";
         } else {
             window.location.href = "login.php";
         }
@@ -168,7 +168,7 @@ $result = $conn->query($sql);
 
     function handleCartClick() {
         if (isLoggedIn) {
-            window.location.href = "includes/trangGioHang.php";
+            window.location.href = "trangGioHang.php";
         } else {
             alert("Bạn cần đăng nhập để xem giỏ hàng!");
             window.location.href = "login.php";
