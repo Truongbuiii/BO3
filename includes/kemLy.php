@@ -68,7 +68,7 @@ $result = $conn->query($sql);
                             <span style="color: #fc95c4; font-weight: bold; padding-left: 10px;">
                                 Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                             </span>
-                            <a href="/includes/logout.php" class="btn btn-outline-danger ml-2">Đăng xuất</a>
+                           
                         <?php endif; ?>
                     </li>
                 </ul>

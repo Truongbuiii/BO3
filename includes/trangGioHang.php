@@ -273,7 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['MaSanPham']) && isset(
                 <span style="color: #fc95c4; font-weight: bold;">
                     Xin chào, <?php echo htmlspecialchars($_SESSION['username']); ?>!
                 </span>
-                <a href="logout.php" class="btn btn-outline-danger btn-sm mt-1">Đăng xuất</a>
+            
             </div>
         <?php endif; ?>
     </li>
