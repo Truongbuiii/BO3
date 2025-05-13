@@ -287,7 +287,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                 </div>
             </div>
 
-          <!-- Lịch sử đơn hàng -->
+         <!-- Lịch sử đơn hàng -->
 <div id="order-history-section" class="content-section" style="display: none;">
     <h3>Lịch sử đơn hàng</h3>
     <?php
@@ -299,21 +299,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     $orderResult = $stmt->get_result();
 
     if ($orderResult->num_rows > 0) {
-       // Hiển thị danh sách đơn hàng
-while ($order = $orderResult->fetch_assoc()) {
-    echo "<div class='order-item' style='display: flex; align-items: center; gap: 20px; margin-bottom: 10px;'>";
-    echo "<span><strong>Mã hóa đơn:</strong> " . htmlspecialchars($order['MaHoaDon']) . "</span>";
-    echo "<span><strong>Trạng thái:</strong> " . htmlspecialchars($order['TrangThai']) . "</span>";
-    echo "<a href='xemChiTietHoaDon.php?order_id=" . htmlspecialchars($order['MaHoaDon']) . "' class='btn btn-info'>Xem chi tiết</a>";
-    echo "</div>";
-}
-
+        // Hiển thị danh sách đơn hàng
+        echo '<div style="max-height: 350px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">';
+        while ($order = $orderResult->fetch_assoc()) {
+            echo "<div class='order-item' style='display: flex; align-items: center; gap: 20px; margin-bottom: 10px; border-bottom: 1px dashed #aaa; padding-bottom: 10px;'>";
+            echo "<span><strong>Mã hóa đơn:</strong> " . htmlspecialchars($order['MaHoaDon']) . "</span>";
+            echo "<span><strong>Trạng thái:</strong> " . htmlspecialchars($order['TrangThai']) . "</span>";
+            echo "<a href='xemChiTietHoaDon.php?order_id=" . htmlspecialchars($order['MaHoaDon']) . "' class='btn btn-info'>Xem chi tiết</a>";
+            echo "</div>";
+        }
+        echo '</div>'; // Đóng div cuộn
     } else {
         echo "<p>Hiện tại bạn chưa có đơn hàng nào.</p>";
     }
     ?>
 </div>
-
 
             <!-- Đăng xuất -->
             <div id="logout-section" class="content-section" style="display: none;">

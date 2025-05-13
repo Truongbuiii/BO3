@@ -60,101 +60,107 @@ if (isset($_GET['order_id'])) {
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css"> <!-- Đường dẫn CSS -->
   <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(to right, #f6f9fc, #e5f0ff);
-        margin: 0;
-        padding: 0;
-    }
+   body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f6f9fc, #e5f0ff);
+    margin: 0;
+    padding: 0;
+}
 
-    .container {
-        margin: 40px auto;
-        max-width: 800px;
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
+.container {
+    margin: 40px auto;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
 
-    h3 {
-        color: #2b4eff;
-        font-size: 30px;
-        margin-bottom: 25px;
-        text-align: center;
-    }
+h3 {
+    color: #2b4eff;
+    font-size: 30px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;  /* Làm đậm tiêu đề */
+}
 
-    h4 {
-        font-size: 20px;
-        margin-top: 30px;
-        margin-bottom: 10px;
-        color: #444;
-        border-left: 4px solid #2b4eff;
-        padding-left: 10px;
-    }
+h4 {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #444;
+    border-left: 4px solid #2b4eff;
+    padding-left: 10px;
+    font-weight: bold;  /* Làm đậm tiêu đề phụ */
+}
 
-    p {
-        font-size: 16px;
-        color: #444;
-        margin: 5px 0 10px 0;
-    }
+p {
+    font-size: 16px;
+    color: #444;
+    margin: 5px 0 10px 0;
+    font-weight: normal;  /* Giữ chữ bình thường */
+}
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
 
-    table th {
-        background-color: #d6e4ff;
-        color: #2b4eff;
-        padding: 12px;
-        text-align: left;
-        border-bottom: 2px solid #b0c4de;
-    }
+table th {
+    background-color: #d6e4ff;
+    color: #2b4eff;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #b0c4de;
+    font-weight: bold;  /* Làm đậm chữ trong tiêu đề bảng */
+}
 
-    table td {
-        padding: 12px;
-        font-size: 15px;
-        color: #333;
-        border-bottom: 1px solid #eee;
-    }
+table td {
+    padding: 12px;
+    font-size: 15px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
 
-    table tr:nth-child(even) {
-        background-color: #f9faff;
-    }
+table tr:nth-child(even) {
+    background-color: #f9faff;
+}
 
-    table tr:hover {
-        background-color: #eef3ff;
-    }
+table tr:hover {
+    background-color: #eef3ff;
+}
 
-    .btn {
-        display: inline-block;
-        background-color: #2b4eff;
-        color: white;
-        padding: 12px 24px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 16px;
-        margin-top: 30px;
-        text-align: center;
-        transition: background-color 0.3s ease;
-    }
+.btn {
+    display: inline-block;
+    background-color: #2b4eff;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 30px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
 
-    .btn:hover {
-        background-color: #1f3edc;
-    }
+.btn:hover {
+    background-color: #1f3edc;
+}
 
-    .btn-secondary {
-        background-color: #6c757d;
-    }
+.btn-secondary {
+    background-color: #6c757d;
+}
 
-    .btn-secondary:hover {
-        background-color: #5a6268;
-    }
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
 
-    strong {
-        color: #2b4eff;
-    }
+strong {
+    color: #2b4eff;
+    font-weight: bold;  /* Làm đậm chữ in đậm */
+}
+
 </style>
 
 </head>
