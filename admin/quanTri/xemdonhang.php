@@ -62,7 +62,7 @@ $result = $stmt->get_result();
                         <td><?= htmlspecialchars($row['NgayGio']) ?></td>
                         <td><?= number_format($row['TongTien'], 0, ',', '.') ?> VNĐ</td>
                         <td>
-                            <a href="chitiethoadon.php?MaHoaDon=<?= urlencode($row['MaHoaDon']) ?>" class="btn btn-outline-primary">
+                            <a href="chitiethoadon.php?mahoadon=<?= urlencode($row['MaHoaDon']) ?>" class="btn btn-outline-primary">
                                 Xem chi tiết
                             </a>
                         </td>

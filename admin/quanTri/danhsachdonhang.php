@@ -240,7 +240,7 @@ $totalPages = ceil($totalRows / $limit);
                                     <a href='suadonhang.php?mahoadon={$row['MaHoaDon']}' class='btn btn-warning btn-sm mb-1'>
                                         <i class='fa fa-edit'></i> Sửa
                                     </a>
-                                    <a href='chitiethoadon.php?MaHoaDon={$row['MaHoaDon']}' class='btn btn-info btn-sm'>
+                                    <a href='chitiethoadon.php?mahoadon={$row['MaHoaDon']}' class='btn btn-info btn-sm'>
                                         <i class='fa fa-eye'></i> Xem
                                     </a>
                                 </td>
