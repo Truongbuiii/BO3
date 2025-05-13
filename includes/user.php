@@ -292,7 +292,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     <h3>Lịch sử đơn hàng</h3>
     <?php
     // Lấy tất cả các hóa đơn của người dùng
-    $orderSql = "SELECT * FROM HoaDon WHERE TenNguoiDung = ?";
+    $orderSql = "SELECT * FROM HoaDon WHERE TenNguoiDung = ? ORDER BY MaHoaDon DESC";
+
     $stmt = $conn->prepare($orderSql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
