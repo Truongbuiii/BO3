@@ -300,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
 
     if ($orderResult->num_rows > 0) {
         // Hiển thị danh sách đơn hàng
-        echo '<div style="max-height: 350px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">';
+        echo '<div style="max-height: 320px; overflow-y: auto; border: 1px solid #ccc; padding: 9px;">';
         while ($order = $orderResult->fetch_assoc()) {
             echo "<div class='order-item' style='display: flex; align-items: center; gap: 20px; margin-bottom: 10px; border-bottom: 1px dashed #aaa; padding-bottom: 10px;'>";
             echo "<span><strong>Mã hóa đơn:</strong> " . htmlspecialchars($order['MaHoaDon']) . "</span>";
