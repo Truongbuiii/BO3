@@ -179,6 +179,25 @@ function updateQuantity(productId, change) {
         updateTotal();
     });
 }
+function updateTotal() {
+    let total = 0;
+    const rows = document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+        const priceCell = row.querySelector("td[data-price]");
+        const quantitySpan = row.querySelector("span[id^='quantity-']");
+
+        if (priceCell && quantitySpan) {
+            const price = parseInt(priceCell.dataset.price);
+            const quantity = parseInt(quantitySpan.textContent);
+            total += price * quantity;
+        }
+    });
+
+    // Cập nhật DOM
+    const formattedTotal = total.toLocaleString('vi-VN') + ' VND';
+    document.getElementById('total-price').textContent = formattedTotal;
+}
 
 </script>
 </body>
