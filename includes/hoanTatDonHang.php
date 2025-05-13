@@ -2,10 +2,9 @@
 session_start();
 require(__DIR__ . "/../db/connect.php");
 
-
 // Kiểm tra mã hóa đơn nhận được từ GET
 if (isset($_GET['maHoaDon']) && !empty($_GET['maHoaDon'])) {
-    $maHoaDon = filter_var($_GET['maHoaDon'] ); // Làm sạch mã hóa đơn
+    $maHoaDon = filter_var($_GET['maHoaDon']); // Làm sạch mã hóa đơn
     error_log("Mã hóa đơn nhận được: " . $maHoaDon);
 } else {
     error_log("Không nhận được mã hóa đơn từ GET");
@@ -30,6 +29,7 @@ if ($result->num_rows > 0) {
     echo "Không tìm thấy đơn hàng!";
     exit;
 }
+
 // Truy vấn chi tiết sản phẩm trong đơn hàng từ bảng ChiTietHoaDon
 $sql_ct = "SELECT cthd.SoLuong, cthd.DonGia, sp.TenSanPham 
            FROM ChiTietHoaDon cthd 
@@ -45,15 +45,19 @@ $result_ct = $stmt_ct->get_result();
 if ($result_ct->num_rows > 0) {
     // Lưu thông tin sản phẩm vào mảng
     $order_details = [];
+    $total_product_price = 0; // Khai báo biến tổng tiền sản phẩm
     while ($item = $result_ct->fetch_assoc()) {
         $order_details[] = $item;
+        $total_product_price += $item['SoLuong'] * $item['DonGia']; // Tính tổng tiền sản phẩm
     }
 } else {
     echo "Không có sản phẩm trong hóa đơn!";
     exit;
 }
 
-
+// Tính phí ship (phí ship = Tổng tiền của đơn hàng - Tổng giá sản phẩm)
+$shipping_fee = $order['TongTien'] - $total_product_price; 
+$shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều phí ship cho từng sản phẩm
 
 ?>
 
@@ -181,7 +185,13 @@ if ($result_ct->num_rows > 0) {
                         <td><?php echo $item['TenSanPham']; ?></td>
                         <td><?php echo $item['SoLuong']; ?></td>
                         <td><?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VNĐ</td>
-                        <td><?php echo number_format($item['SoLuong'] * $item['DonGia'], 0, ',', '.'); ?> VNĐ</td>
+                        <td>
+                            <?php 
+                            // Tính thành tiền cho mỗi sản phẩm bao gồm phí ship phân bổ
+                            $item_total = $item['SoLuong'] * $item['DonGia'] + $shipping_fee_per_item;
+                            echo number_format($item_total, 0, ',', '.'); 
+                            ?> VNĐ
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
