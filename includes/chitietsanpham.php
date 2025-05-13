@@ -139,11 +139,11 @@ $related_products = $stmt_related->get_result();
                 <script>
                     const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
                     function handleUserClick() {
-                        if (isLoggedIn) window.location.href = "includes/userProfile.php";
+                        if (isLoggedIn) window.location.href = "user.php";
                         else window.location.href = "login.php";
                     }
                     function handleCartClick() {
-                        if (isLoggedIn) window.location.href = "includes/trangGioHang.php";
+                        if (isLoggedIn) window.location.href = "trangGioHang.php";
                         else {
                             alert("Bạn cần đăng nhập để xem giỏ hàng!");
                             window.location.href = "login.php";
