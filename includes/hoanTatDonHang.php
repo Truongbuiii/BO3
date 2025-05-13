@@ -60,7 +60,6 @@ $shipping_fee = $order['TongTien'] - $total_product_price;
 $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều phí ship cho từng sản phẩm
 
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -131,7 +130,7 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
             background-color: #f1f1f1;
         }
 
-        .btn-back-home {
+        .btn-back-home, .btn-order-history {
             margin-top: 30px;
             display: inline-block;
             padding: 10px 25px;
@@ -142,10 +141,19 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s ease;
+            margin-right: 10px;
         }
 
-        .btn-back-home:hover {
+        .btn-back-home:hover, .btn-order-history:hover {
             background-color: #0077b6;
+        }
+
+        .btn-order-history {
+            background-color: #00aaff;
+        }
+
+        .btn-order-history:hover {
+            background-color: #0088cc;
         }
     </style>
 </head>
@@ -200,6 +208,8 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
 
         <div class="text-center">
             <a href="../index.php" class="btn-back-home">Quay lại trang chủ</a>
+          <a href="user.php?tab=order-history" class="btn-order-history">Lịch sử đơn hàng</a>
+
         </div>
     </div>
 </body>
