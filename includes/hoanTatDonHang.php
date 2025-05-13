@@ -69,11 +69,7 @@ if ($result_ct->num_rows > 0) {
         body {
             background: linear-gradient(to right, #ffe6ec, #e3f6f5);
             font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            padding: 40px 10px;
         }
 
         .thankyou-container {
@@ -81,30 +77,59 @@ if ($result_ct->num_rows > 0) {
             padding: 40px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .thankyou-container i {
+        .thankyou-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .thankyou-header i {
             font-size: 60px;
             color: #90e0ef;
-            margin-bottom: 20px;
         }
 
-        .thankyou-container h2 {
+        .thankyou-header h2 {
             color: #0081a7;
-            margin-bottom: 10px;
             font-weight: 600;
+            margin-top: 10px;
         }
 
-        .thankyou-container p {
-            color: #555;
-            font-size: 16px;
+        .order-info, .order-details {
+            margin-top: 20px;
+        }
+
+        .order-info h5, .order-details h5 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .order-info p {
+            margin: 5px 0;
+            font-size: 15px;
+        }
+
+        .order-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-details th, .order-details td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .order-details th {
+            background-color: #f1f1f1;
         }
 
         .btn-back-home {
-            margin-top: 25px;
+            margin-top: 30px;
+            display: inline-block;
             padding: 10px 25px;
             background-color: #00b4d8;
             color: #fff;
@@ -122,30 +147,50 @@ if ($result_ct->num_rows > 0) {
 </head>
 <body>
     <div class="thankyou-container">
-        <i class="fa-solid fa-ice-cream"></i>
-        <h2>Đơn hàng đã được đặt thành công!</h2>
-        <p>Cảm ơn bạn đã lựa chọn cửa hàng kem của chúng tôi. Chúng tôi sẽ xác nhận đơn và giao hàng sớm nhất có thể.</p>
+        <div class="thankyou-header">
+            <i class="fa-solid fa-ice-cream"></i>
+            <h2>Đơn hàng đã được đặt thành công!</h2>
+            <p>Cảm ơn bạn đã lựa chọn cửa hàng kem của chúng tôi. Chúng tôi sẽ xác nhận đơn và giao hàng sớm nhất có thể.</p>
+        </div>
 
-        <!-- Hiển thị thông tin đơn hàng -->
-        <h4>Mã hóa đơn: <?php echo $order['MaHoaDon']; ?></h4>
-        <p>Người nhận: <?php echo $order['NguoiNhanHang']; ?></p>
-        <p>Địa chỉ giao hàng: <?php echo $order['DiaChiCuThe']; ?></p>
-        <p>Tổng tiền: <?php echo number_format($order['TongTien'], 2, ',', '.'); ?> VNĐ</p>
-        <p>Hình thức thanh toán: <?php echo $order['HinhThucThanhToan']; ?></p>
+        <!-- Thông tin đơn hàng -->
+        <div class="order-info">
+            <h5>Thông tin đơn hàng</h5>
+            <p><strong>Mã hóa đơn:</strong> <?php echo $order['MaHoaDon']; ?></p>
+            <p><strong>Người nhận:</strong> <?php echo $order['NguoiNhanHang']; ?></p>
+            <p><strong>Địa chỉ giao hàng:</strong> <?php echo $order['DiaChiCuThe']; ?></p>
+            <p><strong>Tổng tiền:</strong> <?php echo number_format($order['TongTien'], 0, ',', '.'); ?> VNĐ</p>
+            <p><strong>Hình thức thanh toán:</strong> <?php echo $order['HinhThucThanhToan']; ?></p>
+        </div>
 
-        <!-- Danh sách sản phẩm trong đơn -->
-        <h5>Chi tiết đơn hàng:</h5>
-        <ul class="list-group">
-    <?php foreach ($order_details as $item): ?>
-        <li class="list-group-item">
-            <strong><?php echo $item['TenSanPham']; ?></strong> - 
-            <?php echo $item['SoLuong']; ?> x 
-            <?php echo number_format($item['DonGia'], 2, ',', '.'); ?> VNĐ
-        </li>
-    <?php endforeach; ?>
-</ul>
+        <!-- Chi tiết sản phẩm -->
+        <div class="order-details">
+            <h5>Chi tiết đơn hàng</h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($order_details as $item): ?>
+                    <tr>
+                        <td><?php echo $item['TenSanPham']; ?></td>
+                        <td><?php echo $item['SoLuong']; ?></td>
+                        <td><?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VNĐ</td>
+                        <td><?php echo number_format($item['SoLuong'] * $item['DonGia'], 0, ',', '.'); ?> VNĐ</td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
 
-        <a href="../index.php" class="btn-back-home">Quay lại trang chủ</a>
+        <div class="text-center">
+            <a href="../index.php" class="btn-back-home">Quay lại trang chủ</a>
+        </div>
     </div>
 </body>
 </html>
