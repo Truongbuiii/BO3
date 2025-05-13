@@ -60,7 +60,6 @@ $shipping_fee = $order['TongTien'] - $total_product_price;
 $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều phí ship cho từng sản phẩm
 
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -131,7 +130,7 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
             background-color: #f1f1f1;
         }
 
-        .btn-back-home {
+        .btn-back-home, .btn-order-history {
             margin-top: 30px;
             display: inline-block;
             padding: 10px 25px;
@@ -142,10 +141,19 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s ease;
+            margin-right: 10px;
         }
 
-        .btn-back-home:hover {
+        .btn-back-home:hover, .btn-order-history:hover {
             background-color: #0077b6;
+        }
+
+        .btn-order-history {
+            background-color: #00aaff;
+        }
+
+        .btn-order-history:hover {
+            background-color: #0088cc;
         }
     </style>
 </head>
@@ -163,7 +171,7 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
             <p><strong>Mã hóa đơn:</strong> <?php echo $order['MaHoaDon']; ?></p>
             <p><strong>Người nhận:</strong> <?php echo $order['NguoiNhanHang']; ?></p>
             <p><strong>Địa chỉ giao hàng:</strong> <?php echo $order['DiaChiCuThe']; ?></p>
-            <p><strong>Tổng tiền:</strong> <?php echo number_format($order['TongTien'], 0, ',', '.'); ?> VNĐ</p>
+           
             <p><strong>Hình thức thanh toán:</strong> <?php echo $order['HinhThucThanhToan']; ?></p>
         </div>
 
@@ -176,7 +184,7 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
                         <th>Tên sản phẩm</th>
                         <th>Số lượng</th>
                         <th>Đơn giá</th>
-                        <th>Thành tiền</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -186,20 +194,21 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
                         <td><?php echo $item['SoLuong']; ?></td>
                         <td><?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VNĐ</td>
                         <td>
-                            <?php 
-                            // Tính thành tiền cho mỗi sản phẩm bao gồm phí ship phân bổ
-                            $item_total = $item['SoLuong'] * $item['DonGia'] + $shipping_fee_per_item;
-                            echo number_format($item_total, 0, ',', '.'); 
-                            ?> VNĐ
+                            
+            
                         </td>
                     </tr>
+                    
                     <?php endforeach; ?>
                 </tbody>
             </table>
+         <p><strong>Tổng tiền:</strong> <?php echo number_format($order['TongTien'], 0, ',', '.'); ?> VNĐ</p>
         </div>
 
         <div class="text-center">
             <a href="../index.php" class="btn-back-home">Quay lại trang chủ</a>
+          <a href="user.php?tab=order-history" class="btn-order-history">Lịch sử đơn hàng</a>
+
         </div>
     </div>
 </body>

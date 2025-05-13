@@ -172,12 +172,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                   </ul>
 
             <!-- Form tìm kiếm -->
-           <form class="form-inline my-2 my-lg-0" action="search.php" method="GET">
-                     <input class="form-control mr-sm-2" type="search" name="search" placeholder="Tìm kiếm..." aria-label="Search">
-                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                     </button>
-                  </form>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
             <!-- Icon User & Giỏ hàng -->
             <ul class="navbar-nav ml-3">
             <li class="nav-item d-flex align-items-center">
@@ -245,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                         <?= htmlspecialchars($user['PhuongXa']) ?>,
                         <?= htmlspecialchars($user['QuanHuyen']) ?>,
                         <?= htmlspecialchars($user['TPTinh']) ?></p>
-                   
+                    <p><strong>Vai trò:</strong> <?= htmlspecialchars($user['VaiTro']) ?></p>
                     <button class="edit-btn btn btn-outline-primary mt-3" onclick="toggleEdit()" style="color:#fff">Chỉnh sửa thông tin</button>
                 </div>
 
@@ -286,30 +287,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                 </div>
             </div>
 
-            <!-- Lịch sử đơn hàng -->
-            <div id="order-history-section" class="content-section" style="display: none;">
-                <h3>Lịch sử đơn hàng</h3>
-                <ul>
-                    <li>Đơn hàng #001 - Đã giao</li>
-                    <li>Đơn hàng #002 - Đang xử lý</li>
-                    <li>Đơn hàng #003 - Đã hủy</li>
-                </ul>
-            </div>
+          <!-- Lịch sử đơn hàng -->
+<div id="order-history-section" class="content-section" style="display: none;">
+    <h3>Lịch sử đơn hàng</h3>
+    <?php
+    // Lấy tất cả các hóa đơn của người dùng
+    $orderSql = "SELECT * FROM HoaDon WHERE TenNguoiDung = ?";
+    $stmt = $conn->prepare($orderSql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $orderResult = $stmt->get_result();
+
+    if ($orderResult->num_rows > 0) {
+       // Hiển thị danh sách đơn hàng
+while ($order = $orderResult->fetch_assoc()) {
+    echo "<div class='order-item' style='display: flex; align-items: center; gap: 20px; margin-bottom: 10px;'>";
+    echo "<span><strong>Mã hóa đơn:</strong> " . htmlspecialchars($order['MaHoaDon']) . "</span>";
+    echo "<span><strong>Trạng thái:</strong> " . htmlspecialchars($order['TrangThai']) . "</span>";
+    echo "<a href='xemChiTietHoaDon.php?order_id=" . htmlspecialchars($order['MaHoaDon']) . "' class='btn btn-info'>Xem chi tiết</a>";
+    echo "</div>";
+}
+
+    } else {
+        echo "<p>Hiện tại bạn chưa có đơn hàng nào.</p>";
+    }
+    ?>
+</div>
+
 
             <!-- Đăng xuất -->
             <div id="logout-section" class="content-section" style="display: none;">
             <h3>Đăng xuất</h3>
-        
-        <form method="GET" action="user.php" onsubmit="return confirmLogout();">
-    <button type="submit" name="logout" value="true" class="logout-btn">Đăng Xuất</button>
-</form>
-
-<script>
-function confirmLogout() {
-    return confirm("Bạn có chắc chắn muốn đăng xuất?");
-}
-</script>
-
+         <form method="GET" action="user.php">
+            <button type="submit" name="logout" value="true" class="logout-btn">Đăng Xuất</button>
+        </form>
         <style>.logout-btn {
     background-color: #ff4d4d;  /* Màu nền đỏ */
     color: white;  /* Màu chữ trắng */
@@ -406,7 +417,32 @@ function toggleEdit() {
     }
 }
 
+ // Xử lý chuyển tab menu sidebar
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', function () {
+            // Bỏ active tất cả
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(section => section.style.display = 'none');
 
+            // Active mục được chọn
+            this.classList.add('active');
+            const target = this.getAttribute('data-target');
+            document.getElementById(target).style.display = 'block';
+        });
+    });
+
+    // Ẩn form chỉnh sửa nếu đang mở
+    function toggleEdit() {
+        const view = document.getElementById('view-info');
+        const edit = document.getElementById('edit-info');
+        if (view.style.display === 'none') {
+            view.style.display = 'block';
+            edit.style.display = 'none';
+        } else {
+            view.style.display = 'none';
+            edit.style.display = 'block';
+        }
+    }
 
 </script>
 
