@@ -170,7 +170,7 @@ INSERT INTO HoaDon (MaHoaDon, NguoiNhanHang, Email, SoDienThoai, TPTinh, QuanHuy
 ('HD025', 'Trần Lệ Y', 'tranley@example.com', '0905678901', 'TP.HCM', 'Quận 5', 'Phường Tân Thuận', '5253 Nguyễn Lương Bằng', '2025-04-04 10:00:00', 45000, 'Đã giao thành công', 'Chuyển khoản', 'user5'),
 ('HD026', 'Nguyễn Lương Z', 'nguyenluongz@example.com', '0906789012', 'TP.HCM', 'Quận 10', 'Phường 12', '5455 Võ Thị Sáu', '2025-04-06 11:15:00', 50000, 'Đã giao thành công', 'Tiền mặt', 'user6'),
 ('HD027', 'Vũ Quang AA', 'vuquangaa@example.com', '0907890123', 'TP.HCM', 'Thành Phố Thủ Đức', 'Phường Linh Chiểu', '5657 Lê Duẩn', '2025-04-07 12:25:00', 43000, 'Đã xác nhận', 'Chuyển khoản', 'user7'),
-('HD028', 'Nguyễn Minh AB', 'nguyenminhab@example.com', '0908901234', 'TP.HCM', 'Quận 1', 'Phường Bến Nghé', '5859 Nguyễn Huệ', '2025-04-08 13:35:00', 47000, 'Đã xác nhận', 'Tiền mặt', 'user8'),
+('HD028', 'Nguyễn Minh AB', 'nguyenminhab@example.com', '0908901234', 'TP.HCM', 'Quận 1', 'Phường Bến Nghé', '5859 Nguyễn Huệ', '2025-04-08 13:35:00', 75000, 'Đã xác nhận', 'Tiền mặt', 'user8'),
 ('HD029', 'Lê Kim AC', 'lekimac@example.com', '0909012345', 'TP.HCM', 'Quận 7', 'Phường An Phú', '6061 Trần Hưng Đạo', '2025-04-09 14:45:00', 49000, 'Đã hủy', 'Chuyển khoản', 'user9'),
 ('HD030', 'Trần Quang AD', 'tranquangad@example.com', '0900123456', 'TP.HCM', 'Quận 10', 'Phường Tân Quý', '6263 Phan Văn Hớn', '2025-04-10 15:00:00', 52000, 'Đã xác nhận', 'Tiền mặt', 'user10');
 
