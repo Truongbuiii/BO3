@@ -108,7 +108,7 @@ $totalPages = ceil($totalRows / $limit);
                     <option value="Chưa xác nhận" <?php echo $tinhTrang == 'Chưa xác nhận' ? 'selected' : ''; ?>>Chưa xác nhận</option>
                     <option value="Đã xác nhận" <?php echo $tinhTrang == 'Đã xác nhận' ? 'selected' : ''; ?>>Đã xác nhận</option>
                     <option value="Đã giao thành công" <?php echo $tinhTrang == 'Đã giao thành công' ? 'selected' : ''; ?>>Đã giao thành công</option>
-                    <option value="Đã huỷ" <?php echo $tinhTrang == 'Đã huỷ' ? 'selected' : ''; ?>>Đã huỷ</option>
+                    <option value="Đã hủy" <?php echo $tinhTrang == 'Đã hủy' ? 'selected' : ''; ?>>Đã hủy</option>
                 </select>
             </div>
         </div>

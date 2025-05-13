@@ -193,10 +193,7 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
                         <td><?php echo $item['TenSanPham']; ?></td>
                         <td><?php echo $item['SoLuong']; ?></td>
                         <td><?php echo number_format($item['DonGia'], 0, ',', '.'); ?> VNĐ</td>
-                        <td>
-                            
-            
-                        </td>
+                        
                     </tr>
                     
                     <?php endforeach; ?>
