@@ -444,6 +444,42 @@ function toggleEdit() {
         }
     }
 
+    document.addEventListener("DOMContentLoaded", function() {
+    const menuItems = document.querySelectorAll(".menu-item");
+    const sections = document.querySelectorAll(".content-section");
+
+    menuItems.forEach(item => {
+        item.addEventListener("click", function() {
+            // Active menu
+            menuItems.forEach(i => i.classList.remove("active"));
+            this.classList.add("active");
+
+            // Hide all sections
+            sections.forEach(section => section.style.display = "none");
+
+            // Show target section
+            const target = this.getAttribute("data-target");
+            const targetSection = document.getElementById(target);
+            if (targetSection) {
+                targetSection.style.display = "block";
+            }
+        });
+    });
+    
+    // Check if there's a tab parameter in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabParam = urlParams.get('tab');
+    
+    if (tabParam) {
+        // Find the menu item with the matching data-target
+        const menuItem = document.querySelector(`.menu-item[data-target="${tabParam}"]`);
+        if (menuItem) {
+            // Trigger click on the menu item
+            menuItem.click();
+        }
+    }
+});
+
 </script>
 
 </body>

@@ -199,12 +199,31 @@ $shipping_fee_per_item = $shipping_fee / count($order_details); // Chia đều p
                     <?php endforeach; ?>
                 </tbody>
             </table>
-         <p><strong>Tổng tiền:</strong> <?php echo number_format($order['TongTien'], 0, ',', '.'); ?> VNĐ</p>
+        <?php
+// Tính tổng tiền sản phẩm trước khi hiển thị
+$tongTienSanPham = 0;
+foreach ($order_details as $item) {
+    $tongTienSanPham += $item['SoLuong'] * $item['DonGia'];  // Tính tổng tiền sản phẩm
+}
+
+// Đặt phí vận chuyển cố định
+$phiShip = 30000;
+
+// Tính tổng thanh toán
+$tongThanhToan = $tongTienSanPham + $phiShip;
+?>
+
+<!-- Trong phần HTML -->
+<p><strong>Tổng tiền sản phẩm:</strong> <?= number_format($tongTienSanPham, 0, ',', '.') ?> VNĐ</p>
+<p><strong>Phí vận chuyển:</strong> <?= number_format($phiShip, 0, ',', '.') ?> VNĐ</p>
+<p><strong>Tổng thanh toán:</strong> <?= number_format($tongThanhToan, 0, ',', '.') ?> VNĐ</p>
+
+
         </div>
 
         <div class="text-center">
             <a href="../index.php" class="btn-back-home">Quay lại trang chủ</a>
-          <a href="user.php?tab=order-history" class="btn-order-history">Lịch sử đơn hàng</a>
+       <a href="user.php?tab=order-history-section" class="btn-order-history">Lịch sử đơn hàng</a>
 
         </div>
     </div>
