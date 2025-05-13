@@ -21,23 +21,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($trangThaiResult && $row = mysqli_fetch_assoc($trangThaiResult)) {
         $trangThaiCu = trim($row['TrangThai']);
 
-        // Danh sách thứ tự trạng thái
-        $thuTuTrangThai = [
-            "Chưa xác nhận" => 1,
-            "Đã xác nhận" => 2,
-            "Đã giao thành công" => 3,
-            "Đã huỷ" => 4
-        ];
+       // Danh sách thứ tự trạng thái
+$thuTuTrangThai = [
+    "Chưa xác nhận" => 1,
+    "Đã xác nhận" => 2,
+    "Đã giao thành công" => 3,
+    "Đã huỷ" => 4
+];
 
-        $thuTuCu = $thuTuTrangThai[$trangThaiCu] ?? 0;
-        $thuTuMoi = $thuTuTrangThai[$trangThaiMoi] ?? 0;
+$thuTuCu = $thuTuTrangThai[$trangThaiCu] ?? 0;
+$thuTuMoi = $thuTuTrangThai[$trangThaiMoi] ?? 0;
 
-        if ($thuTuMoi < $thuTuCu) {
-            // Thông báo lỗi không cho cập nhật ngược trạng thái
-            echo "<div class='alert alert-warning'>⚠️ Không thể cập nhật trạng thái từ <strong>$trangThaiCu</strong> về <strong>$trangThaiMoi</strong>. Trạng thái mới phải tiến về phía trước.</div>";
-            echo "<a href='suadonhang.php?mahoadon=$maHD' class='btn btn-primary mt-3'>Quay lại chỉnh sửa</a>";
-            exit;
-        }
+// Kiểm tra nếu trạng thái mới không tiến lên
+if ($thuTuMoi <= $thuTuCu) {
+    // Thông báo lỗi không cho cập nhật lùi trạng thái
+    echo "<div class='alert alert-warning'>⚠️ Không thể cập nhật trạng thái từ <strong>$trangThaiCu</strong> về <strong>$trangThaiMoi</strong>. Trạng thái mới phải tiến lên.</div>";
+    echo "<a href='suadonhang.php?mahoadon=$maHD' class='btn btn-primary mt-3'>Quay lại chỉnh sửa</a>";
+    exit;
+}
+
 
         // Thực hiện cập nhật
         $sql = "UPDATE HoaDon SET 
