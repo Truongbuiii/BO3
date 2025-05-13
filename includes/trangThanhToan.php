@@ -76,35 +76,42 @@ if ($result->num_rows > 0) {
 }
 
    .checkout-wrapper {
-    display: flex;
-    justify-content: center;       /* Căn giữa nội dung theo chiều ngang */
-    align-items: flex-start;       /* Không cần thay đổi chiều dọc */
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 30px;
 }
 
-
-      .checkout-container {
-   flex: 0.95;
-   padding: 30px;
-   border: 1px solid #ddd;
-   border-radius: 10px;
-   background-color: #f9f9f9;
-   font-size: 14px;
-   min-width: 800px;
+.checkout-container {
+  flex: 1 1 60%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  min-width: 300px;
 }
 
 .order-summary {
-   flex: 0.35;
-   padding: 30px;
-   border: 1px solid #ddd;
-   border-radius: 10px;
-   background-color: #f9f9f9;
-   font-size: 14px;
-   min-width: 350px;
+  flex: 1 1 35%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  min-width: 280px;
 }
+
+@media screen and (max-width: 768px) {
+  .checkout-wrapper {
+    flex-direction: column;
+  }
+
+  .checkout-container, .order-summary {
+    flex: 1 1 100%;
+  }
+}
+
+
  .form-group input, .form-group select {
    width: 100%;
    padding: 8px;
@@ -229,24 +236,32 @@ if ($result->num_rows > 0) {
                         <?php endif; ?>
                     </li>
                 </ul>
+                <script>
+    // Kiểm tra trạng thái đăng nhập từ PHP
+    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+
+    function handleUserClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/user.php"; // Chuyển tới trang thông tin người dùng
+        } else {
+            window.location.href = "login.php"; // Nếu chưa đăng nhập
+        }
+    }
+
+    function handleCartClick() {
+        if (isLoggedIn) {
+            window.location.href = "trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
+        } else {
+            alert("Bạn cần đăng nhập để xem giỏ hàng!");
+            window.location.href = "login.php";
+        }
+    }
+</script>
                </div>
             </nav>
          </div>
 
-         <script>
-                    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
-                    function handleUserClick() {
-                        if (isLoggedIn) window.location.href = "user.php";
-                        else window.location.href = "login.php";
-                    }
-                    function handleCartClick() {
-                        if (isLoggedIn) window.location.href = "trangGioHang.php";
-                        else {
-                            alert("Bạn cần đăng nhập để xem giỏ hàng!");
-                            window.location.href = "login.php";
-                        }
-                    }
-                </script>
+
 
  <!-- Checkout Form Section -->
 <div class="container my-5 checkout-wrapper">
