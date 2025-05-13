@@ -76,35 +76,42 @@ if ($result->num_rows > 0) {
 }
 
    .checkout-wrapper {
-    display: flex;
-    justify-content: center;       /* Căn giữa nội dung theo chiều ngang */
-    align-items: flex-start;       /* Không cần thay đổi chiều dọc */
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 30px;
 }
 
-
-      .checkout-container {
-   flex: 0.95;
-   padding: 30px;
-   border: 1px solid #ddd;
-   border-radius: 10px;
-   background-color: #f9f9f9;
-   font-size: 14px;
-   min-width: 800px;
+.checkout-container {
+  flex: 1 1 60%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  min-width: 300px;
 }
 
 .order-summary {
-   flex: 0.35;
-   padding: 30px;
-   border: 1px solid #ddd;
-   border-radius: 10px;
-   background-color: #f9f9f9;
-   font-size: 14px;
-   min-width: 350px;
+  flex: 1 1 35%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  min-width: 280px;
 }
+
+@media screen and (max-width: 768px) {
+  .checkout-wrapper {
+    flex-direction: column;
+  }
+
+  .checkout-container, .order-summary {
+    flex: 1 1 100%;
+  }
+}
+
+
  .form-group input, .form-group select {
    width: 100%;
    padding: 8px;
