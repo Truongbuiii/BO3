@@ -78,7 +78,7 @@ if (isset($_GET['mahoadon'])) {
                 <option value="Chưa xác nhận" <?php if(trim($row['TrangThai']) === 'Chưa xác nhận') echo 'selected'; ?>>Chưa xác nhận</option>
                 <option value="Đã xác nhận" <?php if($row['TrangThai']=='Đã xác nhận') echo 'selected'; ?>>Đã xác nhận</option>
                 <option value="Đã giao thành công" <?php if($row['TrangThai']=='Đã giao thành công') echo 'selected'; ?>>Đã giao thành công</option>
-                <option value="Đã huỷ" <?php if($row['TrangThai']=='Đã huỷ') echo 'selected'; ?>>Đã huỷ</option>
+                <option value="Đã hủy" <?php if($row['TrangThai']=='Đã hủy') echo 'selected'; ?>>Đã hủy</option>
             </select>
         </div>
 
