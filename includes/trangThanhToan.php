@@ -68,23 +68,51 @@ if ($result->num_rows > 0) {
 
 
       <style>
-      .checkout-wrapper {
-         display: flex;
-         justify-content: space-between;
-         align-items: flex-start;
-         max-width: 1300px;
-         margin: auto;
-         gap: 40px;
-      }
 
-      .checkout-container, .order-summary {
-         flex: 0.5;
-         padding: 30px;
-         border: 1px solid #ddd;
-         border-radius: 10px;
-         background-color: #f9f9f9;
-         font-size: 14px;
-      }
+    .container {
+  display: flex;
+  justify-content: center;   /* Căn giữa theo chiều ngang */
+  width: 100%;
+}
+
+   .checkout-wrapper {
+    display: flex;
+    justify-content: center;       /* Căn giữa nội dung theo chiều ngang */
+    align-items: flex-start;       /* Không cần thay đổi chiều dọc */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+      .checkout-container {
+   flex: 0.95;
+   padding: 30px;
+   border: 1px solid #ddd;
+   border-radius: 10px;
+   background-color: #f9f9f9;
+   font-size: 14px;
+   min-width: 800px;
+}
+
+.order-summary {
+   flex: 0.35;
+   padding: 30px;
+   border: 1px solid #ddd;
+   border-radius: 10px;
+   background-color: #f9f9f9;
+   font-size: 14px;
+   min-width: 350px;
+}
+ .form-group input, .form-group select {
+   width: 100%;
+   padding: 8px;
+   margin-top: 5px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   box-sizing: border-box;
+}
 
       .order-summary h2, .checkout-container h2 {
          text-align: center;
@@ -328,7 +356,7 @@ if ($result->num_rows > 0) {
         </div>
     </form>
 </div>
-<
+
 
   
     </script><script>
