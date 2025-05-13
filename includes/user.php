@@ -301,8 +301,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
 
     if ($orderResult->num_rows > 0) {
         // Hiển thị danh sách đơn hàng
-       echo '<div style="border: 1px solid #ccc; padding: 10px; max-height: 250px; overflow-y: auto;">';
-
+        echo '<div style="max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;">';
         while ($order = $orderResult->fetch_assoc()) {
             echo "<div class='order-item' style='display: flex; align-items: center; gap: 20px; margin-bottom: 10px; border-bottom: 1px dashed #aaa; padding-bottom: 10px;'>";
             echo "<span><strong>Mã hóa đơn:</strong> " . htmlspecialchars($order['MaHoaDon']) . "</span>";
@@ -320,9 +319,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
             <!-- Đăng xuất -->
             <div id="logout-section" class="content-section" style="display: none;">
             <h3>Đăng xuất</h3>
-         <form method="GET" action="user.php">
-            <button type="submit" name="logout" value="true" class="logout-btn">Đăng Xuất</button>
-        </form>
+         <form method="GET" action="user.php" onsubmit="return confirmLogout();">
+    <button type="submit" name="logout" value="true" class="logout-btn">Đăng Xuất</button>
+</form>
+
+<script>
+function confirmLogout() {
+    return confirm("Bạn có chắc chắn muốn đăng xuất không?");
+}
+</script>
+
         <style>.logout-btn {
     background-color: #ff4d4d;  /* Màu nền đỏ */
     color: white;  /* Màu chữ trắng */
