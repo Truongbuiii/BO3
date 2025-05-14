@@ -101,7 +101,7 @@ session_start();
 
             <!-- Icon User & Giỏ hàng -->
             <ul class="navbar-nav ml-3">
-    <li class="nav-item d-flex align-items-center">
+          <li class="nav-item d-flex align-items-center">
         <!-- Icon người dùng -->
         <a href="#" onclick="handleUserClick()">
             <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px; padding-top:12px;"></i>
@@ -121,6 +121,9 @@ session_start();
         <?php endif; ?>
     </li>
 </ul>
+<script>
+    const basePath = "<?= dirname($_SERVER['SCRIPT_NAME']) ?>";
+</script>
 
 <!-- Đặt đoạn script bên dưới, trước </body> hoặc ở cuối file -->
 <script>

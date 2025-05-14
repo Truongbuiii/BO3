@@ -76,7 +76,28 @@ $result = $conn->query($sql);
         </nav>
     </div>
 </div>
+<script>
+    
+    // Kiểm tra trạng thái đăng nhập từ PHP
+    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
 
+    function handleUserClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/user.php"; // Chuyển tới trang thông tin người dùng
+        } else {
+            window.location.href = "login.php"; // Nếu chưa đăng nhập
+        }
+    }
+
+    function handleCartClick() {
+        if (isLoggedIn) {
+            window.location.href = "includes/trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
+        } else {
+            alert("Bạn cần đăng nhập để xem giỏ hàng!");
+            window.location.href = "login.php";
+        }
+    }
+</script>
 <!-- Danh sách sản phẩm -->
 <div class="cream_section layout_padding">
     <div class="container">
@@ -238,27 +259,8 @@ $result = $conn->query($sql);
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
-
+ <script src="../js/main1.js"></script>
 <!-- Script điều hướng -->
-<script>
-    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
-    function handleUserClick() {
-        if (isLoggedIn) {
-            window.location.href = "user.php";
-        } else {
-            window.location.href = "login.php";
-        }
-    }
-
-    function handleCartClick() {
-        if (isLoggedIn) {
-            window.location.href = "trangGioHang.php";
-        } else {
-            alert("Bạn cần đăng nhập để xem giỏ hàng!");
-            window.location.href = "login.php";
-        }
-    }
-</script>
 
 <!-- CSS phân trang -->
 <style>
