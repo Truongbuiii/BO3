@@ -95,6 +95,84 @@ $related_products = $stmt_related->get_result();
         .product-flavor, .product-description { font-size: 16px; color: #555; }
         .btn-success { font-size: 16px; font-weight: 500; }
         .related-image { width: 80%; height: auto; border-radius: 10px; }
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
+
+body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* Khối sản phẩm chính */
+.product-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #d63384;
+    margin-bottom: 15px;
+}
+
+.product-price {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ff4d6d;
+    margin-bottom: 10px;
+}
+
+.product-flavor,
+.product-description {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+/* Ảnh sản phẩm */
+.product-main-image {
+    border-radius: 12px;
+    border: 2px solid #f9c6d1;
+    transition: transform 0.3s ease;
+}
+.product-main-image:hover {
+    transform: scale(1.03);
+}
+
+/* Nút thêm vào giỏ */
+.btn-success {
+    background-color: #fc95c4;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+.btn-success:hover {
+    background-color: #d63384;
+}
+
+/* Sản phẩm liên quan */
+.related-products h2 {
+    font-size: 24px;
+    color: #d63384;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.related-image {
+    width: 90%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+.related-image:hover {
+    transform: scale(1.05);
+}
+
+.related-products p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
     </style>
 </head>
 <body>

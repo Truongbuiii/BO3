@@ -227,6 +227,64 @@ $result = $conn->query($sql);
    .text-muted {
       color: #adb5bd;
    }
+   .cream_box {
+    background: #fff0f5;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.cream_box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.cream_img img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.price_text {
+    font-size: 18px;
+    color: #ff4d6d; /* màu hồng đậm trendy hơn */
+    font-weight: 700;
+    margin-top: 12px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.strawberry_text {
+    font-size: 17px;
+    font-weight: 600;
+    color: #2c2c2c; /* Đậm hơn một chút cho dễ đọc */
+    margin-top: 10px;
+    min-height: 48px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.4;
+    letter-spacing: 0.3px;
+}
+
+
+.cart_bt a {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 16px;
+    background-color: #fc95c4;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cart_bt a:hover {
+    background-color: #d63384;
+}
+
 </style>
 
      </div>
