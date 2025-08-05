@@ -42,12 +42,13 @@ function showUserPopup() {
     const loginBtn = document.createElement("button");
     loginBtn.innerText = "Đăng nhập";
     loginBtn.style.cssText = buttonStyle;
-    loginBtn.onclick = () => { window.location.href = 'includes/login.php'; };
+   loginBtn.onclick = () => { window.location.href = 'login.php'; };
+
 
     const signupBtn = document.createElement("button");
     signupBtn.innerText = "Đăng ký";
     signupBtn.style.cssText = buttonStyle;
-    signupBtn.onclick = () => { window.location.href = 'includes/signup.php'; };
+   signupBtn.onclick = () => { window.location.href = 'signup.php'; };
 
     buttonGroup.appendChild(loginBtn);
     buttonGroup.appendChild(signupBtn);
@@ -61,7 +62,8 @@ function showUserPopup() {
 
 function handleUserClick() {
     if (isLoggedIn) {
-        window.location.href = 'includes/user.php';
+     window.location.href = 'user.php';
+
     } else {
         showUserPopup();
     }
@@ -69,8 +71,12 @@ function handleUserClick() {
 
 function handleCartClick() {
     if (isLoggedIn) {
-        window.location.href = 'includes/trangGioHang.php';
+      window.location.href = 'trangGioHang.php';
+
     } else {
         showUserPopup();
     }
+
 }
+
+

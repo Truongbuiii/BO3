@@ -1,9 +1,8 @@
 <?php
-session_start(); // Bắt đầu phiên làm việc
-
+session_start();
 require(__DIR__ . "/../db/connect.php");
 
-// Kết nối MySQL (nếu chưa được trong file connect.php)
+// Kết nối CSDL nếu cần
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -20,20 +19,42 @@ $category = isset($_GET['category']) ? $_GET['category'] : '';
 $min_price = isset($_GET['min_price']) ? (int)$_GET['min_price'] : '';
 $max_price = isset($_GET['max_price']) ? (int)$_GET['max_price'] : '';
 
-// Truy vấn chính
+// Thiết lập phân trang (số sản phẩm mỗi trang là 6)
+$limit = 6; // số sản phẩm mỗi trang
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$start = ($page - 1) * $limit;
+
+// Truy vấn đếm tổng số sản phẩm
+$count_sql = "SELECT COUNT(*) AS total FROM SanPham WHERE 1";
+
+// Điều kiện lọc
+if (!empty($search)) {
+    $count_sql .= " AND TenSanPham LIKE '%" . $conn->real_escape_string($search) . "%'";
+}
+if (!empty($category)) {
+    $count_sql .= " AND MaLoai = '" . $conn->real_escape_string($category) . "'";
+}
+if (!empty($min_price)) {
+    $count_sql .= " AND DonGia >= $min_price";
+}
+if (!empty($max_price)) {
+    $count_sql .= " AND DonGia <= $max_price";
+}
+
+// Thực hiện truy vấn đếm tổng số sản phẩm
+$count_result = $conn->query($count_sql);
+$total_rows = $count_result->fetch_assoc()['total'];
+$total_pages = ceil($total_rows / $limit); // Tính tổng số trang
+
+// Truy vấn sản phẩm có phân trang
 $sql = "SELECT * FROM SanPham WHERE 1";
 
-// Thêm điều kiện tìm kiếm theo tên
 if (!empty($search)) {
     $sql .= " AND TenSanPham LIKE '%" . $conn->real_escape_string($search) . "%'";
 }
-
-// Thêm điều kiện phân loại
 if (!empty($category)) {
     $sql .= " AND MaLoai = '" . $conn->real_escape_string($category) . "'";
 }
-
-// Thêm điều kiện giá
 if (!empty($min_price)) {
     $sql .= " AND DonGia >= $min_price";
 }
@@ -41,13 +62,17 @@ if (!empty($max_price)) {
     $sql .= " AND DonGia <= $max_price";
 }
 
-// Thực thi truy vấn
+// Thêm LIMIT cho phân trang
+$sql .= " LIMIT $start, $limit";
+
+// Thực thi truy vấn sản phẩm
 $result = $conn->query($sql);
 
-// Truy vấn lấy danh sách phân loại
+// Truy vấn danh mục
 $category_sql = "SELECT * FROM LoaiSanPham";
 $category_result = $conn->query($category_sql);
 ?>
+
 
 <!DOCTYPE html>
 
@@ -187,6 +212,47 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #218838;  /* Màu nút khi hover */
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 8px 16px;
+    margin: 0 5px;
+    text-decoration: none;
+   color:rgb(249, 245, 247);
+   background-color: #fc95c4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color:white;
+    color: #fc95c4;
+}
+
+.pagination .active {
+    background-color:#fc95c4;
+    color: #fff;
+  
+    font-weight: bold;
+}
+
+.pagination a:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    pointer-events: none;
+    border-color: #ddd;
+}
+
+.pagination a[aria-disabled="true"] {
+    pointer-events: none;
+}
+
 
 
 </style>
@@ -328,20 +394,26 @@ button[type="submit"]:hover {
         <?php
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                // Sử dụng htmlspecialchars để bảo vệ dữ liệu
+                $productName = htmlspecialchars($row["TenSanPham"]);
+                $productPrice = number_format($row["DonGia"], 0, ',', '.');
+                $productImage = htmlspecialchars($row["HinhAnh"]);
+                $productLink = "chitietsanpham.php?MaSanPham=" . $row["MaSanPham"];
+
                 echo '<div class="col-md-4">
-                <div class="cream_box">
-                    <div class="cream_img">
-                        <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">
-                            <img src="/images/' . $row["HinhAnh"] . '" alt="' . $row["TenSanPham"] . '">
-                        </a>
+                    <div class="cream_box">
+                        <div class="cream_img">
+                            <a href="' . $productLink . '">
+                                <img src="/images/' . $productImage . '" alt="' . $productName . '">
+                            </a>
+                        </div>
+                        <div class="price_text">' . $productPrice . 'đ</div>
+                        <h6 class="strawberry_text">' . $productName . '</h6>
+                        <div class="cart_bt">
+                            <a href="' . $productLink . '">Xem chi tiết</a>
+                        </div>
                     </div>
-                    <div class="price_text">' . number_format($row["DonGia"]) . 'đ</div>
-                    <h6 class="strawberry_text">' . $row["TenSanPham"] . '</h6>
-                    <div class="cart_bt">
-                        <a href="chitietsanpham.php?MaSanPham=' . $row["MaSanPham"] . '">Xem chi tiết</a>
-                    </div>
-                </div>
-              </div>';
+                  </div>';
             }
         } else {
             echo '<div class="col-12">
@@ -349,8 +421,157 @@ button[type="submit"]:hover {
                   </div>';
         }
         ?>
+       
+
     </div>
+     <div class="pagination">
+    <?php if ($page > 1): ?>
+        <a href="?search=<?= $search ?>&category=<?= $category ?>&min_price=<?= $min_price ?>&max_price=<?= $max_price ?>&page=<?= $page - 1 ?>">&laquo; Trang trước</a>
+    <?php endif; ?>
+
+    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+        <a href="?search=<?= $search ?>&category=<?= $category ?>&min_price=<?= $min_price ?>&max_price=<?= $max_price ?>&page=<?= $i ?>" 
+           class="<?= ($i == $page) ? 'active' : '' ?>">
+            <?= $i ?>
+        </a>
+    <?php endfor; ?>
+
+    <?php if ($page < $total_pages): ?>
+        <a href="?search=<?= $search ?>&category=<?= $category ?>&min_price=<?= $min_price ?>&max_price=<?= $max_price ?>&page=<?= $page + 1 ?>">Trang sau &raquo;</a>
+    <?php endif; ?>
 </div>
+</div>
+<!-- contact section start -->
+<div class="contact_section layout_padding" style="background-color: #343a40; padding: 50px 0; color: white;">
+   <div class="container">
+      <div class="row">
+         <!-- Contact Info -->
+         <div class="col-md-6 mb-4">
+            <h2 class="text-light mb-4">Liên Hệ Với Chúng Tôi</h2>
+            <p class="text-muted">Chúng tôi luôn sẵn sàng phục vụ và giải đáp thắc mắc của bạn. Hãy liên lạc ngay với chúng tôi qua các phương thức dưới đây:</p>
+            <ul class="list-unstyled">
+               <li class="mb-3">
+                  <a href="#" class="text-decoration-none text-white hover-effect">
+                     <i class="fa fa-map-marker-alt me-3" aria-hidden="true" style="color: #ff6f61;"></i>
+                     <span class="font-weight-bold">Địa chỉ:</span> 1234 Cây Kem, Phường 1, Quận 2, TP. Hồ Chí Minh, Trái Đất
+                  </a>
+               </li>
+               <li class="mb-3">
+                  <a href="tel:+0123456789" class="text-decoration-none text-white hover-effect">
+                     <i class="fa fa-phone-alt me-3" aria-hidden="true" style="color: #ff6f61;"></i>
+                     <span class="font-weight-bold">Hotline:</span> +01 2345 6789
+                  </a>
+               </li>
+               <li class="mb-3">
+                  <a href="mailto:BeYeukem1234@gmail.com" class="text-decoration-none text-white hover-effect">
+                     <i class="fa fa-envelope me-3" aria-hidden="true" style="color: #ff6f61;"></i>
+                     <span class="font-weight-bold">Email:</span> BeYeukem1234@gmail.com
+                  </a>
+               </li>
+            </ul>
+         </div>
+
+         <!-- Social Media -->
+         <div class="col-md-6 mb-4">
+            <h2 class="text-light mb-4">Kết Nối Với Chúng Tôi</h2>
+            <p class="text-muted">Theo dõi chúng tôi trên các mạng xã hội để cập nhật thông tin mới nhất:</p>
+            <ul class="list-inline">
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-facebook-f"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-twitter"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-linkedin-in"></i>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a href="#" class="text-white social-icon hover-effect">
+                     <i class="fab fa-instagram"></i>
+                  </a>
+               </li>
+            </ul>
+         </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-center mt-5">
+         <p class="mb-0" style="font-size: 14px; color: #6c757d;">© 2025 TiemKemF4. Tất cả các quyền được bảo lưu.</p>
+         <p style="font-size: 16px; color: #6c757d;">Thiết kế bởi <strong>TiemKemF4</strong> – Mang vị ngọt đến mọi nhà 🍦</p>
+      </div>
+   </div>
+</div>
+<!-- contact section end -->
+
+<!-- CSS for Hover Effect -->
+<style>
+   .hover-effect:hover {
+      color: #ff6f61;
+      transition: all 0.3s ease;
+   }
+
+   .social-icon:hover i {
+      color: #ff6f61;
+   }
+
+   .social-icon i {
+      font-size: 25px;
+      transition: color 0.3s ease;
+   }
+
+   .text-light {
+      color: #f8f9fa !important;
+   }
+
+   .text-muted {
+      color: #adb5bd;
+   }
+</style>
+
+     </div>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+ <script src="../js/main1.js"></script>
+<!-- Script điều hướng -->
+
+<!-- CSS phân trang -->
+<style>
+.pastel-pagination .page-link {
+    color: #d63384;
+    background-color: #fff0f5;
+    border: 1px solid #f9c6d1;
+    border-radius: 8px;
+    margin: 0 4px;
+    font-weight: 500;
+}
+.pastel-pagination .page-link:hover {
+    background-color: #f9c6d1;
+    color: white;
+}
+.pastel-pagination .page-item.active .page-link {
+    background-color: #fc95c4;
+    color: white;
+}
+.pastel-pagination .page-item.disabled .page-link {
+    background-color: #fce4ec;
+    color: #d63384;
+}
+</style>
+
+
+
 
 <!-- Bootstrap JS -->
 

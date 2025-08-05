@@ -246,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
                         <?= htmlspecialchars($user['PhuongXa']) ?>,
                         <?= htmlspecialchars($user['QuanHuyen']) ?>,
                         <?= htmlspecialchars($user['TPTinh']) ?></p>
-                    <p><strong>Vai trò:</strong> <?= htmlspecialchars($user['VaiTro']) ?></p>
+                   
                     <button class="edit-btn btn btn-outline-primary mt-3" onclick="toggleEdit()" style="color:#fff">Chỉnh sửa thông tin</button>
                 </div>
 

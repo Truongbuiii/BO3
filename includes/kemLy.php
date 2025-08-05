@@ -58,10 +58,10 @@ $result = $conn->query($sql);
                   
                 <ul class="navbar-nav ml-3">
                     <li class="nav-item d-flex align-items-center">
-                        <a href="user.php" onclick="handleUserClick()">
+                        <a href="#" onclick="handleUserClick()">
                             <i class="fa-solid fa-user-large" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
                         </a>
-                        <a href="trangGioHang.php" onclick="handleCartClick()">
+                        <a href="#" onclick="handleCartClick()">
                             <i class="bi bi-bag-heart-fill" style="color:#fc95c4; font-size: 220%; padding-left:10px;"></i>
                         </a>
                         <?php if (isset($_SESSION['username'])): ?>
@@ -76,6 +76,28 @@ $result = $conn->query($sql);
         </nav>
     </div>
 </div>
+<script>
+    
+    // Kiểm tra trạng thái đăng nhập từ PHP
+    const isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+
+    function handleUserClick() {
+        if (isLoggedIn) {
+            window.location.href = "user.php"; // Chuyển tới trang thông tin người dùng
+        } else {
+            window.location.href = "login.php"; // Nếu chưa đăng nhập
+        }
+    }
+
+    function handleCartClick() {
+        if (isLoggedIn) {
+            window.location.href = "trangGioHang.php"; // Giỏ hàng nếu đã đăng nhập
+        } else {
+            alert("Bạn cần đăng nhập để xem giỏ hàng!");
+            window.location.href = "login.php";
+        }
+    }
+</script>
 
 <!-- Danh sách sản phẩm -->
 <div class="cream_section layout_padding">
@@ -298,7 +320,8 @@ $result = $conn->query($sql);
       <!-- sidebar -->
       <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="js/custom.js"></script>
-      <script src="js/main.js"></script>
+     <script src="../js/main1.js"></script>
+
       <!-- javascript --> 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
